@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "974194233875",
+    "project_id": "caspace-bc582",
+    "storage_bucket": "caspace-bc582.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974194233875:android:534e1e7b940ea2a30a65e6",
+        "android_client_info": {
+          "package_name": "com.example.caspaceapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974194233875-orkm5g2qh8it7h56sbujibbj28a3ccj8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRRJjuarRhVjdtacEnYHuGKoVfELGyJXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974194233875-hg3h1mf5lh9l9r0h1ds6n0ph9oscnfss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

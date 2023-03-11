@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcometry"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Front">
+
+
+
+<!--
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_edittext"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="LOGIN AS"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/loginCustomer"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/orange1"
+                android:text="CUSTOMER"
+                android:fontFamily="@font/quicksand_medium"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/loginOwner"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:backgroundTint="@color/orange1"
+                android:text="COWORKING SPACE OWNER"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:cornerRadius="20dp" />
+
+            <!--            <TextView
+                android:id="@+id/signupText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:padding="10dp"
+                android:text="Not yet registered? Sign up here"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15dp" />-->
+
+        </LinearLayout>
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue7"
+        android:drawableLeft="@drawable/ic_baseline_create_24"
+        android:fontFamily="@font/quicksand_medium"
+        android:paddingStart="80dp"
+        android:paddingRight="80dp"
+        android:text="SIGN UP HERE"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="20dp" />
+
+
+
+
+</LinearLayout>

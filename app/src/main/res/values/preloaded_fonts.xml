@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/advent_pro_medium</item>
+        <item>@font/allerta</item>
+        <item>@font/amiko</item>
+        <item>@font/archivo_medium</item>
+        <item>@font/archivo_narrow</item>
+        <item>@font/armata</item>
+        <item>@font/carrois_gothic</item>
+        <item>@font/chakra_petch_medium</item>
+        <item>@font/dm_sans</item>
+        <item>@font/droid_sans</item>
+        <item>@font/maven_pro</item>
+        <item>@font/monda</item>
+        <item>@font/mondaa</item>
+        <item>@font/open_sans</item>
+        <item>@font/quicksand</item>
+        <item>@font/quicksand_medium</item>
+        <item>@font/sintony</item>
+        <item>@font/sintony_bold</item>
+        <item>@font/source_sans_pro</item>
+        <item>@font/tomorrow</item>
+        <item>@font/unica_one</item>
+        <item>@font/work_sans</item>
+    </array>
+</resources>

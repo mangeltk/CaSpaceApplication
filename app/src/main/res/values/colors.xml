@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#CDCDCD</color>
+
+    <color name="orange">#ffaf7a</color>
+    <color name="orange1">#dc6601</color>
+    <color name="orange2">#d24e01</color>
+    <color name="orange3">#e27602</color>
+    <color name="orange4">#e88504</color>
+    <color name="orange5">#ec9006</color>
+    <color name="orange6">#ee9f27</color>
+    <color name="orange7">#f1b04c</color>
+    <color name="orange8">#f5c77e</color>
+    <color name="orange9">#f9ddb1</color>
+    <color name="orange10">#ffe5b5</color>
+    <color name="orange11">#ffcc98</color>
+    <color name="orange12">#f9ad6f</color>
+    <color name="orange13">#f99244</color>
+
+    <color name="blue">#00004d</color>
+    <color name="blue1">#002366</color>
+    <color name="blue2">#192bc2</color>
+    <color name="blue3">#0000ff</color>
+    <color name="blue4">#0047ab</color>
+    <color name="blue5">#1560bd</color>
+    <color name="blue6">#73c2fb</color>
+    <color name="blue7">#1e90ff</color>
+    <color name="blue8">#26619c</color>
+    <color name="blue9">#0197f6</color>
+    <color name="blue10">#74b3ce</color>
+    <color name="blue11">#87ceeb</color>
+    <color name="blue12">#1034a6</color>
+    <color name="blue13">#0f52ba</color>
+    <color name="blue14">#89cff0</color>
+    <color name="blue15">#3a7ca5</color>
+
+
+
+
+</resources>
