@@ -1,16 +1,15 @@
 package com.example.caspaceapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class FrontRegister extends AppCompatActivity {
 
     Button registerCustomer, registerOwner, loginButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,31 +20,25 @@ public class FrontRegister extends AppCompatActivity {
         registerOwner = findViewById(R.id.registerOwner);
         loginButton = findViewById(R.id.loginButton);
 
-
         registerCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FrontRegister.this, RegisterCustomer.class);
-                startActivity(intent);
-                finish();
+                startActivity(new Intent(FrontRegister.this,RegisterCustomer.class));
             }
         });
 
         registerOwner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FrontRegister.this, RegisterOwner.class);
-                startActivity(intent);
-                finish();
+                startActivity(new Intent(FrontRegister.this,RegisterOwner.class));
+
             }
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FrontRegister.this, Front.class);
-                startActivity(intent);
-                finish();
+                startActivity(new Intent(FrontRegister.this,Front.class));
             }
         });
 
