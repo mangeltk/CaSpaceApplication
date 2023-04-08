@@ -40,7 +40,7 @@ public class RegisterOwner extends AppCompatActivity {
             public void onClick(View view) {
                 String owner_email = binding.ownerEmail.getText().toString().trim();
                 String owner_fullname = binding.ownersFullName.getText().toString();
-                String owner_CompanyName = binding.ownerCompanyName.getText().toString();
+                String owner_BranchName = binding.ownerBranchName.getText().toString();
                 String owner_idNum = binding.ownerIdnum.getText().toString();
                 String owner_password = binding.ownerPassword.getText().toString();
 
@@ -50,12 +50,12 @@ public class RegisterOwner extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(RegisterOwner.this,LoginOwner.class));
+                                startActivity(new Intent(RegisterOwner.this,RegisterOwner_SpaceBranch.class));
                                 progressDialog.cancel();
 
                                 firebaseFirestore.collection("OwnerUser")
                                         .document("OwnerID")
-                                        .set(new OwnerRegistrationModel(owner_email,owner_fullname,owner_CompanyName,owner_idNum,owner_password));
+                                        .set(new OwnerRegistrationModel(owner_email,owner_fullname,owner_BranchName,owner_idNum,owner_password));
 
                                 Toast.makeText(RegisterOwner.this, "Successfully registered! Please check email", Toast.LENGTH_SHORT).show();
                             }
