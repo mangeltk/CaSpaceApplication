@@ -25,7 +25,7 @@ public class FrontRegister extends AppCompatActivity {
         registerCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FrontRegister.this, RegisterCustomer.class);
+                Intent intent = new Intent(FrontRegister.this, RegisterCustomerTrial.class);
                 startActivity(intent);
                 finish();
             }

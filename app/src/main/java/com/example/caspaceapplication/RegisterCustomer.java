@@ -44,7 +44,7 @@ public class RegisterCustomer extends AppCompatActivity {
                 String username = binding.customerUsername.getText().toString();
                 String password = binding.customerPassword.getText().toString();
 
-                progressDialog.show();
+                //progressDialog.show();
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
