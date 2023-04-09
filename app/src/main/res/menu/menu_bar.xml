@@ -1,22 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <item
-        android:id="@+id/home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home"
-        />
+    <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/booking"
-        android:icon="@drawable/ic_baseline_bookmark_added_24"
-        android:title="Booking"
-        />
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home"/>
 
-    <item
-        android:id="@+id/profile"
-        android:icon="@drawable/ic_baseline_person_pin_24"
-        android:title="Profile"
-        />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="Profile" />
+
+
+        <item
+            android:id="@+id/messages"
+            android:icon="@drawable/ic_baseline_message_24"
+            android:title="Messages"/>
+
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="Notifications"/>
+
+    </group>
+
+    <item android:title="Bookings">
+        <menu>
+            <item
+                android:id="@+id/booking"
+                android:icon="@drawable/ic_baseline_shopping_cart_checkout_24"
+                android:title="Booking"/>
+
+            <item
+                android:id="@+id/transactions"
+                android:icon="@drawable/ic_baseline_history_24"
+                android:title="Transactions"/>
+
+            <item
+                android:id="@+id/favorites"
+                android:icon="@drawable/ic_baseline_favorite_24"
+                android:title="Favorites"/>
+        </menu>
+
+
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/Feedback"
+                android:icon="@drawable/ic_baseline_feedback_24"
+                android:title="Feedback"/>
+
+            <item
+                android:id="@+id/report"
+                android:icon="@drawable/ic_baseline_report_24"
+                android:title="Report"/>
+        </menu>
+    </item>
 
 </menu>

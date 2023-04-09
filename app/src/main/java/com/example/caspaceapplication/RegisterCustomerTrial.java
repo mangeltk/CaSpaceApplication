@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +49,7 @@ public class RegisterCustomerTrial extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterCustomerTrial.this, HomePage.class));
+                startActivity(new Intent(RegisterCustomerTrial.this, HomepageCustomer.class));
             }
         });
 
@@ -98,7 +97,7 @@ public class RegisterCustomerTrial extends AppCompatActivity {
 
         private void sendUserToNextActivity ()
         {
-            Intent intent = new Intent(RegisterCustomerTrial.this, HomePage.class);
+            Intent intent = new Intent(RegisterCustomerTrial.this, HomepageCustomer.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }

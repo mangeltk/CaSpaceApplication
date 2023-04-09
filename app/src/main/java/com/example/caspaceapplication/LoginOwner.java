@@ -48,7 +48,7 @@ public class LoginOwner extends AppCompatActivity {
                                 if(user.isEmailVerified()){
                                     progressDialog.cancel();
                                     Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginOwner.this, HomePage.class));
+                                    startActivity(new Intent(LoginOwner.this, HomepageCustomer.class));
                                 }
                                 else{
                                     user.sendEmailVerification()

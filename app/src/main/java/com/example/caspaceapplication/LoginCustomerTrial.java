@@ -96,8 +96,10 @@ public class LoginCustomerTrial extends AppCompatActivity {
 
     private void sendUserToNextActivity ()
     {
-        Intent intent = new Intent(LoginCustomerTrial.this, HomePage.class);
+        Intent intent = new Intent(LoginCustomerTrial.this, NavigationHomepage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
+        //Intent intent = new Intent(getActivity().getApplication(), EditProfileActivity.class);
     }
 }

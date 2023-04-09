@@ -13,7 +13,28 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".SampleActivity"
+            android:name=".CustomerEditProfile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".HomepageCustomer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".NavigationHomepage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ForgotPassword"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -28,13 +49,6 @@
         </activity>
         <activity
             android:name=".RegisterCustomerTrial"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".HomePage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

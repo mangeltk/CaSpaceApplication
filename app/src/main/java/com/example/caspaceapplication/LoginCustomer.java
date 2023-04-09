@@ -49,7 +49,7 @@ public class LoginCustomer extends AppCompatActivity {
                                 if (user.isEmailVerified()){
                                     progressDialog.cancel();
                                     Toast.makeText(LoginCustomer.this, "Logged in", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginCustomer.this, HomePage.class));
+                                    startActivity(new Intent(LoginCustomer.this, HomepageCustomer.class));
 
                                 }else{
                                     user.sendEmailVerification()
