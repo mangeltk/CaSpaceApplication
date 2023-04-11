@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerBinding;
@@ -21,6 +22,8 @@ public class LoginCustomer extends AppCompatActivity {
     ActivityLoginCustomerBinding binding;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
+
+    TextView forgotPassword;
 
 
     @Override
@@ -71,7 +74,10 @@ public class LoginCustomer extends AppCompatActivity {
                             }
                         });
             }
-        });
+        }
+        );
+
+
 
 
     }

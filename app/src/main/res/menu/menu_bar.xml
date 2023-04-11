@@ -52,7 +52,7 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/Feedback"
+                android:id="@+id/feedback"
                 android:icon="@drawable/ic_baseline_feedback_24"
                 android:title="Feedback"/>
 
@@ -60,6 +60,16 @@
                 android:id="@+id/report"
                 android:icon="@drawable/ic_baseline_report_24"
                 android:title="Report"/>
+        </menu>
+    </item>
+
+    <item android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/signOut"
+                android:icon="@drawable/ic_baseline_logout_24"
+                android:title="Sign out"/>
+
         </menu>
     </item>
 

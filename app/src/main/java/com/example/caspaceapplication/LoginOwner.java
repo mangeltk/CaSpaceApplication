@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
@@ -22,6 +23,8 @@ public class LoginOwner extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
 
+    TextView forgotPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class LoginOwner extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
+
+
+
+
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,5 +78,15 @@ public class LoginOwner extends AppCompatActivity {
                         });
             }
         });
-    }
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginOwner.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+
+        }
+
 }
