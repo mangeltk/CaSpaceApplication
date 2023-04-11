@@ -50,7 +50,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -58,7 +58,7 @@
                 android:drawableLeft="@drawable/ic_baseline_verified_user_24_black"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/quicksand_medium"
-                android:hint="Username"
+                android:hint="Email"
                 android:padding="8dp"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
@@ -97,7 +97,7 @@
                 app:cornerRadius="20dp" />
 
             <TextView
-                android:id="@+id/signupText"
+                android:id="@+id/forgotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"

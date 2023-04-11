@@ -2,16 +2,15 @@ package com.example.caspaceapplication;
 
 public class CustomerModel {
 
-    private String email, firstname, username, lastname, password;
+    private String email, firstname, lastname, password;
 
     public CustomerModel() {
     }
 
-    public CustomerModel(String email, String firstname, String username, String lastname, String password) {
+    public CustomerModel(String email, String firstname, String lastname, String password) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.username = username;
         this.password = password;
     }
 
@@ -29,14 +28,6 @@ public class CustomerModel {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getLastname() {

@@ -41,21 +41,20 @@ public class RegisterCustomer extends AppCompatActivity {
                 String email = binding.customerEmail.getText().toString().trim();
                 String firstname = binding.customerFirstName.getText().toString();
                 String lastname = binding.customerLastName.getText().toString();
-                String username = binding.customerUsername.getText().toString();
                 String password = binding.customerPassword.getText().toString();
 
-                progressDialog.show();
+                //progressDialog.show();
 
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(RegisterCustomer.this,LoginCustomer.class));
+                                startActivity(new Intent(RegisterCustomer.this,LoginCustomerTrial.class));
                                 progressDialog.cancel();
 
                                 firebaseFirestore.collection("User")
                                         .document(FirebaseAuth.getInstance().getUid())
-                                        .set(new CustomerModel(email,firstname,lastname,username,password));
+                                        .set(new CustomerModel(email,firstname,lastname,password));
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

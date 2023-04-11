@@ -7,22 +7,21 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomePage extends AppCompatActivity {
+public class EnspaceProfile extends AppCompatActivity {
 
-    Button openProfileButton;
-
+private Button editProfileButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_homepage_customer);
 
-        openProfileButton = findViewById(R.id.viewProfileButton);
-
-        openProfileButton.setOnClickListener(new View.OnClickListener() {
+        editProfileButton = findViewById(R.id.viewProfileButton);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomePage.this, Profile.class));
+                startActivity(new Intent(EnspaceProfile.this,Profile.class));
             }
         });
     }
+
 }

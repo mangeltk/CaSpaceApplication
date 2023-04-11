@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".fragments.HomeFragment">
+
+
+    <ImageView
+        android:layout_width="123dp"
+        android:layout_height="106dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/homepageone">
+    </ImageView>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="280dp"
+        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search" />
+
+    <!--    <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@dra" />-->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/archivo_narrow"
+        android:text="Coworking Spaces"
+        android:textColor="@color/orange1"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/archivo_narrow"
+        android:text="Promotions and Discounts"
+        android:textColor="@color/orange1"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="260dp">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!--Enspace-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/imageone"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Regus-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#3F51B5"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/two"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--The Company-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#3F51B5"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/imagethree"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Workplace Cafe-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/four"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--X Office-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/five"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--GetHub-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/six"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Desk-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/seven"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+
+
+    <!--PROMOTIONS AND DISCOUNTS CARDVIEW-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="500dp">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!--Enspace-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/saleone"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Regus-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#3F51B5"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/saletwo"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--The Company-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#3F51B5"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/salethree"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Workplace Cafe-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/four"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--X Office-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/five"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--GetHub-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/six"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Desk-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="4dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/seven"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+</FrameLayout>
