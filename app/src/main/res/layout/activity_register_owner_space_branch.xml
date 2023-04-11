@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterOwner_SpaceBranch"
+    android:background="@drawable/background_registerspacebranch">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/branch_image"
+            app:srcCompat="@android:drawable/ic_menu_gallery"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            />
+
+        <EditText
+            android:id="@+id/branch_name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_textbox"
+            android:drawableLeft="@drawable/branch_icon_white"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:hint="Branch name"
+            android:padding="8dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/orange"
+            android:textColorHint="@color/white"
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/branch_address"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_textbox"
+            android:drawableLeft="@drawable/address_icon_white"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:hint="Branch address"
+            android:padding="8dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/orange"
+            android:textColorHint="@color/white"
+            android:textSize="17dp" />
+
+
+        <Button
+            android:id="@+id/registerButton_SpaceBranch"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/orange1"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="REGISTER BRANCH"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="20dp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

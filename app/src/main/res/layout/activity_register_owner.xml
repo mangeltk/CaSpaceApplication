@@ -8,13 +8,11 @@
     tools:context=".RegisterOwner">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -31,36 +29,18 @@
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="Owner"
-            android:drawablePadding="5dp"
             android:drawableLeft="@drawable/ic_baseline_verified_24"
-            android:paddingStart="110dp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/quicksand_medium"
             android:padding="8dp"
+            android:paddingStart="110dp"
+            android:text="Owner"
             android:textColor="@color/black"
             android:textSize="17dp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/customer_email"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_email_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="Email"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textSize="17dp"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white" />
-
-        <EditText
-            android:id="@+id/owner_companyName"
+            android:id="@+id/owner_branchName"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -96,16 +76,16 @@
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/customer_username"
+            android:id="@+id/ownerIdnum"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@drawable/custom_textbox"
             android:drawableLeft="@drawable/ic_baseline_verified_user_24"
             android:drawablePadding="10dp"
             android:fontFamily="@font/quicksand_medium"
-            android:hint="Username"
+            android:hint="Owner Phone Number"
             android:padding="8dp"
             android:paddingStart="20dp"
             android:textColor="@color/white"
@@ -114,11 +94,29 @@
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/customer_password"
+            android:id="@+id/owner_email"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_textbox"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:hint="Email"
+            android:padding="8dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/orange"
+            android:textColorHint="@color/white"
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/owner_password"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@drawable/custom_textbox"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:drawablePadding="10dp"
@@ -132,7 +130,7 @@
             android:textSize="17dp" />
 
         <Button
-            android:id="@+id/registerButton_customer"
+            android:id="@+id/registerButtonOwner"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
@@ -144,17 +142,6 @@
             android:textSize="20dp"
             app:cornerRadius="20dp" />
 
-        <TextView
-            android:id="@+id/signupText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:padding="10dp"
-            android:text="Forgot Password?"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
 
     </LinearLayout>
 

@@ -1,14 +1,14 @@
 package com.example.caspaceapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,6 +71,14 @@ public class LoginCustomer extends AppCompatActivity {
                                                 }
                                             });
                                 }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
+                                Toast.makeText(LoginCustomer.this, "No customer user registered!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginCustomer.this, RegisterCustomer.class));
                             }
                         });
             }
