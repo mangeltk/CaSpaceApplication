@@ -1,6 +1,7 @@
 package com.example.caspaceapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +30,14 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
-            detailImage.setImageResource(bundle.getInt("Image"));
-            detailName.setText(bundle.getString("Title"));
-            detailPeople.setText(bundle.getString("No.of People"));
-            detailAreasize.setText(bundle.getString("Area size"));
+            //detailImage.setImageResource(Integer.parseInt(bundle.getString("layoutImage")));
+            /*String image = bundle.getString("layoutImage");
+            detailImage.setImageURI(Uri.parse(image));*/
+
+            detailImage.setImageURI(Uri.parse(bundle.getString("layoutImage")));
+            detailName.setText(bundle.getString("layoutName"));
+            detailPeople.setText(bundle.getString("layoutPeopleNum"));
+            detailAreasize.setText(bundle.getString("layoutAreasize"));
         }
 
         editDetailsButton.setOnClickListener(new View.OnClickListener() {

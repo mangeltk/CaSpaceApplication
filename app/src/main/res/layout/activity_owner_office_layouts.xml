@@ -12,13 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/owner_logoupperleft"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp" />
-
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +33,36 @@
             android:scrollbars="vertical"
             android:layout_below="@+id/searchView"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/owner_logoupperleft" />
+
+            <Button
+                android:id="@+id/addalayout_Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/card_border_bottom"
+                android:drawableLeft="@drawable/ic_rename"
+                android:padding="10dp"
+                android:text="Add a layout"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder> {
@@ -39,26 +41,37 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.recImage.setImageResource(dataClassList.get(position).getLayoutImage());
+        //holder.recImage.setImageResource(dataClassList.get(position).getLayoutImage());
+        String imageUri = null;
+        imageUri = String.valueOf(dataClassList.get(position).getLayoutImage());
+        Picasso.get().load(imageUri).into(holder.recImage);
+
         holder.recName.setText(dataClassList.get(position).getLayoutName());
         holder.recPeople.setText(dataClassList.get(position).getLayoutPeopleNum());
         holder.recAreaSize.setText(dataClassList.get(position).getLayoutAreasize());
-
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Owner_OfficeLayoutDetail.class);
-                intent.putExtra("Image", dataClassList.get(holder.getAdapterPosition()).getLayoutImage());
-                intent.putExtra("Name", dataClassList.get(holder.getAdapterPosition()).getLayoutName());
-                intent.putExtra("No. of People", dataClassList.get(holder.getAdapterPosition()).getLayoutPeopleNum());
-                intent.putExtra("Area Size", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
+                intent.putExtra("layoutImage", dataClassList.get(holder.getAdapterPosition()).getLayoutImage());
+                intent.putExtra("layoutName", dataClassList.get(holder.getAdapterPosition()).getLayoutName());
+                intent.putExtra("layoutPeopleNum", dataClassList.get(holder.getAdapterPosition()).getLayoutPeopleNum());
+                intent.putExtra("layoutAreasize", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
 
                 context.startActivity(intent);
 
-
             }
         });
+        /*OfficeLayout_DataClass model = dataClassList.get(position);
+        //holder.recImage.setImageResource(Integer.parseInt("Layout Image" + model.getLayoutImage()));
+        holder.recName.setText("Layout Name" + model.getLayoutName());
+        holder.recPeople.setText("Layout People size" + model.getLayoutPeopleNum());
+        holder.recAreaSize.setText("Layout Area size" +  model.getLayoutAreasize());
+
+        String imageUri = null;
+        imageUri = String.valueOf(model.getLayoutImage());
+        Picasso.get().load(imageUri).into(holder.recImage);*/
 
     }
 
@@ -74,7 +87,6 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     TextView recName, recPeople, recAreaSize;
     CardView recCard;
 
-
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -83,6 +95,5 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recPeople = itemView.findViewById(R.id.recPeopleAnswer);
         recAreaSize = itemView.findViewById(R.id.recAreasizeAnswer);
         recCard = itemView.findViewById(R.id.cardView);
-
     }
 }

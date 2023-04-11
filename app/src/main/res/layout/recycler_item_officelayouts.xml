@@ -35,7 +35,7 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="5dp"
                     android:padding="20dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/layout_sample" />
 
                 <LinearLayout

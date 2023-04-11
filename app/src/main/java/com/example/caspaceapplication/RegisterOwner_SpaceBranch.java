@@ -70,10 +70,9 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             }
         });
 
-
     }
 
-/*    public void showImageSelectedDialog(){
+    /*    public void showImageSelectedDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select image");
         builder.setMessage("Please select an option");
@@ -171,7 +170,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                 String addressBranch = branchAdrress.getText().toString().trim();
 
                 if (!(namebranch.isEmpty() && addressBranch.isEmpty() && filepath!=null)){
-
                     StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
                     path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -202,8 +200,8 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                                 }
                                                             });
                                                     startActivity(new Intent(RegisterOwner_SpaceBranch.this,LoginOwner.class));
-                                                }
-                                            });
+                                            }
+                                    });
                                 }
                             });
                         }
