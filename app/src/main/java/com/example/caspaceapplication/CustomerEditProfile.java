@@ -9,14 +9,14 @@ import android.widget.Button;
 
 public class CustomerEditProfile extends AppCompatActivity {
 
-    Button saveButton;
+    Button editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_edit_profile);
 
-        Button save = findViewById(R.id.saveButton);
+        Button editButton = findViewById(R.id.editButton);
 
 
 

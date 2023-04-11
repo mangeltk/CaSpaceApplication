@@ -53,6 +53,16 @@ public class LoginCustomerTrial extends AppCompatActivity {
             }
         });*/
 
+        TextView forgotPassword = findViewById(R.id.forgotPassword);
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginCustomerTrial.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

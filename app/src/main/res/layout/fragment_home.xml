@@ -80,6 +80,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/imageone"/>
@@ -95,6 +96,7 @@
                     app:cardCornerRadius="20dp"
                     android:elevation="4dp">
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/two"/>
@@ -111,6 +113,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/imagethree"/>
@@ -127,6 +130,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/four"/>
@@ -143,6 +147,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/five"/>
@@ -159,6 +164,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/six"/>
@@ -175,6 +181,7 @@
                     android:elevation="4dp">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/seven"/>

@@ -97,7 +97,7 @@
                 app:cornerRadius="20dp" />
 
             <TextView
-                android:id="@+id/signupText"
+                android:id="@+id/forgotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"

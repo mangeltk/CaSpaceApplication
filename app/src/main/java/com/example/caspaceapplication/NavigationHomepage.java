@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,9 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
+import com.example.caspaceapplication.fragments.FeedbackFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
 import com.example.caspaceapplication.fragments.MessageFragment;
 import com.example.caspaceapplication.fragments.NotificationFragment;
+import com.example.caspaceapplication.fragments.SignoutFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationHomepage extends AppCompatActivity {
@@ -63,6 +64,12 @@ public class NavigationHomepage extends AppCompatActivity {
                         Toast.makeText(NavigationHomepage.this, "Home", Toast.LENGTH_SHORT).show();
                         break;
 
+                    case R.id.feedback:
+                        fragmentR(new FeedbackFragment());
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Toast.makeText(NavigationHomepage.this, "Messages", Toast.LENGTH_SHORT).show();
+                        break;
+
                     case R.id.messages:
                         fragmentR(new MessageFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
@@ -73,6 +80,12 @@ public class NavigationHomepage extends AppCompatActivity {
                         fragmentR(new NotificationFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Toast.makeText(NavigationHomepage.this, "Notifications", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.signOut:
+                        fragmentR(new SignoutFragment());
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Toast.makeText(NavigationHomepage.this, "Sign Out", Toast.LENGTH_SHORT).show();
                         break;
                 }
 
