@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
@@ -16,10 +18,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/card_border_bottom"
             android:orientation="vertical"
-            android:weightSum="5.5"
-            android:background="@drawable/card_border_bottom">
-
+            android:weightSum="5.5">
 
             <LinearLayout
                 android:layout_width="385dp"
@@ -32,11 +33,10 @@
                     android:id="@+id/recImage"
                     android:layout_width="200dp"
                     android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
                     android:padding="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/layout_sample"
-                    android:layout_marginTop="5dp"
-                    />
+                    android:src="@drawable/layout_sample" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -48,13 +48,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:text="Name"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/noofpeople"
@@ -63,19 +62,17 @@
                         android:text="No of people:"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/recPeopleAnswer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="3dp"
                         android:text="No of people answer"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:paddingBottom="3dp"
-                        android:textStyle="italic"
-                        />
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/areasize"
@@ -84,8 +81,7 @@
                         android:text="Area size:"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/recAreasizeAnswer"
@@ -94,45 +90,43 @@
                         android:text="Area size answer"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="italic"
-                        />
+                        android:textStyle="italic" />
 
                 </LinearLayout>
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="385dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/card_border_bottom"
                 android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="20dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
                     android:orientation="vertical"
-                    android:padding="5dp"
-                    >
+                    android:padding="5dp">
 
-                   <Button
-                       android:layout_width="wrap_content"
-                       android:layout_height="match_parent"
-                       android:text="Edit details"
-                       android:layout_marginStart="10dp"
-                       android:padding="5dp"
-                       android:textColor="@color/black"
-                       android:background="@drawable/buttonwhite_borderblack"
-                       android:id="@+id/editLayoutDetails_button"
-                       />
+                    <Button
+                        android:id="@+id/editLayoutDetails_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/buttonwhite_borderblack"
+                        android:padding="5dp"
+                        android:text="Edit details"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1.2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -142,24 +136,21 @@
                         android:text="Availability:"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:padding="5dp"
                         android:id="@+id/layoutAvailable"
-                        android:src="@drawable/icons_checkavailable"
-                        />
-
-                    <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="5dp"
+                        android:src="@drawable/icons_checkavailable" />
+
+                    <ImageView
                         android:id="@+id/layoutNotAvailable"
-                        android:src="@drawable/icon_unavailble"
-                        />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="5dp"
+                        android:src="@drawable/icon_unavailble" />
 
                 </LinearLayout>
 
