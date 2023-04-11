@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange14"
+    tools:context=".OwnerHomepage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_background_forownerhomepage"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textHello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Hello,"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            android:text="Ponchopilata"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/textHello"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageMenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_menu_white"
+            app:layout_constraintBottom_toBottomOf="@id/textHello"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textHello" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/white_rectangle_background_forownerhomepage"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageMenu">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+
+                android:hint="search elements"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/search_icon_background_forownerhomepage"
+                android:contentDescription="@string/app_name"
+                android:padding="6dp"
+                android:src="@drawable/ic_baseline_search_24"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/viewDivider"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutBookings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background_forownerhomepage"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toStartOf="@id/layoutPromotions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="8dp"
+                    android:src="@drawable/icons_booking" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Booking Transactions"
+                    android:textColor="@color/orange2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutPromotions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background_forownerhomepage"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layoutBookings"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="8dp"
+                    android:src="@drawable/icons_promotion" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Promotions and Discounts"
+                    android:textColor="@color/orange2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutBranchOffices"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background_forownerhomepage"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toStartOf="@id/layoutPromotions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutBookings">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="8dp"
+                    android:src="@drawable/icons_branchoffice"
+                    android:id="@+id/officeLayout_Imageview"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Office layouts"
+                    android:textColor="@color/orange2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutAmenities"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/white_rectangle_background_forownerhomepage"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/layoutBookings"
+                app:layout_constraintTop_toBottomOf="@id/layoutPromotions">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="8dp"
+                    android:src="@drawable/icons_ameneties_bell" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Amenities offered"
+                    android:textColor="@color/orange2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/trending_background_forownerhomepage"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="@id/layoutAmenities"
+                app:layout_constraintStart_toStartOf="@id/layoutBookings"
+                app:layout_constraintTop_toBottomOf="@id/layoutBranchOffices">
+
+                <TextView
+                    android:id="@+id/textTrending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_rectangle_background_forownerhomepage"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="trending"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:itemIconSize="40dp"
+        app:itemIconTint="@color/black"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/owner_menu_item"
+        android:background="@drawable/trending_background_forownerhomepage"
+        
+
+        />
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/trending_background_forownerhomepage"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
