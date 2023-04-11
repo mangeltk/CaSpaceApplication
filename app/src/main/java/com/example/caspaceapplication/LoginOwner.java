@@ -1,13 +1,14 @@
 package com.example.caspaceapplication;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +23,9 @@ public class LoginOwner extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
 
+    TextView forgotPassword;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,10 @@ public class LoginOwner extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
+
+
+
+
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +55,7 @@ public class LoginOwner extends AppCompatActivity {
                                 if(user.isEmailVerified()){
                                     progressDialog.cancel();
                                     Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
+                                    startActivity(new Intent(LoginOwner.this, HomepageCustomer.class));
                                 }
                                 else{
                                     user.sendEmailVerification()
@@ -62,21 +70,23 @@ public class LoginOwner extends AppCompatActivity {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     progressDialog.cancel();
-                                                    Toast.makeText(LoginOwner.this, "Please check and verify email", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginOwner.this, "Hoy Sayop!", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginOwner.this, "No owner user registered!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
-                            }
                         });
             }
         });
-    }
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginOwner.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+
+        }
+
 }

@@ -35,12 +35,12 @@
             android:padding="24dp">
 
 
-
             <TextView
+                android:id="@+id/font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/allerta"
                 android:text="LOGIN AS"
                 android:textAlignment="center"
                 android:textColor="@color/black"

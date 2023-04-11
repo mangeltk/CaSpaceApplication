@@ -24,7 +24,7 @@ public class Front extends AppCompatActivity {
         loginCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Front.this,LoginCustomer.class));
+                startActivity(new Intent(Front.this,LoginCustomerTrial.class));
             }
         });
 

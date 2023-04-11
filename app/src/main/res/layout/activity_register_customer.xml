@@ -96,24 +96,6 @@
                 android:textSize="17dp" />
 
             <EditText
-                android:id="@+id/customer_username"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/custom_textbox"
-                android:drawableLeft="@drawable/ic_baseline_verified_user_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="Username"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
-
-            <EditText
                 android:id="@+id/customer_password"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
