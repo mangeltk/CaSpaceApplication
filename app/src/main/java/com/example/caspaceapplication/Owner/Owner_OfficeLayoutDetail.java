@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.Owner;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.R;
 import com.squareup.picasso.Picasso;
 
 public class Owner_OfficeLayoutDetail extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
         editDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficelayoutsRegistration.class));
+                startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficeLayoutEditDetails.class));
             }
         });
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/orange14"
     android:orientation="vertical"
-    tools:context=".Owner_OfficelayoutsRegistration">
+    tools:context=".Owner.Owner_OfficelayoutsRegistration">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 android:layout_marginTop="2dp"
                 android:background="@drawable/header_background_forownerhomepage"
                 android:padding="15dp"
-                android:text="Edit office layout details"
+                android:text="Register a Layout"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="visible" />

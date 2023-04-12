@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.Owner.RegisterOwner;
+
 public class FrontRegister extends AppCompatActivity {
 
     Button registerCustomer, registerOwner, loginButton;
@@ -30,7 +32,7 @@ public class FrontRegister extends AppCompatActivity {
         registerOwner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FrontRegister.this,RegisterOwner.class));
+                startActivity(new Intent(FrontRegister.this, RegisterOwner.class));
 
             }
         });

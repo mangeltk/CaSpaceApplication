@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.Owner;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,10 +56,10 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
                 intent.putExtra("layoutName", dataClassList.get(holder.getAdapterPosition()).getLayoutName());
                 intent.putExtra("layoutPeopleNum", dataClassList.get(holder.getAdapterPosition()).getLayoutPeopleNum());
                 intent.putExtra("layoutAreasize", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
-
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override

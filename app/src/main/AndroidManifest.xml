@@ -27,28 +27,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner_OfficelayoutsRegistration"
+            android:name=".Owner.Owner_OfficelayoutsRegistration"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner_OfficeLayouts"
+            android:name=".Owner.Owner_OfficeLayouts"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner_OfficeLayoutDetail"
+            android:name=".Owner.Owner_OfficeLayoutDetail"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".OwnerHomepage"
+            android:name=".Owner.Owner_OfficeLayoutEditDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Owner.OwnerHomepage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -104,14 +111,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterOwner"
+            android:name=".Owner.RegisterOwner"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginOwner"
+            android:name=".Owner.LoginOwner"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
