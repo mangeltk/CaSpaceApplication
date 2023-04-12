@@ -1,7 +1,6 @@
 package com.example.caspaceapplication;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.picasso.Picasso;
 
 public class Owner_OfficeLayoutDetail extends AppCompatActivity {
 
@@ -30,11 +31,8 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
-            //detailImage.setImageResource(Integer.parseInt(bundle.getString("layoutImage")));
-            /*String image = bundle.getString("layoutImage");
-            detailImage.setImageURI(Uri.parse(image));*/
-
-            detailImage.setImageURI(Uri.parse(bundle.getString("layoutImage")));
+            String imagePath = getIntent().getStringExtra("layoutImage");
+                Picasso.get().load(imagePath).into(detailImage);
             detailName.setText(bundle.getString("layoutName"));
             detailPeople.setText(bundle.getString("layoutPeopleNum"));
             detailAreasize.setText(bundle.getString("layoutAreasize"));

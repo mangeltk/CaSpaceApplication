@@ -41,11 +41,8 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        //holder.recImage.setImageResource(dataClassList.get(position).getLayoutImage());
-        String imageUri = null;
-        imageUri = String.valueOf(dataClassList.get(position).getLayoutImage());
-        Picasso.get().load(imageUri).into(holder.recImage);
-
+        String imageUri = String.valueOf(dataClassList.get(position).getLayoutImage());
+            Picasso.get().load(imageUri).into(holder.recImage);
         holder.recName.setText(dataClassList.get(position).getLayoutName());
         holder.recPeople.setText(dataClassList.get(position).getLayoutPeopleNum());
         holder.recAreaSize.setText(dataClassList.get(position).getLayoutAreasize());
@@ -60,19 +57,8 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
                 intent.putExtra("layoutAreasize", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
 
                 context.startActivity(intent);
-
             }
         });
-        /*OfficeLayout_DataClass model = dataClassList.get(position);
-        //holder.recImage.setImageResource(Integer.parseInt("Layout Image" + model.getLayoutImage()));
-        holder.recName.setText("Layout Name" + model.getLayoutName());
-        holder.recPeople.setText("Layout People size" + model.getLayoutPeopleNum());
-        holder.recAreaSize.setText("Layout Area size" +  model.getLayoutAreasize());
-
-        String imageUri = null;
-        imageUri = String.valueOf(model.getLayoutImage());
-        Picasso.get().load(imageUri).into(holder.recImage);*/
-
     }
 
     @Override
@@ -89,7 +75,6 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
-
         recImage = itemView.findViewById(R.id.recImage);
         recName = itemView.findViewById(R.id.recName);
         recPeople = itemView.findViewById(R.id.recPeopleAnswer);
