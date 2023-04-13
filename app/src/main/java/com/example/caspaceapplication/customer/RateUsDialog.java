@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+
+import com.example.caspaceapplication.R;
 
 public class RateUsDialog extends Dialog {
 

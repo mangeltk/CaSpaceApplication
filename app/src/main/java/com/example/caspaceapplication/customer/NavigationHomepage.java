@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 
 import androidx.annotation.NonNull;
@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.FeedbackFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;

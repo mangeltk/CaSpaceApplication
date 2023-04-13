@@ -1,8 +1,10 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.caspaceapplication.R;
 
 public class HomepageCustomer extends AppCompatActivity {
 

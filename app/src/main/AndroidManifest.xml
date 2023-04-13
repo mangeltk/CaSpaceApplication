@@ -13,21 +13,21 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".Customer_Homepage_BottomNav"
+            android:name=".customer.Customer_Homepage_BottomNav"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".EnspaceProfile"
+            android:name=".customer.EnspaceProfile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CustomerEditProfile"
+            android:name=".customer.CustomerEditProfile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -69,28 +69,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomepageCustomer"
+            android:name=".customer.HomepageCustomer"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NavigationHomepage"
+            android:name=".customer.NavigationHomepage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ForgotPassword"
+            android:name=".customer.ForgotPassword"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginCustomerTrial"
+            android:name=".customer.LoginCustomerTrial"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -106,14 +106,14 @@
         </activity>
         -->
         <activity
-            android:name=".Profile"
+            android:name=".customer.Profile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FrontRegister"
+            android:name=".customer.FrontRegister"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -134,21 +134,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Front"
+            android:name=".customer.Front"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterCustomer"
+            android:name=".customer.RegisterCustomer"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".customer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

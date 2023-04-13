@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:id="@+id/drawerLayout"
-    tools:context=".NavigationHomepage">
+    tools:context=".customer.NavigationHomepage">
 
     <LinearLayout
         android:orientation="vertical"
