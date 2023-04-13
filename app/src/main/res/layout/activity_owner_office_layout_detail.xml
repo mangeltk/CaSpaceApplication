@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Owner_OfficeLayoutDetail"
+    tools:context=".Owner.Owner_OfficeLayoutDetail"
     android:backgroundTint="@color/orange14">
 
     <TextView

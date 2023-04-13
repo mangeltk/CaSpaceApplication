@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.Owner.LoginOwner;
+
 public class Front extends AppCompatActivity {
 
     Button loginCustomer, loginOwner, signUpButton;
@@ -31,7 +33,7 @@ public class Front extends AppCompatActivity {
         loginOwner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Front.this,LoginOwner.class));
+                startActivity(new Intent(Front.this, LoginOwner.class));
             }
         });
 

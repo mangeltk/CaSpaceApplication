@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.Owner;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.R;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class Owner_OfficeLayoutDetail extends AppCompatActivity {
@@ -16,6 +19,8 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
     TextView detailPeople, detailName, detailAreasize;
     ImageView detailImage;
     Button editDetailsButton;
+
+    ValueEventListener eventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +43,14 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
             detailAreasize.setText(bundle.getString("layoutAreasize"));
         }
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+
+
         editDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficelayoutsRegistration.class));
+                startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficeLayoutEditDetails.class));
             }
         });
 
