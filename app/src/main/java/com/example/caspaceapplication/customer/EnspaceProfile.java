@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.caspaceapplication.R;
 
 public class EnspaceProfile extends AppCompatActivity {
 

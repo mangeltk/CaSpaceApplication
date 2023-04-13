@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.caspaceapplication.CoworkingSpaces;
-import com.example.caspaceapplication.HomepageAdapter;
+import com.example.caspaceapplication.customer.CoworkingSpaces;
+import com.example.caspaceapplication.customer.HomepageAdapter;
 import com.example.caspaceapplication.R;
 
 import java.util.ArrayList;

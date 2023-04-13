@@ -7,7 +7,7 @@
     android:background="@drawable/welcometry"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".FrontRegister">
+    tools:context=".customer.FrontRegister">
 
 
 

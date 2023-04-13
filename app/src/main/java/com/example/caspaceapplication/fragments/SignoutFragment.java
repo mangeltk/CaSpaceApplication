@@ -1,7 +1,7 @@
 package com.example.caspaceapplication.fragments;
 
-import android.app.AlertDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +17,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
-import com.example.caspaceapplication.Front;
+import com.example.caspaceapplication.customer.Front;
 import com.example.caspaceapplication.R;
 
 
@@ -25,7 +25,8 @@ public class SignoutFragment extends Fragment {
 
     private float userRate = 0;
 
-    AppCompatButton exitNowButton, maybeLaterButton;
+    AppCompatButton rateNowButton, rateLaterButton;
+    ImageView ratingImage;
 
 
 
@@ -39,20 +40,24 @@ public class SignoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final AppCompatButton rateNowButton = view.findViewById(R.id.rateNowButton);
+        final AppCompatButton rateLaterButton = view.findViewById(R.id.rateLaterButton);
+        final RatingBar ratingBar = view.findViewById(R.id.ratingBar);
+        final ImageView ratingImage = view.findViewById(R.id.ratingImage);
 
-        final AppCompatButton exitNowButton = view.findViewById(R.id.exitNowButton);
-        final AppCompatButton maybeLaterButton = view.findViewById(R.id.maybeLaterButton);
+        /*final AppCompatButton exitNowButton = view.findViewById(R.id.exitNowButton);
+        final AppCompatButton maybeLaterButton = view.findViewById(R.id.maybeLaterButton);*/
         /*final RatingBar ratingBar = view.findViewById(R.id.ratingBar);
         final ImageView ratingImage = view.findViewById(R.id.ratingImage);*/
 
-        exitNowButton.setOnClickListener(new View.OnClickListener() {
+        rateNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Handle rate now button click
             }
         });
 
-        maybeLaterButton.setOnClickListener(new View.OnClickListener() {
+        rateLaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -61,7 +66,7 @@ public class SignoutFragment extends Fragment {
             }
         });
 
-        /*ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
@@ -83,7 +88,7 @@ public class SignoutFragment extends Fragment {
                 userRate = rating;
             }
 
-        });*/
+        });
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.Owner.RegisterOwner;
+import com.example.caspaceapplication.R;
 
 public class FrontRegister extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
+import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
