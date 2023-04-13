@@ -51,9 +51,9 @@ public class CwsAdapter extends RecyclerView.Adapter<CwsAdapter.MyHolder> {
         ImageView img;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            cwsName = itemView.findViewById(R.id.enspace);
+            /*cwsName = itemView.findViewById(R.id.enspace);
             cwsName = itemView.findViewById(R.id.regus);
-            img=itemView.findViewById(R.id.img);
+            img=itemView.findViewById(R.id.img);*/
 
         }
     }
