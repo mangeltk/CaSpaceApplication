@@ -13,6 +13,13 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
+            android:name=".Owner.Owner_ProDisc"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".EnspaceProfile"
             android:exported="false">
             <meta-data
@@ -89,13 +96,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!--<activity
+        <!--
+<activity
             android:name=".RegisterCustomerTrial"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>-->
+        </activity>
+        -->
         <activity
             android:name=".Profile"
             android:exported="false">

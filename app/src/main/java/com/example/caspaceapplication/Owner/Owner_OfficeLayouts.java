@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +19,7 @@ import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +40,8 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
     OfficeLayout_DataClass layout_dataClass;
     SearchView searchView;
 
-    Button addalayoutButton;
+    //Button addalayoutButton;
+    FloatingActionButton addalayoutButton;
 
     FirebaseFirestore firebaseFirestore;
     /*FirebaseDatabase firebaseDatabase;
@@ -60,7 +61,7 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         firebaseFirestore = FirebaseFirestore.getInstance();
         dataClassList = new ArrayList<>();
-        addalayoutButton = findViewById(R.id.addalayout_Button);
+        addalayoutButton = findViewById(R.id.addFloatButton);
 
         addalayoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

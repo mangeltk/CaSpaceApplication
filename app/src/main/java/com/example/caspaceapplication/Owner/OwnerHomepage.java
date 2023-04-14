@@ -32,7 +32,9 @@ public class OwnerHomepage extends AppCompatActivity {
         //get current user ID
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
-
+        ImageView promotionsAndDiscounts = findViewById(R.id.proAndDisc_Imageview);
+        ImageView bookingTransactions = findViewById(R.id.bookingTransactions_Imageview);//todo:create layout and activity for booking transactions
+        ImageView AmenitiesOffered = findViewById(R.id.AmenitiesOffered_Imageview); //todo: create layout and activity for amenities offered
 
         username = findViewById(R.id.textUsername);
         username.setText(user.getUid().trim());//TODO: fix username name
@@ -43,6 +45,14 @@ public class OwnerHomepage extends AppCompatActivity {
                 startActivity(new Intent(OwnerHomepage.this, Owner_OfficeLayouts.class));
             }
         });
+
+        promotionsAndDiscounts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OwnerHomepage.this, Owner_ProDisc.class));
+            }
+        });
+
 
         //Navigation Bar------------------------------------------
         navigationView = findViewById(R.id.bottomNavigationView);
