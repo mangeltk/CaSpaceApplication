@@ -83,8 +83,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         });
 
-
-
         //Navigation Bar------------------------------------------
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

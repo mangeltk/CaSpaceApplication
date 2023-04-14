@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class OwnerHomepage extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore;
     BottomNavigationView navigationView;
+    TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class OwnerHomepage extends AppCompatActivity {
         //get current user ID
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
+
+
+        username = findViewById(R.id.textUsername);
+        username.setText(user.getUid().trim());//TODO: fix username name
 
         officeLayouts.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -67,6 +67,21 @@
 
     </LinearLayout>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/orange1"
+        android:src="@drawable/ic_add"
+        android:tint="@color/white" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -75,7 +90,7 @@
         app:itemIconSize="40dp"
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
         app:menu="@menu/owner_menu_item"
         android:background="@drawable/trending_background_forownerhomepage"/>
 
@@ -86,4 +101,4 @@
         android:background="@drawable/trending_background_forownerhomepage"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
