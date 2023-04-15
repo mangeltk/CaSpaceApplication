@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.caspaceapplication.R;
 
 import java.util.ArrayList;
 
@@ -51,9 +53,9 @@ public class CwsAdapter extends RecyclerView.Adapter<CwsAdapter.MyHolder> {
         ImageView img;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            cwsName = itemView.findViewById(R.id.enspace);
+            /*cwsName = itemView.findViewById(R.id.enspace);
             cwsName = itemView.findViewById(R.id.regus);
-            img=itemView.findViewById(R.id.img);
+            img=itemView.findViewById(R.id.img);*/
 
         }
     }

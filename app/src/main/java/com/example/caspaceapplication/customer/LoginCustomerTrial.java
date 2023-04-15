@@ -1,4 +1,4 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -108,7 +109,7 @@ public class LoginCustomerTrial extends AppCompatActivity {
 
     private void sendUserToNextActivity ()
     {
-        Intent intent = new Intent(LoginCustomerTrial.this, NavigationHomepage.class);
+        Intent intent = new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 

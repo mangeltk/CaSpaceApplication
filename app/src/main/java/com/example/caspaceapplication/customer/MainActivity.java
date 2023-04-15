@@ -1,10 +1,12 @@
-package com.example.caspaceapplication;
+package com.example.caspaceapplication.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.caspaceapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 

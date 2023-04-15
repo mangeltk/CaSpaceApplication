@@ -7,13 +7,127 @@
     tools:context=".fragments.SignoutFragment">
 
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/orange1" />
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-75dp"
+                android:background="@drawable/round_back_while_stroke_1000"
+                android:padding="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round_back_white_1000" />
+
+                <ImageView
+                    android:id="@+id/ratingImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:padding="25dp"
+                    android:src="@drawable/fivestar" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Rate our app"
+                android:textColor="#CC000000"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="Would you rate us?"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:rating="3"/>
+            <!--android:theme="@style/MyRatingBar" -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/rateLaterButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Maybe later"
+                    android:textAllCaps="false"
+                    android:textColor="#CC000000"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:background="@drawable/round_back_brown_6"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/rateNowButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:text="Rate Now"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:background="@drawable/round_orange_10"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             app:cardUseCompatPadding="true"
             app:cardCornerRadius="10dp">
 
@@ -47,7 +161,9 @@
                         android:layout_centerInParent="true"
                         android:adjustViewBounds="true"
                         android:padding="25dp"
-                        android:src="@drawable/fivestar" />
+                        android:src="@drawable/twostar" />
+
+
 
                 </RelativeLayout>
 
@@ -57,7 +173,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="Rate our app"
+                    android:text="You are about to leave"
+                    android:fontFamily="@font/poppins_medium_italic"
                     android:textColor="#CC000000"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -67,21 +184,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:text="Are you enjoying our app?"
-                    android:textSize="16sp" />
+                    android:text="Are you sure?"
+                    android:fontFamily="@font/poppins_medium_italic"
+                    android:textSize="20sp" />
 
-                <androidx.appcompat.widget.AppCompatRatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:rating="4"/>
-                <!--android:theme="@style/MyRatingBar" -->
+                &lt;!&ndash;android:theme="@style/MyRatingBar" &ndash;&gt;
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,7 +206,7 @@
                     android:paddingBottom="10dp">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/rateLaterButton"
+                        android:id="@+id/maybeLaterButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:text="Maybe later"
@@ -107,11 +217,11 @@
                         android:background="@drawable/round_back_brown_6"/>
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/rateNowButton"
+                        android:id="@+id/exitNowButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
-                        android:text="Rate Now"
+                        android:text="Exit now"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:paddingStart="20dp"
@@ -124,6 +234,6 @@
 
         </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </FrameLayout>

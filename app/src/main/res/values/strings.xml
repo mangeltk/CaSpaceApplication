@@ -7,4 +7,14 @@
     <string name="close">close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="cws1">Enspace</string>
+    <string name="cws2">Regus</string>
+    <string name="cws3">The Company</string>
+    <string name="cws4">Workplace Cafe</string>
+    <string name="cws5">X Office</string>
+    <string name="cws6">GetHub</string>
+    <string name="cws7">Desk</string>
+
 </resources>

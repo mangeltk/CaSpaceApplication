@@ -55,7 +55,7 @@
         <color name="colorError">#CC0000</color>
         <color name="colorTextPrimary">#212121</color>
 
-
+    <color name="underline">#D8D6D6</color>
 
     <color name="dialog_color1">#dc6601</color>
     <color name="dialog_color2">#3B5796</color>
