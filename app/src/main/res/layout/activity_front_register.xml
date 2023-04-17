@@ -100,7 +100,8 @@
         android:text="Already have an account"
         android:textColor="@color/white"
         android:textSize="15dp"
-        app:cornerRadius="20dp" />
+        app:cornerRadius="20dp"
+        />
 
 
 

@@ -42,6 +42,15 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
         detail_Areasize = findViewById(R.id.detailAreasizeAnswer);
         detail_Image = findViewById(R.id.detailImage);
 
+        //TODO: EDIT LAYOUT DETAILS - add lacking data:
+        // space id - done auto from firestore collection UID
+        // space name - done
+        // space type
+        // space price
+        // space capacity - done
+        // space amenities
+        // space status - not yet
+
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         //Set text details from intent recylerview---------------------------

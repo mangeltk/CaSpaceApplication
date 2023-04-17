@@ -61,6 +61,15 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
         EDITdetailPeople = findViewById(R.id.EDITlayoutPeopleSize_editText);
         EDITdetailAreasize = findViewById(R.id.EDITlayoutAreaSize_editText);
 
+        //TODO: EDIT LAYOUT DETAILS - add lacking data:
+        // space id - done auto from firestore collection UID
+        // space name - done
+        // space type
+        // space price
+        // space capacity - done
+        // space amenities
+        // space status - not yet
+
         EDITdetailImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
