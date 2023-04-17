@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/orange14"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <!--<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/owner_logoupperleft" />
+
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonwhite_borderblack"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/header_background_forownerhomepage"
+                android:padding="10dp"
+                android:backgroundTint="@color/orange12"
+                android:text="Add a Promotion"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/prodiscImage_imageButton_popup"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/orange14"
+                android:scaleType="fitCenter"
+                android:src="@drawable/uploadphoto" />
+
+            <EditText
+                android:id="@+id/prodiscTitle_editText_popup"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/card_border_bottom"
+                android:drawableLeft="@drawable/ic_rename"
+                android:drawableTint="@color/gray"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Promotion Title"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/black"
+                android:textSize="17dp" />
+
+
+            <EditText
+                android:id="@+id/prodiscDesc_editText_popup"
+                android:layout_width="300dp"
+                android:layout_height="226dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/card_border_bottom"
+                android:drawableLeft="@drawable/ic_baseline_message_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/gray"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Promotion Description"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/black"
+                android:textSize="17dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="CANCEL"
+                    android:layout_weight="1"
+                    android:id="@+id/prodisc_cancelButton"
+                    android:backgroundTint="@color/orange12"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="ADD"
+                    android:layout_weight="1"
+                    android:id="@+id/prodisc_addButton"
+                    android:backgroundTint="@color/orange12"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

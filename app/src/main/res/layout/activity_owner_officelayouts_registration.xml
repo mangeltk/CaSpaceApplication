@@ -139,6 +139,7 @@
         android:background="@drawable/trending_background_forownerhomepage"
         android:backgroundTint="@color/white"
         app:itemIconSize="40dp"
+        android:elevation="8dp"
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/owner_menu_item" />
