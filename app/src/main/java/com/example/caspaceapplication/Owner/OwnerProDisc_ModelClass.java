@@ -2,40 +2,40 @@ package com.example.caspaceapplication.Owner;
 
 public class OwnerProDisc_ModelClass {
 
-    private String proDiscTitle;
-    private String ProDiscImage;
-    private String ProDiscDescription;
+    private String promotionTitle;
+    private String promotionImage;
+    private String promotionDescription;
 
     public OwnerProDisc_ModelClass() {
     }
 
-    public OwnerProDisc_ModelClass(String proDiscTitle, String proDiscImage, String proDiscDescription) {
-        this.proDiscTitle = proDiscTitle;
-        ProDiscImage = proDiscImage;
-        ProDiscDescription = proDiscDescription;
+    public OwnerProDisc_ModelClass(String promotionTitle, String promotionImage, String promotionDescription) {
+        this.promotionTitle = promotionTitle;
+        this.promotionImage = promotionImage;
+        this.promotionDescription = promotionDescription;
     }
 
-    public String getProDiscTitle() {
-        return proDiscTitle;
+    public String getPromotionTitle() {
+        return promotionTitle;
     }
 
-    public void setProDiscTitle(String proDiscTitle) {
-        this.proDiscTitle = proDiscTitle;
+    public void setPromotionTitle(String promotionTitle) {
+        this.promotionTitle = promotionTitle;
     }
 
-    public String getProDiscImage() {
-        return ProDiscImage;
+    public String getPromotionImage() {
+        return promotionImage;
     }
 
-    public void setProDiscImage(String proDiscImage) {
-        ProDiscImage = proDiscImage;
+    public void setPromotionImage(String promotionImage) {
+        this.promotionImage = promotionImage;
     }
 
-    public String getProDiscDescription() {
-        return ProDiscDescription;
+    public String getPromotionDescription() {
+        return promotionDescription;
     }
 
-    public void setProDiscDescription(String proDiscDescription) {
-        ProDiscDescription = proDiscDescription;
+    public void setPromotionDescription(String promotionDescription) {
+        this.promotionDescription = promotionDescription;
     }
 }
