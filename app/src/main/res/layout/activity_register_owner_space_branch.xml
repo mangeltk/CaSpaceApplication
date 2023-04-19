@@ -14,17 +14,18 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/branch_image"
-            app:srcCompat="@android:drawable/ic_menu_gallery"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="100dp"
+            android:id="@+id/registerBranchImage_Imagebutton"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_gravity="center"
-            android:backgroundTint="@color/white"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/orange14"
+            android:scaleType="fitCenter"
+            android:src="@drawable/uploadphoto"
             />
 
         <EditText
-            android:id="@+id/branch_name"
+            android:id="@+id/registerBranchName_Edittext"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -42,7 +43,7 @@
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/branch_address"
+            android:id="@+id/registerBranchAddress_Edittext"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -58,6 +59,26 @@
             android:textColorHighlight="@color/orange"
             android:textColorHint="@color/white"
             android:textSize="17dp" />
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:padding="8dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="17dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:dropDownSelector="@color/black"
+            android:hint="Branch category"
+
+            />
+
+
+
 
 
         <Button

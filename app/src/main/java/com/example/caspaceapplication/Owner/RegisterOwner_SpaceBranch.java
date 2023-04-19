@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,15 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
     Button registerButton_SpaceBranch;
     EditText branchName, branchAdrress;
 
+
+    String [] selectItem = {"Office space for individual",
+            "Office space exclusive for an organization",
+            "Fabrication Laboratory (Fab lab)",
+            "Technology Business Incubation Program (TBI)",
+            "QBO Innovation Hub"};
+
+    private Spinner categorySpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +68,24 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
         firebaseStorage = firebaseStorage.getInstance();
         progressDialog = new ProgressDialog(this);
 
-        branch_image = findViewById(R.id.branch_image);
+        branch_image = findViewById(R.id.registerBranchImage_Imagebutton);
         registerButton_SpaceBranch = findViewById(R.id.registerButton_SpaceBranch);
-        branchName = findViewById(R.id.branch_name);
-        branchAdrress = findViewById(R.id.branch_address);
+        branchName = findViewById(R.id.registerBranchName_Edittext);
+        branchAdrress = findViewById(R.id.registerBranchAddress_Edittext);
+
+        categorySpinner= findViewById(R.id.category_spinner);
+
+        // Populate the spinner with category options
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Office space for individual",
+                "Office space exclusive for an organization",
+                "Fabrication Laboratory (Fab lab)",
+                "Technology Business Incubation Program (TBI)",
+                "QBO Innovation Hub"});
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
 
         branch_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,21 +204,22 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Map<String,String> branch = new HashMap<>();
-                                    branch.put("Branch Image",task.getResult().toString());
-                                    branch.put("Branch Name", namebranch);
-                                    branch.put("Branch Address", addressBranch);
+                                    branch.put("cospaceImage",task.getResult().toString());
+                                    branch.put("cospaceName", namebranch);
+                                    branch.put("cospaceCategory","");
+                                    branch.put("cospaceAddress", addressBranch);
                                     branch.put("owner_id", user.getUid());
-                                    branch.put("store_id", "");
+                                    branch.put("cospaceId", "");
 
-                                    firebaseFirestore.collection("OwnerRegisteredBranches")
+                                    firebaseFirestore.collection("CospaceBranches")
                                             .add(branch)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
 
-                                                    FirebaseFirestore.getInstance().collection("OwnerRegisteredBranches")
+                                                    FirebaseFirestore.getInstance().collection("CospaceBranches")
                                                             .document(documentReference.getId())
-                                                            .update("store_id", documentReference.getId())
+                                                            .update("cospaceId", documentReference.getId())
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {

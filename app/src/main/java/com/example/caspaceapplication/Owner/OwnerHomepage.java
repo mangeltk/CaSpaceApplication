@@ -12,32 +12,47 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class OwnerHomepage extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore;
     BottomNavigationView navigationView;
-    TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_homepage);
 
+        useBottomNavigationMenu();
+
         //get current user ID
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
         ImageView promotionsAndDiscounts = findViewById(R.id.proAndDisc_Imageview);
         ImageView bookingTransactions = findViewById(R.id.bookingTransactions_Imageview);//todo:create layout and activity for booking transactions
         ImageView AmenitiesOffered = findViewById(R.id.AmenitiesOffered_Imageview); //todo: create layout and activity for amenities offered
+        TextView username = findViewById(R.id.textUsername);
 
-        username = findViewById(R.id.textUsername);
-        username.setText(user.getUid().trim());//TODO: fix username name
+        FirebaseFirestore.getInstance().collection("OwnerUserAccounts")
+                .document(user)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String firstname  = documentSnapshot.getString("ownerFirstname");
+                            username.setText(firstname);
+                        }
+                    }
+                });
+
+
 
         officeLayouts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +69,13 @@ public class OwnerHomepage extends AppCompatActivity {
         });
 
 
+
+
+    }
+
+
+
+    public void useBottomNavigationMenu(){
         //Navigation Bar------------------------------------------
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -78,9 +100,6 @@ public class OwnerHomepage extends AppCompatActivity {
                 return true;
             }
         });//Navigation Bar------------------------------------------
-
     }
-
-
 
 }

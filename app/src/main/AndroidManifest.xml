@@ -185,7 +185,13 @@
                 android:value="" />
         </activity>
 
-
+        <activity
+            android:name=".Owner.RegisterOwner_SpaceBranch"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <!-- <activity
      android:name=".EnspaceProfile"

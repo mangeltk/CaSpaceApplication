@@ -2,17 +2,35 @@ package com.example.caspaceapplication.Owner;
 
 public class OwnerRegistrationModel {
 
-    private String ownerEmail, ownerFullname, ownerCompanyName, ownerIDNum, ownerPassword;
+    private String ownerIDNum, ownerCompanyName, ownerEmail, ownerFirstname, ownerLastname, ownerUsername, ownerPassword;
 
     public OwnerRegistrationModel() {
     }
 
-    public OwnerRegistrationModel(String ownerEmail, String ownerFullname, String ownerCompanyName, String ownerIDNum, String ownerPassword) {
-        this.ownerEmail = ownerEmail;
-        this.ownerFullname = ownerFullname;
-        this.ownerCompanyName = ownerCompanyName;
+    public OwnerRegistrationModel(String ownerIDNum, String ownerCompanyName, String ownerEmail, String ownerFirstname, String ownerLastname, String ownerUsername, String ownerPassword) {
         this.ownerIDNum = ownerIDNum;
+        this.ownerCompanyName = ownerCompanyName;
+        this.ownerEmail = ownerEmail;
+        this.ownerFirstname = ownerFirstname;
+        this.ownerLastname = ownerLastname;
+        this.ownerUsername = ownerUsername;
         this.ownerPassword = ownerPassword;
+    }
+
+    public String getOwnerIDNum() {
+        return ownerIDNum;
+    }
+
+    public void setOwnerIDNum(String ownerIDNum) {
+        this.ownerIDNum = ownerIDNum;
+    }
+
+    public String getOwnerCompanyName() {
+        return ownerCompanyName;
+    }
+
+    public void setOwnerCompanyName(String ownerCompanyName) {
+        this.ownerCompanyName = ownerCompanyName;
     }
 
     public String getOwnerEmail() {
@@ -23,26 +41,28 @@ public class OwnerRegistrationModel {
         this.ownerEmail = ownerEmail;
     }
 
-    public String getOwnerFullname() {
-        return ownerFullname;
+    public String getOwnerFirstname() {
+        return ownerFirstname;
     }
 
-    public void setOwnerFullname(String ownerFullname) {
-        this.ownerFullname = ownerFullname;
+    public void setOwnerFirstname(String ownerFirstname) {
+        this.ownerFirstname = ownerFirstname;
     }
 
-    public String getOwnerCompanyName() {
-        return ownerCompanyName;
+    public String getOwnerLastname() {
+        return ownerLastname;
     }
 
-    public void setOwnerCompanyName(String ownerCompanyName) {this.ownerCompanyName = ownerCompanyName;}
-
-    public String getOwnerIDNum() {
-        return ownerIDNum;
+    public void setOwnerLastname(String ownerLastname) {
+        this.ownerLastname = ownerLastname;
     }
 
-    public void setOwnerIDNum(String ownerIDNum) {
-        this.ownerIDNum = ownerIDNum;
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public String getOwnerPassword() {

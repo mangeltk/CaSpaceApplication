@@ -1,15 +1,22 @@
 package com.example.caspaceapplication.Owner;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class Owner_ProDisc extends AppCompatActivity {
 
@@ -18,13 +25,52 @@ public class Owner_ProDisc extends AppCompatActivity {
     EditText prodiscTitle, prodiscDescription;
     ImageButton prodiscImage;
     Button cancel, add;
+    BottomNavigationView navigationView;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_pro_disc);
 
-        createNewDialog();
+        useBottomNavigationMenu();
+
+        floatingActionButton = findViewById(R.id.addFloatButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewDialog();
+            }
+        });
+
+
+    }
+
+    public void useBottomNavigationMenu(){
+        //Navigation Bar------------------------------------------
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menuHome:
+                        Toast.makeText(Owner_ProDisc.this, "Home", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Owner_ProDisc.this, OwnerHomepage.class));
+                        break;
+                    case R.id.menuMessages:
+                        Toast.makeText(Owner_ProDisc.this, "Messages", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menuNotification:
+                        Toast.makeText(Owner_ProDisc.this, "Notifications", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menuProfile:
+                        Toast.makeText(Owner_ProDisc.this, "Profile", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                }
+                return true;
+            }
+        });//Navigation Bar------------------------------------------
     }
 
     //dialog box for adding a new promotion or discount (pop up dialog)
@@ -45,6 +91,8 @@ public class Owner_ProDisc extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //todo: set code on how to add data to firestore
+
 
             }
         });
@@ -53,7 +101,11 @@ public class Owner_ProDisc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
+                Toast.makeText(Owner_ProDisc.this, "Cancel", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }

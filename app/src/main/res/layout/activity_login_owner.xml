@@ -50,7 +50,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/login_ownerEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -67,7 +67,7 @@
                 android:textSize="17dp" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/login_ownerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -83,9 +83,20 @@
                 android:textColorHighlight="@color/orange"
                 android:textColorHint="@color/black"
                 android:textSize="17dp" />
+            
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rememberme_ownerloginCheckbox"
+                android:text="Remember me"
+                android:buttonTint="@color/orange1"
+                android:textColor="@color/orange1"
+                android:fontFamily="@font/quicksand_medium"
+
+                />
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/loginButton_owner"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
