@@ -48,7 +48,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/custom_textbox"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:drawableLeft="@drawable/email"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="Email"
@@ -102,7 +102,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_textbox"
-                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:drawableLeft="@drawable/password"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="Password"
@@ -125,18 +125,6 @@
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="20dp" />
-
-            <TextView
-                android:id="@+id/signupText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="10dp"
-                android:text="Forgot Password?"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
 
         </LinearLayout>
 
