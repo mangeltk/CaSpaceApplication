@@ -2,13 +2,10 @@
     <string name="app_name">CaSpaceApplication</string>
     <!-- TODO: Remove or change this placeholder text -->
 
-
     <string name="open">open</string>
     <string name="close">close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="cws1">Enspace</string>
     <string name="cws2">Regus</string>
     <string name="cws3">The Company</string>
@@ -16,5 +13,16 @@
     <string name="cws5">X Office</string>
     <string name="cws6">GetHub</string>
     <string name="cws7">Desk</string>
+
+    <string-array name="coworkingSpace_categories">
+
+        <item>Office space for individual</item>
+        <item>Office space exclusive for an organization</item>
+        <item>Fabrication Laboratory (Fab lab)</item>
+        <item>Technology Business Incubation Program (TBI)</item>
+        <item>QBO Innovation Hub</item>
+
+
+    </string-array>
 
 </resources>

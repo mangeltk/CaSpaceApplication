@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Owner.RegisterOwner_SpaceBranch"
-    android:background="@drawable/background_registerspacebranch">
+    android:background="@drawable/background_registerspacebranch"
+    tools:context=".Owner.RegisterOwner_SpaceBranch">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +21,7 @@
             android:layout_marginTop="100dp"
             android:backgroundTint="@color/orange14"
             android:scaleType="fitCenter"
-            android:src="@drawable/uploadphoto"
-            />
+            android:src="@drawable/uploadphoto" />
 
         <EditText
             android:id="@+id/registerBranchName_Edittext"
@@ -60,26 +59,15 @@
             android:textColorHint="@color/white"
             android:textSize="17dp" />
 
+
         <Spinner
-            android:id="@+id/category_spinner"
+            android:id="@+id/spinnerCategories"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="17dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:dropDownSelector="@color/black"
-            android:hint="Branch category"
-
-            />
-
-
-
-
+            android:layout_marginTop="10dp"
+            android:entries="@array/coworkingSpace_categories"
+            android:spinnerMode="dropdown" />
 
         <Button
             android:id="@+id/registerButton_SpaceBranch"
