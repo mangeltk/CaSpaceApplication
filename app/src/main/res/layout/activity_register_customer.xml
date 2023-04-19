@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="250dp"
                 android:fontFamily="@font/amiko"
                 android:text="SIGN UP"
                 android:textAlignment="center"
@@ -29,14 +29,14 @@
 
             <TextView
                 android:layout_width="300dp"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="Customer"
                 android:drawablePadding="5dp"
                 android:drawableLeft="@drawable/ic_baseline_verified_24"
                 android:paddingStart="95dp"
-                android:padding="8dp"
+                android:padding="7dp"
                 android:textColor="@color/black"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -96,6 +96,24 @@
                 android:textSize="17dp" />
 
             <EditText
+                android:id="@+id/customer_username"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_textbox"
+                android:drawableLeft="@drawable/username"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Username"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
+
+            <EditText
                 android:id="@+id/customer_password"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
@@ -113,12 +131,49 @@
                 android:textColorHint="@color/white"
                 android:textSize="17dp" />
 
+
+            <EditText
+                android:id="@+id/customer_organization"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_textbox"
+                android:drawableLeft="@drawable/organization"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Organization"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/customer_population"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_textbox"
+                android:drawableLeft="@drawable/population"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Population"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
+
             <Button
                 android:id="@+id/registerButtonCustomer"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/orange1"
                 android:fontFamily="@font/quicksand_medium"
                 android:text="REGISTER"

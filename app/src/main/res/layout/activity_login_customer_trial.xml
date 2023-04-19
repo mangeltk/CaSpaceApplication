@@ -51,7 +51,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/customer_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -68,7 +68,7 @@
                 android:textSize="17dp" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/customer_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -85,8 +85,19 @@
                 android:textColorHint="@color/black"
                 android:textSize="17dp" />
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rememberMe_customerloginCheckbox"
+                android:text="Remember me"
+                android:buttonTint="@color/orange1"
+                android:textColor="@color/orange1"
+                android:fontFamily="@font/quicksand_medium"
+
+                />
+
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/loginButton_customer"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -98,7 +109,7 @@
                 app:cornerRadius="20dp" />
 
             <TextView
-                android:id="@+id/forgotPassword"
+                android:id="@+id/forgotPassword_customer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
