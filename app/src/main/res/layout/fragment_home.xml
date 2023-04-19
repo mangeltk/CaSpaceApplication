@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:scrollbars="vertical"
     tools:context=".fragments.HomeFragment">
 
 
@@ -17,6 +16,22 @@
         android:layout_marginTop="5dp"
         android:src="@drawable/homepageone">
     </ImageView>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/verified_customer"
+        android:drawablePadding="0dp"
+        android:layout_marginStart="90dp"
+        android:fontFamily="@font/poppins_medium_italic"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:paddingStart="20dp"
+        android:textColor="@color/blue2"
+        android:text="Customer"
+        android:textSize="17dp" />
+
 
 <!--    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -32,25 +47,14 @@
         app:searchIcon="@drawable/ic_baseline_search_24" />-->
 
 
-<!--    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="30dp"
-        android:fontFamily="@font/archivo_narrow"
-        android:text="Coworking Spaces"
-        android:textColor="@color/orange1"
-        android:textSize="25dp"
-        android:textStyle="bold" />-->
 
-
+        <!--Enspace-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginStart="20dp">
 
-        <!--Enspace-->
         <androidx.cardview.widget.CardView
             android:layout_width="200dp"
             android:layout_height="150dp"
@@ -71,6 +75,8 @@
 
     </LinearLayout>
 
+
+        <!--Technology hubs-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +84,6 @@
         android:layout_marginStart="240dp"
         android:layout_marginEnd="20dp">
 
-        <!--Enspace-->
         <androidx.cardview.widget.CardView
             android:layout_width="140dp"
             android:layout_height="150dp"
@@ -99,23 +104,29 @@
 
     </LinearLayout>
 
+
+
+        <!--Promotions-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="300dp"
-        android:fontFamily="@font/archivo_narrow"
+        android:layout_marginTop="290dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="Promotions"
         android:textColor="@color/orange1"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:textStyle="bold" />
 
+
+    <!--PROMOTIONS-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="320dp">
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="310dp">
 
+        <!--PROMOTION ONE-->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +137,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <!--Enspace-->
                 <androidx.cardview.widget.CardView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -138,16 +148,273 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/saleone" />
+                        android:src="@drawable/promoone" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <!--PROMOTION TWO-->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="170dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    android:elevation="4dp"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/promotwo" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <!--PROMOTION THREE-->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="340dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:background="#FFC107"
+                    android:elevation="4dp"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/promothree" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="510dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Recommended for you"
+        android:textColor="@color/orange1"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <!--RECOMMENDATIONS-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="530dp">
+
+        <!--PROMOTION ONE-->
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:elevation="5dp"
+
+                        android:src="@drawable/recoone"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1.1in"
+                        android:text="Enspace Cebu"
+                        android:textSize="23dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:elevation="5dp"
+
+                        android:src="@drawable/recoone"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1.1in"
+                        android:text="Enspace"
+                        android:textSize="23dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:elevation="5dp"
+
+                        android:src="@drawable/recoone"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1.1in"
+                        android:text="Enspace"
+                        android:textSize="23dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:elevation="5dp"
+
+                        android:src="@drawable/recoone"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1.1in"
+                        android:text="Enspace"
+                        android:textSize="23dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:elevation="5dp"
+
+                        android:src="@drawable/recoone"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="1.1in"
+                        android:text="Enspace"
+                        android:textSize="23dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+
 
                 </androidx.cardview.widget.CardView>
 
 
+
+
+
+
             </LinearLayout>
 
-        </HorizontalScrollView>
 
-    </RelativeLayout>
+        </ScrollView>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!--<RelativeLayout
@@ -210,6 +477,8 @@
 
 
     <!--PROMOTIONS AND DISCOUNTS CARDVIEW-->
+
+    <!--Promotions-->
 
 
 </FrameLayout>
