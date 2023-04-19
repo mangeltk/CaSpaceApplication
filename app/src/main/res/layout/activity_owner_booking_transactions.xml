@@ -60,7 +60,7 @@
             android:textColorHint="@color/white" />
 
         <EditText
-            android:id="@+id/branch_name"
+            android:id="@+id/customerFirstName"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -78,7 +78,7 @@
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/branch_address"
+            android:id="@+id/customerLastName"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
