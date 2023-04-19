@@ -1,51 +1,101 @@
 package com.example.caspaceapplication.fragments;
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
 
-import com.example.caspaceapplication.customer.CustomerEditProfile;
 import com.example.caspaceapplication.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CustomerProfileFragment extends Fragment {
 
-    Button editButton;
+    public EditText customerFirstName, customerLastName, customerEmail, customerOrganization,customerPopulation,customerPassword;
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
+    private String customersIDNum;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_customer_profile, container, false);
 
-        }
+        customerFirstName =view.findViewById(R.id.customerFirstname);
+        customerLastName = view.findViewById(R.id.customerLastname);
+        customerEmail = view.findViewById(R.id.customerEmail);
+        customerOrganization = view.findViewById(R.id.customerOrganization);
+        customerPopulation=view.findViewById(R.id.customerPopulation);
+        customerPassword=view.findViewById(R.id.customerPassword);
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
+        customersIDNum = fAuth.getCurrentUser().getUid();
+        retrieveMethod();
+
+        return view;
+
+
+    }
+    Button customerEditProfileButton;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        customerEditProfileButton=(Button) view.findViewById(R.id.customerEditProfileButton);
+        customerEditProfileButton.setOnClickListener(new View.OnClickListener() {
 
-
-         editButton = (Button) view.findViewById(R.id.editButton);
-
-        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Inside your Fragment's Java code
-                Intent intent = new Intent(getActivity(), CustomerEditProfile.class);
-                startActivity(intent);
+                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View viewPopupwindow = inflater.inflate(R.layout.customereditprofilepopup, null);
+                customerFirstName =view.findViewById(R.id.customerFirstname);
+                fAuth = FirebaseAuth.getInstance();
+                fStore = FirebaseFirestore.getInstance();
+                customersIDNum = fAuth.getCurrentUser().getUid();
+                PopupWindow popupWindow = new PopupWindow(viewPopupwindow, 1100, 1500, true);
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+
 
             }
         });
+
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_customer_profile, container, false);
+    public void retrieveMethod(){
+        Task<DocumentSnapshot> documentReference = fStore.collection("CustomerUserAccounts").document(customersIDNum)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String firstname  = documentSnapshot.getString("customersFirstName");
+                            customerFirstName.setText(firstname);
+                            String lastname  = documentSnapshot.getString("customersLastName");
+                            customerLastName.setText(lastname);
+                            String email  = documentSnapshot.getString("customersEmail");
+                            customerEmail.setText(email);
+                            String organization = documentSnapshot.getString("customersOrganization");
+                            customerOrganization.setText(organization);
+                            String population = documentSnapshot.getString("customersPopulation");
+                            customerPopulation.setText(population);
+                            String password = documentSnapshot.getString("customersPassword");
+                            customerPassword.setText(password);
+
+                        }
+                    }
+                });
+
     }
 }

@@ -36,7 +36,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/branch_name"
+                android:id="@+id/customerFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -68,7 +68,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/branch_address"
+                android:id="@+id/customerLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
