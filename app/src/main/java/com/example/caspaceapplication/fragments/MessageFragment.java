@@ -54,7 +54,7 @@ public class MessageFragment extends Fragment {
 
 
         profileImage = (CircleImageView) view.findViewById(R.id.profileImage);
-        customer_firstName = (TextView) view.findViewById(R.id.customer_firstName);
+        customer_firstName = (TextView) view.findViewById(R.id.branch_name);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());

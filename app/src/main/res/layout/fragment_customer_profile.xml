@@ -94,7 +94,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/customer_firstName"
+                    android:id="@+id/branch_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -105,7 +105,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/profile_FirstName"
+                    android:id="@+id/branchName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -126,7 +126,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/customer_lastName"
+                    android:id="@+id/branch_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -221,7 +221,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/customer_organization"
+                    android:id="@+id/owner_organization"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

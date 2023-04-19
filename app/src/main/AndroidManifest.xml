@@ -12,7 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
-
+        <activity
+            android:name=".OwnerEditSpaceProfile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OwnerEditProfile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".customer.MainActivity"
             android:exported="true">
@@ -26,18 +39,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.Front"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-
-        <!--ACCOUNT REGISTRATION MANIFESTS-->
-
+        </activity> <!-- ACCOUNT REGISTRATION MANIFESTS -->
         <activity
             android:name=".Owner.RegisterOwner"
             android:exported="false">
@@ -45,7 +53,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.RegisterCustomer"
             android:exported="false">
@@ -53,19 +60,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.FrontRegister"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-
-
-        <!--ACCOUNT LOGIN MANIFESTS-->
-
+        </activity> <!-- ACCOUNT LOGIN MANIFESTS -->
         <activity
             android:name=".customer.LoginCustomerTrial"
             android:exported="false">
@@ -73,7 +74,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.ForgotPassword"
             android:exported="false">
@@ -81,19 +81,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.LoginOwner"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-
-
-        <!--CUSTOMER MANIFESTS-->
-
+        </activity> <!-- CUSTOMER MANIFESTS -->
         <activity
             android:name=".customer.CustomerEditProfile"
             android:exported="false">
@@ -101,7 +95,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.HomepageCustomer"
             android:exported="false">
@@ -109,7 +102,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.NavigationHomepage"
             android:exported="false">
@@ -117,7 +109,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.Profile"
             android:exported="false">
@@ -125,18 +116,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".customer.Customer_Homepage_BottomNav"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-
-
-        <!--OWNER MANIFESTS-->
+        </activity> <!-- OWNER MANIFESTS -->
         <activity
             android:name=".Owner.OwnerHomepage"
             android:exported="false">
@@ -144,7 +130,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.Owner_OfficelayoutsRegistration"
             android:exported="false">
@@ -152,7 +137,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.Owner_OfficeLayouts"
             android:exported="false">
@@ -160,7 +144,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.Owner_OfficeLayoutDetail"
             android:exported="false">
@@ -168,7 +151,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.Owner_OfficeLayoutEditDetails"
             android:exported="false">
@@ -176,7 +158,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.Owner_ProDisc"
             android:exported="false">
@@ -184,7 +165,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Owner.RegisterOwner_SpaceBranch"
             android:exported="false">
@@ -192,16 +172,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <!-- <activity
+        <!--
+ <activity
      android:name=".EnspaceProfile"
      android:exported="false">
      <meta-data
          android:name="android.app.lib_name"
          android:value="" />
- </activity>-->
-
-
+ </activity>
+        -->
         <!--
 <activity
             android:name=".RegisterCustomerTrial"
@@ -211,7 +190,6 @@
                 android:value="" />
         </activity>
         -->
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
