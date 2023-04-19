@@ -18,7 +18,7 @@ public class CustomerEditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_edit_profile);
 
-        Button editButton = findViewById(R.id.editButton);
+        Button editButton = findViewById(R.id.customerEditProfilButton);
 
 
 
