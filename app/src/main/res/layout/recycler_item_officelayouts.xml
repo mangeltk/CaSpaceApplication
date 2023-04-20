@@ -7,45 +7,47 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:padding="8dp"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/card_border_bottom"
+            android:background="@drawable/buttonwhite_borderblack"
             android:orientation="vertical"
             android:weightSum="5.5">
 
             <LinearLayout
-                android:layout_width="385dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
                 android:orientation="horizontal"
-                android:weightSum="10">
+                >
 
                 <ImageView
                     android:id="@+id/recImage"
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/layout_sample" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+
+                    >
 
                     <TextView
                         android:id="@+id/recName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:paddingTop="15dp"
@@ -100,27 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
-                android:background="@drawable/card_border_bottom"
+                android:background="@drawable/buttonwhite_borderblack"
                 android:weightSum="2">
-
-                <LinearLayout
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-                    <Button
-                        android:id="@+id/editLayoutDetails_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/buttonwhite_borderblack"
-                        android:padding="5dp"
-                        android:text="Edit details"
-                        android:textColor="@color/black" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -129,6 +112,13 @@
                     android:layout_weight="1.2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"

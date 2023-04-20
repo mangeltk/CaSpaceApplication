@@ -109,11 +109,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         });//Navigation Bar------------------------------------------
 
-        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Query query = dataref.whereEqualTo("owner_id", user.getUid());
-        }*/
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         dataClassList =  new ArrayList<>();
@@ -152,7 +147,7 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         }layout_adapterClass.setSearchList(dataSearchList);
         if (dataSearchList.isEmpty()){
-            Toast.makeText(this, "ghorl not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Layout not found", Toast.LENGTH_SHORT).show();
             }
         }
 
