@@ -46,8 +46,8 @@ public class OwnerHomepage extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
-                            String firstname  = documentSnapshot.getString("ownerFirstname");
-                            username.setText(firstname);
+                            String name  = documentSnapshot.getString("ownerUsername");
+                            username.setText(name);
                         }
                     }
                 });
@@ -84,7 +84,7 @@ public class OwnerHomepage extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.menuHome:
                         Toast.makeText(OwnerHomepage.this, "Home", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(OwnerHomepage.this, OwnerHomepage.class));
+                        //startActivity(new Intent(OwnerHomepage.this, OwnerHomepage.class));
                         break;
                     case R.id.menuMessages:
                         Toast.makeText(OwnerHomepage.this, "Messages", Toast.LENGTH_SHORT).show();

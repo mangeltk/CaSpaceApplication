@@ -5,96 +5,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Owner.RegisterOwner_SpaceBranch"
-    android:background="@drawable/background_registerspacebranch">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/registerBranchImage_Imagebutton"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:backgroundTint="@color/orange14"
-            android:scaleType="fitCenter"
-            android:src="@drawable/uploadphoto"
-            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/registerBranchName_Edittext"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/branch_icon_white"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="Branch name"
-            android:padding="8dp"
-            android:paddingStart="10dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/owner_logoupperleft" />
 
-        <EditText
-            android:id="@+id/registerBranchAddress_Edittext"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/address_icon_white"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="Branch address"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="17dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:dropDownSelector="@color/black"
-            android:hint="Branch category"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@drawable/menu"
+            android:backgroundTint="@color/orange8"
+            >
 
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/header_background_forownerhomepage"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"
+                android:drawableStart="@drawable/ic_rename"
+                android:drawableTint="@color/black"
+                android:text="Register Coworking Space Branch"
+                android:textSize="20sp"
+                android:visibility="visible" />
 
+            <ImageButton
+                android:id="@+id/registerBranchImage_Imagebutton"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/uploadphoto" />
 
+            <EditText
+                android:id="@+id/registerBranchName_Edittext"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_textbox"
+                android:drawableLeft="@drawable/branch_icon_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Branch name"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
 
+            <EditText
+                android:id="@+id/registerBranchAddress_Edittext"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_textbox"
+                android:drawableLeft="@drawable/address_icon_white"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Branch address"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:drawableTint="@color/white"
+                android:text="Select category: "
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/registerButton_SpaceBranch"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/orange1"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="REGISTER BRANCH"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:cornerRadius="20dp" />
+            <Spinner
+                android:id="@+id/spinnerCategories"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:dropDownSelector="@color/black"
+                android:entries="@array/coworkingSpace_categories"
+                android:spinnerMode="dropdown"
+                android:fontFamily="@font/quicksand_medium"
+                />
 
+            <Button
+                android:id="@+id/registerButton_SpaceBranch"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/colorWhite"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="REGISTER BRANCH"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:cornerRadius="20dp"
+                android:layout_marginBottom="20dp"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
+
 
 </LinearLayout>
