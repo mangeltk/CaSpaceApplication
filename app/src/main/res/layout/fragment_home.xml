@@ -224,7 +224,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="510dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Recommended for you"
+        android:text="Recommended Coworking Spaces"
         android:textColor="@color/orange1"
         android:textSize="18dp"
         android:textStyle="bold" />
