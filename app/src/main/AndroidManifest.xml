@@ -13,7 +13,14 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".CustomerAllCoworkingSpace"
+            android:name=".CustomerCWS_Item"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".customer.CustomerAllCoworkingSpace"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
