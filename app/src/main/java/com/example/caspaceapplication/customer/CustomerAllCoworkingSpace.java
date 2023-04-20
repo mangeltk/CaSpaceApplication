@@ -38,7 +38,7 @@ public class CustomerAllCoworkingSpace extends AppCompatActivity {
         abcdImage.add(R.drawable.recotwo);
         abcdImage.add(R.drawable.recothree);
 
-        adapter = (Adapter) new CustomerCWSAdapter(this, abcd, abcdImage);
+//        adapter = (Adapter) new CustomerCWSAdapter(this, abcd, abcdImage);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
