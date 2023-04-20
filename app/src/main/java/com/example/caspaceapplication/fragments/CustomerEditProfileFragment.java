@@ -55,7 +55,7 @@ public class CustomerEditProfileFragment extends Fragment {
         customerDisplayEmail = view.findViewById(R.id.customerEditEmail);
         customerDisplayOrganization = view.findViewById(R.id.customerEditOrganization);
         customerDisplayPopulation=view.findViewById(R.id.customerEditPopulation);
-        customerDisplayPassword=view.findViewById(R.id.customerEditPassword);
+      /*  customerDisplayPassword=view.findViewById(R.id.customerEditPassword);*/
         customerEditProfileSave=view.findViewById(R.id.customerEditProfileSaveButton);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -75,8 +75,8 @@ public class CustomerEditProfileFragment extends Fragment {
                             customerDisplayOrganization.setText(organization);
                             String population = documentSnapshot.getString("customersPopulation");
                             customerDisplayPopulation.setText(population);
-                            String password = documentSnapshot.getString("customersPassword");
-                            customerDisplayPassword.setText(password);
+                            /*String password = documentSnapshot.getString("customersPassword");
+                            customerDisplayPassword.setText(password);*/
 
                         }
                     }
@@ -95,7 +95,7 @@ public class CustomerEditProfileFragment extends Fragment {
                         String newEmail = customerDisplayEmail.getText().toString();
                         String newOrganization = customerDisplayOrganization.getText().toString();
                         String newPopulation = customerDisplayPopulation.getText().toString();
-                        String newPassword = customerDisplayPassword.getText().toString();
+                       /* String newPassword = customerDisplayPassword.getText().toString();*/
 
                         Map<String,Object> updates = new HashMap<>();
                         updates.put("customersFirstName",newFirstName);
@@ -103,7 +103,7 @@ public class CustomerEditProfileFragment extends Fragment {
                         updates.put("customersEmail",newEmail);
                         updates.put("customersOrganization",newOrganization);
                         updates.put("customersPopulation",newPopulation);
-                        updates.put("customersPassword",newPassword);
+                        /*updates.put("customersPassword",newPassword);*/
                         fStore.collection("CustomerUserAccounts").document(customersIDNum).update(updates)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -111,6 +111,7 @@ public class CustomerEditProfileFragment extends Fragment {
                                         Toast.makeText(getActivity(),"Update Success",Toast.LENGTH_SHORT).show();
                                         getActivity().onBackPressed();
                                     }
+
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {

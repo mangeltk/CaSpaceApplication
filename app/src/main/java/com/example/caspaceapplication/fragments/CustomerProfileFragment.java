@@ -39,7 +39,7 @@ public class CustomerProfileFragment extends Fragment {
         customerEmail = view.findViewById(R.id.customerEmail);
         customerOrganization = view.findViewById(R.id.customerOrganization);
         customerPopulation=view.findViewById(R.id.customerPopulation);
-        customerPassword=view.findViewById(R.id.customerPassword);
+        /*customerPassword=view.findViewById(R.id.customerPassword);*/
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -93,8 +93,8 @@ public class CustomerProfileFragment extends Fragment {
                             customerOrganization.setText(organization);
                             String population = documentSnapshot.getString("customersPopulation");
                             customerPopulation.setText(population);
-                            String password = documentSnapshot.getString("customersPassword");
-                            customerPassword.setText(password);
+                         /*   String password = documentSnapshot.getString("customersPassword");
+                            customerPassword.setText(password);*/
 
                         }
                     }
