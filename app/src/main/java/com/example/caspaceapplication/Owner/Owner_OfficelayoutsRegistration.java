@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -114,6 +116,68 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity {
                 String layout_areasize = layoutAreasize.getText().toString().trim();
 
                 if (!(layout_name.isEmpty() && layout_peoplesize.isEmpty() && layout_areasize.isEmpty() && filepath != null)) {
+                    firebaseFirestore.collection("OfficeLayouts")
+                            .whereEqualTo("layoutName", layout_name)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        boolean isExistingLayout = false;
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            isExistingLayout = true;
+                                            break;
+                                        }
+                                        if (isExistingLayout) {
+                                            Toast.makeText(Owner_OfficelayoutsRegistration.this, "A layout with the same name already exists.", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            StorageReference path = firebaseStorage.getReference().child("LayoutImages").child(filepath.getLastPathSegment());
+                                            path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Uri> task) {
+                                                            Map<String, String> layout = new HashMap<>();
+                                                            layout.put("layoutImage", task.getResult().toString());
+                                                            layout.put("layoutName", layout_name);
+                                                            layout.put("layoutPeopleNum", layout_peoplesize);
+                                                            layout.put("layoutAreasize", layout_areasize);
+                                                            layout.put("owner_id", user.getUid());
+                                                            layout.put("layout_id", "");
+
+                                                            firebaseFirestore.collection("OfficeLayouts")
+                                                                    .add(layout)
+                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                        @Override
+                                                                        public void onSuccess(DocumentReference documentReference) {
+                                                                            FirebaseFirestore.getInstance().collection("OfficeLayouts")
+                                                                                    .document(documentReference.getId())
+                                                                                    .update("layout_id", documentReference.getId())
+                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(Void unused) {
+                                                                                            Toast.makeText(Owner_OfficelayoutsRegistration.this, "Layout saved!", Toast.LENGTH_SHORT).show();
+                                                                                        }
+                                                                                    });
+                                                                            startActivity(new Intent(Owner_OfficelayoutsRegistration.this, Owner_OfficeLayouts.class));
+                                                                            Toast.makeText(Owner_OfficelayoutsRegistration.this, "Layout saved!", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        Toast.makeText(Owner_OfficelayoutsRegistration.this, "Error checking for existing layouts.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+                /*if (!(layout_name.isEmpty() && layout_peoplesize.isEmpty() && layout_areasize.isEmpty() && filepath != null)) {
                     StorageReference path = firebaseStorage.getReference().child("LayoutImages").child(filepath.getLastPathSegment());
                     path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -153,6 +217,7 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity {
                         }
                     });
 
+                }*/
                 }
             }
         });

@@ -218,7 +218,23 @@ public class Owner_ProDisc extends AppCompatActivity {
     }
 
     public void getProdiscList(){
-        firebaseFirestore.collection("OwnerPublishedPromotions").get()
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        firebaseFirestore.collection("OwnerPublishedPromotions")
+                .whereEqualTo("owner_id", user.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            OwnerProDisc_ModelClass modelClass = documentSnapshot.toObject(OwnerProDisc_ModelClass.class);
+                            dataClassList.add(modelClass);
+                        }
+                        prodisc_adapterClass.notifyDataSetChanged();
+                    }
+                });
+
+        /*firebaseFirestore.collection("OwnerPublishedPromotions").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -230,7 +246,7 @@ public class Owner_ProDisc extends AppCompatActivity {
                         prodisc_adapterClass.notifyDataSetChanged();
 
                     }
-                });
+                });*/
     }
 
     @Override

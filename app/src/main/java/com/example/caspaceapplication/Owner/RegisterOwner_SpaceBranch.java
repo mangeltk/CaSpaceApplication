@@ -72,6 +72,17 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             }
         });
 
+        registerButton_SpaceBranch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String namebranch = branchName.getText().toString().trim();
+                String addressBranch = branchAdrress.getText().toString().trim();
+                String selectedCategory = categorySpinner.getSelectedItem().toString();
+                registerBranch(namebranch, addressBranch, selectedCategory);
+            }
+        });
+
+
     }
 
     @Override
@@ -83,7 +94,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             branch_image.setImageURI(filepath);
         }
 
-        registerButton_SpaceBranch.setOnClickListener(new View.OnClickListener() {
+       /* registerButton_SpaceBranch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -92,7 +103,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                 String selectedCategory = categorySpinner.getSelectedItem().toString();
 
                 if (!(namebranch.isEmpty() && addressBranch.isEmpty() && filepath!=null)){
-
                     firebaseFirestore.collection("CospaceBranches")
                             .whereEqualTo("cospaceName", namebranch)
                             .get()
@@ -142,47 +152,71 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                     }
                                 }
                             });
-
-                    /*StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
-                    path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    Map<String,String> branch = new HashMap<>();
-                                    branch.put("cospaceImage",task.getResult().toString());
-                                    branch.put("cospaceName", namebranch);
-                                    branch.put("cospaceAddress", addressBranch);
-                                    branch.put("cospaceCategory", selectedCategory);
-                                    branch.put("owner_id", user.getUid());
-                                    branch.put("cospaceId", "");
-
-                                    firebaseFirestore.collection("CospaceBranches")
-                                            .add(branch)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-
-                                                    FirebaseFirestore.getInstance().collection("CospaceBranches")
-                                                            .document(documentReference.getId())
-                                                            .update("cospaceId", documentReference.getId())
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void unused) {
-                                                                    Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                    startActivity(new Intent(RegisterOwner_SpaceBranch.this,OwnerHomepage.class));
-                                            }
-                                    });
-                                }
-                            });
-                        }
-                    });*/
-
                 }
             }
-        });
+        });*/
+    }
+
+    private void registerBranch(String namebranch, String addressBranch, String selectedCategory){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(filepath == null || namebranch.isEmpty() || addressBranch.isEmpty()) {
+            Toast.makeText(RegisterOwner_SpaceBranch.this, "Please fill all fields and choose an image.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+            // Check for existing branch name based owner_id:current user
+            firebaseFirestore.collection("CospaceBranches")
+                    .whereEqualTo("cospaceName", namebranch)
+                    .whereEqualTo("owner_id", user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                Toast.makeText(RegisterOwner_SpaceBranch.this, "A branch with this name already exists.", Toast.LENGTH_SHORT).show();
+                            } else{
+                                progressDialog.setMessage("Registering branch...");
+                                progressDialog.show();
+                                StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
+                                path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                Map<String,String> branch = new HashMap<>();
+                                                branch.put("cospaceImage",task.getResult().toString());
+                                                branch.put("cospaceName", namebranch);
+                                                branch.put("cospaceCategory", selectedCategory);
+                                                branch.put("cospaceAddress", addressBranch);
+                                                branch.put("owner_id", user.getUid());
+                                                branch.put("cospaceId", "");
+
+                                                firebaseFirestore.collection("CospaceBranches")
+                                                        .add(branch)
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                FirebaseFirestore.getInstance().collection("CospaceBranches")
+                                                                        .document(documentReference.getId())
+                                                                        .update("cospaceId", documentReference.getId())
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void unused) {
+                                                                                Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        });
+                                                                progressDialog.dismiss();
+                                                                startActivity(new Intent(RegisterOwner_SpaceBranch.this,OwnerHomepage.class));
+                                                            }
+                                                        });
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+                        }
+                    });
     }
 }
