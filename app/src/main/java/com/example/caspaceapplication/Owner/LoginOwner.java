@@ -59,7 +59,7 @@ public class LoginOwner extends AppCompatActivity {
         rememberMeCheckbox = findViewById(R.id.rememberme_ownerloginCheckbox);
         loginButton = findViewById(R.id.loginButton_owner);
 
-        //setRememberMeCheckbox();//remember me checkbox
+        setRememberMeCheckbox();//remember me checkbox
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +80,6 @@ public class LoginOwner extends AppCompatActivity {
                     return;
                 }
 
-               /* if (rememberMeCheckbox.isChecked()) {
-                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(KEY_EMAIL, email);
-                    editor.putString(KEY_PASSWORD, password);
-                    editor.apply();
-                }*/
-
                 if (rememberMeCheckbox.isChecked()) {
                     // If the remember me checkbox is checked, save the user's email and password in shared preferences
                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -95,6 +87,7 @@ public class LoginOwner extends AppCompatActivity {
                     editor.putString(KEY_EMAIL, email);
                     editor.putString(KEY_PASSWORD, password);
                     editor.apply();
+                    Toast.makeText(LoginOwner.this, "Credentials saved!", Toast.LENGTH_SHORT).show();
                 } else {
                     // If the remember me checkbox is not checked, clear the email and password saved in shared preferences
                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -104,7 +97,6 @@ public class LoginOwner extends AppCompatActivity {
                     editor.apply();
                 }
 
-
                 firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
@@ -113,51 +105,7 @@ public class LoginOwner extends AppCompatActivity {
                                 if (user.isEmailVerified()) {
                                     progressDialog.setMessage("Logging in...");
                                     progressDialog.show();
-
-                                    /*// Save the user's email and password in shared preferences
-                                    sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString(KEY_EMAIL, email);
-                                    editor.putString(KEY_PASSWORD, password);
-                                    editor.apply();*/
-
-                                    /*if (rememberMeCheckbox.isChecked()) {
-                                        // Save the user's email and password in shared preferences
-                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString(KEY_EMAIL, email);
-                                        editor.putString(KEY_PASSWORD, password);
-                                        editor.apply();
-                                    } else {
-                                        // Clear the user's email and password from shared preferences
-                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.clear();
-                                        editor.apply();
-                                    }
-*/
-
-                                    // Check if the user has registered their store information before
-                                    CollectionReference branchesRef = firebaseFirestore.collection("CospaceBranches");
-                                    Query queryBranch = branchesRef.whereEqualTo("owner_id", user.getUid());
-
-                                    queryBranch.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                QuerySnapshot document = task.getResult();
-                                                if (document!=null && !document.isEmpty()){
-                                                    // Redirect to homepage
-                                                    startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
-                                                } else{
-                                                    startActivity(new Intent(LoginOwner.this, RegisterOwner_SpaceBranch.class));
-                                                }
-                                            }else{
-                                                Log.d(TAG, "Error getting documents: ", task.getException());
-                                            }
-                                            progressDialog.cancel();
-                                        }
-                                    });
+                                    checkExistingBranch();
                                 } else {
                                     user.sendEmailVerification()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -185,55 +133,67 @@ public class LoginOwner extends AppCompatActivity {
                         });
             }
         });
-
-
-        setRememberMeCheckbox();
     }
 
 
+    public void checkExistingBranch(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // Check if the user has registered their store information before
+        CollectionReference branchesRef = firebaseFirestore.collection("CospaceBranches");
+        Query queryBranch = branchesRef.whereEqualTo("owner_id", user.getUid());
+        queryBranch.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot document = task.getResult();
+                    if (document!=null && !document.isEmpty()){
+                        // Redirect to homepage
+                        startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
+                    } else{
+                        startActivity(new Intent(LoginOwner.this, RegisterOwner_SpaceBranch.class));
+                    }
+                }else{
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+                progressDialog.cancel();
+            }
+        });
+    }
+
 
     public void setRememberMeCheckbox(){
-        /*SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String email = sharedPreferences.getString(KEY_EMAIL, "");
-        String password = sharedPreferences.getString(KEY_PASSWORD, "");
-        if (!email.isEmpty() && !password.isEmpty()){
-            progressDialog.setMessage("Logging in...");
-            progressDialog.show();
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(LoginOwner.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
-                            progressDialog.cancel();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.cancel();
-                            Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
-                        }
-                    });
-        }*/
-
         // Get the email and password saved in shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String email = sharedPreferences.getString(KEY_EMAIL, "");
         String password = sharedPreferences.getString(KEY_PASSWORD, "");
 
         if (!email.isEmpty() && !password.isEmpty()){
-            // If the email and password are not empty, check the remember me checkbox and log the user in
-            rememberMeCheckbox.setChecked(true);
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
-            firebaseAuth.signInWithEmailAndPassword(email, password)
+
+            firebaseAuth.signInWithEmailAndPassword(email,password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(LoginOwner.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
-                            progressDialog.cancel();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user.isEmailVerified()) {
+                                checkExistingBranch();
+                            } else {
+                                user.sendEmailVerification()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -243,6 +203,7 @@ public class LoginOwner extends AppCompatActivity {
                             startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
                         }
                     });
+
         }
     }
 }

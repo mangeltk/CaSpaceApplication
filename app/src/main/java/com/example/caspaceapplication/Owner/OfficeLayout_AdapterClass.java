@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
         holder.recPeople.setText(dataClassList.get(position).getLayoutPeopleNum());
         holder.recAreaSize.setText(dataClassList.get(position).getLayoutAreasize());
 
-        holder.recCard.setOnClickListener(new View.OnClickListener() {
+        holder.recButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Owner_OfficeLayoutDetail.class);
@@ -73,6 +74,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     ImageView recImage;
     TextView recName, recPeople, recAreaSize;
     CardView recCard;
+    Button recButton;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -81,5 +83,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recPeople = itemView.findViewById(R.id.recPeopleAnswer);
         recAreaSize = itemView.findViewById(R.id.recAreasizeAnswer);
         recCard = itemView.findViewById(R.id.cardView);
+        recButton = itemView.findViewById(R.id.recButton_OfficeLayout);
+
     }
 }

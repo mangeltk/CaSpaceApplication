@@ -9,9 +9,8 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:padding="8dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
 
@@ -31,8 +30,8 @@
 
                 <ImageView
                     android:id="@+id/recImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="5dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
@@ -103,21 +102,22 @@
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
                 android:background="@drawable/buttonwhite_borderblack"
-                android:weightSum="2">
+                >
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_weight="1.2"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-
+                        android:text="Edit details"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/recButton_OfficeLayout"
                         />
 
                     <TextView
@@ -125,6 +125,7 @@
                         android:layout_height="wrap_content"
                         android:text="Availability:"
                         android:textColor="@color/black"
+                        android:layout_marginStart="10dp"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -133,14 +134,9 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="5dp"
-                        android:src="@drawable/icons_checkavailable" />
+                        android:src="@drawable/icons_checkavailable"
+                        />
 
-                    <ImageView
-                        android:id="@+id/layoutNotAvailable"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:padding="5dp"
-                        android:src="@drawable/icon_unavailble" />
 
                 </LinearLayout>
 

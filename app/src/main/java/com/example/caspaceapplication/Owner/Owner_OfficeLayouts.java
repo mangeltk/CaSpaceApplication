@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,9 +43,12 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
     FloatingActionButton addalayoutButton;
 
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
     /*FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;*/
+
 
 
     @Override
@@ -54,8 +56,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_office_layouts);
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
@@ -119,7 +119,10 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
     }
 
     public void getOfficeLayoutList() {
-        firebaseFirestore.collection("OfficeLayouts").get()
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        firebaseFirestore.collection("OfficeLayouts")
+                .whereEqualTo("owner_id",currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -129,11 +132,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
                             dataClassList.add(modelClass);
                         }
                         layout_adapterClass.notifyDataSetChanged();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle error
                     }
                 });
     }
