@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,9 +51,11 @@ public class ProDisc_AdapterClass extends RecyclerView.Adapter<ProDiscViewHolder
                 View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.prodisc_description_popup, null);
                 ImageView pdImageDetailed;
                 TextView pdTitleDetailed, pdDescriptionDetailed;
+                AppCompatButton deleteButtonProdiscDetailPopup;
                 pdImageDetailed = dialogView.findViewById(R.id.prodiscDetailImage_imageButton_popup);
                 pdTitleDetailed = dialogView.findViewById(R.id.popup_promotionTitleDetailed);
                 pdDescriptionDetailed = dialogView.findViewById(R.id.popup_promotionDescriptionDetailed);
+                deleteButtonProdiscDetailPopup = dialogView.findViewById(R.id.deleteButton_ProdiscDetailPopup);
 
                 String imageUri = String.valueOf(dataClassList.get(clickedPosition).getPromotionImage());
                 if (imageUri != null && !imageUri.isEmpty()) {
@@ -63,6 +66,8 @@ public class ProDisc_AdapterClass extends RecyclerView.Adapter<ProDiscViewHolder
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                //todo: delete button on dialog
             }
         });
 
@@ -74,11 +79,12 @@ public class ProDisc_AdapterClass extends RecyclerView.Adapter<ProDiscViewHolder
     }
 }
 
-class ProDiscViewHolder extends RecyclerView.ViewHolder{
+class ProDiscViewHolder<Button> extends RecyclerView.ViewHolder{
 
     ImageView recPD_Image;
     TextView recPD_Title;
     CardView recPD_Cardview;
+    //AppCompatButton deleteButtonProdiscDetailPopup;
 
     public ProDiscViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -86,6 +92,8 @@ class ProDiscViewHolder extends RecyclerView.ViewHolder{
         recPD_Image = itemView.findViewById(R.id.recPromotionImage);
         recPD_Title = itemView.findViewById(R.id.recPromotionTitle);
         recPD_Cardview = itemView.findViewById(R.id.recRDCardView);
+
+        //deleteButtonProdiscDetailPopup = itemView.findViewById(R.id.deleteButton_ProdiscDetailPopup);
 
     }
 }

@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
@@ -54,14 +54,13 @@ public class Owner_ProDisc extends AppCompatActivity {
     ImageView prodiscImage;
     Uri filepath = null;
     private static final int GALLERY_CODE = 1;
-    Button cancel, add;
+    Button cancel, add, deleteButtonProdiscDetailPopup;
     BottomNavigationView navigationView;
     FloatingActionButton floatingActionButton;
 
     RecyclerView prodiscRecyclerView;
     List<OwnerProDisc_ModelClass> dataClassList;
     ProDisc_AdapterClass prodisc_adapterClass;
-    OwnerProDisc_ModelClass prodisc_dataClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +74,9 @@ public class Owner_ProDisc extends AppCompatActivity {
         dataClassList = new ArrayList<>();
 
         prodiscRecyclerView.setHasFixedSize(true);
-        prodiscRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        prodiscRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         dataClassList = new ArrayList<>();
-        prodisc_adapterClass = new ProDisc_AdapterClass(this,dataClassList);
+        prodisc_adapterClass = new ProDisc_AdapterClass(this, dataClassList);
         prodiscRecyclerView.setAdapter(prodisc_adapterClass);
 
         getProdiscList();
@@ -91,7 +90,6 @@ public class Owner_ProDisc extends AppCompatActivity {
                 createNewDialog();
             }
         });
-
 
     }
 
@@ -147,10 +145,7 @@ public class Owner_ProDisc extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo: set code on how to add data to firestore
-
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
                 String pdTitle = prodiscTitle.getText().toString().trim();
                 String pdDescription = prodiscDescription.getText().toString().trim();
 
@@ -203,8 +198,6 @@ public class Owner_ProDisc extends AppCompatActivity {
                                 }
                             });
                 }
-
-
             }
         });
 
@@ -218,8 +211,10 @@ public class Owner_ProDisc extends AppCompatActivity {
     }
 
     public void getProdiscList(){
-        firebaseFirestore.collection("OwnerPublishedPromotions").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore.collection("OwnerPublishedPromotions")
+                .whereEqualTo("owner_id", user.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
@@ -228,7 +223,6 @@ public class Owner_ProDisc extends AppCompatActivity {
                             dataClassList.add(modelClass);
                         }
                         prodisc_adapterClass.notifyDataSetChanged();
-
                     }
                 });
     }
