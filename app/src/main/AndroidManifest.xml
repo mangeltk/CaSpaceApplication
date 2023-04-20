@@ -95,7 +95,7 @@
         <!--CUSTOMER MANIFESTS-->
 
         <activity
-            android:name=".customer.CustomerEditProfile"
+            android:name=".customer.CustomerViewProfile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

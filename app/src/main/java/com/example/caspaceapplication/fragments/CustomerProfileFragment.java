@@ -3,8 +3,10 @@ package com.example.caspaceapplication.fragments;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -58,22 +60,23 @@ public class CustomerProfileFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View viewPopupwindow = inflater.inflate(R.layout.customereditprofilepopup, null);
-                customerFirstName =view.findViewById(R.id.customerFirstname);
-                fAuth = FirebaseAuth.getInstance();
-                fStore = FirebaseFirestore.getInstance();
-                customersIDNum = fAuth.getCurrentUser().getUid();
+                Intent intent = new Intent(getActivity(),CustomerEditProfileFragment.class) ;
+               /* View viewPopupwindow = inflater.inflate(R.layout.fragment_customer_edit_profile, null);
                 PopupWindow popupWindow = new PopupWindow(viewPopupwindow, 1100, 1500, true);
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);*/
+                openFragmentB();
 
             }
         });
 
     }
-
+    private void openFragmentB() {
+        CustomerEditProfileFragment fragmentB = new CustomerEditProfileFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.customerViewProfile, fragmentB);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     public void retrieveMethod(){
         Task<DocumentSnapshot> documentReference = fStore.collection("CustomerUserAccounts").document(customersIDNum)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -98,4 +101,5 @@ public class CustomerProfileFragment extends Fragment {
                 });
 
     }
+
 }
