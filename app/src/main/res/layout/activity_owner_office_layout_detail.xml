@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/homepage"
     android:orientation="vertical"
-    tools:context=".Owner.Owner_OfficeLayoutDetail">
+    tools:context=".Owner.OfficeLayouts.Owner_OfficeLayoutDetail">
 
 
     <LinearLayout

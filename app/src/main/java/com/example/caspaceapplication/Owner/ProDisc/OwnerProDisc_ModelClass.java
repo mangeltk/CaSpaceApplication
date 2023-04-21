@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.ProDisc;
 
 public class OwnerProDisc_ModelClass {
 

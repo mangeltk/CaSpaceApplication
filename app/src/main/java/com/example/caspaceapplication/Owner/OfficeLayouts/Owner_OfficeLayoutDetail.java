@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -95,8 +95,6 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
                                 Log.e("Firestore Update", "Error getting document: ", task.getException());
                             }
                         });
-
-
             }
 
             @Override

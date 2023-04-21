@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
 import static android.content.ContentValues.TAG;
 
@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,18 +37,11 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
     RecyclerView recyclerView;
     List<OfficeLayout_DataClass> dataClassList;
     OfficeLayout_AdapterClass layout_adapterClass;
-    OfficeLayout_DataClass layout_dataClass;
     SearchView searchView;
-
-    //Button addalayoutButton;
     FloatingActionButton addalayoutButton;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-    /*FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    FirebaseStorage firebaseStorage;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +66,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchList(newText);

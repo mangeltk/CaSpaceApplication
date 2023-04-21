@@ -11,6 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.Owner.AmenitiesOffered.Owner_AmenitiesOffered;
+import com.example.caspaceapplication.Owner.BookingTransactions.Owner_BookingTransactions;
+import com.example.caspaceapplication.Owner.OfficeLayouts.Owner_OfficeLayouts;
+import com.example.caspaceapplication.Owner.ProDisc.Owner_ProDisc;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,7 +57,6 @@ public class OwnerHomepage extends AppCompatActivity {
                 });
 
 
-
         officeLayouts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,12 +71,22 @@ public class OwnerHomepage extends AppCompatActivity {
             }
         });
 
+        AmenitiesOffered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OwnerHomepage.this, Owner_AmenitiesOffered.class));
+            }
+        });
 
+        bookingTransactions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OwnerHomepage.this, Owner_BookingTransactions.class));
+            }
+        });
 
 
     }
-
-
 
     public void useBottomNavigationMenu(){
         //Navigation Bar------------------------------------------

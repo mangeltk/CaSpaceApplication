@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Owner.Owner_ProDisc"
+    tools:context=".Owner.ProDisc.Owner_ProDisc"
     android:background="@color/orange14"
     android:orientation="vertical">
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/orange14"
     android:orientation="vertical"
-    tools:context=".Owner.Owner_OfficelayoutsRegistration">
+    tools:context=".Owner.OfficeLayouts.Owner_OfficelayoutsRegistration">
 
     <LinearLayout
         android:layout_width="match_parent"
