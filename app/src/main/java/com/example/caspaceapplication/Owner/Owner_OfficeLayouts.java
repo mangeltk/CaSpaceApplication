@@ -49,20 +49,14 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;*/
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_office_layouts);
 
-
-        recyclerView = findViewById(R.id.recyclerView);
-        searchView = findViewById(R.id.searchView);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        dataClassList = new ArrayList<>();
-        addalayoutButton = findViewById(R.id.addFloatButton);
 
+        addalayoutButton = findViewById(R.id.addFloatButton);
         addalayoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +64,8 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         });
 
+        //Search view bar------------------------------------------
+        searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -107,11 +103,13 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
                 }
                 return true;
             }
-        });//Navigation Bar------------------------------------------
+        });
 
+        //Recyclerview------------------------------------------
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        dataClassList =  new ArrayList<>();
+        dataClassList = new ArrayList<>();
         layout_adapterClass = new OfficeLayout_AdapterClass(this, dataClassList);
         recyclerView.setAdapter(layout_adapterClass);
 
@@ -120,7 +118,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
 
     public void getOfficeLayoutList() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
         firebaseFirestore.collection("OfficeLayouts")
                 .whereEqualTo("owner_id",currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

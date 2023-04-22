@@ -41,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-
                     >
 
                     <TextView
@@ -54,7 +53,8 @@
                         android:text="Name"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/quicksand_medium"/>
 
                     <TextView
                         android:id="@+id/noofpeople"
@@ -63,17 +63,18 @@
                         android:text="No of people:"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/quicksand_medium"/>
 
                     <TextView
                         android:id="@+id/recPeopleAnswer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"
-                        android:text="No of people answer"
+                        android:text="-----------"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="italic" />
+                        android:fontFamily="@font/quicksand_medium"/>
 
                     <TextView
                         android:id="@+id/areasize"
@@ -82,16 +83,18 @@
                         android:text="Area size:"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/quicksand_medium"/>
 
                     <TextView
                         android:id="@+id/recAreasizeAnswer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Area size answer"
+                        android:text="-----------"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="italic" />
+                        android:fontFamily="@font/quicksand_medium"
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -107,17 +110,25 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:text="Edit details"
+                        android:padding="5dp"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/recButton_OfficeLayout"
+                        android:background="@drawable/buttonwhite_borderblack"
+                        android:backgroundTint="@color/orange12"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:textStyle="bold"
+                        android:drawableStart="@drawable/ic_rename"
+                        android:drawableTint="@color/black"
                         />
 
                     <TextView
@@ -127,16 +138,20 @@
                         android:textColor="@color/black"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/quicksand_medium"/>
 
-                    <ImageView
-                        android:id="@+id/layoutAvailable"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:padding="5dp"
-                        android:src="@drawable/icons_checkavailable"
-                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not/available"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="10dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
 
+                        android:id="@+id/recAvailabilityStatus"
+                        android:fontFamily="@font/quicksand_medium"/>
 
                 </LinearLayout>
 

@@ -48,6 +48,7 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
         holder.recName.setText(dataClassList.get(position).getLayoutName());
         holder.recPeople.setText(dataClassList.get(position).getLayoutPeopleNum());
         holder.recAreaSize.setText(dataClassList.get(position).getLayoutAreasize());
+        holder.recAvailability.setText(dataClassList.get(position).getLayoutAvailability());
 
         holder.recButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +58,9 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
                 intent.putExtra("layoutName", dataClassList.get(holder.getAdapterPosition()).getLayoutName());
                 intent.putExtra("layoutPeopleNum", dataClassList.get(holder.getAdapterPosition()).getLayoutPeopleNum());
                 intent.putExtra("layoutAreasize", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
+                intent.putExtra("layoutType", dataClassList.get(holder.getAdapterPosition()).getLayoutType());
+                intent.putExtra("layoutPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutPrice());
+                intent.putExtra("layoutAvailability", dataClassList.get(holder.getAdapterPosition()).getLayoutAvailability());
                 context.startActivity(intent);
             }
         });
@@ -72,7 +76,7 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
 class MyViewHolder extends RecyclerView.ViewHolder{
 
     ImageView recImage;
-    TextView recName, recPeople, recAreaSize;
+    TextView recName, recPeople, recAreaSize, recAvailability;
     CardView recCard;
     Button recButton;
 
@@ -82,6 +86,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recName = itemView.findViewById(R.id.recName);
         recPeople = itemView.findViewById(R.id.recPeopleAnswer);
         recAreaSize = itemView.findViewById(R.id.recAreasizeAnswer);
+        recAvailability = itemView.findViewById(R.id.recAvailabilityStatus);
         recCard = itemView.findViewById(R.id.cardView);
         recButton = itemView.findViewById(R.id.recButton_OfficeLayout);
 

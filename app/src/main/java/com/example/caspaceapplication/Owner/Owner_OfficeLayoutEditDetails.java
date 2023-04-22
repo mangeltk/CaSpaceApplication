@@ -31,14 +31,13 @@ import java.util.Map;
 
 public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
 
-    TextView EDITdetailPeople, EDITdetailName, EDITdetailAreasize;
+    TextView EDITdetailPeople, EDITdetailName, EDITdetailAreasize, EDITdetailType, EDITdetailPrice;
     ImageView EDITdetailImage;
     Button editDetailsButton;
     Uri filepath = null;
     private static final int GALLERY_CODE = 1;
 
     FirebaseAuth firebaseAuth;
-    //FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -60,15 +59,8 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
         EDITdetailName = findViewById(R.id.EDITlayoutName_editText);
         EDITdetailPeople = findViewById(R.id.EDITlayoutPeopleSize_editText);
         EDITdetailAreasize = findViewById(R.id.EDITlayoutAreaSize_editText);
-
-        //TODO: EDIT LAYOUT DETAILS - add lacking data:
-        // space id - done auto from firestore collection UID
-        // space name - done
-        // space type
-        // space price
-        // space capacity - done
-        // space amenities
-        // space status - not yet
+        EDITdetailType = findViewById(R.id.EDITlayoutType_editText);
+        EDITdetailPrice = findViewById(R.id.EDITlayoutPrice_editText);
 
         EDITdetailImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +78,10 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
             EDITdetailName.setText(bundle.getString("layoutName"));
             EDITdetailPeople.setText(bundle.getString("layoutPeopleNum"));
             EDITdetailAreasize.setText(bundle.getString("layoutAreasize"));
-
+            EDITdetailType.setText(bundle.getString("layoutType"));
+            EDITdetailPrice.setText(bundle.getString("layoutPrice"));
         }
-        //edit details TODO: Layout Name cannot be edit optional to fix
+
         editDetailsButton = findViewById(R.id.editLayout_Button);
         editDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +90,8 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
                 String EDITlayout_name = EDITdetailName.getText().toString().trim();
                 String EDITlayout_peoplesize = EDITdetailPeople.getText().toString().trim();
                 String EDITlayout_areasize = EDITdetailAreasize.getText().toString().trim();
+                String EDITlayout_type = EDITdetailType.getText().toString().trim();
+                String EDITlayout_price= EDITdetailPrice.getText().toString().trim();
 
                 firebaseFirestore.collection("OfficeLayouts")
                         .whereEqualTo("layout_id", EDITlayout_name)
@@ -113,8 +108,9 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
                                     updates.put("layoutName", EDITlayout_name);
                                     updates.put("layoutPeopleNum", EDITlayout_peoplesize);
                                     updates.put("layoutAreasize", EDITlayout_areasize);
+                                    updates.put("layoutType", EDITlayout_type);
+                                    updates.put("layoutPrice", EDITlayout_price);
 
-                                    // Update the image only if a new image is selected
                                     if (filepath != null){
                                         firebaseStorage.getReference().child("LayoutImages").child(documentId).putFile(filepath)
                                                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

@@ -112,6 +112,43 @@
                 android:textColorHint="@color/white"
                 android:textSize="17dp" />
 
+            <EditText
+                android:id="@+id/layoutLayoutType_editText"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_edittext_orange"
+                android:drawableLeft="@drawable/ic_baseline_bookmark_added_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Layout Type"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/layoutLayoutPrice_editText"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_edittext_orange"
+                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:hint="Layout Price"
+                android:padding="8dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/orange"
+                android:textColorHint="@color/white"
+                android:textSize="17dp" />
+
 
             <Button
                 android:id="@+id/saveLayout_Button"
