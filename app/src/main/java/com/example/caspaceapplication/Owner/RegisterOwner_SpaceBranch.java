@@ -94,67 +94,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             branch_image.setImageURI(filepath);
         }
 
-       /* registerButton_SpaceBranch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String namebranch = branchName.getText().toString().trim();
-                String addressBranch = branchAdrress.getText().toString().trim();
-                String selectedCategory = categorySpinner.getSelectedItem().toString();
-
-                if (!(namebranch.isEmpty() && addressBranch.isEmpty() && filepath!=null)){
-                    firebaseFirestore.collection("CospaceBranches")
-                            .whereEqualTo("cospaceName", namebranch)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                        Toast.makeText(RegisterOwner_SpaceBranch.this, "A branch with this name already exists", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
-                                        path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Uri> task) {
-                                                        Map<String,String> branch = new HashMap<>();
-                                                        branch.put("cospaceImage",task.getResult().toString());
-                                                        branch.put("cospaceName", namebranch);
-                                                        branch.put("cospaceCategory", selectedCategory);
-                                                        branch.put("cospaceAddress", addressBranch);
-                                                        branch.put("owner_id", user.getUid());
-                                                        branch.put("cospaceId", "");
-
-                                                        firebaseFirestore.collection("CospaceBranches")
-                                                                .add(branch)
-                                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                                    @Override
-                                                                    public void onSuccess(DocumentReference documentReference) {
-                                                                        FirebaseFirestore.getInstance().collection("CospaceBranches")
-                                                                                .document(documentReference.getId())
-                                                                                .update("cospaceId", documentReference.getId())
-                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                    @Override
-                                                                                    public void onSuccess(Void unused) {
-                                                                                        Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
-                                                                                    }
-                                                                                });
-                                                                        startActivity(new Intent(RegisterOwner_SpaceBranch.this,OwnerHomepage.class));
-                                                                    }
-                                                                });
-
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                }
-            }
-        });*/
     }
 
     private void registerBranch(String namebranch, String addressBranch, String selectedCategory){

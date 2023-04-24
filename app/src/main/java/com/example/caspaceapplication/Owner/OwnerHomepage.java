@@ -39,8 +39,8 @@ public class OwnerHomepage extends AppCompatActivity {
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
         ImageView promotionsAndDiscounts = findViewById(R.id.proAndDisc_Imageview);
-        ImageView bookingTransactions = findViewById(R.id.bookingTransactions_Imageview);//todo:create layout and activity for booking transactions
-        ImageView AmenitiesOffered = findViewById(R.id.AmenitiesOffered_Imageview); //todo: create layout and activity for amenities offered
+        ImageView bookingTransactions = findViewById(R.id.bookingTransactions_Imageview);
+        ImageView AmenitiesOffered = findViewById(R.id.AmenitiesOffered_Imageview);
         TextView username = findViewById(R.id.textUsername);
 
         FirebaseFirestore.getInstance().collection("OwnerUserAccounts")
@@ -55,7 +55,6 @@ public class OwnerHomepage extends AppCompatActivity {
                         }
                     }
                 });
-
 
         officeLayouts.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,6 @@ public class Owner_BookingTransactions extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +44,6 @@ public class Owner_BookingTransactions extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayoutBTO);
         viewPager = findViewById(R.id.viewPagerBTO);
-
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

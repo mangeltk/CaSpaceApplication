@@ -136,6 +136,7 @@ public class Owner_ProDisc extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_CODE);
             }
         });
+
         cancel = (Button) prodiscPopupview.findViewById(R.id.prodisc_cancelButton);
         add = (Button) prodiscPopupview.findViewById(R.id.prodisc_addButton);
 

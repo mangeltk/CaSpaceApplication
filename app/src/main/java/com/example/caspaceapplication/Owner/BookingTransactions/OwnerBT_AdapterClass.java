@@ -156,6 +156,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "Booking status updated successfully");
+
                                     }
                                 });
                     }
@@ -180,12 +181,13 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            recCardViewBT = itemView.findViewById(R.id.cardViewBT);
-
            /* recDecline = itemView.findViewById(R.id.declineButton_BTDCardview);
             recAccept = itemView.findViewById(R.id.acceptButton_BTDCardview);
             recComplete = itemView.findViewById(R.id.completeButton_BTDCardview);
             recCancel = itemView.findViewById(R.id.cancelButton_BTDCardview);*/
+
+            recAccept = itemView.findViewById(R.id.acceptButton_BTDCardview);
+
 
             recbookingID = itemView.findViewById(R.id.bookingID_BTCardview);
             recCustomerName = itemView.findViewById(R.id.customerName_BTCardview);
@@ -197,5 +199,10 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
             recSeeMoreDetails = itemView.findViewById(R.id.seeMoreDetails_TextviewCardview);
 
         }
+    }
+
+    public void refreshData(List<OwnerBT_ModelClass> bookingList) {
+        this.bookingList = bookingList;
+        notifyDataSetChanged();
     }
 }
