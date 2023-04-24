@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32" >
         <activity
-            android:name=".Owner_BottomNavigationBar"
+            android:name=".Owner.Owner_BottomNavigationBar"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
