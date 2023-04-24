@@ -89,7 +89,6 @@ public class LoginCustomerTrial extends AppCompatActivity {
                     editor.apply();
                 }
 
-
                 firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
@@ -166,14 +165,15 @@ public class LoginCustomerTrial extends AppCompatActivity {
 
                             }
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
+                    });
+                    /*.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.cancel();
                             Toast.makeText(LoginCustomerTrial.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginCustomerTrial.this, RegisterCustomer.class));
                         }
-                    });
+                    });*/
         }
     }
 }

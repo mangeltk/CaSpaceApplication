@@ -162,6 +162,5 @@ class ProDiscViewHolder<Button> extends RecyclerView.ViewHolder{
         recPD_Cardview = itemView.findViewById(R.id.recRDCardView);
 
         //deleteButtonProdiscDetailPopup = itemView.findViewById(R.id.deleteButton_ProdiscDetailPopup);
-
     }
 }
