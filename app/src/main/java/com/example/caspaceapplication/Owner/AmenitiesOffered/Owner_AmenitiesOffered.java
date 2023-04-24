@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Owner_AmenitiesOffered extends AppCompatActivity{
+public class Owner_AmenitiesOffered extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView navigationView;
     AlertDialog.Builder dialogBuilder;
@@ -72,7 +71,7 @@ public class Owner_AmenitiesOffered extends AppCompatActivity{
 
         //amenitiesRecyclerview = findViewById(R.id.AmenitiesOffered_recyclerview);
 
-        useBottomNavigationMenu();
+        //useBottomNavigationMenu();
 
         updateTextview = findViewById(R.id.updateAmenities_Textview);
 
@@ -85,7 +84,9 @@ public class Owner_AmenitiesOffered extends AppCompatActivity{
 
         amenitiesRecyclerview = findViewById(R.id.AmenitiesOffered_recyclerview);
 
-
+        // Initialize the bottom navigation bar
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
     }
 
@@ -120,31 +121,24 @@ public class Owner_AmenitiesOffered extends AppCompatActivity{
 
     }
 
-
-    public void useBottomNavigationMenu(){
-        //Navigation Bar------------------------------------------
-        navigationView = findViewById(R.id.bottomNavigationView);
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuHome:
-                        Toast.makeText(Owner_AmenitiesOffered.this, "Home", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Owner_AmenitiesOffered.this, OwnerHomepage.class));
-                        break;
-                    case R.id.menuMessages:
-                        Toast.makeText(Owner_AmenitiesOffered.this, "Messages", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuNotification:
-                        Toast.makeText(Owner_AmenitiesOffered.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuProfile:
-                        Toast.makeText(Owner_AmenitiesOffered.this, "Profile", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                startActivity(new Intent(this, OwnerHomepage.class));
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 return true;
-            }
-        });//Navigation Bar------------------------------------------
+            case R.id.menuMessages:
+                // startActivity(new Intent(this, MessageActivity.class));
+                return true;
+            case R.id.menuNotification:
+                // startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.menuProfile:
+                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                return true;
+            default:
+                return false;
+        }
     }
 }

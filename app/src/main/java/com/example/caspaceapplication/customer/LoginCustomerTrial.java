@@ -31,6 +31,7 @@ public class LoginCustomerTrial extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     TextView forgotPassword;
     private EditText customerEmail, customerPassword;
@@ -82,10 +83,17 @@ public class LoginCustomerTrial extends AppCompatActivity {
                     editor.putString(KEY_EMAIL, email);
                     editor.putString(KEY_PASSWORD, password);
                     editor.apply();
+                    Toast.makeText(LoginCustomerTrial.this, "Credentials saved!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //If the remember me checkbox is not checked, clear the email and password saved in shared preferences
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.remove(KEY_EMAIL);
+                    editor.remove(KEY_PASSWORD);
+                    editor.apply();
                 }
 
-                DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("CustomerUserAccounts");
-                Query query = dataRef.orderByChild("customerUsername").equalTo(email);
 
                 firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -97,13 +105,13 @@ public class LoginCustomerTrial extends AppCompatActivity {
                                     progressDialog.show();
 
                                     // Save the user's email and password in shared preferences
-                                    sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                    /*sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString(KEY_EMAIL, email);
                                     editor.putString(KEY_PASSWORD, password);
                                     editor.apply();
 
-
+*/
                                     Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
                                 }
@@ -138,16 +146,21 @@ public class LoginCustomerTrial extends AppCompatActivity {
     }
 
     public void setRememberMeCheckbox(){
+        //Get the email and password saved in shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String email = sharedPreferences.getString(KEY_EMAIL, "");
         String password = sharedPreferences.getString(KEY_PASSWORD, "");
+
         if (!email.isEmpty() && !password.isEmpty()){
             progressDialog.setMessage("Logging in...");
             progressDialog.show();
+
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                             Toast.makeText(LoginCustomerTrial.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
                             progressDialog.cancel();

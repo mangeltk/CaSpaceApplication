@@ -13,23 +13,21 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 
-public class Owner_BookingTransactions extends AppCompatActivity {
+public class Owner_BookingTransactions extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView navigationView;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_booking_transactions2);
 
-        useBottomNavigationMenu();
+        //useBottomNavigationMenu();
 
         //todo:
         // Booking ID
@@ -45,7 +43,6 @@ public class Owner_BookingTransactions extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayoutBTO);
         viewPager = findViewById(R.id.viewPagerBTO);
-
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -54,32 +51,31 @@ public class Owner_BookingTransactions extends AppCompatActivity {
         viewPagerAdapter.addFragment(new OwnerBT_CompletedTabFragment(), "Completed");
         viewPager.setAdapter(viewPagerAdapter);
 
+        // Initialize the bottom navigation bar
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnNavigationItemSelectedListener(this);
+
     }
 
-    public void useBottomNavigationMenu(){
-        //Navigation Bar------------------------------------------
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuHome:
-                        Toast.makeText(Owner_BookingTransactions.this, "Home", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Owner_BookingTransactions.this, OwnerHomepage.class));
-                        break;
-                    case R.id.menuMessages:
-                        Toast.makeText(Owner_BookingTransactions.this, "Messages", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuNotification:
-                        Toast.makeText(Owner_BookingTransactions.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuProfile:
-                        Toast.makeText(Owner_BookingTransactions.this, "Profile", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                startActivity(new Intent(this, OwnerHomepage.class));
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 return true;
-            }
-        });//Navigation Bar------------------------------------------
+            case R.id.menuMessages:
+                // startActivity(new Intent(this, MessageActivity.class));
+                return true;
+            case R.id.menuNotification:
+                // startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.menuProfile:
+                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                return true;
+            default:
+                return false;
+        }
     }
+
 }

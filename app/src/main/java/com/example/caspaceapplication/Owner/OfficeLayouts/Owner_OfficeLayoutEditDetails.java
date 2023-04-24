@@ -3,6 +3,7 @@ package com.example.caspaceapplication.Owner.OfficeLayouts;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,10 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,13 +32,15 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
+public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     TextView EDITdetailPeople, EDITdetailName, EDITdetailAreasize, EDITdetailType, EDITdetailPrice;
     ImageView EDITdetailImage;
     Button editDetailsButton;
     Uri filepath = null;
     private static final int GALLERY_CODE = 1;
+
+    BottomNavigationView navigationView;
 
     FirebaseAuth firebaseAuth;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -61,6 +66,10 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
         EDITdetailAreasize = findViewById(R.id.EDITlayoutAreaSize_editText);
         EDITdetailType = findViewById(R.id.EDITlayoutType_editText);
         EDITdetailPrice = findViewById(R.id.EDITlayoutPrice_editText);
+
+        // Initialize the bottom navigation bar
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
         EDITdetailImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,4 +168,24 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                startActivity(new Intent(this, OwnerHomepage.class));
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuMessages:
+                // startActivity(new Intent(this, MessageActivity.class));
+                return true;
+            case R.id.menuNotification:
+                // startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.menuProfile:
+                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                return true;
+            default:
+                return false;
+        }
+    }
 }

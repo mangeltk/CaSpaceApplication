@@ -14,7 +14,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class CustomerEditProfile extends AppCompatActivity {
+public class CustomerViewProfile extends AppCompatActivity {
 
     TextView customerFirstName,customerLastName,customerEmail,customerOrganization,customerPopulation,customerPassword;
     FirebaseAuth fAuth;
@@ -24,7 +24,7 @@ public class CustomerEditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_edit_profile);
+        setContentView(R.layout.activity_customer_view_profile);
         customerFirstName=findViewById(R.id.customerFirstname);
         customerLastName=findViewById(R.id.customerLastname);
         customerEmail=findViewById(R.id.customerEmail);
