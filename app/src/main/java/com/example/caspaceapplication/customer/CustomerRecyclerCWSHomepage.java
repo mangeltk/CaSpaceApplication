@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.caspaceapplication.Manifest;
 import com.example.caspaceapplication.R;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -40,17 +39,17 @@ public class CustomerRecyclerCWSHomepage extends AppCompatActivity {
         cwsImage = findViewById(R.id.cwsImage);
         submitButton = findViewById(R.id.submitButton);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        /*submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UploadImage();
             }
-        });
+        });*/
     }
 
-    private void UploadImage() {
-
-                .withPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+    /*private void UploadImage() {
+            Dexter.withContext(this)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
@@ -69,8 +68,8 @@ public class CustomerRecyclerCWSHomepage extends AppCompatActivity {
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
                         permissionToken.continuePermissionRequest();
                     }
-                }).check();
-    }
+                }).check();*/
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
