@@ -20,12 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginCustomerTrial extends AppCompatActivity {
 
@@ -103,15 +98,6 @@ public class LoginCustomerTrial extends AppCompatActivity {
                                 if (user.isEmailVerified()) {
                                     progressDialog.setMessage("Logging in...");
                                     progressDialog.show();
-
-                                    // Save the user's email and password in shared preferences
-                                    /*sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString(KEY_EMAIL, email);
-                                    editor.putString(KEY_PASSWORD, password);
-                                    editor.apply();
-
-*/
                                     Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
                                 }
@@ -160,10 +146,25 @@ public class LoginCustomerTrial extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user.isEmailVerified()) {
+                                startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
+                            } else{
+                                user.sendEmailVerification()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginCustomerTrial.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginCustomerTrial.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
 
-                            Toast.makeText(LoginCustomerTrial.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
-                            progressDialog.cancel();
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
