@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
 import static android.content.ContentValues.TAG;
 
@@ -15,11 +15,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,25 +29,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Owner_OfficeLayouts extends AppCompatActivity {
+public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView navigationView;
 
     RecyclerView recyclerView;
     List<OfficeLayout_DataClass> dataClassList;
     OfficeLayout_AdapterClass layout_adapterClass;
-    OfficeLayout_DataClass layout_dataClass;
     SearchView searchView;
-
-    //Button addalayoutButton;
     FloatingActionButton addalayoutButton;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-    /*FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    FirebaseStorage firebaseStorage;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +65,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchList(newText);
@@ -80,30 +72,12 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         });
 
-        //Navigation Bar------------------------------------------
+        // Initialize the bottom navigation bar
         navigationView = findViewById(R.id.bottomNavigationView);
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuHome:
-                        Toast.makeText(Owner_OfficeLayouts.this, "Home", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Owner_OfficeLayouts.this, OwnerHomepage.class));
-                        break;
-                    case R.id.menuMessages:
-                        Toast.makeText(Owner_OfficeLayouts.this, "Messages", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuNotification:
-                        Toast.makeText(Owner_OfficeLayouts.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuProfile:
-                        Toast.makeText(Owner_OfficeLayouts.this, "Profile", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                }
-                return true;
-            }
-        });
+        navigationView.setOnNavigationItemSelectedListener(this);
+
+
+
 
         //Recyclerview------------------------------------------
         recyclerView = findViewById(R.id.recyclerView);
@@ -146,4 +120,24 @@ public class Owner_OfficeLayouts extends AppCompatActivity {
             }
         }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                startActivity(new Intent(this, OwnerHomepage.class));
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuMessages:
+                // startActivity(new Intent(this, MessageActivity.class));
+                return true;
+            case R.id.menuNotification:
+                // startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.menuProfile:
+                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                return true;
+            default:
+                return false;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
 import android.content.Context;
 import android.content.Intent;

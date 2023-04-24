@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
 public class OfficeLayout_DataClass {
 

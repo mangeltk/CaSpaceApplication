@@ -4,16 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Owner.ProDisc.Owner_ProDisc"
-    android:background="@color/orange14"
+    tools:context=".Owner.AmenitiesOffered.Owner_AmenitiesOffered"
+    android:background="@color/white"
     android:orientation="vertical">
 
+
     <LinearLayout
-        android:id="@+id/headerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:id="@+id/headerLayout"
+        android:backgroundTint="@color/orange14"
+        android:background="@drawable/buttonwhite_borderblack"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -31,52 +42,50 @@
             android:background="@drawable/buttonwhite_borderblack"
             android:padding="20dp"
             android:textSize="16sp"
-            android:text="Promotions and Discounts"
+            android:text="Amenities offered"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:drawableStart="@drawable/icons_promotion"
+            android:drawableStart="@drawable/icons_ameneties_bell"
             />
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewProDisc"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/selectedSection"
         android:layout_below="@id/headerLayout"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/card_border_bottom"
-        android:focusable="false"
-        app:closeIcon="@drawable/ic_baseline_clear"
-        app:queryHint="Search..."
-        app:searchIcon="@drawable/ic_baseline_search_24"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProDisc"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/searchViewProDisc"
+        android:orientation="vertical"
         android:layout_above="@id/bottomNavigationView"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFloatButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="30dp"
-        android:src="@drawable/ic_add"
-        android:tint="@color/white"
-        android:layout_above="@id/bottomNavigationView"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/orange1"/>
+        <TextView
+            android:id="@+id/updateAmenities_Textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Update Amenities"
+            android:textColor="@color/blue13"
+            android:textStyle="bold|italic"
+            android:drawableStart="@drawable/ic_rename"
+            android:drawableTint="@color/blue13"
+            android:layout_marginEnd="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AmenitiesOffered_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -88,6 +97,5 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/orange3"
         app:menu="@menu/owner_menu_item" />
-
 
 </RelativeLayout>

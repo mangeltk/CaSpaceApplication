@@ -1,5 +1,6 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.OfficeLayouts;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -90,13 +92,13 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
                                     firebaseFirestore.collection("OfficeLayouts")
                                             .document(documentId)
                                             .update("layoutAvailability", s.toString());
+
+
                                 }
                             } else {
                                 Log.e("Firestore Update", "Error getting document: ", task.getException());
                             }
                         });
-
-
             }
 
             @Override
@@ -159,37 +161,50 @@ public class Owner_OfficeLayoutDetail extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String layoutName = detail_Name.getText().toString().trim();
 
-                firebaseFirestore.collection("OfficeLayouts")
-                        .whereEqualTo("layoutName", layoutName)
-                        .whereEqualTo("owner_id", user.getUid())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Owner_OfficeLayoutDetail.this);
+                builder.setMessage("Are you sure you want to delete this layout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful() && !task.getResult().isEmpty()){
-                                    DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                                    String documentId = document.getId();
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                String layoutName = detail_Name.getText().toString().trim();
 
-                                    firebaseFirestore.collection("OfficeLayouts")
-                                            .document(documentId)
-                                            .delete()
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(Owner_OfficeLayoutDetail.this, "Layout deleted!", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficeLayouts.class));
+                                firebaseFirestore.collection("OfficeLayouts")
+                                        .whereEqualTo("layoutName", layoutName)
+                                        .whereEqualTo("owner_id", user.getUid())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful() && !task.getResult().isEmpty()){
+                                                    DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                                                    String documentId = document.getId();
 
+                                                    firebaseFirestore.collection("OfficeLayouts")
+                                                            .document(documentId)
+                                                            .delete()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Toast.makeText(Owner_OfficeLayoutDetail.this, "Layout deleted!", Toast.LENGTH_SHORT).show();
+                                                                    startActivity(new Intent(Owner_OfficeLayoutDetail.this, Owner_OfficeLayouts.class));
+
+                                                                }
+                                                            });
                                                 }
-                                            });
-                                }
+                                            }
+                                        });
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
                             }
                         });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.Owner;
+package com.example.caspaceapplication.Owner.ProDisc;
 
 import static android.content.ContentValues.TAG;
 
@@ -20,13 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Owner_ProDisc extends AppCompatActivity {
+public class Owner_ProDisc extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -79,9 +79,11 @@ public class Owner_ProDisc extends AppCompatActivity {
         prodisc_adapterClass = new ProDisc_AdapterClass(this, dataClassList);
         prodiscRecyclerView.setAdapter(prodisc_adapterClass);
 
-        getProdiscList();
+        // Initialize the bottom navigation bar
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
-        useBottomNavigationMenu();
+        getProdiscList();
 
         floatingActionButton = findViewById(R.id.addFloatButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -93,32 +95,6 @@ public class Owner_ProDisc extends AppCompatActivity {
 
     }
 
-    public void useBottomNavigationMenu(){
-        //Navigation Bar------------------------------------------
-        navigationView = findViewById(R.id.bottomNavigationView);
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuHome:
-                        Toast.makeText(Owner_ProDisc.this, "Home", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Owner_ProDisc.this, OwnerHomepage.class));
-                        break;
-                    case R.id.menuMessages:
-                        Toast.makeText(Owner_ProDisc.this, "Messages", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuNotification:
-                        Toast.makeText(Owner_ProDisc.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuProfile:
-                        Toast.makeText(Owner_ProDisc.this, "Profile", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                }
-                return true;
-            }
-        });//Navigation Bar------------------------------------------
-    }
 
     //dialog box for adding a new promotion or discount (pop up dialog)
     public void createNewDialog(){
@@ -135,6 +111,7 @@ public class Owner_ProDisc extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_CODE);
             }
         });
+
         cancel = (Button) prodiscPopupview.findViewById(R.id.prodisc_cancelButton);
         add = (Button) prodiscPopupview.findViewById(R.id.prodisc_addButton);
 
@@ -233,6 +210,27 @@ public class Owner_ProDisc extends AppCompatActivity {
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK){
             filepath = data.getData();
             prodiscImage.setImageURI(filepath);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                startActivity(new Intent(this, OwnerHomepage.class));
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuMessages:
+                // startActivity(new Intent(this, MessageActivity.class));
+                return true;
+            case R.id.menuNotification:
+                // startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.menuProfile:
+                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                return true;
+            default:
+                return false;
         }
     }
 }

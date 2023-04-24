@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/selectedSection"
+        android:background="@drawable/card_border_bottom"
+        android:backgroundTint="#F4EFE5"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/header_background_forownerhomepage"
+            android:backgroundTint="@color/orange14"
+            android:text="Select amenities"
+            android:padding="10dp"
+            android:textColor="@color/blue13"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/ic_rename"
+            android:drawableTint="@color/blue13"/>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            >
+
+            <CheckBox
+                android:id="@+id/checkbox_solo_cubicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Solo Cubicle"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_fire_extinguisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Fire Extinguisher"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_bar_side"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Bar side/Caffeine fix"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_onsite_staff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Onsite Staff"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_storage_locker_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Storage Locker Room"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_fitness_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Fitness Center"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_parking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Parking"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_recreational_games"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Recreational Games"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_tech_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Tech Services"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_event_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Event Space"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_seating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Seating (Ergonomic chairs, Beanbags)"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_professional_events_programming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Professional events and programming"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_security_guards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Security Guards"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_cctv_cameras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="CCTV Cameras"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_phone_booths"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Phone Booths"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_stocked_kitchens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Stocked Kitchens"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_business_class_printers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Business-class Printers"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_creator_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Creator Lab"
+                android:textColor="#000000" />
+
+            <CheckBox
+                android:id="@+id/checkbox_training_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Training Room"
+                android:textColor="#000000" />
+
+
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:id="@+id/cancelAmenitiesButton"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/orange13"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/quicksand_medium"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/saveAmenitiesButton"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/green"
+                android:layout_marginStart="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_medium"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
