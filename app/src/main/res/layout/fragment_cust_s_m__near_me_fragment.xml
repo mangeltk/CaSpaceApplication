@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".customer.SearchManagement.CustSM_NearMe_fragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello near me fragment" />
+        android:layout_height="wrap_content"
+        android:text="COWORKING SPACES NEAR ME"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand_medium"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/orange14"
+        />
 
 </FrameLayout>

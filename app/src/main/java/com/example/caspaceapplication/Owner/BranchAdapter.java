@@ -13,10 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.MyViewHolder> {
+
 
     private Context context;
     private List<BranchModel> dataClassList;
@@ -36,10 +38,11 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull BranchAdapter.MyViewHolder holder, int position) {
 
-        /*String imageUri = String.valueOf(dataClassList.get(position).getCospaceImage());
-            Picasso.get().load(imageUri).into(holder.branchImage);*/
+        String imageUri = String.valueOf(dataClassList.get(position).getCospaceImage());
+            Picasso.get().load(imageUri).into(holder.branchImage);
         holder.branchName.setText(dataClassList.get(position).getCospaceName());
-        holder.branchAddress.setText(dataClassList.get(position).getCospaceAddress());
+        holder.branchStreetAddress.setText(dataClassList.get(position).getCospaceStreetAddress());
+        holder.branchCityAddress.setText(dataClassList.get(position).getCospaceCityAddress());
         holder.branchCategory.setText(dataClassList.get(position).getCospaceCategory());
         holder.branchCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +69,17 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView branchImage;
-        TextView branchName, branchAddress, branchCategory;
+        TextView branchName, branchStreetAddress, branchCityAddress, branchCategory;
         CardView branchCardView;
         Button showOnMapButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            //todo: this if for cardview that i made when display results
             branchImage = itemView.findViewById(R.id.branchImage_cardview);
             branchName = itemView.findViewById(R.id.branchName_cardview);
-            branchAddress = itemView.findViewById(R.id.branchAddress_cardview);
+            branchStreetAddress = itemView.findViewById(R.id.branchStreetAddress_cardview);
+            branchCityAddress = itemView.findViewById(R.id.branchCityAddress_cardview);
             branchCategory = itemView.findViewById(R.id.branchCategory_cardview);
             branchCardView = itemView.findViewById(R.id.branch_cardView);
             showOnMapButton = itemView.findViewById(R.id.showOnMap_Button);

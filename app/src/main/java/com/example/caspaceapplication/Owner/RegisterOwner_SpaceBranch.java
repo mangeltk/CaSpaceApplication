@@ -43,7 +43,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
     private static final int GALLERY_CODE = 1;
     ImageButton branch_image;
     Button registerButton_SpaceBranch;
-    EditText branchName, branchAdrress;
+    EditText branchName, branchStreetAddress, branchCityAddress;
 
     private Spinner categorySpinner;
 
@@ -60,7 +60,8 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
         branch_image = findViewById(R.id.registerBranchImage_Imagebutton);
         registerButton_SpaceBranch = findViewById(R.id.registerButton_SpaceBranch);
         branchName = findViewById(R.id.registerBranchName_Edittext);
-        branchAdrress = findViewById(R.id.registerBranchAddress_Edittext);
+        branchStreetAddress = findViewById(R.id.registerBranchAddress1_Edittext);
+        branchCityAddress = findViewById(R.id.registerBranchAddress2_Edittext);
         categorySpinner = findViewById(R.id.spinnerCategories);
 
         branch_image.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +77,11 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String namebranch = branchName.getText().toString().trim();
-                String addressBranch = branchAdrress.getText().toString().trim();
+                String streetAddressBranch = branchStreetAddress.getText().toString().trim();
+                String cityAddressBranch = branchCityAddress.getText().toString().trim();
                 String selectedCategory = categorySpinner.getSelectedItem().toString();
-                registerBranch(namebranch, addressBranch, selectedCategory);
+
+                registerBranch(namebranch, streetAddressBranch, cityAddressBranch, selectedCategory);
             }
         });
 
@@ -96,10 +99,10 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
 
     }
 
-    private void registerBranch(String namebranch, String addressBranch, String selectedCategory){
+    private void registerBranch(String namebranch, String streetAddressBranch, String cityAddressBranch, String selectedCategory){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(filepath == null || namebranch.isEmpty() || addressBranch.isEmpty()) {
+        if(filepath == null || namebranch.isEmpty() || streetAddressBranch.isEmpty() || cityAddressBranch.isEmpty()) {
             Toast.makeText(RegisterOwner_SpaceBranch.this, "Please fill all fields and choose an image.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -127,7 +130,8 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                 branch.put("cospaceImage",task.getResult().toString());
                                                 branch.put("cospaceName", namebranch);
                                                 branch.put("cospaceCategory", selectedCategory);
-                                                branch.put("cospaceAddress", addressBranch);
+                                                branch.put("cospaceStreetAddress", streetAddressBranch);
+                                                branch.put("cospaceCityAddress", cityAddressBranch);
                                                 branch.put("owner_id", user.getUid());
                                                 branch.put("cospaceId", "");
 

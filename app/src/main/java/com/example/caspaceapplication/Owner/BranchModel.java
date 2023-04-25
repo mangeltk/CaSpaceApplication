@@ -2,25 +2,34 @@ package com.example.caspaceapplication.Owner;
 
 public class BranchModel {
 
-    private String cospaceAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
+    private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
 
     public BranchModel() {
     }
 
-    public BranchModel(String cospaceAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName) {
-        this.cospaceAddress = cospaceAddress;
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
+        this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
         this.cospaceId = cospaceId;
         this.cospaceImage = cospaceImage;
         this.cospaceName = cospaceName;
     }
 
-    public String getCospaceAddress() {
-        return cospaceAddress;
+    public String getCospaceStreetAddress() {
+        return cospaceStreetAddress;
     }
 
-    public void setCospaceAddress(String cospaceAddress) {
-        this.cospaceAddress = cospaceAddress;
+    public void setCospaceStreetAddress(String cospaceStreetAddress) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
+    }
+
+    public String getCospaceCityAddress() {
+        return cospaceCityAddress;
+    }
+
+    public void setCospaceCityAddress(String cospaceCityAddress) {
+        this.cospaceCityAddress = cospaceCityAddress;
     }
 
     public String getCospaceCategory() {

@@ -6,30 +6,15 @@
     android:orientation="vertical"
     tools:context=".customer.SearchManagement.CustSM_ChooseMap_fragment">
 
-    <SearchView
-        android:id="@+id/locationSearchView"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Enter your location"
-        android:searchIcon="@drawable/ic_baseline_search_24"
-        android:inputType="text"
-
+        android:text="CHOOSE ON MAP"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand_medium"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/orange14"
         />
-
-
-    <Button
-        android:id="@+id/submitLocationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Submit" />
-
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:layout_width="match_parent"
-        android:id="@+id/recyclerViewSMChooseMap"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
