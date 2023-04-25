@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".customer.SearchManagement.CustSM_SearchManually_fragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SEARCH MANUALLY BY LOCATION NAME"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand_medium"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/orange14"
+        />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/location_SearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Enter your location"
+        android:inputType="text"
+        android:background="@drawable/search_icon_background_forownerhomepage"
+        android:backgroundTint="@color/underline"
+        android:layout_margin="10dp"
+        />
+
+
+    <Button
+        android:id="@+id/submitLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Submit"
+        android:backgroundTint="@color/orange14"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_SMEnterManually"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

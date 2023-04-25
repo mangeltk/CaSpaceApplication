@@ -23,7 +23,7 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
 
     private TextView backClickable;
     private BottomNavigationView navigationView;
-    private AppCompatButton nearMeButton, chooseMapButton;
+    private AppCompatButton searchManually,nearMeButton, chooseMapButton;
     private ViewPager viewPager;
     private FrameLayout fragmentContainer;
 
@@ -41,29 +41,40 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
             }
         });
 
+        searchManually = findViewById(R.id.enterManually_Button);
         nearMeButton = findViewById(R.id.nearMe_Button);
         chooseMapButton = findViewById(R.id.chooseMap_Button);
         viewPager = findViewById(R.id.viewPagerSM);
         fragmentContainer = findViewById(R.id.fragment_container);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.addFragment(new CustSM_SearchManually_fragment(), "Search Manually");
         viewPagerAdapter.addFragment(new CustSM_NearMe_fragment(), "Near me");
         viewPagerAdapter.addFragment(new CustSM_ChooseMap_fragment(), "Choose Map");
         viewPager.setAdapter(viewPagerAdapter);
 
-        nearMeButton.setOnClickListener(new View.OnClickListener() {
+        searchManually.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(0);
             }
         });
 
-        chooseMapButton.setOnClickListener(new View.OnClickListener() {
+        nearMeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
             }
         });
+
+        chooseMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -75,9 +86,12 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        nearMeButton.performClick();
+                        searchManually.performClick();
                         break;
                     case 1:
+                        nearMeButton.performClick();
+                        break;
+                    case 2:
                         chooseMapButton.performClick();
                         break;
                 }

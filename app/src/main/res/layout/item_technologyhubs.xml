@@ -2,13 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recRDCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginStart="10dp"
         android:padding="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
@@ -17,7 +20,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/coworkingspaces_search_bar"
+            android:background="@color/white"
             android:orientation="vertical"
             android:weightSum="5.5">
 
@@ -29,7 +32,7 @@
                 android:weightSum="10">
 
                 <ImageView
-                    android:id="@+id/recPromotionImage"
+                    android:id="@+id/techhubsImage"
                     android:layout_width="180dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="5dp"
@@ -39,11 +42,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Promotion Title"
-                    android:id="@+id/recPromotionTitle"
+                    android:text="Tech hub Title"
+                    android:id="@+id/techhubsName"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/quicksand_medium"
                     android:layout_marginBottom="10dp"/>

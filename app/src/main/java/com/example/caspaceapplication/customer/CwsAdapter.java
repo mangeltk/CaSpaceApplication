@@ -30,7 +30,7 @@ public class CwsAdapter extends RecyclerView.Adapter<CwsAdapter.MyHolder> {
     @NonNull
     @Override
     public CwsAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_file, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_cws, parent, false);
         return new MyHolder(view);
     }
 

@@ -1,38 +1,35 @@
 package com.example.caspaceapplication.customer.SearchManagement;
 
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caspaceapplication.Owner.BranchAdapter;
-import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
 
+public class CustSM_ChooseMap_fragment extends Fragment implements OnMapReadyCallback {
 
-public class CustSM_ChooseMap_fragment extends Fragment {
-
-    private SearchView locationSearchView;
-    private Button submitLocationButton;
-
-    private FirebaseFirestore firebaseFirestore;
-    private RecyclerView recyclerViewSMChooseMap;
-    private List<BranchModel> dataClassList;
-    private BranchAdapter branchAdapter;
+    //todo: this fragment will display a map with pinned cws everywhere (all)
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private GoogleMap mMap;
+    private MapView mMapView;
+    private View mView;
+    private LocationManager locationManager;
 
     public CustSM_ChooseMap_fragment() {
         // Required empty public constructor
@@ -44,58 +41,70 @@ public class CustSM_ChooseMap_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cust_s_m__choose_map_fragment, container, false);
 
-        submitLocationButton = rootView.findViewById(R.id.submitLocationButton);
-        recyclerViewSMChooseMap = rootView.findViewById(R.id.recyclerViewSMChooseMap);
+        mMapView = rootView.findViewById(R.id.map_viewAll);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(this);
 
-        submitLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String searchText = locationSearchView.getQuery().toString();
-                if (!TextUtils.isEmpty(searchText)) {
-                    searchList(searchText);
-                }
-            }
-        });
-
-        locationSearchView = rootView.findViewById(R.id.locationSearchView);
-        locationSearchView.clearFocus();
-        locationSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        recyclerViewSMChooseMap.setLayoutManager(new LinearLayoutManager(getActivity()));
-        dataClassList = new ArrayList<>();
-        branchAdapter = new BranchAdapter(getActivity(), dataClassList);
-        recyclerViewSMChooseMap.setAdapter(branchAdapter);
 
         return rootView;
     }
 
-    public void searchList(String text){
-        dataClassList.clear();
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
 
-        Query query = firebaseFirestore.collection("CospaceBranches")
-                        .whereGreaterThanOrEqualTo("cospaceAddress", text)
-                                .whereLessThan("cospaceAddress", text + "\\uf8ff");
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
 
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
+
+    private void addMarkerToMap(LatLng location, String title, String snippet) {
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(location)
+                .title(title)
+                .snippet(snippet);
+
+        mMap.addMarker(markerOptions);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap; // initialize mMap object
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference coworkingSpacesRef = db.collection("CospaceBranches");
+
+        coworkingSpacesRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<BranchModel> searchResults = queryDocumentSnapshots.toObjects(BranchModel.class);
-                dataClassList.addAll(searchResults);
-                branchAdapter.notifyDataSetChanged();
-            }
-        });
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    GeoPoint geoPoint = documentSnapshot.getGeoPoint("location");
+                    String coworkingSpaceName = documentSnapshot.getString("cospaceName");
+                    if (geoPoint != null && coworkingSpaceName != null) {
+                        double latitude = geoPoint.getLatitude();
+                        double longitude = geoPoint.getLongitude();
+                        LatLng latLng = new LatLng(latitude, longitude);
 
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(coworkingSpaceName));
+                    }
+                }
+               }
+        });
     }
+
 
 }

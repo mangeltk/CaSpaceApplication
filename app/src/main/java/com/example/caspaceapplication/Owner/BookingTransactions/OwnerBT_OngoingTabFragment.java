@@ -54,7 +54,7 @@ public class OwnerBT_OngoingTabFragment extends Fragment {
     private void loadOngoingBT() {
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Ongoing")
-                .whereEqualTo("ownerID", currentUserID);
+                .whereEqualTo("owner_id", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

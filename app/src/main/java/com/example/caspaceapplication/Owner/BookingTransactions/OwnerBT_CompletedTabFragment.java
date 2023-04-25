@@ -55,7 +55,7 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
     private void loadCancelledBT() {
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Declined")
-                .whereEqualTo("ownerID", currentUserID);
+                .whereEqualTo("owner_id", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -72,7 +72,7 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
     private void loadCompletedBT() {
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Completed")
-                .whereEqualTo("ownerID", currentUserID);
+                .whereEqualTo("owner_id", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

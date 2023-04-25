@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,8 +17,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
-
-
+        <activity
+            android:name=".Owner.Profile.Owner_Profile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".customer.CWS_ProfilePage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Owner.Owner_BottomNavigationBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".customer.CustomerRecyclerCWSHomepage"
             android:exported="false">
@@ -36,7 +53,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".customer.CustomerAllCoworkingSpace"
+            android:name=".customer.CoworkingSpaces"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -119,6 +136,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".CustomerRecyclerCWSHomepage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".customer.NavigationHomepage"
             android:exported="false">
             <meta-data
@@ -145,10 +169,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-
-        <!-- OWNER MANIFESTS -->
+        </activity> <!-- OWNER MANIFESTS -->
         <activity
             android:name=".Owner.OwnerHomepage"
             android:exported="false">
@@ -212,21 +233,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".Owner.Owner_BottomNavigationBar"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBgvFRjyGxq6SJ22l3S0rgFZUNrjqWBDWc" />
-
+            android:value="AIzaSyCDGviqH2RT4uDsq-jYrH-fB6s2U7L4MjI" />
     </application>
 
 </manifest>

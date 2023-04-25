@@ -1,26 +1,40 @@
 package com.example.caspaceapplication.Owner;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class BranchModel {
 
-    private String cospaceAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
+    private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
+    private GeoPoint location;
 
     public BranchModel() {
+
     }
 
-    public BranchModel(String cospaceAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName) {
-        this.cospaceAddress = cospaceAddress;
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
+        this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
         this.cospaceId = cospaceId;
         this.cospaceImage = cospaceImage;
         this.cospaceName = cospaceName;
+        this.location = location;
     }
 
-    public String getCospaceAddress() {
-        return cospaceAddress;
+    public String getCospaceStreetAddress() {
+        return cospaceStreetAddress;
     }
 
-    public void setCospaceAddress(String cospaceAddress) {
-        this.cospaceAddress = cospaceAddress;
+    public void setCospaceStreetAddress(String cospaceStreetAddress) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
+    }
+
+    public String getCospaceCityAddress() {
+        return cospaceCityAddress;
+    }
+
+    public void setCospaceCityAddress(String cospaceCityAddress) {
+        this.cospaceCityAddress = cospaceCityAddress;
     }
 
     public String getCospaceCategory() {
@@ -53,5 +67,13 @@ public class BranchModel {
 
     public void setCospaceName(String cospaceName) {
         this.cospaceName = cospaceName;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
     }
 }
