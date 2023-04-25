@@ -32,7 +32,6 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_homepage);
 
-        //get current user ID
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
         ImageView promotionsAndDiscounts = findViewById(R.id.proAndDisc_Imageview);

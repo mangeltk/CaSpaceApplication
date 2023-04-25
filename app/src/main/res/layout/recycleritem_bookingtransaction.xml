@@ -68,12 +68,14 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 tools:text="Customer Name: "
-                android:visibility="visible"/>
+                android:visibility="visible"
+                android:id="@+id/BT_label1"/>
 
             <TextView
                 android:id="@+id/customerName_BTCardview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -87,12 +89,14 @@
                 android:textSize="15sp"
                 android:visibility="visible"
                 android:textStyle="bold"
-                tools:text="Layout Name: " />
+                tools:text="Layout Name: "
+                android:id="@+id/BT_label2"/>
 
             <TextView
                 android:id="@+id/layoutName_BTCardview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -106,12 +110,14 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                tools:text="Duration: "/>
+                tools:text="Duration: "
+                android:id="@+id/BT_label3"/>
 
             <TextView
                 android:id="@+id/duration_BTCardview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:textColor="@color/black"
                 android:textSize="15sp"
@@ -125,12 +131,14 @@
                 android:textSize="15sp"
                 android:visibility="visible"
                 android:textStyle="bold"
-                tools:text="Total Payment:"/>
+                tools:text="Total Payment:"
+                android:id="@+id/BT_label4"/>
 
             <TextView
                 android:id="@+id/total_BTCardview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:textColor="@color/black"
                 android:textSize="15sp"

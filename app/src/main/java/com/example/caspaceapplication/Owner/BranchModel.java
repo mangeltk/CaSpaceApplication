@@ -1,38 +1,57 @@
 package com.example.caspaceapplication.Owner;
 
-import com.google.firebase.auth.FirebaseUser;
-
 public class BranchModel {
 
-    private String branchName, branchAddress, branchPicture;
+    private String cospaceAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
 
-    private BranchModel() {
+    public BranchModel() {
     }
 
-    public BranchModel(String branchName, String branchAddress, String branchPicture) {
-        this.branchName = branchName;
-        this.branchAddress = branchAddress;
-        this.branchPicture = branchPicture;
+    public BranchModel(String cospaceAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName) {
+        this.cospaceAddress = cospaceAddress;
+        this.cospaceCategory = cospaceCategory;
+        this.cospaceId = cospaceId;
+        this.cospaceImage = cospaceImage;
+        this.cospaceName = cospaceName;
     }
 
-    public BranchModel(String branchName, String branchAddress, String branchPicture, FirebaseUser ownerId) {
+    public String getCospaceAddress() {
+        return cospaceAddress;
     }
 
-    public String getBranchName() {
-        return branchName;
+    public void setCospaceAddress(String cospaceAddress) {
+        this.cospaceAddress = cospaceAddress;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
+    public String getCospaceCategory() {
+        return cospaceCategory;
     }
 
-    public String getBranchAddress() {return branchAddress;}
-
-    public void setBranchAddress(String branchAddress) {
-        this.branchAddress = branchAddress;
+    public void setCospaceCategory(String cospaceCategory) {
+        this.cospaceCategory = cospaceCategory;
     }
 
-    public String getBranchPicture(){return branchPicture;}
+    public String getCospaceId() {
+        return cospaceId;
+    }
 
-    public void setBranchPicture(String branchPicture){this.branchPicture = branchPicture;}
+    public void setCospaceId(String cospaceId) {
+        this.cospaceId = cospaceId;
+    }
+
+    public String getCospaceImage() {
+        return cospaceImage;
+    }
+
+    public void setCospaceImage(String cospaceImage) {
+        this.cospaceImage = cospaceImage;
+    }
+
+    public String getCospaceName() {
+        return cospaceName;
+    }
+
+    public void setCospaceName(String cospaceName) {
+        this.cospaceName = cospaceName;
+    }
 }
