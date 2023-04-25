@@ -43,23 +43,18 @@
         android:layout_marginStart="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Select by category"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="0dp"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbarStyle="insideInset">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/underline">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
 
@@ -71,7 +66,7 @@
                 app:cardCornerRadius="20dp">
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageview_cws"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -80,7 +75,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
+                android:layout_width="160dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:background="#FFC107"
@@ -88,34 +83,16 @@
                 app:cardCornerRadius="20dp">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageview_techhubs"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/techhubsonee"/>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                android:background="#FFC107"
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/threestar"/>
-
-            </androidx.cardview.widget.CardView>
-
-
         </LinearLayout>
-    </HorizontalScrollView>
+
 
 
     <!--Promotions-->

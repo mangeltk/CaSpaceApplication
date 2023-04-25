@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".CoworkingSpaces"
+            android:name=".TechnologyHubs"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -145,7 +145,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
         </activity> <!-- OWNER MANIFESTS -->
         <activity
             android:name=".Owner.OwnerHomepage"

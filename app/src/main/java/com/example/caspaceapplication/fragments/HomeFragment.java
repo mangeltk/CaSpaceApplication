@@ -2,11 +2,13 @@ package com.example.caspaceapplication.fragments;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.CoworkingSpaces;
 import com.example.caspaceapplication.customer.CustHomePromotions_Adapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,6 +47,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ImageView imageview_cws, imageview_techhubs;
+
+        imageview_cws = view.findViewById(R.id.imageview_cws);
+        imageview_techhubs = view.findViewById(R.id.imageview_techhubs);
+
+        imageview_cws.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CoworkingSpaces.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

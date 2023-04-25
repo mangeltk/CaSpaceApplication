@@ -4,19 +4,16 @@ import android.widget.ImageView;
 
 public class CoworkingSpacesModel {
 
-    String cospaceName, cospaceAddress;
-    ImageView cospaceImage;
+    String cospaceName;
+    String cospaceImage;
+
 
     public CoworkingSpacesModel()
     {
 
     }
 
-    public CoworkingSpacesModel(String cospaceName, String cospaceAddress, ImageView cospaceImage) {
-        this.cospaceName = cospaceName;
-        //this.cospaceAddress = cospaceAddress;
-        this.cospaceImage = cospaceImage;
-    }
+
 
     public String getCospaceName() {
         return cospaceName;
@@ -26,18 +23,23 @@ public class CoworkingSpacesModel {
         this.cospaceName = cospaceName;
     }
 
-    public String getCospaceAddress() {
+    public String getCospaceImage() {
+        return cospaceImage;
+    }
+
+    public void setCospaceImage(String cospaceImage) {
+        this.cospaceImage = cospaceImage;
+    }
+
+    /*public String getCospaceAddress() {
         return cospaceAddress;
     }
 
     public void setCospaceAddress(String cospaceAddress) {
         this.cospaceAddress = cospaceAddress;
-    }
+    }*/
 
-    public ImageView getCospaceImage() {
-        return cospaceImage;
-    }
-    public void setCospaceImage(ImageView cospaceImage) {
-        this.cospaceImage = cospaceImage;
-    }
+
+
+
 }
