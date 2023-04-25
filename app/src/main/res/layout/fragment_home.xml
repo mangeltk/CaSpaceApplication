@@ -1,299 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:orientation="vertical">
 
-
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="95dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/homepageone">
-    </ImageView>
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:drawableLeft="@drawable/verified_customer"
-        android:drawablePadding="0dp"
-        android:layout_marginStart="90dp"
-        android:fontFamily="@font/poppins_medium_italic"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:paddingStart="20dp"
-        android:textColor="@color/blue2"
-        android:text="Customer"
-        android:textSize="17dp" />
-
-
-<!--    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <!-- Header Layout -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/card_border_bottom"
-        android:focusable="false"
-        app:closeIcon="@drawable/ic_baseline_clear"
-        app:queryHint="Search..."
-        app:searchIcon="@drawable/ic_baseline_search_24" />-->
+        android:orientation="horizontal"
+        android:padding="5dp">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/homepageone"
+            android:layout_gravity="center"/>
 
-
-        <!--Enspace-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="20dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:background="#FFC107"
-            android:elevation="4dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cwspaceeditt" />
-
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/verified_customer"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_medium_italic"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:textColor="@color/blue2"
+            android:layout_gravity="center"
+            android:text=" Customer"
+            android:textSize="17dp"/>
 
     </LinearLayout>
 
-
-        <!--Technology hubs-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginEnd="20dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="140dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:background="#FFC107"
-            android:elevation="4dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/techhubsonee" />
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-
-
-        <!--Promotions-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="290dp"
+        android:layout_marginStart="15dp"
         android:fontFamily="@font/poppins_medium"
+        android:text="Select by category"
+        android:layout_marginBottom="0dp"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:background="#FFC107"
+                android:elevation="4dp"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/imageview_cws"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cwspaceeditt"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:background="#FFC107"
+                android:elevation="4dp"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/imageview_techhubs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/techhubsonee"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+
+    <!--Promotions-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/poppins_medium"
+        android:layout_marginTop="20dp"
         android:text="Promotions"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
 
 
-    <!--PROMOTIONS-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="310dp">
-
-        <!--PROMOTION ONE-->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/custHomePromotionsRecyclerview"
+                android:scrollbars="horizontal"
+                android:scrollbarStyle="insideInset"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="16dp"
-                    android:background="#FFC107"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="20dp">
+            </androidx.recyclerview.widget.RecyclerView>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/promoone" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
-
-
-        <!--PROMOTION TWO-->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="170dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="16dp"
-                    android:background="#FFC107"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/promotwo" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
-
-
-        <!--PROMOTION THREE-->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="340dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="16dp"
-                    android:background="#FFC107"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/promothree" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
-    </RelativeLayout>
-
+        </LinearLayout>
 
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="510dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Recommended Coworking Spaces"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
-    <!--RECOMMENDATIONS-->
 
 
 
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="260dp">
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                &lt;!&ndash;Enspace&ndash;&gt;
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="16dp"
-                    android:background="#FFC107"
-                    app:cardCornerRadius="20dp"
-                    android:elevation="4dp">
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/imageone"/>
-
-                </androidx.cardview.widget.CardView>
-
-                &lt;!&ndash;Regus&ndash;&gt;
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="16dp"
-                    android:background="#3F51B5"
-                    app:cardCornerRadius="20dp"
-                    android:elevation="4dp">
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/two"/>
-
-                </androidx.cardview.widget.CardView>
-
-
-
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-    </RelativeLayout>-->
-
-
-    <!--PROMOTIONS AND DISCOUNTS CARDVIEW-->
-
-    <!--Promotions-->
-
-
-</FrameLayout>
+</LinearLayout>
