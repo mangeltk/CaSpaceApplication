@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/homepage"
     android:orientation="vertical"
-    tools:context=".Owner.Owner_OfficeLayoutDetail">
+    tools:context=".Owner.OfficeLayouts.Owner_OfficeLayoutDetail">
 
 
     <LinearLayout
@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/detailImage"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
             android:layout_marginTop="20dp"
@@ -33,12 +33,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="12dp"
             android:padding="10dp"
-            android:text="Name"
+            android:text="-------Name--------"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
             android:background="@drawable/trending_background_forownerhomepage"/>
-
 
         <TextView
             android:layout_width="match_parent"
@@ -64,6 +63,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:padding="15dp"
                     android:text="No. of people: "
@@ -77,10 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="15dp"
-                    android:text="No. of people answer "
+                    android:text="------------------"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -93,6 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:padding="15dp"
                     android:text="Area size: "
@@ -106,12 +106,98 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="15dp"
-                    android:text="Area size answer "
+                    android:text="------------------"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="Space type: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailSpaceTypeAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="------------------"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="Space Price: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailSpacePriceAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="------------------"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="Space Availability: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailAvailabilityStatusAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:text="------------------"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -129,7 +215,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/orange1"
+            android:backgroundTint="@color/orange12"
             android:src="@drawable/ic_delete_trashcan"
             app:fabSize="auto"
             android:tint="@color/white"
@@ -144,7 +230,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/orange1"
+            android:backgroundTint="@color/orange12"
             android:src="@drawable/ic_rename"
             app:fabSize="auto"
             android:tint="@color/white"
@@ -161,6 +247,48 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/orange12"
             android:src="@drawable/ic_menu_open" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="75dp"
+            android:layout_marginStart="50dp"
+            android:text="Click to set availability of layout:"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="@color/green"
+            android:background="@drawable/buttonwhite_borderblack"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="10dp"
+            android:id="@+id/available_Button"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Available"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="160dp"
+            android:backgroundTint="@color/underline"
+            android:background="@drawable/buttonwhite_borderblack"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="10dp"
+            android:id="@+id/notAvailable_Button"
+            />
 
     </RelativeLayout>
 

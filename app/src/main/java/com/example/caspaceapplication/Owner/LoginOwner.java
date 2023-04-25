@@ -69,7 +69,7 @@ public class LoginOwner extends AppCompatActivity {
                 String password = ownerPassword.getText().toString().trim();
 
                 if (email.isEmpty()) {
-                    ownerEmail.setError("Please enter username");
+                    ownerEmail.setError("Please enter email");
                     ownerEmail.requestFocus();
                     return;
                 }

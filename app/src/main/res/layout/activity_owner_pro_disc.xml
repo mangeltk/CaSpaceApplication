@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Owner.Owner_ProDisc"
+    tools:context=".Owner.ProDisc.Owner_ProDisc"
     android:background="@color/orange14"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -41,6 +43,7 @@
         android:id="@+id/searchViewProDisc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/headerLayout"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="12dp"
@@ -53,48 +56,38 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProDisc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/searchView"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_below="@+id/searchViewProDisc"
+        android:layout_above="@id/bottomNavigationView"
         android:layout_marginTop="10dp"
         android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"/>
+        android:scrollbarStyle="outsideOverlay"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFloatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/orange1"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"
         android:src="@drawable/ic_add"
-        android:tint="@color/white" />
-
-    <View
-        android:id="@+id/viewDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/trending_background_forownerhomepage"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
+        android:tint="@color/white"
+        android:layout_above="@id/bottomNavigationView"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/orange1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        app:itemIconSize="40dp"
-        app:itemIconTint="@color/black"
-        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/owner_menu_item"
-        android:layout_gravity="bottom|end"
-        android:background="@drawable/trending_background_forownerhomepage"/>
+        app:itemIconTint="@color/orange3"
+        app:menu="@menu/owner_menu_item" />
 
 
-
-</LinearLayout>
+</RelativeLayout>

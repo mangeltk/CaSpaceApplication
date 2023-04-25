@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "157555185945",
+    "firebase_url": "https://caspace-3dff1-default-rtdb.firebaseio.com",
     "project_id": "caspace-3dff1",
     "storage_bucket": "caspace-3dff1.appspot.com"
   },
@@ -39,6 +40,35 @@
         "mobilesdk_app_id": "1:157555185945:android:cf59e158ddde2a234f0d88",
         "android_client_info": {
           "package_name": "com.example.caspaceapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157555185945-a0p9bbpv251dappq0dl32htupqr94q4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDGviqH2RT4uDsq-jYrH-fB6s2U7L4MjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157555185945-a0p9bbpv251dappq0dl32htupqr94q4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157555185945:android:c07c8d8338a3b3904f0d88",
+        "android_client_info": {
+          "package_name": "com.example.searchlocation"
         }
       },
       "oauth_client": [
