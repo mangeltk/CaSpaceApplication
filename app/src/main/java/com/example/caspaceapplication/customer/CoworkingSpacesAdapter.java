@@ -1,7 +1,6 @@
 package com.example.caspaceapplication.customer;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +10,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.caspaceapplication.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class CoworkingSpacesAdapter extends RecyclerView.Adapter
-<CoworkingSpacesAdapter.MyViewHolder> {
+public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpacesAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList;
+
+    public void setSearchList (List<CoworkingSpacesModel> dataSearchList)
+    {
+        this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
+        notifyDataSetChanged();
+    }
+
 
     public CoworkingSpacesAdapter(Context context, ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
         this.context = context;
         this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
     }
+
+
 
 
     @NonNull

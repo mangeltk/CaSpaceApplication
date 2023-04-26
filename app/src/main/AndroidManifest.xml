@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".TechnologyHubs"
+            android:name=".customer.TechnologyHubs"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -154,35 +154,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner.Owner_OfficelayoutsRegistration"
+            android:name=".Owner.OfficeLayouts.Owner_OfficelayoutsRegistration"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner.Owner_OfficeLayouts"
+            android:name=".Owner.OfficeLayouts.Owner_OfficeLayouts"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner.Owner_OfficeLayoutDetail"
+            android:name=".Owner.OfficeLayouts.Owner_OfficeLayoutDetail"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner.Owner_OfficeLayoutEditDetails"
+            android:name=".Owner.OfficeLayouts.Owner_OfficeLayoutEditDetails"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Owner.Owner_ProDisc"
+            android:name=".Owner.ProDisc.Owner_ProDisc"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

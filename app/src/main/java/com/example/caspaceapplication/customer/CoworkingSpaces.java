@@ -16,7 +16,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import androidx.appcompat.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.caspaceapplication.Owner.OfficeLayouts.OfficeLayout_DataClass;
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.fragments.HomeFragment;
@@ -30,6 +33,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class CoworkingSpaces extends AppCompatActivity {
 
@@ -41,6 +46,8 @@ public class CoworkingSpaces extends AppCompatActivity {
     CoworkingSpacesAdapter coworkingSpacesAdapter;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
+
+    SearchView searchCWS;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,6 +70,20 @@ public class CoworkingSpaces extends AppCompatActivity {
             }
         });
 
+        searchCWS = findViewById(R.id.searchCWS);
+        searchCWS.clearFocus();
+        searchCWS.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList(newText);
+                return false;
+            }
+        });
 
 
 
@@ -71,7 +92,7 @@ public class CoworkingSpaces extends AppCompatActivity {
         progressDialog.setMessage("Fetching data");
         progressDialog.show();*/
 
-
+        //Recycler view---------------------------------------------------------------
         recyclerView = findViewById(R.id.recycler_cws);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -84,10 +105,9 @@ public class CoworkingSpaces extends AppCompatActivity {
 
         retrieveCoworkingSpaces();
 
-
-
-
     }
+
+
 
     public void retrieveCoworkingSpaces(){
         // Retrieve promotions from Firestore
@@ -103,8 +123,24 @@ public class CoworkingSpaces extends AppCompatActivity {
                         coworkingSpacesAdapter.notifyDataSetChanged();
                     }
                 });
+    }
 
-/*    private void EventChangeListener() {
+    public void searchList(String text)
+    {
+        List<CoworkingSpacesModel> dataSearchList = new ArrayList<>();
+        for(CoworkingSpacesModel data: coworkingSpacesModelArrayList){
+            if(data.getCospaceName().toLowerCase().contains(text.toLowerCase()))
+            {
+                dataSearchList.add(data);
+            }
+        }
+        coworkingSpacesAdapter.setSearchList(dataSearchList);
+        if(dataSearchList.isEmpty())
+        {
+            Toast.makeText(this, "Search not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+    /*    private void EventChangeListener() {
 
         db.collection("CospaceBranches").orderBy("cospaceName", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -131,5 +167,4 @@ public class CoworkingSpaces extends AppCompatActivity {
                         }
                     }
                 });*/
-    }
 }
