@@ -3,6 +3,7 @@ package com.example.caspaceapplication.Owner.BookingTransactions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,24 +23,12 @@ public class Owner_BookingTransactions extends AppCompatActivity implements Bott
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    private TextView backClickable; //todo:back button
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_booking_transactions2);
-
-        //useBottomNavigationMenu();
-
-        //todo:
-        // Booking ID
-        // Booking date
-        // Booking total
-        // Booking Payment Proof
-        // Booking Duration
-        // Booking Status - (pending, ongoing, completed )
-        // Customer ID
-        // Owner ID
-        // CoSpace ID
-        // Space ID
 
         tabLayout = findViewById(R.id.tabLayoutBTO);
         viewPager = findViewById(R.id.viewPagerBTO);

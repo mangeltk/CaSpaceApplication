@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.CoworkingSpaces;
 import com.example.caspaceapplication.customer.CustHomePromotions_Adapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -69,6 +72,23 @@ public class HomeFragment extends Fragment {
         View rootView  = inflater.inflate(R.layout.fragment_home, container, false);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        TextView displayHomepageCustName = rootView.findViewById(R.id.displayHomepageCustName_Textview);
+        firebaseFirestore.collection("CustomerUserAccounts")
+                .document(user).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String fname = documentSnapshot.getString("customersFirstName");
+                            String lname = documentSnapshot.getString("customersLastName");
+                            displayHomepageCustName.setText(fname + " " + lname);
+                        }
+                    }
+                });
+
+
         promotionList = new ArrayList<>();
 
         // Initialize RecyclerView and adapter

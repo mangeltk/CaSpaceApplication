@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -17,7 +18,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,6 +49,11 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         holder.recDuration.setText(booking.getBookingDuration());
         holder.recTotalPayment.setText(booking.getBookingTotal());
         holder.recStatus.setText(booking.getBookingStatus());
+
+        holder.BTlabel1.setText("Customer Name: ");
+        holder.BTlabel2.setText("Layout Name: ");
+        holder.BTlabel3.setText("Booking Duration: ");
+        holder.BTlabel4.setText("Total Payment: ");
 
         holder.recSeeMoreDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +100,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
+                        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -112,14 +118,10 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "Booking status updated successfully");
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.e(TAG, "Booking update failed", e);
+                                        Toast.makeText(context, "Booking accepted and is on ongoing tab", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
                                     }
                                 });
-                        dialog.dismiss();
                     }
                 });
 
@@ -137,6 +139,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "Booking status updated successfully");
+                                        Toast.makeText(context, "Booking completed and is on the completed tab", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
                                     }
                                 });
                     }
@@ -156,7 +160,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "Booking status updated successfully");
-
+                                        Toast.makeText(context, "Booking declined and is on the completed tab", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
                                     }
                                 });
                     }
@@ -173,21 +178,12 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
     public class BookingViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatButton recDecline, recAccept, recComplete, recCancel;
         TextView recbookingID, recCustomerName, recLayoutName, recDuration, recTotalPayment, recStatus;
-        TextView recSeeMoreDetails;
+        TextView recSeeMoreDetails, BTlabel1, BTlabel2, BTlabel3, BTlabel4;
         CardView recCardViewBT;
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
-
-           /* recDecline = itemView.findViewById(R.id.declineButton_BTDCardview);
-            recAccept = itemView.findViewById(R.id.acceptButton_BTDCardview);
-            recComplete = itemView.findViewById(R.id.completeButton_BTDCardview);
-            recCancel = itemView.findViewById(R.id.cancelButton_BTDCardview);*/
-
-            recAccept = itemView.findViewById(R.id.acceptButton_BTDCardview);
-
 
             recbookingID = itemView.findViewById(R.id.bookingID_BTCardview);
             recCustomerName = itemView.findViewById(R.id.customerName_BTCardview);
@@ -197,6 +193,10 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
             recStatus = itemView.findViewById(R.id.status_BTTextViewCardview);
 
             recSeeMoreDetails = itemView.findViewById(R.id.seeMoreDetails_TextviewCardview);
+            BTlabel1 = itemView.findViewById(R.id.BT_label1);
+            BTlabel2 = itemView.findViewById(R.id.BT_label2);
+            BTlabel3 = itemView.findViewById(R.id.BT_label3);
+            BTlabel4 = itemView.findViewById(R.id.BT_label4);
 
         }
     }

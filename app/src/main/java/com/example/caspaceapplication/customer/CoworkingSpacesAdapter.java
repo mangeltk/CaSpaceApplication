@@ -13,28 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.caspaceapplication.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpacesAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList;
+    List<CoworkingSpacesModel> coworkingSpacesModelArrayList;
 
-    public void setSearchList (List<CoworkingSpacesModel> dataSearchList)
-    {
-        this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
-        notifyDataSetChanged();
-    }
-
-
-    public CoworkingSpacesAdapter(Context context, ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
+    public CoworkingSpacesAdapter(Context context, List<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
         this.context = context;
         this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
     }
 
-
-
+    public void setSearchList(List<CoworkingSpacesModel> dataSearchList){
+        this.coworkingSpacesModelArrayList = dataSearchList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -48,9 +42,9 @@ public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpaces
     @Override
     public void onBindViewHolder(@NonNull CoworkingSpacesAdapter.MyViewHolder holder, int position) {
 
-        CoworkingSpacesModel coworkingSpacesModel = coworkingSpacesModelArrayList.get(position);
+        //CoworkingSpacesModel coworkingSpacesModel = coworkingSpacesModelArrayList.get(position);
 
-        holder.cospaceName.setText(coworkingSpacesModel.cospaceName);
+        holder.cospaceName.setText(coworkingSpacesModelArrayList.get(position).getCospaceName());
         //holder.cospaceAddress.setText(coworkingSpacesModel.cospaceAddress);
 
         //Load the image using Glide

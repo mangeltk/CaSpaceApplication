@@ -1,38 +1,66 @@
 package com.example.caspaceapplication.Owner;
 
-import com.google.firebase.auth.FirebaseUser;
-
 public class BranchModel {
 
-    private String branchName, branchAddress, branchPicture;
+    private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
 
-    private BranchModel() {
+    public BranchModel() {
     }
 
-    public BranchModel(String branchName, String branchAddress, String branchPicture) {
-        this.branchName = branchName;
-        this.branchAddress = branchAddress;
-        this.branchPicture = branchPicture;
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
+        this.cospaceCityAddress = cospaceCityAddress;
+        this.cospaceCategory = cospaceCategory;
+        this.cospaceId = cospaceId;
+        this.cospaceImage = cospaceImage;
+        this.cospaceName = cospaceName;
     }
 
-    public BranchModel(String branchName, String branchAddress, String branchPicture, FirebaseUser ownerId) {
+    public String getCospaceStreetAddress() {
+        return cospaceStreetAddress;
     }
 
-    public String getBranchName() {
-        return branchName;
+    public void setCospaceStreetAddress(String cospaceStreetAddress) {
+        this.cospaceStreetAddress = cospaceStreetAddress;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
+    public String getCospaceCityAddress() {
+        return cospaceCityAddress;
     }
 
-    public String getBranchAddress() {return branchAddress;}
-
-    public void setBranchAddress(String branchAddress) {
-        this.branchAddress = branchAddress;
+    public void setCospaceCityAddress(String cospaceCityAddress) {
+        this.cospaceCityAddress = cospaceCityAddress;
     }
 
-    public String getBranchPicture(){return branchPicture;}
+    public String getCospaceCategory() {
+        return cospaceCategory;
+    }
 
-    public void setBranchPicture(String branchPicture){this.branchPicture = branchPicture;}
+    public void setCospaceCategory(String cospaceCategory) {
+        this.cospaceCategory = cospaceCategory;
+    }
+
+    public String getCospaceId() {
+        return cospaceId;
+    }
+
+    public void setCospaceId(String cospaceId) {
+        this.cospaceId = cospaceId;
+    }
+
+    public String getCospaceImage() {
+        return cospaceImage;
+    }
+
+    public void setCospaceImage(String cospaceImage) {
+        this.cospaceImage = cospaceImage;
+    }
+
+    public String getCospaceName() {
+        return cospaceName;
+    }
+
+    public void setCospaceName(String cospaceName) {
+        this.cospaceName = cospaceName;
+    }
 }

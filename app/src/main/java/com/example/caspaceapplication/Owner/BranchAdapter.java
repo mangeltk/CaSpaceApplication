@@ -1,63 +1,89 @@
 package com.example.caspaceapplication.Owner;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.MyViewHolder> {
 
-    ArrayList<BranchModel> datalist;
 
-    public BranchAdapter(ArrayList<BranchModel> datalist) {
-        this.datalist = datalist;
+    private Context context;
+    private List<BranchModel> dataClassList;
+
+    public BranchAdapter(Context context, List<BranchModel> dataClassList) {
+        this.context = context;
+        this.dataClassList = dataClassList;
     }
 
     @NonNull
     @Override
     public BranchAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singlerow,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleitem_cws_cardview,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BranchAdapter.MyViewHolder holder, int position) {
-        /*BranchModel branchModel = datalist.get(position);
 
-        holder.branchName.setText(branchModel.getBranchName());
-        holder.branchAddress.setText(branchModel.getBranchAddress());*/
-        /*String imageUri = null;
-        imageUri = branchModel.getBranchPicture();
-        Picasso.get().load(imageUri).into(holder.imageView);
-*/
+        String imageUri = String.valueOf(dataClassList.get(position).getCospaceImage());
+            Picasso.get().load(imageUri).into(holder.branchImage);
+        holder.branchName.setText(dataClassList.get(position).getCospaceName());
+        holder.branchStreetAddress.setText(dataClassList.get(position).getCospaceStreetAddress());
+        holder.branchCityAddress.setText(dataClassList.get(position).getCospaceCityAddress());
+        holder.branchCategory.setText(dataClassList.get(position).getCospaceCategory());
+        holder.branchCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo: redirect to CWS branch profile page with all info displayed
+            }
+        });
+        holder.showOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo: show google map on with pinned location pop up already created name: enterlocation_googlemap_popup
 
-        holder.t1.setText(datalist.get(position).getBranchName());
-        holder.t2.setText(datalist.get(position).getBranchAddress());
+            }
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
-        return datalist.size();
+        return dataClassList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        //mageView imageView;
-        TextView t1, t2;
+        ImageView branchImage;
+        TextView branchName, branchStreetAddress, branchCityAddress, branchCategory;
+        CardView branchCardView;
+        Button showOnMapButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            //todo: this if for cardview that i made when display results
+            branchImage = itemView.findViewById(R.id.branchImage_cardview);
+            branchName = itemView.findViewById(R.id.branchName_cardview);
+            branchStreetAddress = itemView.findViewById(R.id.branchStreetAddress_cardview);
+            branchCityAddress = itemView.findViewById(R.id.branchCityAddress_cardview);
+            branchCategory = itemView.findViewById(R.id.branchCategory_cardview);
+            branchCardView = itemView.findViewById(R.id.branch_cardView);
+            showOnMapButton = itemView.findViewById(R.id.showOnMap_Button);
 
-            //imageView = itemView.findViewById(R.id.Bar);
-            t1 = itemView.findViewById(R.id.t1);
-            t2 = itemView.findViewById(R.id.t2);
         }
     }
 }

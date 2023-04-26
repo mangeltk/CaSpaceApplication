@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".fragments.HomeFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
 
     <!-- Header Layout -->
     <LinearLayout
@@ -19,21 +19,21 @@
             android:id="@+id/imageView"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/homepageone"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/homepageone" />
 
         <TextView
+            android:id="@+id/displayHomepageCustName_Textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/verified_customer"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_medium_italic"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:textColor="@color/blue2"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:drawableStart="@drawable/verified_customer"
+            android:fontFamily="@font/poppins_medium_italic"
             android:text=" Customer"
-            android:textSize="17dp"/>
+            android:textColor="@color/blue2"
+            android:textSize="17dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -41,58 +41,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginBottom="0dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Select by category"
-        android:layout_marginBottom="0dp"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
 
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                android:background="#FFC107"
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp">
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:background="#FFC107"
+            android:elevation="4dp"
+            app:cardCornerRadius="20dp">
 
-                <ImageView
-                    android:id="@+id/imageview_cws"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/cwspaceeditt"/>
+            <ImageView
+                android:id="@+id/imageview_cws"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cwspaceeditt" />
 
-            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="160dp"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                android:background="#FFC107"
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="160dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:background="#FFC107"
+            android:elevation="4dp"
+            app:cardCornerRadius="20dp">
 
-                <ImageView
-                    android:id="@+id/imageview_techhubs"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/techhubsonee"/>
+            <ImageView
+                android:id="@+id/imageview_techhubs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/techhubsonee" />
 
-            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
+    </LinearLayout>
 
 
     <!--Promotions-->
@@ -100,34 +99,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:fontFamily="@font/poppins_medium"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="Promotions"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/custHomePromotionsRecyclerview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/custHomePromotionsRecyclerview"
-                android:scrollbars="horizontal"
-                android:scrollbarStyle="insideInset"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal">
+        </androidx.recyclerview.widget.RecyclerView>
 
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-
+    </LinearLayout>
 
 
     <TextView
@@ -140,7 +138,6 @@
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
-
 
 
 </LinearLayout>
