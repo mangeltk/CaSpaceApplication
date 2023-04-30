@@ -47,6 +47,8 @@ public class CustSM_NearMe_fragment extends Fragment implements OnMapReadyCallba
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference coworkingSpacesRef = firebaseFirestore.collection("CospaceBranches");
 
+    //todo: this fragment will display pinned cws on a map (N) away from location
+
     public CustSM_NearMe_fragment() {
         // Required empty public constructor
     }

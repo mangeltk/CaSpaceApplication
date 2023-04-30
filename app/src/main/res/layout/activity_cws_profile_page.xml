@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/buttonwhite_borderblack"
+    android:orientation="vertical"
+    tools:context=".customer.CWS_ProfilePage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customer_recycler_cwshomepage"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:paddingEnd="40dp"
+            android:text="Coworking space title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/upload" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Coworking space name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:drawableStart="@drawable/address_icon_white"
+                android:drawableTint="@color/colorError"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Coworking space name"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:drawableStart="@drawable/ic_circle_black"
+                android:drawableTint="@color/green"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Store hours"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_baseline_bookmark_added_24"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Services"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="services content services content services content"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/address_icon_white"
+                android:drawableTint="@color/colorError"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Location"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="Location Information"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Contact"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="contact information"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_notifications_white"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Amenities"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="amenities offered this is to chnge recycler view"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/branch_icon_white"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Floor Map"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/sample_floor_map"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="Floor map description"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_baseline_meeting_room_24"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Rooms"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_textbox"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="See all available room layouts"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="list of rooms"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_baseline_payments_24"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Pricing"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="Pricing description"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:drawableStart="@drawable/ic_baseline_discount_24"
+                android:drawableTint="@color/orange"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:paddingEnd="10dp"
+                android:text="Plans"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:text="Plans description"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>
