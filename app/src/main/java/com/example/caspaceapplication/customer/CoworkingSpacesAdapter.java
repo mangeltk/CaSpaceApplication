@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.CWSProfile.CWS_ProfilePage;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,7 +56,10 @@ public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpaces
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int clickedPosition = holder.getAdapterPosition();
                 Intent intent = new Intent(context, CWS_ProfilePage.class);
+                intent.putExtra("cospaceName", coworkingSpacesModelArrayList.get(clickedPosition).getCospaceName());
+                intent.putExtra("owner_id", coworkingSpacesModelArrayList.get(clickedPosition).getOwner_id());
                 context.startActivity(intent);
             }
         });

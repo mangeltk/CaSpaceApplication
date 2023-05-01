@@ -95,12 +95,10 @@ public class CustSM_SearchManually_fragment extends Fragment {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<BranchModel> searchResults = queryDocumentSnapshots.toObjects(BranchModel.class);
                 if (searchResults.size() > 0) {
-                    // Documents were found
                     Log.d("Firebase", "Documents found: " + searchResults.size());
                     dataClassList.addAll(searchResults);
                     branchAdapter.notifyDataSetChanged();
                 } else {
-                    // No documents were found
                     Log.d("Firebase", "No documents found");
                 }
             }

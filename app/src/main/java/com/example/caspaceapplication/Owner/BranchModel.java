@@ -6,12 +6,13 @@ public class BranchModel {
 
     private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
     private GeoPoint location;
+    private String owner_id;
 
     public BranchModel() {
 
     }
 
-    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location) {
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id) {
         this.cospaceStreetAddress = cospaceStreetAddress;
         this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
@@ -19,6 +20,15 @@ public class BranchModel {
         this.cospaceImage = cospaceImage;
         this.cospaceName = cospaceName;
         this.location = location;
+        this.owner_id = owner_id;
+    }
+
+    public String getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
     }
 
     public String getCospaceStreetAddress() {

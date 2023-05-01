@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange14"
+    android:background="@drawable/custom_edittext_orange"
     android:orientation="vertical"
+    android:backgroundTint="@color/gray"
     tools:context=".Owner.OfficeLayouts.Owner_OfficeLayoutEditDetails">
 
     <LinearLayout
@@ -16,101 +17,135 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/owner_logoupperleft" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/buttonwhite_borderblack"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/header_background_forownerhomepage"
-                android:padding="15dp"
-                android:text="Edit layout details"
-                android:textSize="20sp"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="10dp"
+                android:paddingStart="70dp"
+                android:paddingEnd="70dp"
+                android:text="Edit Layout"
+                android:drawableStart="@drawable/ic_rename"
+                android:drawableTint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
             <ImageView
                 android:id="@+id/EDITlayoutImage_imageButton"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/orange10"
                 android:scaleType="fitCenter"
                 android:src="@drawable/space_layout_samplepic"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="*Click above to select new image"
+                android:textColor="@color/teal_700" />
+
             <EditText
                 android:id="@+id/EDITlayoutName_editText"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableLeft="@drawable/ic_rename"
                 android:drawablePadding="10dp"
+                android:drawableTint="@color/black"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="Layout Name"
                 android:padding="8dp"
                 android:paddingStart="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/underline"
                 android:textSize="17dp" />
 
-            <EditText
-                android:id="@+id/EDITlayoutPeopleSize_editText"
+            <LinearLayout
                 android:layout_width="300dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
-                android:drawableLeft="@drawable/ic_people_outline"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="No. of people"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                android:layout_marginTop="10dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:drawableLeft="@drawable/ic_people_outline"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Person Capacity"
+                    android:padding="8dp"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/underline"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutMinPersonCap_editText"
+                    android:layout_width="50dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Min"
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/underline"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutMaxPersonCap_editText"
+                    android:layout_width="50dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Max"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/underline"
+                    android:textSize="17dp" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/EDITlayoutAreaSize_editText"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableLeft="@drawable/branch_icon_white"
                 android:drawablePadding="10dp"
+                android:drawableTint="@color/black"
                 android:fontFamily="@font/quicksand_medium"
-                android:hint="Area size"
+                android:hint="Area size in sq. m."
                 android:padding="8dp"
                 android:paddingStart="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/underline"
                 android:textSize="17dp" />
 
             <EditText
@@ -118,38 +153,203 @@
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableLeft="@drawable/ic_baseline_bookmark_added_24"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="Layout Type"
-                android:drawableTint="@color/white"
                 android:padding="8dp"
                 android:paddingStart="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/underline"
                 android:textSize="17dp" />
 
-            <EditText
-                android:id="@+id/EDITlayoutPrice_editText"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
-                android:drawableLeft="@drawable/ic_baseline_payments_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="Layout Price"
-                android:drawableTint="@color/white"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                android:columnCount="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_columnSpan="2"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Pricing Rates"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_columnSpan="2"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="*put NA if not applicable"
+                    android:textColor="@color/teal_700" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Hourly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutLayoutHourlyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Daily rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutLayoutDailyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Weekly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutLayoutWeeklyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Monthly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutLayoutMonthlyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Annual rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/EDITlayoutLayoutAnnualPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+            </GridLayout>
 
             <Button
                 android:id="@+id/editLayout_Button"
@@ -157,35 +357,17 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/orange1"
+                android:backgroundTint="@color/orange14"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="EDIT LAYOUT"
-                android:textColor="@color/white"
+                android:text="EDIT DETAILS"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>
 
-
     </LinearLayout>
-
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/trending_background_forownerhomepage"
-        android:backgroundTint="@color/white"
-        app:itemIconSize="40dp"
-        app:itemIconTint="@color/black"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/owner_menu_item" />
-
-    <View
-        android:id="@+id/viewDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/trending_background_forownerhomepage" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

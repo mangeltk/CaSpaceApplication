@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.Owner.OwnerHomepage;
+import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,7 +35,9 @@ import java.util.Map;
 
 public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-    TextView EDITdetailPeople, EDITdetailName, EDITdetailAreasize, EDITdetailType, EDITdetailPrice;
+    TextView EDITdetailMinPersonCap, EDITdetailMaxPersonCap, EDITdetailName, EDITdetailAreasize,
+            EDITdetailType, EDITlayoutLayoutAnnualPrice, EDITlayoutLayoutMonthlyPrice,
+            EDITlayoutLayoutWeeklyPrice, EDITlayoutLayoutDailyPrice, EDITlayoutLayoutHourlyPrice;
     ImageView EDITdetailImage;
     Button editDetailsButton;
     Uri filepath = null;
@@ -42,7 +45,6 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
 
     BottomNavigationView navigationView;
 
-    FirebaseAuth firebaseAuth;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -62,10 +64,15 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
 
         EDITdetailImage = findViewById(R.id.EDITlayoutImage_imageButton);
         EDITdetailName = findViewById(R.id.EDITlayoutName_editText);
-        EDITdetailPeople = findViewById(R.id.EDITlayoutPeopleSize_editText);
+        EDITdetailMinPersonCap = findViewById(R.id.EDITlayoutMinPersonCap_editText);
+        EDITdetailMaxPersonCap = findViewById(R.id.EDITlayoutMaxPersonCap_editText);
         EDITdetailAreasize = findViewById(R.id.EDITlayoutAreaSize_editText);
         EDITdetailType = findViewById(R.id.EDITlayoutType_editText);
-        EDITdetailPrice = findViewById(R.id.EDITlayoutPrice_editText);
+        EDITlayoutLayoutHourlyPrice = findViewById(R.id.EDITlayoutLayoutHourlyPrice_editText);
+        EDITlayoutLayoutDailyPrice = findViewById(R.id.EDITlayoutLayoutDailyPrice_editText);
+        EDITlayoutLayoutWeeklyPrice = findViewById(R.id.EDITlayoutLayoutWeeklyPrice_editText);
+        EDITlayoutLayoutMonthlyPrice = findViewById(R.id.EDITlayoutLayoutMonthlyPrice_editText);
+        EDITlayoutLayoutAnnualPrice = findViewById(R.id.EDITlayoutLayoutAnnualPrice_editText);
 
         // Initialize the bottom navigation bar
         navigationView = findViewById(R.id.bottomNavigationView);
@@ -80,15 +87,21 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
             }
         });
 
+        //Set text details from intent recylerview---------------------------
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
+        if(bundle !=null){
             String imagePath = getIntent().getStringExtra("layoutImage");
-                Picasso.get().load(imagePath).into(EDITdetailImage);
+            Picasso.get().load(imagePath).into(EDITdetailImage);
             EDITdetailName.setText(bundle.getString("layoutName"));
-            EDITdetailPeople.setText(bundle.getString("layoutPeopleNum"));
+            EDITdetailMinPersonCap.setText(bundle.getString("minCapacity"));
+            EDITdetailMaxPersonCap.setText(bundle.getString("maxCapacity"));
             EDITdetailAreasize.setText(bundle.getString("layoutAreasize"));
             EDITdetailType.setText(bundle.getString("layoutType"));
-            EDITdetailPrice.setText(bundle.getString("layoutPrice"));
+            EDITlayoutLayoutHourlyPrice.setText(bundle.getString("layoutHourlyPrice"));
+            EDITlayoutLayoutDailyPrice.setText(bundle.getString("layoutDailyPrice"));
+            EDITlayoutLayoutWeeklyPrice.setText(bundle.getString("layoutWeeklyPrice"));
+            EDITlayoutLayoutMonthlyPrice.setText(bundle.getString("layoutMonthlyPrice"));
+            EDITlayoutLayoutAnnualPrice.setText(bundle.getString("layoutAnnualPrice"));
         }
 
         editDetailsButton = findViewById(R.id.editLayout_Button);
@@ -97,13 +110,35 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String EDITlayout_name = EDITdetailName.getText().toString().trim();
-                String EDITlayout_peoplesize = EDITdetailPeople.getText().toString().trim();
+                String EDITlayout_minPersonCap = EDITdetailMinPersonCap.getText().toString().trim();
+                String EDITlayout_maxPersonCap = EDITdetailMaxPersonCap.getText().toString().trim();
                 String EDITlayout_areasize = EDITdetailAreasize.getText().toString().trim();
                 String EDITlayout_type = EDITdetailType.getText().toString().trim();
-                String EDITlayout_price= EDITdetailPrice.getText().toString().trim();
+                String EDITlayout_hourlyPrice = EDITlayoutLayoutHourlyPrice.getText().toString().trim();
+                String EDITlayout_dailyPrice = EDITlayoutLayoutDailyPrice.getText().toString().trim();
+                String EDITlayout_weeklyPrice = EDITlayoutLayoutWeeklyPrice.getText().toString().trim();
+                String EDITlayout_monthlyPrice = EDITlayoutLayoutMonthlyPrice.getText().toString().trim();
+                String EDITlayout_annualPrice = EDITlayoutLayoutAnnualPrice.getText().toString().trim();
+
+                // Validate that the area size is a valid number
+                try {
+                    Integer.parseInt(EDITlayout_areasize);
+                    Integer.parseInt(EDITlayout_minPersonCap);
+                    Integer.parseInt(EDITlayout_maxPersonCap);
+                } catch (NumberFormatException e) {
+                    EDITdetailMinPersonCap.requestFocus();
+                    EDITdetailMinPersonCap.setError("Please enter a valid number for the min person capacity");
+
+                    EDITdetailMaxPersonCap.requestFocus();
+                    EDITdetailMaxPersonCap.setError("Please enter a valid number for the max person capacity");
+
+                    EDITdetailAreasize.requestFocus();
+                    EDITdetailAreasize.setError("Please enter a valid number for the area size");
+                    return;
+                }
 
                 firebaseFirestore.collection("OfficeLayouts")
-                        .whereEqualTo("layout_id", EDITlayout_name)
+                        .whereEqualTo("layoutName", EDITlayout_name)
                         .whereEqualTo("owner_id", user.getUid())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -115,10 +150,15 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
 
                                     Map<String, Object> updates = new HashMap<>();
                                     updates.put("layoutName", EDITlayout_name);
-                                    updates.put("layoutPeopleNum", EDITlayout_peoplesize);
+                                    updates.put("minCapacity", EDITlayout_minPersonCap);
+                                    updates.put("maxCapacity", EDITlayout_maxPersonCap);
                                     updates.put("layoutAreasize", EDITlayout_areasize);
                                     updates.put("layoutType", EDITlayout_type);
-                                    updates.put("layoutPrice", EDITlayout_price);
+                                    updates.put("layoutHourlyPrice", EDITlayout_hourlyPrice);
+                                    updates.put("layoutDailyPrice", EDITlayout_dailyPrice);
+                                    updates.put("layoutWeeklyPrice", EDITlayout_weeklyPrice);
+                                    updates.put("layoutMonthlyPrice", EDITlayout_monthlyPrice);
+                                    updates.put("layoutAnnualPrice", EDITlayout_annualPrice);
 
                                     if (filepath != null){
                                         firebaseStorage.getReference().child("LayoutImages").child(documentId).putFile(filepath)
@@ -182,7 +222,7 @@ public class Owner_OfficeLayoutEditDetails extends AppCompatActivity implements 
                 // startActivity(new Intent(this, NotificationActivity.class));
                 return true;
             case R.id.menuProfile:
-                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                startActivity(new Intent(this, Owner_Profile.class));
                 return true;
             default:
                 return false;

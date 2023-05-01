@@ -18,6 +18,20 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
+            android:name=".customer.Cust_BookingTransaction"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".customer.CWSProfile.CWSProfilePage_RoomLayouts"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Owner.Profile.Owner_Profile"
             android:exported="false">
             <meta-data
@@ -25,7 +39,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".customer.CWS_ProfilePage"
+            android:name=".customer.CWSProfile.CWS_ProfilePage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

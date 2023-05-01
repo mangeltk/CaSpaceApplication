@@ -46,9 +46,16 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
         String imageUri = String.valueOf(dataClassList.get(position).getLayoutImage());
             Picasso.get().load(imageUri).into(holder.recImage);
         holder.recName.setText(dataClassList.get(position).getLayoutName());
-        holder.recPeople.setText(dataClassList.get(position).getLayoutPeopleNum());
+        holder.recPeople.setText(dataClassList.get(position).getMinCapacity() + "-" + dataClassList.get(position).getMaxCapacity());
         holder.recAreaSize.setText(dataClassList.get(position).getLayoutAreasize());
-        holder.recAvailability.setText(dataClassList.get(position).getLayoutAvailability());
+
+        String avail = dataClassList.get(position).getLayoutAvailability();
+        if (avail == null || avail.isEmpty()){
+            holder.textDirection.setVisibility(View.VISIBLE);
+        }else{
+            holder.recAvailability.setText(avail);
+            holder.textDirection.setVisibility(View.GONE);
+        }
 
         holder.recButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +63,15 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
                 Intent intent = new Intent(context, Owner_OfficeLayoutDetail.class);
                 intent.putExtra("layoutImage", dataClassList.get(holder.getAdapterPosition()).getLayoutImage());
                 intent.putExtra("layoutName", dataClassList.get(holder.getAdapterPosition()).getLayoutName());
-                intent.putExtra("layoutPeopleNum", dataClassList.get(holder.getAdapterPosition()).getLayoutPeopleNum());
+                intent.putExtra("minCapacity", dataClassList.get(holder.getAdapterPosition()).getMinCapacity());
+                intent.putExtra("maxCapacity", dataClassList.get(holder.getAdapterPosition()).getMaxCapacity());
                 intent.putExtra("layoutAreasize", dataClassList.get(holder.getAdapterPosition()).getLayoutAreasize());
                 intent.putExtra("layoutType", dataClassList.get(holder.getAdapterPosition()).getLayoutType());
-                intent.putExtra("layoutPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutPrice());
+                intent.putExtra("layoutHourlyPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutHourlyPrice());
+                intent.putExtra("layoutDailyPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutDailyPrice());
+                intent.putExtra("layoutWeeklyPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutWeeklyPrice());
+                intent.putExtra("layoutMonthlyPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutMonthlyPrice());
+                intent.putExtra("layoutAnnualPrice", dataClassList.get(holder.getAdapterPosition()).getLayoutAnnualPrice());
                 intent.putExtra("layoutAvailability", dataClassList.get(holder.getAdapterPosition()).getLayoutAvailability());
                 context.startActivity(intent);
             }
@@ -73,10 +85,10 @@ public class OfficeLayout_AdapterClass extends RecyclerView.Adapter<MyViewHolder
     }
 }
 
-class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
     ImageView recImage;
-    TextView recName, recPeople, recAreaSize, recAvailability;
+    TextView recName, recPeople, recAreaSize, recAvailability, textDirection;
     CardView recCard;
     Button recButton;
 
@@ -89,6 +101,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recAvailability = itemView.findViewById(R.id.recAvailabilityStatus);
         recCard = itemView.findViewById(R.id.cardView);
         recButton = itemView.findViewById(R.id.recButton_OfficeLayout);
+        textDirection = itemView.findViewById(R.id.textDirection);
 
     }
 }

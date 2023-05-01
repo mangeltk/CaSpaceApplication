@@ -40,15 +40,13 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
     SearchView searchView;
     FloatingActionButton addalayoutButton;
 
-    FirebaseFirestore firebaseFirestore;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_office_layouts);
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         addalayoutButton = findViewById(R.id.addFloatButton);
         addalayoutButton.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +74,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
         // Initialize the bottom navigation bar
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
-
-
-
 
         //Recyclerview------------------------------------------
         recyclerView = findViewById(R.id.recyclerView);
@@ -118,8 +113,8 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
         }layout_adapterClass.setSearchList(dataSearchList);
         if (dataSearchList.isEmpty()){
             Toast.makeText(this, "Layout not found", Toast.LENGTH_SHORT).show();
-            }
         }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/buttonwhite_borderblack"
     android:orientation="vertical"
-    tools:context=".customer.CWS_ProfilePage">
+    tools:context=".customer.CWSProfile.CWS_ProfilePage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/CWS_ProfPage_backButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
@@ -23,6 +25,7 @@
             android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/CWS_ProfPage_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -37,18 +40,22 @@
 
     </LinearLayout>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
+
             <ImageView
+                android:id="@+id/CWS_ProfPage_Image"
                 android:layout_width="200dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
@@ -56,6 +63,7 @@
                 android:src="@drawable/upload" />
 
             <TextView
+                android:id="@+id/CWS_ProfPage_TitleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -66,6 +74,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/CWS_ProfPage_Location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -77,6 +86,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/CWS_ProfPage_StoreHours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -87,255 +97,372 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_baseline_bookmark_added_24"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Services"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="services content services content services content"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/address_icon_white"
-                android:drawableTint="@color/colorError"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Location"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="Location Information"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_baseline_local_phone_24"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Contact"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="contact information"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_notifications_white"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Amenities"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="amenities offered this is to chnge recycler view"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/branch_icon_white"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Floor Map"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/sample_floor_map"
-                android:layout_margin="10dp"
-                android:scaleType="fitCenter"
                 android:layout_gravity="center"
-                />
+                android:background="@drawable/coworkingspaces_search_bar">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_bookmark_added_24"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="About"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_AboutContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColorHint="@color/gray"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Any description of the branch services or history."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="Floor map description"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_baseline_meeting_room_24"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Rooms"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center"
+                android:background="@drawable/coworkingspaces_search_bar">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Contact"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_ContactInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="09XXXXXXXXX / (032)-XXX-XXXX"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/custom_textbox"
-                android:gravity="center"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="See all available room layouts"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="list of rooms"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_baseline_payments_24"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Pricing"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:background="@drawable/coworkingspaces_search_bar"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_notifications_white"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Amenities"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:id="@+id/CWSProfile_Amenities_Textview"
+                    android:text="Click button below to see amenities"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/CWSProfPage_AmenitiesEdit_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_rename"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_textbox"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="See all amenities"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="Pricing description"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
-                android:drawableStart="@drawable/ic_baseline_discount_24"
-                android:drawableTint="@color/orange"
-                android:fontFamily="@font/quicksand_medium"
-                android:padding="5dp"
-                android:paddingEnd="10dp"
-                android:text="Plans"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center"
+                android:background="@drawable/coworkingspaces_search_bar">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/branch_icon_white"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:paddingEnd="10dp"
+                    android:text="Floor Map"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/CWSProfPage_FloorMap_Imageview"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/uploadphoto" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_FloorMapDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColorHint="@color/gray"
+                    android:hint="Any Floor Map description"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:gravity="center"
-                android:text="Plans description"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/coworkingspaces_search_bar">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_baseline_meeting_room_24"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Rooms"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/CWSProfPage_SeeAllLayouts_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/custom_textbox"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="See all available room layouts"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_ListOfRooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColorHint="@color/gray"
+                    android:hint="Cubicle, Meeting rooms, etc."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/coworkingspaces_search_bar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Pricing"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_PricingContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColorHint="@color/gray"
+                    android:hint="150/per hour, 500/per week, etc."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/coworkingspaces_search_bar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_discount_24"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Plans"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/CWSProfPage_Plans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:textColorHint="@color/gray"
+                    android:hint="Plan A - 1 month discount for meeting rooms..."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/coworkingspaces_search_bar"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_notifications_white"
+                    android:drawableTint="@color/orange"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="5dp"
+                    android:text="Promotions and Discounts"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_CWSProfPage_Prodisc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
     </ScrollView>
-
 
 </LinearLayout>

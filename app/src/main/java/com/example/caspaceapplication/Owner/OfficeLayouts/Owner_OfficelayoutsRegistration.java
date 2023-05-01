@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.caspaceapplication.Owner.OwnerHomepage;
 import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
@@ -39,13 +39,12 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
 
     BottomNavigationView navigationView;//bottom navigation bar
 
-    FirebaseAuth firebaseAuth;
-    FirebaseFirestore firebaseFirestore;
-    FirebaseStorage firebaseStorage;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();;
 
-    Button saveLayoutButton;
-    EditText layoutName, layoutPeoplesize, layoutAreasize, layoutType, layoutPrice;
-    ImageButton layoutImage;
+    AppCompatButton saveLayoutButton;
+    EditText layoutName, layoutMinPersonCap, layoutMaxPersonCap, layoutAreasize, layoutType, layoutHourlyPrice, layoutDailyPrice, layoutWeeklyPrice, layoutMonthlyPrice, layoutAnnualPrice;
+    ImageView layoutImage;
     Uri filepath = null;
     private static final int GALLERY_CODE = 1;
 
@@ -54,16 +53,19 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_officelayouts_registration);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-
-        layoutImage = findViewById(R.id.layoutImage_imageButton);
+        layoutImage = findViewById(R.id.layoutImage_imageView);
         layoutName = findViewById(R.id.layoutName_editText);
-        layoutPeoplesize = findViewById(R.id.layoutPeopleSize_editText);
+        layoutMinPersonCap = findViewById(R.id.layoutMinPersonCap_editText);
+        layoutMaxPersonCap = findViewById(R.id.layoutMaxPersonCap_editText);
         layoutAreasize = findViewById(R.id.layoutAreaSize_editText);
         layoutType = findViewById(R.id.layoutLayoutType_editText);
-        layoutPrice = findViewById(R.id.layoutLayoutPrice_editText);
+        layoutHourlyPrice = findViewById(R.id.layoutLayoutHourlyPrice_editText);
+        layoutDailyPrice = findViewById(R.id.layoutLayoutDailyPrice_editText);
+        layoutWeeklyPrice = findViewById(R.id.layoutLayoutWeeklyPrice_editText);
+        layoutMonthlyPrice = findViewById(R.id.layoutLayoutMonthlyPrice_editText);
+        layoutAnnualPrice = findViewById(R.id.layoutLayoutAnnualPrice_editText);
+
+
         saveLayoutButton = findViewById(R.id.saveLayout_Button);
 
         // Initialize the bottom navigation bar
@@ -78,6 +80,8 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                 startActivityForResult(intent,GALLERY_CODE);
             }
         });
+
+
 
     }
 
@@ -95,14 +99,39 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String layout_name = layoutName.getText().toString().trim();
-                String layout_peoplesize = layoutPeoplesize.getText().toString().trim();
+                String layout_personMinCapacity = layoutMinPersonCap.getText().toString().trim();
+                String layout_personMaxCapacity = layoutMaxPersonCap.getText().toString().trim();
                 String layout_areasize = layoutAreasize.getText().toString().trim();
                 String layout_type = layoutType.getText().toString().trim();
-                String layout_price = layoutPrice.getText().toString().trim();
+                String layout_HourlyRate = layoutHourlyPrice.getText().toString().trim();
+                String layout_DailyRate = layoutDailyPrice.getText().toString().trim();
+                String layout_WeeklyRate = layoutWeeklyPrice.getText().toString().trim();
+                String layout_MonthlyRate = layoutMonthlyPrice.getText().toString().trim();
+                String layout_AnnualRate = layoutAnnualPrice.getText().toString().trim();
 
-                if (TextUtils.isEmpty(layout_name) || TextUtils.isEmpty(layout_peoplesize) || TextUtils.isEmpty(layout_areasize) || TextUtils.isEmpty(layout_type) || TextUtils.isEmpty(layout_price) || filepath == null){
+                if (TextUtils.isEmpty(layout_name) || filepath == null || TextUtils.isEmpty(layout_personMinCapacity) ||
+                        TextUtils.isEmpty(layout_personMaxCapacity) || TextUtils.isEmpty(layout_areasize) || TextUtils.isEmpty(layout_type) ||
+                        TextUtils.isEmpty(layout_HourlyRate) || TextUtils.isEmpty(layout_DailyRate) || TextUtils.isEmpty(layout_WeeklyRate) ||
+                        TextUtils.isEmpty(layout_MonthlyRate) || TextUtils.isEmpty(layout_AnnualRate)){
                     Toast.makeText(Owner_OfficelayoutsRegistration.this, "Please fill in all fields and select an image.", Toast.LENGTH_SHORT).show();
                 }else{
+                    // Validate the fields are valid numbers
+                    try {
+                        Integer.parseInt(layout_areasize);
+                        Integer.parseInt(layout_personMinCapacity);
+                        Integer.parseInt(layout_personMaxCapacity);
+                    } catch (NumberFormatException e) {
+                        layoutMinPersonCap.requestFocus();
+                        layoutMinPersonCap.setError("Please enter a valid number for the min person capacity");
+
+                        layoutMaxPersonCap.requestFocus();
+                        layoutMaxPersonCap.setError("Please enter a valid number for the max person capacity");
+
+                        layoutAreasize.requestFocus();
+                        layoutAreasize.setError("Please enter a valid number for the area size");
+                        return;
+                    }
+
                     firebaseFirestore.collection("OfficeLayouts")
                             .whereEqualTo("layoutName", layout_name)
                             .get()
@@ -118,7 +147,6 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                                         if (isExistingLayout) {
                                             Toast.makeText(Owner_OfficelayoutsRegistration.this, "A layout with the same name already exists.", Toast.LENGTH_SHORT).show();
                                         } else {
-
                                             StorageReference path = firebaseStorage.getReference().child("LayoutImages").child(filepath.getLastPathSegment());
                                             path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
@@ -129,10 +157,15 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                                                             Map<String, String> layout = new HashMap<>();
                                                             layout.put("layoutImage", task.getResult().toString());
                                                             layout.put("layoutName", layout_name);
-                                                            layout.put("layoutPeopleNum", layout_peoplesize);
+                                                            layout.put("minCapacity", layout_personMinCapacity);
+                                                            layout.put("maxCapacity", layout_personMaxCapacity);
                                                             layout.put("layoutAreasize", layout_areasize);
                                                             layout.put("layoutType", layout_type);
-                                                            layout.put("layoutPrice", layout_price);
+                                                            layout.put("layoutHourlyPrice", layout_HourlyRate);
+                                                            layout.put("layoutDailyPrice", layout_DailyRate);
+                                                            layout.put("layoutWeeklyPrice", layout_WeeklyRate);
+                                                            layout.put("layoutMonthlyPrice", layout_MonthlyRate);
+                                                            layout.put("layoutAnnualPrice", layout_AnnualRate);
                                                             layout.put("owner_id", user.getUid());
                                                             layout.put("layout_id", "");
 
@@ -165,10 +198,6 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                                 }
                             });
                 }
-
-                /*if (!(layout_name.isEmpty() && layout_peoplesize.isEmpty() && layout_areasize.isEmpty() && filepath != null)) {
-
-                }*/
             }
         });
     }
