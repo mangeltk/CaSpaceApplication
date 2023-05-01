@@ -10,7 +10,6 @@ import com.example.caspaceapplication.R;
 
 public class Owner_Profile extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

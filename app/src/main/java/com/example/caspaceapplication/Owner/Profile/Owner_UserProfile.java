@@ -118,7 +118,6 @@ public class Owner_UserProfile extends Fragment {
                                 ownerProfile_Lastname.setText(lastName);
                                 ownerProfile_IDNumber.setText(idNumber);
                                 ownerProfile_Email.setText(email);
-
                             }
                         }
                     }
