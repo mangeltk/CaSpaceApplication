@@ -1,8 +1,12 @@
 package com.example.caspaceapplication.Owner.Profile;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +22,34 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Owner_UserProfile extends Fragment {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    CollectionReference colref = FirebaseFirestore.getInstance().collection("OwnerUserAccounts");
 
     ImageButton owner_userBranchButton;
     TextView ownerProfile_FullName, ownerProfile_CompanyName, ownerProfile_Firstname, ownerProfile_Lastname, ownerProfile_IDNumber, ownerProfile_Email;
     AppCompatButton ownerEditUserProfileButton;
-
+    Button selectImageButton;
+    CircleImageView ownerProfileImageview;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    public Uri selectedImageUri;
 
     public Owner_UserProfile() {
     }
@@ -57,6 +73,8 @@ public class Owner_UserProfile extends Fragment {
             }
         });
 
+        selectImageButton = rootView.findViewById(R.id.selectImage_Button);
+        ownerProfileImageview = rootView.findViewById(R.id.ownerProfile_Image_Imageview);
         ownerProfile_FullName = rootView.findViewById(R.id.ownerProfile_FullName_Texview);
         ownerProfile_CompanyName = rootView.findViewById(R.id.ownerProfile_Company_Texview);
         ownerProfile_Firstname = rootView.findViewById(R.id.ownerProfile_Firstname_Texview);
@@ -65,6 +83,16 @@ public class Owner_UserProfile extends Fragment {
         ownerProfile_Email = rootView.findViewById(R.id.ownerProfile_Email_Texview);
 
         retrieveOwnerUserDetails();
+
+        selectImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
 
         ownerEditUserProfileButton = rootView.findViewById(R.id.ownerEditUserProfile_Button);
         ownerEditUserProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -93,10 +121,47 @@ public class Owner_UserProfile extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            selectedImageUri = data.getData();
+            ownerProfileImageview.setImageURI(selectedImageUri);
+
+            StorageReference profileImageRef = FirebaseStorage.getInstance().getReference().child("CWSOwner/" + user + "/profile");
+            profileImageRef.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            colref.whereEqualTo("ownerIDNum", user).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (!queryDocumentSnapshots.isEmpty()){
+                                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                                            String docId = documentSnapshot.getId();
+                                            colref.document(docId).update("ownerImage", uri.toString())
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Toast.makeText(getContext(), "Profile image saved!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+
     public void retrieveOwnerUserDetails(){
-
-        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         firebaseFirestore.collection("OwnerUserAccounts")
                 .whereEqualTo("ownerIDNum", user)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -105,6 +170,7 @@ public class Owner_UserProfile extends Fragment {
                         if (!queryDocumentSnapshots.isEmpty()){
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
                                 // Retrieve owner user details from Firestore
+                                String image = documentSnapshot.getString("ownerImage");
                                 String companyName = documentSnapshot.getString("ownerCompanyName");
                                 String firstName = documentSnapshot.getString("ownerFirstname");
                                 String lastName = documentSnapshot.getString("ownerLastname");
@@ -112,18 +178,21 @@ public class Owner_UserProfile extends Fragment {
                                 String email = documentSnapshot.getString("ownerEmail");
 
                                 // Set the retrieved details to the UI
+                                if (image == null){
+                                    Glide.with(getContext()).load(R.drawable.profileicon).into(ownerProfileImageview);
+                                }else{
+                                    Glide.with(getContext()).load(image).into(ownerProfileImageview);
+                                }
                                 ownerProfile_FullName.setText(firstName + " " + lastName);
                                 ownerProfile_CompanyName.setText(companyName);
                                 ownerProfile_Firstname.setText(firstName);
                                 ownerProfile_Lastname.setText(lastName);
                                 ownerProfile_IDNumber.setText(idNumber);
                                 ownerProfile_Email.setText(email);
-
                             }
                         }
                     }
                 });
-
     }
 
     public void popupEditDetails(){
@@ -198,7 +267,6 @@ public class Owner_UserProfile extends Fragment {
 
             }
         });
-
-
     }
+
 }
