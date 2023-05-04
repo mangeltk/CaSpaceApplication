@@ -188,9 +188,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_gravity="center">
 
                 <TextView
@@ -205,22 +205,377 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <EditText
-                    android:id="@+id/CWSProfile_StoreHours_Edittext"
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="15dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:gravity="center"
-                    android:hint="00:00 am to 00:00 pm"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:layout_gravity="center"
+                    android:columnCount="5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_MondayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_MondayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Monday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_MondayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tuesday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_TuesdayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_TuesdayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Tuesday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_TuesdayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wednesday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_WednesdayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_WednesdayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Wednesday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_WednesdayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thursday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_ThursdayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_ThursdayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Thursday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_ThursdayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Friday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_FridayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_FridayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Friday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_FridayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saturday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_SaturdayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_SaturdayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Saturday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_SaturdayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunday"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_SundayStart_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"
+                        android:hint="09 : 00 AM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/ProfileCWSHours_SundayEnd_Edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="09 : 00 PM"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_Sunday24hours_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icons8_last_24_hours_48"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ProfileCWSHours_SundayClose_AppCompButton"
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:background="@drawable/customer_searchbar"
+                        android:foreground="@drawable/icons8_close_sign_48"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </GridLayout>
 
             </LinearLayout>
 

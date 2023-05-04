@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CWS_ProfilePage extends AppCompatActivity {
 
@@ -38,6 +39,14 @@ public class CWS_ProfilePage extends AppCompatActivity {
     TextView ProfPage_Title, ProfPage_TitleSmall, ProfPage_Location, ProfPage_StoreHours, ProfPage_AboutContent,
             ProfPage_ContactInfo, ProfPage_FloorMapDescription,ProfPage_ListOfRooms, ProfPage_PricingContent,
             ProfPage_Plans;
+
+    TextView CWSHours_MondayStartTextview, CWSHours_MondayEndTextview,
+            CWSHours_TuesdayStartTextview, CWSHours_TuesdayEndTextview,
+            CWSHours_WednesdayStartTextview, CWSHours_WednesdayEndTextview,
+            CWSHours_ThursdayStartTextview, CWSHours_ThursdayEndTextview,
+            CWSHours_FridayStartTextview, CWSHours_FridayEndTextview,
+            CWSHours_SaturdayStartTextview, CWSHours_SaturdayEndTextview,
+            CWSHours_SundayStartTextview, CWSHours_SundayEndTextview;
 
     RecyclerView CWSProfPage_Prodisc;
     List<OwnerProDisc_ModelClass> dataClassList;
@@ -72,6 +81,21 @@ public class CWS_ProfilePage extends AppCompatActivity {
         CWSProfPage_Prodisc = findViewById(R.id.recyclerview_CWSProfPage_Prodisc);
         ProfPage_FloorMap_Imageview = findViewById(R.id.CWSProfPage_FloorMap_Imageview);
 
+        CWSHours_MondayStartTextview = findViewById(R.id.CWSHours_MondayStart_Textview);
+        CWSHours_MondayEndTextview = findViewById(R.id.CWSHours_MondayEnd_Textview);
+        CWSHours_TuesdayStartTextview = findViewById(R.id.CWSHours_TuesdayStart_Textview);
+        CWSHours_TuesdayEndTextview = findViewById(R.id.CWSHours_TuesdayEnd_Textview);
+        CWSHours_WednesdayStartTextview = findViewById(R.id.CWSHours_WednesdayStart_Textview);
+        CWSHours_WednesdayEndTextview = findViewById(R.id.CWSHours_WednesdayEnd_Textview);
+        CWSHours_ThursdayStartTextview = findViewById(R.id.CWSHours_ThursdayStart_Textview);
+        CWSHours_ThursdayEndTextview = findViewById(R.id.CWSHours_ThursdayEnd_Textview);
+        CWSHours_FridayStartTextview = findViewById(R.id.CWSHours_FridayStart_Textview);
+        CWSHours_FridayEndTextview = findViewById(R.id.CWSHours_FridayEnd_Textview);
+        CWSHours_SaturdayStartTextview = findViewById(R.id.CWSHours_SaturdayStart_Textview);
+        CWSHours_SaturdayEndTextview = findViewById(R.id.CWSHours_SaturdayEnd_Textview);
+        CWSHours_SundayStartTextview = findViewById(R.id.CWSHours_SundayStart_Textview);
+        CWSHours_SundayEndTextview = findViewById(R.id.CWSHours_SundayEnd_Textview);
+
         ProfPage_Title.setText(cospaceName);
 
         //get textview details
@@ -84,7 +108,6 @@ public class CWS_ProfilePage extends AppCompatActivity {
                                 String name = documentSnapshot.getString("cospaceName");
                                 String streetLocation = documentSnapshot.getString("cospaceStreetAddress");
                                 String cityLocation = documentSnapshot.getString("cospaceCityAddress");
-                                String storeHours = documentSnapshot.getString("cospaceStoreHours");
                                 String about = documentSnapshot.getString("cospaceAbout");
                                 String contact = documentSnapshot.getString("cospaceContactInfo");
                                 String floorMapPic = documentSnapshot.getString("cospaceFloorMapImage");
@@ -92,13 +115,100 @@ public class CWS_ProfilePage extends AppCompatActivity {
                                 String pricing = documentSnapshot.getString("cospacePricing");
                                 String plans = documentSnapshot.getString("cospacePlans");
 
+                                Map<String, Object> data = documentSnapshot.getData();
+                                Map<String, Object> hours = (Map<String, Object>) data.get("hours");
+                                if (hours.containsKey("Monday")) {
+                                    Map<String, Object> mondayHours = (Map<String, Object>) hours.get("Monday");
+                                    if (mondayHours.containsKey("openTime")) {
+                                        String mondayStartTime = mondayHours.get("openTime").toString();
+                                        CWSHours_MondayStartTextview.setText(mondayStartTime);
+                                    }
+                                    if (mondayHours.containsKey("closeTime")) {
+                                        String mondayCloseTime = mondayHours.get("closeTime").toString();
+                                        CWSHours_MondayEndTextview.setText(mondayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Tuesday")) {
+                                    Map<String, Object> tuesdayHours = (Map<String, Object>) hours.get("Tuesday");
+                                    if (tuesdayHours.containsKey("openTime")) {
+                                        String tuesdayStartTime = tuesdayHours.get("openTime").toString();
+                                        CWSHours_TuesdayStartTextview.setText(tuesdayStartTime);
+                                    }
+                                    if (tuesdayHours.containsKey("closeTime")) {
+                                        String tuesdayCloseTime = tuesdayHours.get("closeTime").toString();
+                                        CWSHours_TuesdayEndTextview.setText(tuesdayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Wednesday")) {
+                                    Map<String, Object> wednesdayHours = (Map<String, Object>) hours.get("Wednesday");
+                                    if (wednesdayHours.containsKey("openTime")) {
+                                        String wednesdayStartTime = wednesdayHours.get("openTime").toString();
+                                        CWSHours_WednesdayStartTextview.setText(wednesdayStartTime);
+                                    }
+                                    if (wednesdayHours.containsKey("closeTime")) {
+                                        String wednesdayCloseTime = wednesdayHours.get("closeTime").toString();
+                                        CWSHours_WednesdayEndTextview.setText(wednesdayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Thursday")) {
+                                    Map<String, Object> thursdayHours = (Map<String, Object>) hours.get("Thursday");
+                                    if (thursdayHours.containsKey("openTime")) {
+                                        String thursdayStartTime = thursdayHours.get("openTime").toString();
+                                        CWSHours_ThursdayStartTextview.setText(thursdayStartTime);
+                                    }
+                                    if (thursdayHours.containsKey("closeTime")) {
+                                        String thursdayCloseTime = thursdayHours.get("closeTime").toString();
+                                        CWSHours_ThursdayEndTextview.setText(thursdayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Friday")) {
+                                    Map<String, Object> fridayHours = (Map<String, Object>) hours.get("Friday");
+                                    if (fridayHours.containsKey("openTime")) {
+                                        String fridayStartTime = fridayHours.get("openTime").toString();
+                                        CWSHours_FridayStartTextview.setText(fridayStartTime);
+                                    }
+                                    if (fridayHours.containsKey("closeTime")) {
+                                        String fridayCloseTime = fridayHours.get("closeTime").toString();
+                                        CWSHours_FridayEndTextview.setText(fridayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Saturday")) {
+                                    Map<String, Object> saturdayHours = (Map<String, Object>) hours.get("Saturday");
+                                    if (saturdayHours.containsKey("openTime")) {
+                                        String saturdayStartTime = saturdayHours.get("openTime").toString();
+                                        CWSHours_SaturdayStartTextview.setText(saturdayStartTime);
+                                    }
+                                    if (saturdayHours.containsKey("closeTime")) {
+                                        String saturdayCloseTime = saturdayHours.get("closeTime").toString();
+                                        CWSHours_SaturdayEndTextview.setText(saturdayCloseTime);
+                                    }
+                                }
+
+                                if (hours.containsKey("Sunday")) {
+                                    Map<String, Object> sundayHours = (Map<String, Object>) hours.get("Sunday");
+                                    if (sundayHours.containsKey("openTime")) {
+                                        String sundayStartTime = sundayHours.get("openTime").toString();
+                                        CWSHours_SundayStartTextview.setText(sundayStartTime);
+                                    }
+                                    if (sundayHours.containsKey("closeTime")) {
+                                        String sundayCloseTime = sundayHours.get("closeTime").toString();
+                                        CWSHours_SundayEndTextview.setText(sundayCloseTime);
+                                    }
+                                }
+
+
                                 if (image == null || image.isEmpty()){
                                     Picasso.get().load(R.drawable.uploadphoto).into(ProfPage_Image);
                                 }else{Picasso.get().load(image).into(ProfPage_Image);}
                                 ProfPage_Title.setText(name);
                                 ProfPage_TitleSmall.setText(name);
                                 ProfPage_Location.setText(streetLocation + " " + cityLocation);
-                                ProfPage_StoreHours.setText(storeHours);
+                                //ProfPage_StoreHours.setText(storeHours);
                                 ProfPage_AboutContent.setText(about);
                                 ProfPage_ContactInfo.setText(contact);
                                 if (floorMapPic == null || floorMapPic.isEmpty()){

@@ -2,17 +2,20 @@ package com.example.caspaceapplication.Owner;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.Map;
+
 public class BranchModel {
 
     private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
     private GeoPoint location;
     private String owner_id;
+    private Map<String, OpeningHours> openingHours;
 
     public BranchModel() {
 
     }
 
-    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id) {
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> openingHours) {
         this.cospaceStreetAddress = cospaceStreetAddress;
         this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
@@ -21,6 +24,58 @@ public class BranchModel {
         this.cospaceName = cospaceName;
         this.location = location;
         this.owner_id = owner_id;
+        this.openingHours = openingHours;
+    }
+
+    // Getters and setters for other fields
+
+    public Map<String, OpeningHours> getOpeningHours() {
+        return openingHours;
+    }
+
+    public void setOpeningHours(Map<String, OpeningHours> openingHours) {
+        this.openingHours = openingHours;
+    }
+
+    public static class OpeningHours {
+        private boolean closed;
+        private String openTime;
+        private String closeTime;
+
+        public OpeningHours() {
+        }
+
+        public OpeningHours(boolean closed, String openTime, String closeTime) {
+            this.closed = closed;
+            this.openTime = openTime;
+            this.closeTime = closeTime;
+        }
+
+        // Getters and setters for all fields
+
+        public boolean isClosed() {
+            return closed;
+        }
+
+        public void setClosed(boolean closed) {
+            this.closed = closed;
+        }
+
+        public String getOpenTime() {
+            return openTime;
+        }
+
+        public void setOpenTime(String openTime) {
+            this.openTime = openTime;
+        }
+
+        public String getCloseTime() {
+            return closeTime;
+        }
+
+        public void setCloseTime(String closeTime) {
+            this.closeTime = closeTime;
+        }
     }
 
     public String getOwner_id() {

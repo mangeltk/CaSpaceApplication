@@ -18,7 +18,7 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
-            android:name=".customer.Cust_BookingTransaction"
+            android:name=".customer.BookingTransactionManagement.Cust_BookingTransaction"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
