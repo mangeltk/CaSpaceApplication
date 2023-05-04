@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
@@ -72,36 +74,128 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             }
         });
 
-        //Person capacity spinner
-        Spinner personCapacitySpinner = findViewById(R.id.personCapacity_spinner);
-        String[] personCapacityOptions = {"Select","1", "2", "3", "4", "5","6", "7", "8", "9", "10 above"};
-        ArrayAdapter<String> personCapAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, personCapacityOptions);
-        personCapAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        personCapacitySpinner.setAdapter(personCapAdapter);
-        personCapacitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedPersonCap = parent.getItemAtPosition(position).toString().trim();
+        AppCompatButton showFilterBar = findViewById(R.id.showFilterButton);
+        AppCompatButton hideFilterBar = findViewById(R.id.hideFilterButton);
 
-                if (!selectedPersonCap.equals("Select")){
-                    displayPersonCapacityResults(selectedPersonCap, owner_id);
-                }else{
-                    displayAll(owner_id);
-                }
-            }
+        LinearLayout filterBar = findViewById(R.id.filterBar);
+        filterBar.setVisibility(View.GONE);
+
+        showFilterBar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                displayAll(owner_id);
+            public void onClick(View v) {
+                filterBar.setVisibility(View.VISIBLE);
             }
         });
-        personCapacitySpinner.setSelection(0);
 
-        //Area size spinner
+        //display all
+        displayAll(owner_id);
+
+        //Person capacity spinner
+        Spinner personMinCapacitySpinner = findViewById(R.id.personMinCapacity_spinner);
+        ArrayList<String> minOptions = new ArrayList<>();
+        minOptions.add("Min");
+
+        Spinner personMaxCapacitySpinner = findViewById(R.id.personMaxCapacity_spinner);
+        ArrayList<String> maxOptions = new ArrayList<>();
+        maxOptions.add("Max");
         colref.whereEqualTo("owner_id", owner_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int maxAreaSize = Integer.MIN_VALUE; // initialize to smallest possible value
+                int min_MinPersonCap = Integer.MIN_VALUE; // initialize to smallest possible value
+                int max_MinPersonCap = Integer.MAX_VALUE; // initialize to largest possible value
+                int min_MaxPersonCap = Integer.MIN_VALUE; // initialize to smallest possible value
+                int max_MaxPersonCap = Integer.MAX_VALUE; // initialize to largest possible value
+
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                    String minPersonCapStored =  documentSnapshot.getString("minCapacity");
+                    String maxPersonCapStored =  documentSnapshot.getString("maxCapacity");
+
+                    // Convert capacity values to integers
+                    int minPersonCap = Integer.parseInt(minPersonCapStored);
+                    int maxPersonCap = Integer.parseInt(maxPersonCapStored);
+
+                    // Update minimum capacity variables
+                    if (minPersonCap > min_MinPersonCap) {
+                        min_MinPersonCap = minPersonCap;
+                    }
+
+                    if (minPersonCap < max_MinPersonCap) {
+                        max_MinPersonCap = minPersonCap;
+                    }
+
+                    // Check if the value is already present in the ArrayList before adding it
+                    if (!minOptions.contains(String.valueOf(minPersonCap))) {
+                        minOptions.add(String.valueOf(minPersonCap));
+                    }
+
+                    // Update maximum capacity variables
+                    if (maxPersonCap > min_MaxPersonCap) {
+                        min_MaxPersonCap = maxPersonCap;
+                    }
+
+                    if (maxPersonCap < max_MaxPersonCap) {
+                        max_MaxPersonCap = maxPersonCap;
+                    }
+
+                    if (!maxOptions.contains(String.valueOf(maxPersonCap))) {
+                        maxOptions.add(String.valueOf(maxPersonCap));
+                    }
+                }
+
+                Context context = CWSProfilePage_RoomLayouts.this;
+
+                Collections.sort(minOptions.subList(1, minOptions.size()));
+                ArrayAdapter<String> minAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, minOptions);
+                minAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                personMinCapacitySpinner.setAdapter(minAdapter);
+                personMinCapacitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedMinPersonCap = parent.getItemAtPosition(position).toString().trim();
+                        if (!selectedMinPersonCap.equals("Min")){
+                            displayMinPersonCapacityResults(selectedMinPersonCap, owner_id);
+                        }else{
+                            displayAll(owner_id);
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
+
+                Collections.sort(maxOptions.subList(1, maxOptions.size()));
+                ArrayAdapter<String> maxAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, maxOptions);
+                maxAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                personMaxCapacitySpinner.setAdapter(maxAdapter);
+                personMaxCapacitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedMaxPersonCap = parent.getItemAtPosition(position).toString().trim();
+                        if (!selectedMaxPersonCap.equals("Max")){
+                            displayMaxPersonCapacityResults(selectedMaxPersonCap, owner_id);
+                        }else{
+                            displayAll(owner_id);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+            }
+
+        });
+
+        //Area size spinner
+        Spinner areaSizeSpinner = findViewById(R.id.areaSize_dropdown);
+        colref.whereEqualTo("owner_id", owner_id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int minAreaSize = Integer.MAX_VALUE; // initialize to largest possible value
+                int maxAreaSize = Integer.MIN_VALUE; // initialize to smallest possible value
 
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                     String areasizeStored = documentSnapshot.getString("layoutAreasize");
@@ -116,9 +210,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                         }
                     }
                 }
-                // Do something with the max and min values
-                // Create the area size options array
-                Spinner areaSizeSpinner = findViewById(R.id.areaSize_dropdown);
+
                 String[] areaSizeOptions = new String[maxAreaSize - minAreaSize + 2];
                 areaSizeOptions[0] = "Select";
                 for (int i = 1; i <= maxAreaSize - minAreaSize + 1; i++) {
@@ -126,7 +218,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                 }
                     areaSizeOptions[maxAreaSize - minAreaSize + 1] = maxAreaSize+"";
 
-                // Populate the areaSizeSpinner with the options
                 Context context = CWSProfilePage_RoomLayouts.this;
                 ArrayAdapter<String> areaSizeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, areaSizeOptions);
                 areaSizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -177,6 +268,20 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             }
         });availabilitySpinner.setSelection(0);
 
+        hideFilterBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterBar.setVisibility(View.GONE);
+                displayAll(owner_id);
+                personMinCapacitySpinner.setSelection(0);
+                personMaxCapacitySpinner.setSelection(0);
+                availabilitySpinner.setSelection(0);
+                areaSizeSpinner.setSelection(0);
+
+                Toast.makeText(CWSProfilePage_RoomLayouts.this, "Clear filter", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         recyclerView = findViewById(R.id.recyclerview_CWSProfPage_RoomLayouts);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -201,31 +306,53 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                 });
     }
 
-    private  void displayPersonCapacityResults(String selectedCapacity, String ownerID){
+    private  void displayMinPersonCapacityResults(String selectedCapacity, String ownerID){
         //todo: display layouts method based on user selected in spinner layoutPersonCapacity (TO BE MODIFIED)
         List<OfficeLayout_DataClass> filteredList = new ArrayList<>();//initialize new data class for here
-        //dataClassList.clear();
-        /*for (OfficeLayout_DataClass data : dataClassList){
-            if (data.getLayoutPersonCapacity().toLowerCase().contains(selectedCapacity.toLowerCase())){
-                filteredList.add(data);
-            }
-            else {
-                displayAll(ownerID);
-            }
-        }cwsProfilePageRoomLayoutsAdapter.setFilteredList(filteredList);*/
+        dataClassList.clear();
+        colref.whereEqualTo("owner_id", ownerID).whereEqualTo("minCapacity", selectedCapacity)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            OfficeLayout_DataClass modelClass = documentSnapshot.toObject(OfficeLayout_DataClass.class);
+                            dataClassList.add(modelClass);
+                            Toast.makeText(CWSProfilePage_RoomLayouts.this, "Layouts with minimum capacity " + selectedCapacity, Toast.LENGTH_SHORT).show();
+                        }
+                        cwsProfilePageRoomLayoutsAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
 
+    private  void displayMaxPersonCapacityResults(String selectedCapacity, String ownerID){
+        //todo: display layouts method based on user selected in spinner layoutPersonCapacity (TO BE MODIFIED)
+        List<OfficeLayout_DataClass> filteredList = new ArrayList<>();//initialize new data class for here
+        dataClassList.clear();
+        colref.whereEqualTo("owner_id", ownerID).whereEqualTo("maxCapacity", selectedCapacity)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            OfficeLayout_DataClass modelClass = documentSnapshot.toObject(OfficeLayout_DataClass.class);
+                            dataClassList.add(modelClass);
+                            Toast.makeText(CWSProfilePage_RoomLayouts.this, "Layouts with maximum capacity " + selectedCapacity, Toast.LENGTH_SHORT).show();
+                        }
+                        cwsProfilePageRoomLayoutsAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void displayAreaSizeResults(String areaSize, String ownerID){
+        dataClassList.clear();
         //todo: display layouts method based on user selected in spinner area size
         colref.whereEqualTo("owner_id", ownerID).whereEqualTo("layoutAreasize", areaSize)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                       dataClassList.clear();
                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                            OfficeLayout_DataClass modelClass = documentSnapshot.toObject(OfficeLayout_DataClass.class);
                            dataClassList.add(modelClass);
+                           Toast.makeText(CWSProfilePage_RoomLayouts.this, "Layouts with area size " + areaSize, Toast.LENGTH_SHORT).show();
                        }
                        cwsProfilePageRoomLayoutsAdapter.notifyDataSetChanged();
                     }
@@ -250,6 +377,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     List<OfficeLayout_DataClass> layoutList = queryDocumentSnapshots.toObjects(OfficeLayout_DataClass.class);
                     CWSProfilePage_RoomLayouts_Adapter adapter = new CWSProfilePage_RoomLayouts_Adapter(layoutList);
                     recyclerView.setAdapter(adapter);
+                    Toast.makeText(CWSProfilePage_RoomLayouts.this, "Layouts that are " + availability, Toast.LENGTH_SHORT).show();
                 } else {
                     displayAll(ownerID);
                     Toast.makeText(CWSProfilePage_RoomLayouts.this, "No layouts found", Toast.LENGTH_SHORT).show();
@@ -309,7 +437,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             String imageUri = String.valueOf(dataClass.get(position).getLayoutImage());
                 Picasso.get().load(imageUri).into(holder.LayoutImage_Imageview);
             holder.LayoutTitle_Textview.setText(dataClass.get(position).getLayoutName());
-            //holder.PersonCapacity_Textview.setText(dataClass.get(position).getLayoutPersonCapacity());
+            holder.PersonCapacity_Textview.setText(dataClass.get(position).getMinCapacity() + "-" + dataClass.get(position).getMaxCapacity());
             holder.Areasize_Textview.setText(dataClass.get(position).getLayoutAreasize());
             holder.Availability_Textview.setText(dataClass.get(position).getLayoutAvailability());
             holder.SeeMoreDetails_Textview.setOnClickListener(new View.OnClickListener() {
@@ -324,7 +452,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     TextView LayoutTitle_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_LayoutTitle_TextviewDETAILS);
                     ImageView LayoutImage_ImageviewDETAILS = dialogView.findViewById(R.id.CWSPP_LayoutImage_ImageviewDETAILS);
                     TextView Availability_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_Availability_TextviewDETAILS);
-                    //TextView PersonCapacity_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_PersonCapacity_TextviewDETAILS);
+                    TextView PersonCapacity_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_PersonCapacity_TextviewDETAILS);
                     TextView Areasize_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_Areasize_TextviewDETAILS);
                     TextView HourlyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_HourlyRate_TextviewDETAILS);
                     TextView DailyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_DailyRate_TextviewDETAILS);
@@ -340,7 +468,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                         Picasso.get().load(imageUri).into(LayoutImage_ImageviewDETAILS);
                     }
                     Availability_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAvailability());
-                    //PersonCapacity_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutPersonCapacity());
+                    PersonCapacity_TextviewDETAILS.setText(dataClass.get(nextPosition).getMinCapacity() + "-" + dataClass.get(nextPosition).getMaxCapacity());
                     Areasize_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAreasize());
                     HourlyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutHourlyPrice());
                     DailyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutDailyPrice());
