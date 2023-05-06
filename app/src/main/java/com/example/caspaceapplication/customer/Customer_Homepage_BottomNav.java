@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.fragments.BookingsFragment;
+import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingsFragment;
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
 import com.example.caspaceapplication.fragments.MessageFragment;

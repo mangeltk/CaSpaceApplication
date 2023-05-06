@@ -142,9 +142,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     public void editTextFieldsForHours(){
@@ -551,8 +548,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -599,7 +594,6 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                 hours.put("Friday", new BranchModel.OpeningHours(isFridayClosed,CWSHours_FridayStartEdittext.getText().toString(), CWSHours_FridayEndEdittext.getText().toString()));
                                                 hours.put("Saturday", new BranchModel.OpeningHours(isSaturdayClosed,CWSHours_SaturdayStartEdittext.getText().toString(), CWSHours_SaturdayEndEdittext.getText().toString()));
                                                 hours.put("Sunday", new BranchModel.OpeningHours(isSundayClosed,CWSHours_SundayEndEdittext.getText().toString(), CWSHours_SundayEndEdittext.getText().toString()));
-
 
                                                 Map<String,Object> branch = new HashMap<>();
                                                 branch.put("cospaceImage",task.getResult().toString());
