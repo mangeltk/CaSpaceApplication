@@ -10,13 +10,13 @@ public class OwnerBT_ModelClass {
     String bookingTotal;
     String cospaceID;
     String customerID;
-    String ownerID;
+    String owner_id;
     String spaceID;
 
     public OwnerBT_ModelClass() {
     }
 
-    public OwnerBT_ModelClass(String bookingDate, String bookingDuration, String bookingID, String bookingPaymentProof, String bookingStatus, String bookingTotal, String cospaceID, String customerID, String ownerID, String spaceID) {
+    public OwnerBT_ModelClass(String bookingDate, String bookingDuration, String bookingID, String bookingPaymentProof, String bookingStatus, String bookingTotal, String cospaceID, String customerID, String owner_id, String spaceID) {
         this.bookingDate = bookingDate;
         this.bookingDuration = bookingDuration;
         this.bookingID = bookingID;
@@ -25,7 +25,7 @@ public class OwnerBT_ModelClass {
         this.bookingTotal = bookingTotal;
         this.cospaceID = cospaceID;
         this.customerID = customerID;
-        this.ownerID = ownerID;
+        this.owner_id = owner_id;
         this.spaceID = spaceID;
     }
 
@@ -93,12 +93,12 @@ public class OwnerBT_ModelClass {
         this.customerID = customerID;
     }
 
-    public String getOwnerID() {
-        return ownerID;
+    public String getOwner_id() {
+        return owner_id;
     }
 
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
     }
 
     public String getSpaceID() {

@@ -4,16 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Owner.RegisterOwner_SpaceBranch"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Owner.RegisterOwner_SpaceBranch">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,124 +19,843 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/owner_logoupperleft" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:background="@drawable/menu"
-            android:backgroundTint="@color/orange8"
-            >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/header_background_forownerhomepage"
-                android:padding="15dp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
-                android:drawableStart="@drawable/ic_rename"
-                android:drawableTint="@color/black"
-                android:text="Register Coworking Space Branch"
-                android:textSize="20sp"
-                android:visibility="visible" />
+                android:layout_margin="3dp"
+                android:background="@drawable/menu"
+                android:backgroundTint="@color/orange8"
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/registerBranchImage_Imagebutton"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/uploadphoto" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/header_background_forownerhomepage"
+                    android:backgroundTint="@color/white"
+                    android:drawableStart="@drawable/ic_rename"
+                    android:drawableTint="@color/black"
+                    android:padding="15dp"
+                    android:text="Register Coworking Space Branch"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
-            <EditText
-                android:id="@+id/registerBranchName_Edittext"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/custom_textbox"
-                android:drawableLeft="@drawable/branch_icon_white"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="Branch name"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
 
-            <EditText
-                android:id="@+id/registerBranchAddress_Edittext"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/custom_textbox"
-                android:drawableLeft="@drawable/address_icon_white"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="Branch address"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:drawableTint="@color/white"
-                android:text="Select category: "
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/menu"
+                        android:backgroundTint="@color/orange8"
+                        android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spinnerCategories"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:dropDownSelector="@color/black"
-                android:entries="@array/coworkingSpace_categories"
-                android:spinnerMode="dropdown"
-                android:fontFamily="@font/quicksand_medium"
-                />
+                        <ImageButton
+                            android:id="@+id/registerBranchImage_Imagebutton"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/white"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/uploadphoto" />
 
-            <Button
-                android:id="@+id/registerButton_SpaceBranch"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/colorWhite"
-                android:fontFamily="@font/quicksand_medium"
-                android:text="REGISTER BRANCH"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp"
-                android:layout_marginBottom="20dp"
-                />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*click above to select image"
+                            android:textColor="@color/teal_700"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            />
 
-        </LinearLayout>
+                        <EditText
+                            android:id="@+id/registerBranchName_Edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/custom_textbox"
+                            android:drawableLeft="@drawable/branch_icon_white"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="Branch name"
+                            android:padding="8dp"
+                            android:paddingStart="20dp"
+                            android:textColor="@color/white"
+                            android:textColorHighlight="@color/orange"
+                            android:textColorHint="@color/underline"
+                            android:textSize="17dp" />
 
-    </LinearLayout>
+                        <EditText
+                            android:id="@+id/registerBranchAddress1_Edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/custom_textbox"
+                            android:drawableLeft="@drawable/address_icon_white"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="Street #/street name/Unit #"
+                            android:padding="8dp"
+                            android:paddingStart="20dp"
+                            android:textColor="@color/white"
+                            android:textColorHighlight="@color/orange"
+                            android:textColorHint="@color/underline"
+                            android:textSize="17dp" />
 
+                        <EditText
+                            android:id="@+id/registerBranchAddress2_Edittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/custom_textbox"
+                            android:drawableLeft="@drawable/address_icon_white"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="City/Municipality"
+                            android:padding="8dp"
+                            android:paddingStart="20dp"
+                            android:textColor="@color/white"
+                            android:textColorHighlight="@color/orange"
+                            android:textColorHint="@color/underline"
+                            android:textSize="17dp" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/select_location_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select exact location on map"
+                            android:layout_gravity="center"
+                            android:background="@drawable/coworkingspaces_search_bar"
+                            android:paddingEnd="15dp"
+                            android:drawableTint="@color/white"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/teal_700"
+                            android:paddingStart="15dp"
+                            />
+
+                        <FrameLayout
+                            android:id="@+id/mapFragmentContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/select_location_button" />
+
+                        <GridLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:background="@drawable/coworkingspaces_search_bar"
+                            android:layout_margin="5dp"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:layout_gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="Latitude:"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/latitudeDisplay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:hint="000000000000"
+                                android:textColor="@color/teal_700"
+                                android:textColorHint="@color/gray"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="Longitude:"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/longitudeDisplay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:hint="000000000000"
+                                android:textColor="@color/teal_700"
+                                android:textColorHint="@color/gray"
+                                android:textSize="14sp" />
+
+                        </GridLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/custom_textbox"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:drawableTint="@color/white"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="Select category: "
+                                android:textColor="@color/teal_700"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/spinnerCategories"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:dropDownSelector="@color/teal_700"
+                                android:entries="@array/coworkingSpace_categories"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:spinnerMode="dropdown"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/coworkingspaces_search_bar"
+                            android:orientation="vertical"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="Opening Hours"
+                                android:textColor="@color/teal_700"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <GridLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:columnCount="5">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Monday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_MondayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_MondayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Monday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_MondayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Tuesday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_TuesdayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_TuesdayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Tuesday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_TuesdayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Wednesday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_WednesdayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_WednesdayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Wednesday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_WednesdayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Thursday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_ThursdayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_ThursdayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Thursday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_ThursdayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Friday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_FridayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_FridayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Friday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_FridayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Saturday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_SaturdayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_SaturdayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Saturday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_SaturdayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Sunday"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_SundayStart_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 AM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <EditText
+                                        android:id="@+id/CWSHours_SundayEnd_Edittext"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:hint="09 : 00 PM"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/gray"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_Sunday24hours_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/icons8_last_24_hours_48"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/CWSHours_SundayClose_AppCompButton"
+                                        android:layout_width="50dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="3dp"
+                                        android:background="@drawable/customer_searchbar"
+                                        android:foreground="@drawable/icons8_close_sign_48"
+                                        android:foregroundGravity="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp" />
+
+                                </GridLayout>
+
+                            </ScrollView>
+
+                            <!--<HorizontalScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="Monday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/monday_timepicker"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Tuesday"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/tuesday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Wednesday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/wednesday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Thursday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/thursday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Friday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/friday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Saturday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/saturday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Sunday"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold" />
+
+                                        <TimePicker
+                                            android:id="@+id/sunday_timepicker"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:timePickerMode="spinner" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </HorizontalScrollView>-->
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/registerButton_SpaceBranch"
+                            android:layout_width="300dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="20dp"
+                            android:backgroundTint="@color/colorWhite"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="REGISTER BRANCH"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </LinearLayout>
 
 
 

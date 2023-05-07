@@ -58,7 +58,7 @@ public class OwnerBT_PendingTabFragment extends Fragment {
     private void loadPendingBT(){
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Pending")
-                                .whereEqualTo("ownerID", currentUserID);
+                                .whereEqualTo("owner_id", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

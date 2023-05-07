@@ -1,14 +1,14 @@
 package com.example.caspaceapplication.customer;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.fragments.BookingsFragment;
+import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingsFragment;
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
 import com.example.caspaceapplication.fragments.MessageFragment;
@@ -28,7 +28,8 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
 
     }
 
-    private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
+            =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

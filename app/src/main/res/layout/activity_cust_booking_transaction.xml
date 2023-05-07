@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    android:orientation="vertical"
+    tools:context=".customer.BookingTransactionManagement.Cust_BookingTransaction">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/CustBookingDetails_backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/custom_edittext_orange"
+            android:foreground="@drawable/back"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/CustBTBranchName_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="end"
+            android:hint="CWS Branch name"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/branchSmallPic_Imageview"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/upload" />
+
+    </LinearLayout>
+
+    <!-- Booking Details CardView -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/coworkingspaces_search_bar"
+                android:orientation="horizontal">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/CustBTLayoutImage_ImageView"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/layout_sample"
+                            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:columnCount="2"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/CustBTBranchLocation_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:drawableStart="@drawable/icons_map_pin_24"
+                                android:drawablePadding="3dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Branch Location"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTBranchContactInfo_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                                android:drawablePadding="3dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Contact info"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTBranchHours_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:drawableStart="@drawable/ic_baseline_meeting_room_24"
+                                android:drawablePadding="3dp"
+                                android:drawableTint="@color/green"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Open hours"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:drawablePadding="3dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Open hours"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+
+                        </GridLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill_horizontal"
+                        android:orientation="vertical">
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutName_TextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_columnSpan="2"
+                                android:layout_marginTop="1dp"
+                                android:background="@drawable/customer_coworkingspace_textview"
+                                android:backgroundTint="@color/orange11"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Name"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutAvailability_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_columnSpan="2"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:hint="Availability status"
+                                android:padding="5dp"
+                                android:textColor="@color/teal_700"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="No of people:"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutPersonCap_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="15dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:hint="10"
+                                android:paddingBottom="3dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="Area size:"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutAreasize_TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:hint="10 sq.m."
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="15sp" />
+
+                        </GridLayout>
+
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:columnCount="2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_columnSpan="2"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:text="Pricing Rates"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="20dp"
+                                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                                android:drawablePadding="0dp"
+                                android:drawableTint="@color/black"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Hourly rate"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutHourlyRate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:layout_marginStart="5dp"
+                                android:drawablePadding="0dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="00.00"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                                android:drawablePadding="0dp"
+                                android:drawableTint="@color/black"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Daily rate"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutDailyRate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:drawablePadding="0dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="00.00"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                                android:drawablePadding="0dp"
+                                android:drawableTint="@color/black"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Weekly rate"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutWeeklyRate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:drawablePadding="0dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="00.00"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="20dp"
+                                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                                android:drawablePadding="0dp"
+                                android:drawableTint="@color/black"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Monthly rate"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutMonthlyRate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:layout_marginStart="5dp"
+                                android:drawablePadding="0dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="00.00"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="20dp"
+                                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                                android:drawablePadding="0dp"
+                                android:drawableTint="@color/black"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="Annual rate"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/CustBTLayoutAnnualRate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:layout_marginStart="5dp"
+                                android:drawablePadding="0dp"
+                                android:fontFamily="@font/quicksand_medium"
+                                android:gravity="center"
+                                android:hint="00.00"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/orange"
+                                android:textColorHint="@color/gray"
+                                android:textSize="12sp" />
+
+                        </GridLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:gravity="center"
+                        android:text="*click to minimize layout details"
+                        android:textColor="@color/teal_700"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </GridLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewBookingBelow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/coworkingspaces_search_bar"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/CustBTLayoutName_TextViewBelow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/customer_coworkingspace_textview"
+                    android:backgroundTint="@color/orange11"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*click to show layout details"
+                    android:textColor="@color/teal_700"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+    <!-- Booking Details Choose on radio buttons what rate -->
+    <LinearLayout
+        android:id="@+id/radioButton_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/coworkingspaces_search_bar"
+        android:backgroundTint="@color/orange14"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Please select rate type to book"
+            android:textColor="@color/teal_700"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/hourlyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Hourly"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/daiyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Daily"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/weeklyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Weekly"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/monthlyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Monthly"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/annuallyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Annual"
+                android:textColor="@color/black" />
+
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <!-- Booking Details CardView -->
+    <ScrollView
+        android:id="@+id/bookingDetails_Scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/hourlyRateLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="3"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:backgroundTint="@color/orange11"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Booking details"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:columnCount="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Selected Rate Type: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/selectedRateTypeDisplay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Hourly"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Selected Rate Price: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/selectedRateDisplay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="00000"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/selectStartDate_Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/orange14"
+                        android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
+                        android:drawableTint="@color/teal_700"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Select Start Date"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/selectedStartDate_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Start Date"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/selectEndDate_Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/orange14"
+                        android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
+                        android:drawableTint="@color/teal_700"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Select End Date"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/selectedEndDate_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="End Date"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/selectStartTime_Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/orange14"
+                        android:drawableStart="@drawable/ic_baseline_access_time_24"
+                        android:drawableTint="@color/teal_700"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Select Start Time"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/startTime_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Start time"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/selectEndTime_Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:backgroundTint="@color/orange14"
+                        android:drawableStart="@drawable/ic_baseline_access_time_24"
+                        android:drawableTint="@color/teal_700"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Select End Time"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/endTime_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="End time"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Total hours: "
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/totalHours_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="00"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="3"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Total payment: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/totalPayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="3"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/custom_edittext_orange"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00.00"
+                        android:padding="3dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="0dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/CustomerDetails_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="3"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:backgroundTint="@color/orange11"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Customer details"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:id="@+id/CustomerDetails_Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:columnCount="3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Customer Name:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/customerFullName_EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="Customer's Full Name"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Organization Name:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/organizationName_EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="Organization Name"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="No. of tenants:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/NoOfTenants_EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="2"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="00"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Customer Contact info:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/CustPhoneNumber_Edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="Phone"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/CustEmail_Edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="xsxzxwss@hmail.com"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Customer Address:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/CustAddress_Edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start"
+                        android:hint="Address"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Proof of payment:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/CustProofOfPayment_ButtonUpload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_columnSpan="2"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:text="Upload photo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/CustProofOfPayment_ImageviewUpload"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="2"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/uploadphoto" />
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/SubmitBooking_Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="3"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/teal_700"
+                        android:drawableStart="@drawable/ic_baseline_bookmark_added_24"
+                        android:drawableTint="@color/white"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:paddingStart="50dp"
+                        android:paddingEnd="50dp"
+                        android:text="Submit booking"
+                        android:textColor="@color/white" />
+
+
+
+
+                </GridLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

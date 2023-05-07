@@ -1,7 +1,7 @@
 package com.example.caspaceapplication.customer;
 
 import android.content.Context;
-import android.media.Image;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,25 +9,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.CWSProfile.CWS_ProfilePage;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class CoworkingSpacesAdapter extends RecyclerView.Adapter
-<CoworkingSpacesAdapter.MyViewHolder> {
+public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpacesAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList;
+    List<CoworkingSpacesModel> coworkingSpacesModelArrayList;
 
-    public CoworkingSpacesAdapter(Context context, ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
+    public CoworkingSpacesAdapter(Context context, List<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
         this.context = context;
         this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
     }
 
+    public void setSearchList(List<CoworkingSpacesModel> dataSearchList){
+        this.coworkingSpacesModelArrayList = dataSearchList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -41,16 +45,24 @@ public class CoworkingSpacesAdapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(@NonNull CoworkingSpacesAdapter.MyViewHolder holder, int position) {
 
-        CoworkingSpacesModel coworkingSpacesModel = coworkingSpacesModelArrayList.get(position);
-
-        holder.cospaceName.setText(coworkingSpacesModel.cospaceName);
-        //holder.cospaceAddress.setText(coworkingSpacesModel.cospaceAddress);
+        holder.cospaceName.setText(coworkingSpacesModelArrayList.get(position).getCospaceName());
 
         //Load the image using Glide
         String imageUri = String.valueOf(coworkingSpacesModelArrayList.get(position).getCospaceImage());
         if (imageUri != null && !imageUri.isEmpty()){
             Picasso.get().load(imageUri).into(holder.cospaceImage);
         }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickedPosition = holder.getAdapterPosition();
+                Intent intent = new Intent(context, CWS_ProfilePage.class);
+                intent.putExtra("cospaceName", coworkingSpacesModelArrayList.get(clickedPosition).getCospaceName());
+                intent.putExtra("owner_id", coworkingSpacesModelArrayList.get(clickedPosition).getOwner_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -61,14 +73,15 @@ public class CoworkingSpacesAdapter extends RecyclerView.Adapter
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
-        TextView cospaceName, cospaceAddress;
+        TextView cospaceName;
         ImageView cospaceImage;
+        CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             cospaceName = itemView.findViewById(R.id.cospaceName);
-            //cospaceAddress = itemView.findViewById(R.id.cospaceAddress);
+            cardView = itemView.findViewById(R.id.recRDCardView);
             cospaceImage = itemView.findViewById(R.id.cospaceImage);
 
         }

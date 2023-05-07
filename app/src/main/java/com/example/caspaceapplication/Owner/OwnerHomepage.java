@@ -15,6 +15,7 @@ import com.example.caspaceapplication.Owner.AmenitiesOffered.Owner_AmenitiesOffe
 import com.example.caspaceapplication.Owner.BookingTransactions.Owner_BookingTransactions;
 import com.example.caspaceapplication.Owner.OfficeLayouts.Owner_OfficeLayouts;
 import com.example.caspaceapplication.Owner.ProDisc.Owner_ProDisc;
+import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,7 +33,6 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_homepage);
 
-        //get current user ID
         String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ImageView officeLayouts = findViewById(R.id.officeLayout_Imageview);
         ImageView promotionsAndDiscounts = findViewById(R.id.proAndDisc_Imageview);
@@ -102,7 +102,7 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                 // startActivity(new Intent(this, NotificationActivity.class));
                 return true;
             case R.id.menuProfile:
-                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                 startActivity(new Intent(this, Owner_Profile.class));
                 return true;
             default:
                 return false;

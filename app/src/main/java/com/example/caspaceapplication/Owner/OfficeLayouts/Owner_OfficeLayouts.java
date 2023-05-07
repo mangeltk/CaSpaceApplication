@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.OwnerHomepage;
+import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,15 +40,13 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
     SearchView searchView;
     FloatingActionButton addalayoutButton;
 
-    FirebaseFirestore firebaseFirestore;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_office_layouts);
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         addalayoutButton = findViewById(R.id.addFloatButton);
         addalayoutButton.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +74,6 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
         // Initialize the bottom navigation bar
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
-
-
-
 
         //Recyclerview------------------------------------------
         recyclerView = findViewById(R.id.recyclerView);
@@ -117,8 +113,8 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
         }layout_adapterClass.setSearchList(dataSearchList);
         if (dataSearchList.isEmpty()){
             Toast.makeText(this, "Layout not found", Toast.LENGTH_SHORT).show();
-            }
         }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -134,7 +130,7 @@ public class Owner_OfficeLayouts extends AppCompatActivity implements BottomNavi
                 // startActivity(new Intent(this, NotificationActivity.class));
                 return true;
             case R.id.menuProfile:
-                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                startActivity(new Intent(this, Owner_Profile.class));
                 return true;
             default:
                 return false;

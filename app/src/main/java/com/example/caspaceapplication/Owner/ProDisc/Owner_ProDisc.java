@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.OwnerHomepage;
+import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -227,7 +228,7 @@ public class Owner_ProDisc extends AppCompatActivity implements BottomNavigation
                 // startActivity(new Intent(this, NotificationActivity.class));
                 return true;
             case R.id.menuProfile:
-                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                startActivity(new Intent(this, Owner_Profile.class));
                 return true;
             default:
                 return false;
