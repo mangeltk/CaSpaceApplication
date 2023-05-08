@@ -2,6 +2,7 @@ package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -94,7 +96,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     ImageView CustProofOfPaymentImageviewUpload;
     AppCompatButton submitBooking;
 
-    String ownerId;
+    String ownerId, branch_Image, branch_Name, layout_Image, layout_Name;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +128,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         String layout_id = intent.getStringExtra("layout_id");
         String owner_id = intent.getStringExtra("owner_id");
         ownerId = owner_id;
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Submitting the booking details...");
 
         CustBookingDetailsbackButton = findViewById(R.id.CustBookingDetails_backButton);
         CustBTBranchNameTextView = findViewById(R.id.CustBTBranchName_TextView);
@@ -201,9 +208,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             String cityAddress = documentSnapshot.getString("cospaceCityAddress");
                             String contactInfo = documentSnapshot.getString("cospaceContactInfo");
 
+
                             CustBTBranchNameTextView.setText(branchName);
+                            branch_Name = branchName;
+
                             if (branchImage != null || !branchImage.isEmpty()){
                                 Picasso.get().load(branchImage).into(branchSmallPicImageview);
+                                branch_Image = branchImage;
                             }
                             CustBTBranchLocationTextView.setText(StreetAddress + " " + cityAddress);
                             CustBTBranchContactInfoTextView.setText(contactInfo);
@@ -248,11 +259,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                             if (image != null || !image.isEmpty()){
                                 Picasso.get().load(image).into(CustBTLayoutImageImageView);
+                                layout_Image = image;
                             }else{
                                 Picasso.get().load(R.drawable.uploadphoto).into(CustBTLayoutImageImageView);
                             }
 
                             CustBTLayoutNameTextView.setText(layoutName);
+                            layout_Name = layoutName;
                             CustBTLayoutNameTextViewBelow.setText(layoutName);
 
                             CustBTLayoutAvailabilityTextView.setText(availability);
@@ -737,6 +750,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     confirmButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            progressDialog.show();
+
                             FirebaseUser customerId = FirebaseAuth.getInstance().getCurrentUser();
                             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
                             StorageReference path = firebaseStorage.getReference().child("ProofOfPayment").child(filepath.getLastPathSegment());
@@ -765,15 +780,21 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                             bookingDetails.put("customerAddress", address.getText().toString());
                                             bookingDetails.put("proofOfPayment", task.getResult().toString());
                                             bookingDetails.put("bookingStatus", "Pending");
+                                            bookingDetails.put("branchImage",branch_Image);
+                                            bookingDetails.put("branchName",branch_Name);
+                                            bookingDetails.put("layoutImage",layout_Image);
+                                            bookingDetails.put("layoutName",layout_Name);
 
                                             firebaseFirestore.collection("CustomerSubmittedBookingTransactions")
                                                     .add(bookingDetails).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                         @Override
                                                         public void onSuccess(DocumentReference documentReference) {
                                                             Toast.makeText(Cust_BookingTransaction.this, "Booking details submitted!", Toast.LENGTH_SHORT).show();
-                                                            dialog.dismiss();
+                                                            progressDialog.dismiss();
                                                         }
                                                     });
+                                            startActivity(new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class));
+                                            dialog.dismiss();
                                         }
                                     });
                                 }
