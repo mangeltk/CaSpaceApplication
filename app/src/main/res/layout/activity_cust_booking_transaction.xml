@@ -452,6 +452,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/cardViewBookingBelow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -1050,6 +1051,45 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:padding="5dp"
+                        android:text="Payment option:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/payOnsiteOption_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:text="Onsite"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/payOtherOption_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="start"
+                            android:text="Other Payment Platform"
+                            android:textColor="@color/black" />
+
+                    </RadioGroup>
 
                     <TextView
                         android:layout_width="wrap_content"

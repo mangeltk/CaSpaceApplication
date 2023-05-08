@@ -400,10 +400,12 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             if (data.getLayoutName().toLowerCase().contains(text.toLowerCase())){
                 dataSearchList.add(data);
             }
-        }cwsProfilePageRoomLayoutsAdapter.setSearchList(dataSearchList);
-        if (dataSearchList.isEmpty()){
-            Toast.makeText(this, "Not found", Toast.LENGTH_SHORT).show();
+            cwsProfilePageRoomLayoutsAdapter.setSearchList(dataSearchList);
+            if (dataSearchList.isEmpty()){
+                Toast.makeText(this, "Not found", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
     public class CWSProfilePage_RoomLayouts_Adapter extends RecyclerView.Adapter<CWSProfilePage_RoomLayouts_Adapter.ViewHolder> {

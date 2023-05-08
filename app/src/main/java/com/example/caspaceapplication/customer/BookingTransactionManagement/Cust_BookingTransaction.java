@@ -2,6 +2,7 @@ package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -89,34 +91,22 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     EditText customerFullNameEditText, organizationNameEditText, NoOfTenantsEditText,CustPhoneNumberEdittext,
              CustEmailEdittext, CustAddressEdittext;
 
+    RadioButton payOnsiteRadioButton, payOtherOptionRadioButton;
+    String selectedPaymentOption = null;
+
     Button CustProofOfPaymentButtonUpload;
 
     ImageView CustProofOfPaymentImageviewUpload;
     AppCompatButton submitBooking;
 
-    String ownerId;
+    String ownerId, branch_Image, branch_Name, layout_Image, layout_Name;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_booking_transaction);
-
-        //todo: DETAILS NEEDED based on survey results
-        // Customer Name
-        // Organization Name
-        // How many tenants
-        // Lease duration
-        // Industry/Line of business
-        // Verification process (Submission of legal IDs and documents needed)
-        // Mode of payment
-        // ----------
-        // OTHER INFO:
-        // All chosen Layout info
-        // how many days
-        // dates needed
-        // total payment
-        // Customer contact info : phone and email
-        // Customer address
 
         // Get the intent that started the activity
         Intent intent = getIntent();
@@ -124,6 +114,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         String layout_id = intent.getStringExtra("layout_id");
         String owner_id = intent.getStringExtra("owner_id");
         ownerId = owner_id;
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Submitting the booking details...");
 
         CustBookingDetailsbackButton = findViewById(R.id.CustBookingDetails_backButton);
         CustBTBranchNameTextView = findViewById(R.id.CustBTBranchName_TextView);
@@ -153,6 +146,24 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         cardViewBelow = findViewById(R.id.cardViewBookingBelow);
         bookingDetailsScrollview = findViewById(R.id.bookingDetails_Scrollview);
         radioButtonLinearLayout = findViewById(R.id.radioButton_LinearLayout);
+        payOnsiteRadioButton = findViewById(R.id.payOnsiteOption_RadioButton);
+        payOtherOptionRadioButton = findViewById(R.id.payOtherOption_RadioButton);
+
+        payOnsiteRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPaymentOption = payOnsiteRadioButton.getText().toString();
+                Toast.makeText(Cust_BookingTransaction.this, "option is " + selectedPaymentOption, Toast.LENGTH_SHORT).show();
+            }
+        });
+        payOtherOptionRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPaymentOption = payOtherOptionRadioButton.getText().toString();
+                Toast.makeText(Cust_BookingTransaction.this, "option is " + selectedPaymentOption, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         //Get customer's inputted details
          customerFullNameEditText = findViewById(R.id.customerFullName_EditText);
@@ -202,15 +213,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             String contactInfo = documentSnapshot.getString("cospaceContactInfo");
 
                             CustBTBranchNameTextView.setText(branchName);
+                            branch_Name = branchName;
                             if (branchImage != null || !branchImage.isEmpty()){
                                 Picasso.get().load(branchImage).into(branchSmallPicImageview);
+                                branch_Image = branchImage;
                             }
                             CustBTBranchLocationTextView.setText(StreetAddress + " " + cityAddress);
                             CustBTBranchContactInfoTextView.setText(contactInfo);
-
-                            Map<String, Object> openingHours = new HashMap<>();
-
-
                         }
                     }
                 });
@@ -228,31 +237,21 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             int maxPersonCap = Integer.parseInt(documentSnapshot.getString("maxCapacity"));
                             String layoutType = documentSnapshot.getString("layoutType");
                             String availability = documentSnapshot.getString("layoutAvailability");
-
                             String perHour = documentSnapshot.getString("layoutHourlyPrice");
                             String perDay = documentSnapshot.getString("layoutDailyPrice");
                             String perWeek = documentSnapshot.getString("layoutWeeklyPrice");
                             String perMonth = documentSnapshot.getString("layoutMonthlyPrice");
                             String perYear = documentSnapshot.getString("layoutAnnualPrice");
 
-                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    seletedRateValueTextview.setText(perHour);
-                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
-                                    selectedRateTypeTextview.setText("Daily rate");
-                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
-                                }
-                            });
-
-
                             if (image != null || !image.isEmpty()){
                                 Picasso.get().load(image).into(CustBTLayoutImageImageView);
+                                layout_Image = image;
                             }else{
                                 Picasso.get().load(R.drawable.uploadphoto).into(CustBTLayoutImageImageView);
                             }
 
                             CustBTLayoutNameTextView.setText(layoutName);
+                            layout_Name = layoutName;
                             CustBTLayoutNameTextViewBelow.setText(layoutName);
 
                             CustBTLayoutAvailabilityTextView.setText(availability);
@@ -271,12 +270,21 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                             CustBTLayoutAreasizeTextView.setText(layoutAreasize + " sq. m.");
 
-                            //ratePerHour = Double.valueOf(perHour);
+                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    seletedRateValueTextview.setText(perHour);
+                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
+                                    selectedRateTypeTextview.setText("Hourly rate");
+                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
+                                }
+                            });
 
                             dailyRateRadioButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perDay);
+                                    selectedRateTypeTextview.setText("Daily rate");
                                 }
                             });
 
@@ -284,6 +292,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perWeek);
+                                    selectedRateTypeTextview.setText("Weekly rate");
                                 }
                             });
 
@@ -291,6 +300,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perMonth);
+                                    selectedRateTypeTextview.setText("Monthly rate");
                                 }
                             });
 
@@ -298,6 +308,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perYear);
+                                    selectedRateTypeTextview.setText("Annual rate");
                                 }
                             });
 
@@ -679,11 +690,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 String custEmail = CustEmailEdittext.getText().toString();
                 String custAddress = CustAddressEdittext.getText().toString();
 
-                if (filepath != null && !custFullname.isEmpty() && !custOrganizationName.isEmpty() &&
+                if (filepath!=null && selectedPaymentOption != null && !custFullname.isEmpty() && !custOrganizationName.isEmpty() &&
                         !noOfTenants.isEmpty() && !custPhoneNum.isEmpty() && !custEmail.isEmpty() && !custAddress.isEmpty()){
                     Toast.makeText(Cust_BookingTransaction.this, "Please check and review all the details", Toast.LENGTH_SHORT).show();
 
-                    TextView fullname, orgName, numTenants, phoneNum, email, address, rateType, rateValue, bookStartDate, bookEndDate, startTime, endTime, totalHours, totalPay;
+                    TextView fullname, orgName, numTenants, phoneNum, email, address, rateType, rateValue, bookStartDate, bookEndDate, startTime, endTime, totalHours, totalPay, paymentOption;
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Cust_BookingTransaction.this);
                     AlertDialog dialog;
@@ -695,6 +706,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     startTime = (TextView) custReviewDetails.findViewById(R.id.bookingStartTimePopup);
                     endTime = (TextView) custReviewDetails.findViewById(R.id.bookingEndTimePopup);
                     totalHours = (TextView) custReviewDetails.findViewById(R.id.totalHoursPopup);
+                    paymentOption = (TextView) custReviewDetails.findViewById(R.id.CustPaymentOption_Textview);
                     totalPay = (TextView) custReviewDetails.findViewById(R.id.totalPaymentPopup);
                     fullname = (TextView) custReviewDetails.findViewById(R.id.customerFullName_Textview);
                     orgName = (TextView) custReviewDetails.findViewById(R.id.organizationName_Textview);
@@ -713,6 +725,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     startTime.setText(selectedStartTime.getText().toString());
                     endTime.setText(selectedEndTime.getText().toString());
                     totalHours.setText(totalResultHours.getText().toString());
+                    paymentOption.setText(selectedPaymentOption);
                     totalPay.setText(totalCalculatedFee.getText().toString());
                     fullname.setText(customerFullNameEditText.getText().toString());
                     orgName.setText(organizationNameEditText.getText().toString());
@@ -737,6 +750,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     confirmButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            progressDialog.show();
+
                             FirebaseUser customerId = FirebaseAuth.getInstance().getCurrentUser();
                             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
                             StorageReference path = firebaseStorage.getReference().child("ProofOfPayment").child(filepath.getLastPathSegment());
@@ -763,17 +778,24 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                             bookingDetails.put("customerPhoneNum", phoneNum.getText().toString());
                                             bookingDetails.put("customerEmail", email.getText().toString());
                                             bookingDetails.put("customerAddress", address.getText().toString());
+                                            bookingDetails.put("paymentOption", selectedPaymentOption);
                                             bookingDetails.put("proofOfPayment", task.getResult().toString());
                                             bookingDetails.put("bookingStatus", "Pending");
+                                            bookingDetails.put("branchImage",branch_Image);
+                                            bookingDetails.put("branchName",branch_Name);
+                                            bookingDetails.put("layoutImage",layout_Image);
+                                            bookingDetails.put("layoutName",layout_Name);
 
                                             firebaseFirestore.collection("CustomerSubmittedBookingTransactions")
                                                     .add(bookingDetails).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                         @Override
                                                         public void onSuccess(DocumentReference documentReference) {
                                                             Toast.makeText(Cust_BookingTransaction.this, "Booking details submitted!", Toast.LENGTH_SHORT).show();
-                                                            dialog.dismiss();
+                                                            progressDialog.dismiss();
                                                         }
                                                     });
+                                            startActivity(new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class));
+                                            dialog.dismiss();
                                         }
                                     });
                                 }

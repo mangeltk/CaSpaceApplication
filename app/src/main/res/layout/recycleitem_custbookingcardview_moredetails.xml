@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/teal_700"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/header_background_forownerhomepage"
+            android:backgroundTint="@color/orange11"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Booking details"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/customer_recycler_cwshomepage"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/seemoreBranchName_Textview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="end"
+                    android:layout_marginEnd="20dp"
+                    android:text="Branch Name"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/seemoreBranchImage_Imageview"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/upload" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="2dp"
+                android:background="@color/orange11"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/seemoreLayoutImage_Imageview"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/coworkingspaces_search_bar"
+                    android:padding="2dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/upload" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:columnCount="2">
+
+                    <TextView
+                        android:id="@+id/seemoreLayoutName_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Layout name"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Booking status:"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seemoreBookingStatus_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Pending"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Booking Payment:"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalPayment_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="P00.00"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+
+                </GridLayout>
+
+
+            </LinearLayout>
+
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:columnCount="2"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Rate type:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreRateType_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Daily"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Rate price:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreRatePrice_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="P00.00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Payment option:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemorePaymentOption_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Onsite"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="No. of tenants:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTenantsNum_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Booking start date:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreStartDate_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00/00/0000"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Booking end date:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreEndDate_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00/00/0000"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Booking start time:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreStartTime_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Booking end time:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreEndTime_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Total hours:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTotalHours_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:text="Total days:"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:hint="00"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:text="Total weeks:"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:hint="00"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:text="Total months:"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:hint="00"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:text="Total years:"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:hint="00"/>-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Customer Fullname:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreCustFullname_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="firstname lastname"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Organization name:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreCustOrgName_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="organization name"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Customer Address:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreCustAddress_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="customer address ssmple"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Customer Contact Info:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreCustPhone_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="0923726745462"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreCustEmail_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="cejgejhsagedch@gmail.com"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Proof of payment:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/seemorePaymentPic_Imageview"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/uploadphoto" />
+
+
+            </GridLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
