@@ -63,7 +63,6 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,8 +160,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:columnCount="2"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
+                android:padding="10dp"
                 android:paddingBottom="10dp">
 
                 <TextView
@@ -515,7 +513,6 @@
                     android:layout_margin="2dp"
                     android:fontFamily="@font/quicksand_medium"
                     android:hint="cejgejhsagedch@gmail.com"
-                    android:paddingLeft="10dp"
                     android:textColor="@color/black" />
 
                 <TextView

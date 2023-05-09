@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/orange11"
-            >
+            android:background="@color/orange11">
 
             <ImageView
                 android:id="@+id/CustBookingBranchImage_Cardview"
@@ -49,7 +48,6 @@
                 android:hint="Completed"
                 android:textColor="@color/teal_700"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
 

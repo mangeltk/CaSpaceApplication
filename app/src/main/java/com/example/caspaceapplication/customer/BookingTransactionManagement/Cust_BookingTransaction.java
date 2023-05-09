@@ -698,7 +698,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Cust_BookingTransaction.this);
                     AlertDialog dialog;
-                    final View custReviewDetails = getLayoutInflater().inflate(R.layout.enter_customer_detailsforbooking_popup, null);
+                    final View custReviewDetails = getLayoutInflater().inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
                     rateType = (TextView) custReviewDetails.findViewById(R.id.rateTypePopup);
                     rateValue = (TextView) custReviewDetails.findViewById(R.id.rateValuePopup);
                     bookStartDate = (TextView) custReviewDetails.findViewById(R.id.bookingStartDatePopup);
