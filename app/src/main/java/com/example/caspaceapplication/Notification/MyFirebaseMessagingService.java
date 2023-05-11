@@ -1,4 +1,4 @@
-package Notification;
+package com.example.caspaceapplication.Notification;
 
 import android.util.Log;
 

@@ -7,15 +7,28 @@
     android:background="@drawable/ownerhomepage_bg"
     tools:context=".Owner.OwnerHomepage">
 
+    <FrameLayout
+        android:id="@+id/ownerHomepageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="231dp"
         android:background="@drawable/header_background_forownerhomepage"
+        android:backgroundTint="@color/orange14"
         android:padding="10dp"
         android:paddingEnd="30dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/orange14">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textHello"
@@ -40,8 +53,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textHello"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,8 +67,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            >
+            android:layout_marginTop="120dp">
 
             <LinearLayout
                 android:id="@+id/layoutBookings"
@@ -141,13 +152,13 @@
                 app:layout_constraintTop_toBottomOf="@id/layoutBookings">
 
                 <ImageView
+                    android:id="@+id/officeLayout_Imageview"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="1dp"
-                    android:src="@drawable/icons_branchoffice"
-                    android:id="@+id/officeLayout_Imageview"/>
+                    android:src="@drawable/icons_branchoffice" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -157,6 +168,7 @@
                     android:textColor="@color/orange2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,13 +195,13 @@
                 app:layout_constraintTop_toBottomOf="@id/layoutPromotions">
 
                 <ImageView
+                    android:id="@+id/AmenitiesOffered_Imageview"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="8dp"
-                    android:src="@drawable/icons_ameneties_bell"
-                    android:id="@+id/AmenitiesOffered_Imageview"/>
+                    android:src="@drawable/icons_ameneties_bell" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -199,6 +211,7 @@
                     android:textColor="@color/orange2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -237,10 +250,10 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_gravity="bottom"
         android:background="@color/white"
         app:itemIconTint="@color/orange3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/owner_menu_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

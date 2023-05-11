@@ -18,6 +18,13 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
+            android:name=".Owner.OwnerNotification"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".customer.BookingTransactionManagement.Cust_BookingTransaction"
             android:exported="false">
             <meta-data
@@ -262,7 +269,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
