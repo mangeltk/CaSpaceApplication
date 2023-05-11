@@ -640,8 +640,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     startActivity(intent);
                                                     dialog.dismiss();
 
+                                                    String customerName= custFullname;
                                                     String title = "Your Space has been booked!";
-                                                    String message = "hello";
+                                                    String message = customerName + " booked a space.";
                                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                                     db.collection("OwnerUserAccounts").document(ownerId)
                                                             .get()
