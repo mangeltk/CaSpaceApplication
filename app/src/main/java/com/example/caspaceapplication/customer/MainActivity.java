@@ -8,6 +8,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.messaging.activities.MessagingLoginFront;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this,Front.class));
+                startActivity(new Intent(MainActivity.this, Front.class));
             }
         }, 2000);
 

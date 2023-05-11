@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/chooseuser"
-    tools:context=".customer.Front">
+    android:background="@color/white"
+    tools:context=".messaging.activities.MessagingRegisterFront">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,14 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+
         <TextView
+            android:id="@+id/font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_150sdp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat_light"
-            android:text="Login as"
+            android:text="Register as"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30dp"
@@ -30,11 +32,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_loginCustomer"
+                android:id="@+id/button_signUpCustomer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -61,11 +63,11 @@
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_loginOwner"
+                android:id="@+id/button_signUpOwner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Coworking Space Owner"
+                android:text="Owner"
                 android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
@@ -81,19 +83,20 @@
 
         </FrameLayout>
 
-        </LinearLayout>
+
+    </LinearLayout>
 
 
     <TextView
-        android:id="@+id/textSignUp"
+        android:id="@+id/textSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_150sdp"
         android:text="Sign up here"
         android:layout_gravity="center"
         android:textColor="@color/primary"
         android:fontFamily="@font/montserrat_light"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_13ssp"
         android:textStyle="bold"/>
 
 

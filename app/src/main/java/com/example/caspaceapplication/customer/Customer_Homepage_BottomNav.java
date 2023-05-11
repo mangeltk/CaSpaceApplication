@@ -14,6 +14,7 @@ import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
 import com.example.caspaceapplication.fragments.MessageFragment;
 import com.example.caspaceapplication.fragments.NotificationFragment;
+import com.example.caspaceapplication.messaging.activities.MessagingMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Customer_Homepage_BottomNav extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
                     selectedFragment= new BookingsFragment();
                     break;
                 case R.id.menuMessages:
-                    Intent intent = new Intent(getApplicationContext(), Front.class);
+                    Intent intent = new Intent(getApplicationContext(), MessagingMainActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.menuNotification:
