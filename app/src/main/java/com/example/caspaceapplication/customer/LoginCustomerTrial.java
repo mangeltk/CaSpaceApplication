@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,18 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginCustomerTrial extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private ActivityLoginCustomerTrialBinding binding;
+    private PreferenceManager preferenceManager;
 
     TextView forgotPassword;
     private EditText customerEmail, customerPassword;
@@ -42,7 +49,7 @@ public class LoginCustomerTrial extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_customer_trial);
+        //setContentView(R.layout.activity_login_customer_trial);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -50,6 +57,24 @@ public class LoginCustomerTrial extends AppCompatActivity {
         customerPassword = findViewById(R.id.customer_password);
         rememberMeCheckbox = findViewById(R.id.rememberMe_customerloginCheckbox);
         loginButton = findViewById(R.id.loginButton_customer);
+
+        //creates a new instance of the PreferenceManager class using the application context,
+        //which can be used to access and manage user preferences throughout the entire application.
+        //preferenceManager  = new PreferenceManager(getApplicationContext());
+
+        //this code is redirecting the user to the homepage screen if they have already signed in previously.
+        /*if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN))
+        {
+            Intent intent = new Intent(getApplicationContext(), MessagingMain.class);
+            startActivity(intent);
+            finish();
+        }*/
+        //this calls in the onCreate() method of the activity to initialize the data binding and set the content view.
+        binding = ActivityLoginCustomerTrialBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        //method
+
 
         setRememberMeCheckbox(); //remember me checkbox
 
@@ -60,6 +85,7 @@ public class LoginCustomerTrial extends AppCompatActivity {
                 String email = customerEmail.getText().toString().trim();
                 String password = customerPassword.getText().toString().trim();
 
+                //validations
                 if (email.isEmpty()) {
                     customerEmail.setError("Please enter email");
                     customerEmail.requestFocus();
@@ -72,6 +98,7 @@ public class LoginCustomerTrial extends AppCompatActivity {
                     return;
                 }
 
+                //remember me
                 if (rememberMeCheckbox.isChecked()) {
                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -89,9 +116,11 @@ public class LoginCustomerTrial extends AppCompatActivity {
                     editor.apply();
                 }
 
+                //retrieve user from the database
                 firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
+                            //Successful Login with verified email
                             public void onSuccess(AuthResult authResult) {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (user.isEmailVerified()) {
@@ -100,7 +129,9 @@ public class LoginCustomerTrial extends AppCompatActivity {
                                     Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
                                 }
+                                //Error in logging in. Email not yet verified.
                                 else {
+                                    //Sending verification in email
                                     user.sendEmailVerification()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -108,7 +139,9 @@ public class LoginCustomerTrial extends AppCompatActivity {
                                                     progressDialog.cancel();
                                                     Toast.makeText(LoginCustomerTrial.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
                                                 }
-                                            }).addOnFailureListener(new OnFailureListener() {
+                                            })
+                                            //Error in sending verification email. It must be email is already verified.
+                                            .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     progressDialog.cancel();
@@ -117,7 +150,9 @@ public class LoginCustomerTrial extends AppCompatActivity {
                                             });
                                 }
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
+                        })
+                        //Error in logging in. Credentials is not yet registered.
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 progressDialog.cancel();
@@ -128,6 +163,56 @@ public class LoginCustomerTrial extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+
+
+    //this method is called in setListeners()
+
+
+    //this method is called in setListeners()
+    private Boolean isValidSignInDetails()
+    {
+        if(binding.customerEmail.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter email");
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.customerEmail.getText().toString()).matches())
+        {
+            showToast("Enter valid email");
+            return false;
+        }
+        else if(binding.customerPassword.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter password");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private void loading(Boolean isLoading)
+    {
+        if(isLoading)
+        {
+            binding.loginButtonCustomer.setVisibility(View.INVISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            binding.progressBar.setVisibility(View.INVISIBLE);
+            binding.loginButtonCustomer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showToast(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public void setRememberMeCheckbox(){

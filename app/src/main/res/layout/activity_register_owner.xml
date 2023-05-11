@@ -143,6 +143,7 @@
             android:drawablePadding="10dp"
             android:fontFamily="@font/quicksand_medium"
             android:hint="Password"
+            android:inputType="textPassword"
             android:padding="8dp"
             android:paddingStart="20dp"
             android:textColor="@color/white"

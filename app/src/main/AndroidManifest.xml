@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,15 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
+
         <activity
-            android:name=".customer.TechnologyHubs"
+            android:name=".customer.Booking.BookingMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".messaging.MessagingMain"
+            android:name=".customer.TechnologyHubs"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -195,24 +197,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!--
- <activity
-     android:name=".EnspaceProfile"
-     android:exported="false">
-     <meta-data
-         android:name="android.app.lib_name"
-         android:value="" />
- </activity>
-        -->
-        <!--
-<activity
-            android:name=".RegisterCustomerTrial"
+
+       <!-- <service android:name=".messaging.firebase.MessagingService"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        -->
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>-->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

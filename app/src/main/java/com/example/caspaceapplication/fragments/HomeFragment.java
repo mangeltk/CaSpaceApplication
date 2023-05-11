@@ -20,6 +20,7 @@ import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.CoworkingSpaces;
 import com.example.caspaceapplication.customer.CustHomePromotions_Adapter;
+import com.example.caspaceapplication.customer.TechnologyHubs;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -60,6 +61,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CoworkingSpaces.class);
+                startActivity(intent);
+            }
+        });
+
+        imageview_techhubs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TechnologyHubs.class);
                 startActivity(intent);
             }
         });

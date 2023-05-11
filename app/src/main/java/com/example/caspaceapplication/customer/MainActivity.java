@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null){
             // Save the user's authentication state to SharedPreferences
             SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             preferences.edit().putBoolean("is_logged_in", true).apply();
-        }
+        }*/
 
     }
 }

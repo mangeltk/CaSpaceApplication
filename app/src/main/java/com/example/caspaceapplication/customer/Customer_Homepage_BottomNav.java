@@ -1,5 +1,6 @@
 package com.example.caspaceapplication.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -43,7 +44,8 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
                     selectedFragment= new BookingsFragment();
                     break;
                 case R.id.menuMessages:
-                    selectedFragment= new MessageFragment();
+                    Intent intent = new Intent(getApplicationContext(), Front.class);
+                    startActivity(intent);
                     break;
                 case R.id.menuNotification:
                     selectedFragment= new NotificationFragment();
