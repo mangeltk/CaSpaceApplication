@@ -1,5 +1,8 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
+import android.util.Log;
+import Notification.FCMSend;
+import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -642,6 +645,20 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             });
                         }
                     });
+
+                    String title = "Your Space has been booked!";
+                    String message = "hello";
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    //String spaceOwnerId = "OWNER_USER_ID_HERE"; // replace with the actual user ID of the space owner
+                    db.collection("OwnerUserAccounts").document(ownerId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Error getting FCM token for owner", e);
+                            });
                 }
             });
         }else{
