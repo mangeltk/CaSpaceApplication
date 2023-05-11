@@ -1,5 +1,7 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -56,6 +59,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import Notification.FCMSend;
 
 
 public class Cust_BookingTransaction extends AppCompatActivity {
@@ -772,12 +777,42 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                         public void onSuccess(DocumentReference documentReference) {
                                                             Toast.makeText(Cust_BookingTransaction.this, "Booking details submitted!", Toast.LENGTH_SHORT).show();
                                                             dialog.dismiss();
+
+                                                            String title = "Your Space has been booked!";
+                                                            String message = "hello";
+                                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                            //String spaceOwnerId = "OWNER_USER_ID_HERE"; // replace with the actual user ID of the space owner
+                                                            db.collection("OwnerUserAccounts").document(ownerId)
+                                                                    .get()
+                                                                    .addOnSuccessListener(documentSnapshot -> {
+                                                                        String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                                                        FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Log.e(TAG, "Error getting FCM token for owner", e);
+                                                                    });
+
                                                         }
                                                     });
                                         }
                                     });
                                 }
                             });
+
+                            /*String title = "Your Space has been booked!";
+                            String message = "hello";
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            //String spaceOwnerId = "OWNER_USER_ID_HERE"; // replace with the actual user ID of the space owner
+                            db.collection("OwnerUserAccounts").document(ownerId)
+                                    .get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                        FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e(TAG, "Error getting FCM token for owner", e);
+                                    });*/
+
                         }
                     });
                 }else{

@@ -1,6 +1,7 @@
 package com.example.caspaceapplication.Owner.Profile;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,12 +28,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.Front;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +46,7 @@ import com.google.firebase.storage.UploadTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Owner_UserProfile extends Fragment {
-
+    FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
     CollectionReference colref = FirebaseFirestore.getInstance().collection("OwnerUserAccounts");
@@ -119,6 +127,85 @@ public class Owner_UserProfile extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button deleteOwnerButton = view.findViewById(R.id.ownerDeleteProfile_Button);
+        deleteOwnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Delete Account");
+                builder.setMessage("Are you sure you want to delete your account?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteAccount();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                Button signOutButton = view.findViewById(R.id.ownerSignOutProfile_Button);
+                signOutButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Sign Out");
+                        builder.setMessage("Are you sure you want to sign out?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(getActivity(), Front.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        });
+                        builder.setNegativeButton("No", null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void deleteAccount() {
+        // Delete owner's data from Firestore collections
+        // Example:
+        firebaseFirestore.collection("coworkingSpaces").whereEqualTo("ownerID", ownerProfile_IDNumber)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting coworking spaces", task.getException());
+                        }
+                    }
+                });
+
+        // Delete owner's account from Firebase Auth
+        firebaseAuth.getCurrentUser().delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Sign the owner out of the app
+                            Intent intent = new Intent(getActivity(),Front.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            Log.e(TAG, "Error deleting account", task.getException());
+                        }
+                    }
+                });
     }
 
     @Override
