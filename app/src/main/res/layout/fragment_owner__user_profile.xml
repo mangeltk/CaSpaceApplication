@@ -187,7 +187,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ownerEditUserProfile_Button"
-            android:layout_width="wrap_content"
+            android:layout_width="177dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/card_border_bottom"
@@ -196,6 +196,34 @@
             android:fontFamily="@font/quicksand_medium"
             android:padding="15dp"
             android:text="Edit profile"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ownerDeleteProfile_Button"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/card_border_bottom"
+            android:drawableStart="@drawable/ic_baseline_delete_forever_24"
+            android:drawableTint="@color/black"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="15dp"
+            android:text="Delete profile"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ownerSignOutProfile_Button"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/card_border_bottom"
+            android:drawableStart="@drawable/ic_baseline_logout_24"
+            android:drawableTint="@color/black"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="15dp"
+            android:text="Sign Out"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
