@@ -3,14 +3,16 @@ package com.example.caspaceapplication.customer.BookingTransactionManagement;
 public class BookingDetails_ModelClass {
 
     String customerId, ownerId, rateType, rateValue, bookingStartDate, bookingEndDate, bookingStartTime,
-            bookingEndTime, totalHours, totalPayment, customerFullname, organizationName, numOfTenants,
-            customerPhoneNum, customerEmail, customerAddress, proofOfPayment, paymentOption,
-            bookingStatus, branchImage, branchName, layoutImage, layoutName;
+            bookingEndTime, totalHours, totalDays, totalWeeks, totalMonths, totalYears, totalPayment,
+            customerFullname, organizationName, numOfTenants, customerPhoneNum, customerEmail,
+            customerAddress, proofOfPayment, paymentOption, bookingStatus, branchImage, branchName,
+            layoutImage, layoutName, bookingId;
 
     public BookingDetails_ModelClass() {
+
     }
 
-    public BookingDetails_ModelClass(String customerId, String ownerId, String rateType, String rateValue, String bookingStartDate, String bookingEndDate, String bookingStartTime, String bookingEndTime, String totalHours, String totalPayment, String customerFullname, String organizationName, String numOfTenants, String customerPhoneNum, String customerEmail, String customerAddress, String proofOfPayment, String paymentOption, String bookingStatus, String branchImage, String branchName, String layoutImage, String layoutName) {
+    public BookingDetails_ModelClass(String customerId, String ownerId, String rateType, String rateValue, String bookingStartDate, String bookingEndDate, String bookingStartTime, String bookingEndTime, String totalHours, String totalDays, String totalWeeks, String totalMonths, String totalYears, String totalPayment, String customerFullname, String organizationName, String numOfTenants, String customerPhoneNum, String customerEmail, String customerAddress, String proofOfPayment, String paymentOption, String bookingStatus, String branchImage, String branchName, String layoutImage, String layoutName, String bookingId) {
         this.customerId = customerId;
         this.ownerId = ownerId;
         this.rateType = rateType;
@@ -20,6 +22,10 @@ public class BookingDetails_ModelClass {
         this.bookingStartTime = bookingStartTime;
         this.bookingEndTime = bookingEndTime;
         this.totalHours = totalHours;
+        this.totalDays = totalDays;
+        this.totalWeeks = totalWeeks;
+        this.totalMonths = totalMonths;
+        this.totalYears = totalYears;
         this.totalPayment = totalPayment;
         this.customerFullname = customerFullname;
         this.organizationName = organizationName;
@@ -34,6 +40,47 @@ public class BookingDetails_ModelClass {
         this.branchName = branchName;
         this.layoutImage = layoutImage;
         this.layoutName = layoutName;
+        this.bookingId = bookingId;
+    }
+
+    public String getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(String totalDays) {
+        this.totalDays = totalDays;
+    }
+
+    public String getTotalWeeks() {
+        return totalWeeks;
+    }
+
+    public void setTotalWeeks(String totalWeeks) {
+        this.totalWeeks = totalWeeks;
+    }
+
+    public String getTotalMonths() {
+        return totalMonths;
+    }
+
+    public void setTotalMonths(String totalMonths) {
+        this.totalMonths = totalMonths;
+    }
+
+    public String getTotalYears() {
+        return totalYears;
+    }
+
+    public void setTotalYears(String totalYears) {
+        this.totalYears = totalYears;
+    }
+
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
 
     public String getPaymentOption() {

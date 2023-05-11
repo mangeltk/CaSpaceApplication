@@ -10,18 +10,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:background="@drawable/header_background_forownerhomepage"
-            android:backgroundTint="@color/orange11"
-            android:fontFamily="@font/quicksand_medium"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Booking details"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:backgroundTint="@color/orange11">
+
+            <ImageButton
+                android:id="@+id/exitButtonBookingDetails_ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_clear"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:paddingEnd="50dp"
+                android:layout_gravity="center"
+                android:text="Booking details"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,10 +63,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="20dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/quicksand_medium"
                     android:gravity="end"
-                    android:layout_marginEnd="20dp"
                     android:text="Branch Name"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -343,79 +363,6 @@
                     android:paddingLeft="10dp"
                     android:textColor="@color/black" />
 
-
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:text="Total days:"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:hint="00"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:text="Total weeks:"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:hint="00"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:text="Total months:"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:hint="00"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:text="Total years:"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:hint="00"/>-->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -538,6 +485,53 @@
             </GridLayout>
 
         </LinearLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="3">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/declineButton_BTDCardview"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="#F44336"
+                android:text="Decline" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acceptButton_BTDCardview"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/colorSuccess"
+                android:text="Accept" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/completeButton_BTDCardview"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/colorWarning"
+                android:text="Complete" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cancelButton_BTDCardview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_columnSpan="3"
+                android:layout_columnWeight="1"
+                android:layout_margin="4dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/gray"
+                android:text="Cancel" />
+
+        </GridLayout>
 
 
     </LinearLayout>

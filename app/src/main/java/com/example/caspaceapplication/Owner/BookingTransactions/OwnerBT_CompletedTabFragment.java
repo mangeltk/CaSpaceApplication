@@ -49,13 +49,31 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
 
         loadCompletedBT();
         loadCancelledBT();
+        loadDeclineddBT();
 
         return rootView3;
     }
 
-    private void loadCancelledBT() {
+    private void loadDeclineddBT() {
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Declined")
+                .whereEqualTo("ownerId", currentUserID);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                    dataClassList.add(modelClass);
+                }
+                adapterClass.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    private void loadCancelledBT() {
+        String currentUserID = firebaseAuth.getCurrentUser().getUid();
+        Query query = bookingRef.whereEqualTo("bookingStatus", "Cancelled")
                 .whereEqualTo("ownerId", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

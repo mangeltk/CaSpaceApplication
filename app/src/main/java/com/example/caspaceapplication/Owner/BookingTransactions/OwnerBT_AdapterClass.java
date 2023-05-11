@@ -1,18 +1,28 @@
 package com.example.caspaceapplication.Owner.BookingTransactions;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingDetails_ModelClass;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -53,42 +63,9 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         holder.totalPayment.setText(booking.getTotalPayment());
         holder.paymentOption.setText(booking.getPaymentOption());
 
-        holder.seeMoreDetails.setOnClickListener(new View.OnClickListener() {
+        holder.cardViewBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*int clickedPosition = holder.getAdapterPosition();
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
-                View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
-*/
-                /*TextView btdBookingID, btdCustomerName, btdLayoutName, btdDuration, btdDate, btdTotal, btdStatus;
-                ImageView btdImagePayment;
-                AppCompatButton btdDecline, btdAccept, btdComplete, btdCancel;*/
-
-
-                /*btdBookingID = dialogView.findViewById(R.id.BTDbookingID_Textview);
-                btdCustomerName = dialogView.findViewById(R.id.BTDcustomername_Textview);
-                btdLayoutName = dialogView.findViewById(R.id.BTDlayoutName_Textview);
-                btdDuration = dialogView.findViewById(R.id.BTDduration_Textview);
-                btdDate = dialogView.findViewById(R.id.BTDdate_Textview);
-                btdTotal = dialogView.findViewById(R.id.BTDtotalPayment_Textview);
-                btdStatus = dialogView.findViewById(R.id.BTDstatus_Textview);
-                //btdImagePayment = dialogView.findViewById(R.id.BTDproofofpayment_imageview);
-                btdDecline = dialogView.findViewById(R.id.declineButton_BTDCardview);
-                btdAccept = dialogView.findViewById(R.id.acceptButton_BTDCardview);
-                btdComplete = dialogView.findViewById(R.id.completeButton_BTDCardview);
-                btdCancel = dialogView.findViewById(R.id.cancelButton_BTDCardview);*/
-                /*String imageUri = String.valueOf(dataClassList.get(clickedPosition).getPromotionImage());
-                if (imageUri != null && !imageUri.isEmpty()) {
-                    Picasso.get().load(imageUri).into(pdImageDetailed);
-                }*/
-               /* btdBookingID.setText(bookingList.get(clickedPosition).getBookingID());
-                btdCustomerName.setText(bookingList.get(clickedPosition).getCustomerID());
-                btdLayoutName.setText(bookingList.get(clickedPosition).getSpaceID());
-                btdDuration.setText(bookingList.get(clickedPosition).getBookingDuration());
-                btdDate.setText(bookingList.get(clickedPosition).getBookingDate());
-                btdTotal.setText(bookingList.get(clickedPosition).getBookingTotal());
-                btdStatus.setText(bookingList.get(clickedPosition).getBookingStatus());*/
-
                 int clickedPosition = holder.getAdapterPosition();
                 BookingDetails_ModelClass model = bookingList.get(clickedPosition);
 
@@ -98,6 +75,9 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 ImageView branchImage, layoutImage, paymentImage;
                 TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, startDate, endDate,
                         startTime, endTime, totalHours, custFullname, orgName, custAddress, custPhoneNum, custEmail;
+
+                AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
+                ImageButton exitButton;
 
                 branchImage = dialogView.findViewById(R.id.seemoreBranchImage_Imageview);
                 layoutImage = dialogView.findViewById(R.id.seemoreLayoutImage_Imageview);
@@ -120,6 +100,11 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
                 custPhoneNum = dialogView.findViewById(R.id.seemoreCustPhone_Textview);
                 custEmail = dialogView.findViewById(R.id.seemoreCustEmail_Textview);
+                declineButton = dialogView.findViewById(R.id.declineButton_BTDCardview);
+                acceptButton = dialogView.findViewById(R.id.acceptButton_BTDCardview);
+                completeButton = dialogView.findViewById(R.id.completeButton_BTDCardview);
+                cancelButton = dialogView.findViewById(R.id.cancelButton_BTDCardview);
+                exitButton = dialogView.findViewById(R.id.exitButtonBookingDetails_ImageButton);
 
                 String branchImageUri = String.valueOf(bookingList.get(clickedPosition).getBranchImage());
                 String layoutImageUri = String.valueOf(bookingList.get(clickedPosition).getLayoutImage());
@@ -135,47 +120,53 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                     Picasso.get().load(paymentImageUri).into(paymentImage);
                 }
 
-                branchName.setText(bookingList.get(clickedPosition).getBranchName());
-                layoutName.setText(bookingList.get(clickedPosition).getLayoutName());
-                bookingStatus.setText(bookingList.get(clickedPosition).getBookingStatus());
-                bookingPayment.setText(bookingList.get(clickedPosition).getTotalPayment());
-                rateType.setText(bookingList.get(clickedPosition).getRateType());
-                ratePrice.setText("₱"+bookingList.get(clickedPosition).getRateValue());
-                paymentOption.setText(bookingList.get(clickedPosition).getPaymentOption());
-                tenantsNum.setText(bookingList.get(clickedPosition).getNumOfTenants());
-                startDate.setText(bookingList.get(clickedPosition).getBookingStartDate());
-                endDate.setText(bookingList.get(clickedPosition).getBookingEndDate());
-                startTime.setText(bookingList.get(clickedPosition).getBookingStartTime());
-                endTime.setText(bookingList.get(clickedPosition).getBookingEndTime());
-                totalHours.setText(bookingList.get(clickedPosition).getTotalHours());
-                custFullname.setText(bookingList.get(clickedPosition).getCustomerFullname());
-                orgName.setText(bookingList.get(clickedPosition).getOrganizationName());
-                custAddress.setText(bookingList.get(clickedPosition).getCustomerAddress());
-                custPhoneNum.setText(bookingList.get(clickedPosition).getCustomerPhoneNum());
-                custEmail.setText(bookingList.get(clickedPosition).getCustomerEmail());
+                branchName.setText(model.getBranchName());
+                layoutName.setText(model.getLayoutName());
+                bookingStatus.setText(model.getBookingStatus());
+                bookingPayment.setText(model.getTotalPayment());
+                rateType.setText(model.getRateType());
+                ratePrice.setText("₱"+model.getRateValue());
+                paymentOption.setText(model.getPaymentOption());
+                tenantsNum.setText(model.getNumOfTenants());
+                startDate.setText(model.getBookingStartDate());
+                endDate.setText(model.getBookingEndDate());
+                startTime.setText(model.getBookingStartTime());
+                endTime.setText(model.getBookingEndTime());
+                totalHours.setText(model.getTotalHours());
+                custFullname.setText(model.getCustomerFullname());
+                orgName.setText(model.getOrganizationName());
+                custAddress.setText(model.getCustomerAddress());
+                custPhoneNum.setText(model.getCustomerPhoneNum());
+                custEmail.setText(model.getCustomerEmail());
 
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-               /* btdCancel.setOnClickListener(new View.OnClickListener() {
+                exitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                CollectionReference AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                         Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
-                });*/
+                });
 
-                /*btdAccept.setOnClickListener(new View.OnClickListener() {
+                acceptButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Update booking status to "ongoing"
                         booking.setBookingStatus("Ongoing");
-                        // Update UI to reflect the new booking status
                         holder.bookingStatus.setText(booking.getBookingStatus());
-                        // Store updated booking in Firestore
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("OwnerBookingTransactions").document(booking.getBookingID())
+                        AllSubmittedBookingRef.document(booking.getBookingId())
                                 .set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
@@ -185,18 +176,14 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     }
                                 });
                     }
-                });*/
+                });
 
-                /*btdComplete.setOnClickListener(new View.OnClickListener() {
+                completeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Update booking status to "Completed"
                         booking.setBookingStatus("Completed");
-                        // Update UI to reflect the new booking status
-                        holder.recStatus.setText(booking.getBookingStatus());
-                        // Store updated booking in Firestore
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("OwnerBookingTransactions").document(booking.getBookingID())
+                        holder.bookingStatus.setText(booking.getBookingStatus());
+                        AllSubmittedBookingRef.document(booking.getBookingId())
                                 .set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
@@ -206,18 +193,14 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     }
                                 });
                     }
-                });*/
+                });
 
-                /*btdDecline.setOnClickListener(new View.OnClickListener() {
+                declineButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Update booking status to "Declined"
                         booking.setBookingStatus("Declined");
-                        // Update UI to reflect the new booking status
-                        holder.recStatus.setText(booking.getBookingStatus());
-                        // Store updated booking in Firestore
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("OwnerBookingTransactions").document(booking.getBookingID())
+                        holder.bookingStatus.setText(booking.getBookingStatus());
+                        AllSubmittedBookingRef.document(booking.getBookingId())
                                 .set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
@@ -227,7 +210,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                     }
                                 });
                     }
-                });*/
+                });
             }
         });
 
@@ -244,6 +227,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                  customerFullname,bookingStartDate, bookingEndDate, totalPayment, paymentOption,
                  seeMoreDetails;
         ImageView layoutImage;
+        CardView cardViewBT;
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -259,11 +243,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
             paymentOption = itemView.findViewById(R.id.OwnerBT_PaymentOption_Textview);
             seeMoreDetails = itemView.findViewById(R.id.OwnerBT_SeeMore_Textview);
             layoutImage = itemView.findViewById(R.id.OwnerBT_LayoutImage_Textview);
+            cardViewBT = itemView.findViewById(R.id.cardViewBT);
         }
     }
 
-    public void refreshData(List<BookingDetails_ModelClass> bookingList) {
-        this.bookingList = bookingList;
-        notifyDataSetChanged();
-    }
 }

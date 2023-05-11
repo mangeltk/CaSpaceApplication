@@ -1,12 +1,14 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -14,17 +16,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -42,7 +48,7 @@ public class BookingsFragment extends Fragment {
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    CollectionReference custBookingsCollectionRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
+    CollectionReference AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
     List<BookingDetails_ModelClass> modelClassList;
     CustBookingFragmentAdapter adapter;
@@ -102,7 +108,7 @@ public class BookingsFragment extends Fragment {
         });
 
         bookingStatusSpinner = rootView.findViewById(R.id.custBookingsStatus_Spinner);
-        String[] bookingStatusItems = {"","Pending", "Ongoing", "Completed", "Cancelled"};
+        String[] bookingStatusItems = {"","Pending", "Ongoing", "Completed", "Cancelled", "Declined"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, bookingStatusItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bookingStatusSpinner.setAdapter(adapter);
@@ -146,7 +152,7 @@ public class BookingsFragment extends Fragment {
     //display all
     public void displayAllBookings(){
         modelClassList.clear();
-        custBookingsCollectionRef.whereEqualTo("customerId", user.getUid())
+        AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -161,9 +167,8 @@ public class BookingsFragment extends Fragment {
 
     //sort by status
     public void sortByBookingStatus(String Status){
-        //List<BookingDetails_ModelClass> listForStatus = new ArrayList<>();
         modelClassList.clear();
-        custBookingsCollectionRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingStatus", Status)
+        AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingStatus", Status)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -273,6 +278,10 @@ public class BookingsFragment extends Fragment {
                     TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, startDate, endDate,
                              startTime, endTime, totalHours, custFullname, orgName, custAddress, custPhoneNum, custEmail;
 
+                    AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
+
+                    ImageButton exitButton;
+
                     branchImage = dialogView.findViewById(R.id.seemoreBranchImage_Imageview);
                     layoutImage = dialogView.findViewById(R.id.seemoreLayoutImage_Imageview);
                     paymentImage = dialogView.findViewById(R.id.seemorePaymentPic_Imageview);
@@ -294,6 +303,11 @@ public class BookingsFragment extends Fragment {
                     custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
                     custPhoneNum = dialogView.findViewById(R.id.seemoreCustPhone_Textview);
                     custEmail = dialogView.findViewById(R.id.seemoreCustEmail_Textview);
+                    declineButton = dialogView.findViewById(R.id.declineButton_BTDCardview);
+                    acceptButton = dialogView.findViewById(R.id.acceptButton_BTDCardview);
+                    completeButton = dialogView.findViewById(R.id.completeButton_BTDCardview);
+                    cancelButton = dialogView.findViewById(R.id.cancelButton_BTDCardview);
+                    exitButton = dialogView.findViewById(R.id.exitButtonBookingDetails_ImageButton);
 
                     String branchImageUri = String.valueOf(dataClass.get(clickedPosition).getBranchImage());
                     String layoutImageUri = String.valueOf(dataClass.get(clickedPosition).getLayoutImage());
@@ -309,30 +323,81 @@ public class BookingsFragment extends Fragment {
                         Picasso.get().load(paymentImageUri).into(paymentImage);
                     }
 
-                    branchName.setText(dataClass.get(clickedPosition).getBranchName());
-                    layoutName.setText(dataClass.get(clickedPosition).getLayoutName());
-                    bookingStatus.setText(dataClass.get(clickedPosition).getBookingStatus());
-                    bookingPayment.setText(dataClass.get(clickedPosition).getTotalPayment());
-                    rateType.setText(dataClass.get(clickedPosition).getRateType());
-                    ratePrice.setText("₱"+dataClass.get(clickedPosition).getRateValue());
-                    paymentOption.setText(dataClass.get(clickedPosition).getPaymentOption());
-                    tenantsNum.setText(dataClass.get(clickedPosition).getNumOfTenants());
-                    startDate.setText(dataClass.get(clickedPosition).getBookingStartDate());
-                    endDate.setText(dataClass.get(clickedPosition).getBookingEndDate());
-                    startTime.setText(dataClass.get(clickedPosition).getBookingStartTime());
-                    endTime.setText(dataClass.get(clickedPosition).getBookingEndTime());
-                    totalHours.setText(dataClass.get(clickedPosition).getTotalHours());
-                    custFullname.setText(dataClass.get(clickedPosition).getCustomerFullname());
-                    orgName.setText(dataClass.get(clickedPosition).getOrganizationName());
-                    custAddress.setText(dataClass.get(clickedPosition).getCustomerAddress());
-                    custPhoneNum.setText(dataClass.get(clickedPosition).getCustomerPhoneNum());
-                    custEmail.setText(dataClass.get(clickedPosition).getCustomerEmail());
+                    branchName.setText(model.getBranchName());
+                    layoutName.setText(model.getLayoutName());
+                    bookingStatus.setText(model.getBookingStatus());
+                    bookingPayment.setText(model.getTotalPayment());
+                    rateType.setText(model.getRateType());
+                    ratePrice.setText("₱"+model.getRateValue());
+                    paymentOption.setText(model.getPaymentOption());
+                    tenantsNum.setText(model.getNumOfTenants());
+                    startDate.setText(model.getBookingStartDate());
+                    endDate.setText(model.getBookingEndDate());
+                    startTime.setText(model.getBookingStartTime());
+                    endTime.setText(model.getBookingEndTime());
+                    totalHours.setText(model.getTotalHours());
+                    custFullname.setText(model.getCustomerFullname());
+                    orgName.setText(model.getOrganizationName());
+                    custAddress.setText(model.getCustomerAddress());
+                    custPhoneNum.setText(model.getCustomerPhoneNum());
+                    custEmail.setText(model.getCustomerEmail());
 
                     builder.setView(dialogView);
                     AlertDialog dialog = builder.create();
                     dialog.show();
+
+                    exitButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            Toast.makeText(getContext(), "Exit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    declineButton.setVisibility(View.GONE);
+                    acceptButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.GONE);
+
+                    cancelButton.setText("Cancel Booking");
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                            builder1.setTitle("Cancel confirmation");
+                            builder1.setMessage("Are you sure you want to cancel this booking?");
+                            builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid());
+                                    queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()){
+                                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                                    documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
+                                            }
+                                            Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            displayAllBookings();
+                                        }
+                                    });
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog dialog1 = builder1.create();
+                            dialog1.show();
+                        }
+                    });
+
                 }
             });
+
+
         }
 
         @Override

@@ -1,6 +1,5 @@
 package com.example.caspaceapplication.Owner.BookingTransactions;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +32,6 @@ public class OwnerBT_PendingTabFragment extends Fragment {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     CollectionReference bookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
-
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog dialog;
 
     public OwnerBT_PendingTabFragment() {
     }
