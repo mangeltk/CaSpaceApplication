@@ -108,8 +108,6 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                 return false;
         }
 
-
-
    /* public void useBottomNavigationMenu(){
         //Navigation Bar------------------------------------------
         navigationView = findViewById(R.id.bottomNavigationView);
