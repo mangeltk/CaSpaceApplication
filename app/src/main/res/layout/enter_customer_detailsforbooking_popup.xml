@@ -6,7 +6,6 @@
     android:layout_margin="20dp"
     android:background="@drawable/coworkingspaces_search_bar">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -211,6 +210,102 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand_medium"
                 android:padding="5dp"
+                android:text="Total Days"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalDaysPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="start"
+                android:hint="00:00"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:text="Total Weeks"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalWeeksPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="start"
+                android:hint="00:00"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:text="Total Months"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalMonthsPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="start"
+                android:hint="00:00"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
+                android:text="Total Years"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalYearsPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="start"
+                android:hint="00:00"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="5dp"
                 android:text="Total payment"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -391,6 +486,31 @@
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="start"
                 android:hint="Address"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Payment option:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/CustPaymentOption_Textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="start"
+                android:hint="Onsite"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="14sp" />

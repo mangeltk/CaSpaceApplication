@@ -2,107 +2,192 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="@color/gray"
-    android:orientation="vertical">
+    android:layout_margin="5dp"
+    android:padding="2dp"
+    android:orientation="vertical"
+    android:background="@drawable/coworkingspaces_search_bar">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp">
-
+        android:elevation="8dp"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/orange11">
 
             <ImageView
+                android:id="@+id/CustBookingBranchImage_Cardview"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/uploadphoto" />
 
             <TextView
+                android:id="@+id/CustBookingBranchName_Cardview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Branch name"
+                android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_medium"
+                android:hint="Branch name"
                 android:textColor="@color/black"
                 android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/CustBookingBookingStatus_Cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:gravity="end"
+                android:hint="Completed"
+                android:textColor="@color/teal_700"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/upload" />
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
                     android:orientation="vertical">
 
-                    <GridLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/CustBookingLayoutImage_Cardview"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/upload" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/CustBookingLayoutName_Cardview"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:columnCount="5">
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Layout name"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-
-
-
+                    <GridLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:columnCount="3">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="Booking rate type:"
                             android:textColor="@color/black"
-                            android:layout_columnSpan="4"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/CustBookingBookingRateType_Cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="Daily rate"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/CustBookingBookingRateValue_Cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="P00.00"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="Booking Start date:"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/CustBookingBookingStartDate_Cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="2"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="00/00/0000"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="Total payment"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/CustBookingBookingTotalPayment_Cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="2"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="P00.00"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/CustBookingBookingSeeMoreTextview_Cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/quicksand_medium"
-                            android:hint="layout name"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rate type"/>
-
-
-
+                            android:text="*click here to see more details"
+                            android:textColor="@color/teal_700"
+                            android:textSize="12sp" />
 
 
                     </GridLayout>
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
+
         </LinearLayout>
 
-
-
-
-
-
-
-
-
-
     </androidx.cardview.widget.CardView>
-
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.caspaceapplication.Owner.BookingTransactions;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingDetails_ModelClass;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,14 +27,11 @@ public class OwnerBT_PendingTabFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private OwnerBT_AdapterClass adapterClass;
-    private List<OwnerBT_ModelClass> dataClassList;
+    private List<BookingDetails_ModelClass> dataClassList;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    CollectionReference bookingRef = firebaseFirestore.collection("OwnerBookingTransactions");
-
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog dialog;
+    CollectionReference bookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
     public OwnerBT_PendingTabFragment() {
     }
@@ -58,12 +55,12 @@ public class OwnerBT_PendingTabFragment extends Fragment {
     private void loadPendingBT(){
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
         Query query = bookingRef.whereEqualTo("bookingStatus", "Pending")
-                                .whereEqualTo("owner_id", currentUserID);
+                                .whereEqualTo("ownerId", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    OwnerBT_ModelClass modelClass = documentSnapshot.toObject(OwnerBT_ModelClass.class);
+                    BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
                     dataClassList.add(modelClass);
                 }
                 adapterClass.notifyDataSetChanged();
