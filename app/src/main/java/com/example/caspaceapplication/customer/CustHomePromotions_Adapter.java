@@ -1,3 +1,4 @@
+/*
 package com.example.caspaceapplication.customer;
 
 import android.content.Context;
@@ -21,13 +22,15 @@ import java.util.List;
 
 public class CustHomePromotions_Adapter extends RecyclerView.Adapter<CustHomePromotions_Adapter.CustProDiscViewHolder> {
 
-    private Context context;
+  */
+/*  private Context context;
     private List<OwnerProDisc_ModelClass> dataClassList;
 
     public CustHomePromotions_Adapter(Context context, List<OwnerProDisc_ModelClass> dataClassList) {
         this.context = context;
         this.dataClassList = dataClassList;
     }
+*//*
 
     @NonNull
     @Override
@@ -38,7 +41,8 @@ public class CustHomePromotions_Adapter extends RecyclerView.Adapter<CustHomePro
 
     @Override
     public void onBindViewHolder(@NonNull CustProDiscViewHolder holder, int position) {
-        String imageUri = String.valueOf(dataClassList.get(position).getPromotionImage());
+        */
+/*String imageUri = String.valueOf(dataClassList.get(position).getPromotionImage());
         if (imageUri != null && !imageUri.isEmpty()){
             Picasso.get().load(imageUri).into(holder.recCustProDisc_Image);
         }
@@ -81,7 +85,8 @@ public class CustHomePromotions_Adapter extends RecyclerView.Adapter<CustHomePro
                 });
 
             }
-        });
+        });*//*
+
 
 
     }
@@ -106,3 +111,4 @@ public class CustHomePromotions_Adapter extends RecyclerView.Adapter<CustHomePro
         }
     }
 }
+*/

@@ -73,8 +73,9 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                 ImageView branchImage, layoutImage, paymentImage;
-                TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, startDate, endDate,
-                        startTime, endTime, totalHours, custFullname, orgName, custAddress, custPhoneNum, custEmail;
+                TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum,
+                        startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths, totalYears,
+                        custFullname, orgName, custAddress, custPhoneNum, custEmail;
 
                 AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
                 ImageButton exitButton;
@@ -95,6 +96,10 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 startTime = dialogView.findViewById(R.id.seemoreStartTime_Textview);
                 endTime = dialogView.findViewById(R.id.seemoreEndTime_Textview);
                 totalHours = dialogView.findViewById(R.id.seemoreTotalHours_Textview);
+                totalDays = dialogView.findViewById(R.id.seemoreTotalDays_Textview);
+                totalWeeks = dialogView.findViewById(R.id.seemoreTotalWeeks_Textview);
+                totalMonths = dialogView.findViewById(R.id.seemoreTotalMonths_Textview);
+                totalYears = dialogView.findViewById(R.id.seemoreTotalYears_Textview);
                 custFullname = dialogView.findViewById(R.id.seemoreCustFullname_Textview);
                 orgName = dialogView.findViewById(R.id.seemoreCustOrgName_Textview);
                 custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
@@ -133,6 +138,11 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 startTime.setText(model.getBookingStartTime());
                 endTime.setText(model.getBookingEndTime());
                 totalHours.setText(model.getTotalHours());
+                totalDays.setText(model.getTotalDays());
+                totalWeeks.setText(model.getTotalWeeks());
+                totalMonths.setText(model.getTotalMonths());
+                totalYears.setText(model.getTotalYears());
+
                 custFullname.setText(model.getCustomerFullname());
                 orgName.setText(model.getOrganizationName());
                 custAddress.setText(model.getCustomerAddress());
@@ -157,7 +167,6 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
 

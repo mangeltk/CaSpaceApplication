@@ -19,6 +19,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.CoworkingSpaces;
@@ -39,6 +40,7 @@ public class HomeFragment extends Fragment {
     private List<OwnerProDisc_ModelClass> promotionList;
     private RecyclerView promotionsRecyclerView;
     private CustHomePage_Prodisc_Adapter promotionsAdapter;
+    private CustHome_RecommendedList_Adapter recommendedList_adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -192,6 +194,37 @@ public class HomeFragment extends Fragment {
                 recPD_Image = itemView.findViewById(R.id.recPromotionImage);
                 recPD_Title = itemView.findViewById(R.id.recPromotionTitle);
                 recPD_Cardview = itemView.findViewById(R.id.recRDCardView);
+            }
+        }
+    }
+
+    public class CustHome_RecommendedList_Adapter extends  RecyclerView.Adapter<HomeFragment.CustHome_RecommendedList_Adapter.ViewHolder>{
+
+        private List<BranchModel> dataClassList;
+
+        public CustHome_RecommendedList_Adapter(List<BranchModel> dataClassList) {
+            this.dataClassList = dataClassList;
+        }
+
+        @NonNull
+        @Override
+        public CustHome_RecommendedList_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CustHome_RecommendedList_Adapter.ViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return dataClassList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
             }
         }
     }

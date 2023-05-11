@@ -349,6 +349,144 @@
                     android:layout_margin="2dp"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/quicksand_medium"
+                    android:text="Total duration:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="center"/>
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="5"
+                    android:rowCount="2"
+                    android:layout_gravity="center"
+                    android:layout_columnSpan="2"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Hours:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Days:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Weeks:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Months:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Years:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalHours_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00:00"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalDays_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00:00"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalWeeks_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00:00"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalMonths_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00:00"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/seemoreTotalYears_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00:00"
+                        android:textColor="@color/black" />
+
+                </GridLayout>
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
                     android:text="Total hours:"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -362,6 +500,86 @@
                     android:hint="00:00"
                     android:paddingLeft="10dp"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Total days:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTotalDays_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Total weeks:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTotalWeeks_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Total months:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTotalMonths_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Total years:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/seemoreTotalYears_Textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="00:00"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -495,41 +713,45 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/declineButton_BTDCardview"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="#F44336"
-                android:text="Decline" />
+                android:text="Decline"
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/acceptButton_BTDCardview"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="@color/colorSuccess"
-                android:text="Accept" />
+                android:text="Accept"
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/completeButton_BTDCardview"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="@color/colorWarning"
-                android:text="Complete" />
+                android:text="Complete"
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cancelButton_BTDCardview"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_columnSpan="3"
                 android:layout_columnWeight="1"
                 android:layout_margin="4dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="@color/gray"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:textSize="12sp" />
 
         </GridLayout>
 

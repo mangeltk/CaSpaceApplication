@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -1663,9 +1665,51 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
     public void YearlyCalculation(String perYear, int minPersonCap, int maxPersonCap){
         clearInputs();
-        getDateAndTime();
+        selectStartDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the current year, month, and day
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Cust_BookingTransaction.this,
+                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+                                selectedStartDate.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear);
+                            }
+                        }, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setCalendarViewShown(false);
+                datePickerDialog.show();
+            }
+        });
 
-        selectedEndTime.addTextChangedListener(new TextWatcher() {
+        selectedEndDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Cust_BookingTransaction.this,
+                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+                                selectedEndDate.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear);
+                            }
+                        }, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setCalendarViewShown(false);
+                datePickerDialog.show();
+            }
+        });
+
+
+        selectedEndDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -1694,12 +1738,12 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     int endYear = endCalendar.get(Calendar.YEAR);
                     int totalYears = endYear - startYear;
 
-                    if (totalYears < 1) {
+                    if (totalYears <= 1) {
                         Toast.makeText(getApplicationContext(), "Selected dates should reach at least a year", Toast.LENGTH_SHORT).show();
                     } else {
                         double bookingFee = totalYears * Double.parseDouble(perYear);
                         totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
-                        totalResultMonths.setText(Integer.toString(totalYears) + " year" + (totalYears > 1 ? "s" : ""));
+                        totalResultYears.setText(Integer.toString(totalYears) + " year" + (totalYears > 1 ? "s" : ""));
                     }
                 }
             }
@@ -1709,9 +1753,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             }
         });
-
-
-
 
         totalCalculatedFee.addTextChangedListener(new TextWatcher() {
             @Override
