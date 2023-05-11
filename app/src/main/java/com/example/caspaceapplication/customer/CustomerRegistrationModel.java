@@ -3,13 +3,13 @@ package com.example.caspaceapplication.customer;
 public class CustomerRegistrationModel {
 
     private String customersIDNum, customersEmail, customersFirstName, customersLastName, customersUsername, customersPassword, customersOrganization, customersPopulation,
-    customersAccountStatus;
+    customersAccountStatus,userType;
 
     public CustomerRegistrationModel() {
     }
 
     public CustomerRegistrationModel(String customersIDNum, String customersEmail, String customersFirstName, String customersLastName,
-                                     String customersUsername, String customersPassword, String customersOrganization, String customersPopulation,String customersAccountStatus) {
+                                     String customersUsername, String customersPassword, String customersOrganization, String customersPopulation, String customersAccountStatus, String userType) {
         this.customersIDNum = customersIDNum;
         this.customersEmail = customersEmail;
         this.customersFirstName = customersFirstName;
@@ -19,6 +19,7 @@ public class CustomerRegistrationModel {
         this.customersOrganization = customersOrganization;
         this.customersPopulation = customersPopulation;
         this.customersAccountStatus=customersAccountStatus;
+        this.userType=userType;
     }
 
     public String getCustomersIDNum() {
@@ -90,5 +91,13 @@ public class CustomerRegistrationModel {
 
     public void setCustomersPassword(String ownerPassword) {
         this.customersPassword = customersPassword;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

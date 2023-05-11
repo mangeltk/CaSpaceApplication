@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginOwner extends AppCompatActivity {
 
@@ -108,6 +110,7 @@ public class LoginOwner extends AppCompatActivity {
                             progressDialog.setMessage("Logging in...");
                             progressDialog.show();
                             checkExistingBranch();
+                            updateOwnerFCMToken();
                         } else {
                             progressDialog.cancel();
                             Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
@@ -136,6 +139,47 @@ public class LoginOwner extends AppCompatActivity {
                     }
                 });
     }
+
+    private void updateOwnerFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    String token = task.getResult();
+
+                    String ownerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    db.collection("OwnerUserAccounts").document(ownerId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String existingToken = documentSnapshot.getString("fcmToken");
+                                    if (!TextUtils.isEmpty(existingToken) && existingToken.equals(token)) {
+                                        Log.d(TAG, "FCM token already exists in database");
+                                        return;
+                                    }
+                                }
+
+                                db.collection("OwnerUserAccounts").document(ownerId)
+                                        .update("fcmToken", token)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "FCM token updated successfully");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.e(TAG, "Error updating FCM token", e);
+                                        });
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Error getting FCM token for owner", e);
+                            });
+                });
+    }
+
 
     public void checkExistingBranch(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

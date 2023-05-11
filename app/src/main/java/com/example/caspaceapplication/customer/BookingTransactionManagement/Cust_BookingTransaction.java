@@ -639,6 +639,19 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     dialog.dismiss();
+
+                                                    String title = "Your Space has been booked!";
+                                                    String message = "hello";
+                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                    db.collection("OwnerUserAccounts").document(ownerId)
+                                                            .get()
+                                                            .addOnSuccessListener(documentSnapshot -> {
+                                                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                                                FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                                                            })
+                                                            .addOnFailureListener(e -> {
+                                                                Log.e(TAG, "Error getting FCM token for owner", e);
+                                                            });
                                                 }
                                             });
                                 }
@@ -646,19 +659,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         }
                     });
 
-                    String title = "Your Space has been booked!";
-                    String message = "hello";
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    //String spaceOwnerId = "OWNER_USER_ID_HERE"; // replace with the actual user ID of the space owner
-                    db.collection("OwnerUserAccounts").document(ownerId)
-                            .get()
-                            .addOnSuccessListener(documentSnapshot -> {
-                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
-                                FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.e(TAG, "Error getting FCM token for owner", e);
-                            });
                 }
             });
         }else{
