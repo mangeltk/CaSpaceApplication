@@ -50,6 +50,7 @@ public class RegisterCustomer extends AppCompatActivity {
                 String customer_organization = binding.customerOrganization.getText().toString();
                 String customer_population = binding.customerPopulation.getText().toString();
                 String customer_account_status= "Enabled";
+                String userType="Customer";
 
                 progressDialog.show();
 
@@ -63,7 +64,8 @@ public class RegisterCustomer extends AppCompatActivity {
                                 // Store the additional user data in the database
                                 firebaseFirestore.collection("CustomerUserAccounts")
                                         .document(customer_idNum)
-                                        .set(new CustomerRegistrationModel(customer_idNum, customer_email, customer_firstName, customer_lastName, customer_username, customer_password, customer_organization, customer_population,customer_account_status))
+                                        .set(new CustomerRegistrationModel(customer_idNum, customer_email, customer_firstName, customer_lastName, customer_username,
+                                                customer_password, customer_organization, customer_population,customer_account_status, userType))
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

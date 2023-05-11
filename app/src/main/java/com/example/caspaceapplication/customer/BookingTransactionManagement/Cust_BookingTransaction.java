@@ -597,27 +597,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                     bookingDetails.put("branchName",branch_Name);
                                     bookingDetails.put("layoutImage",layout_Image);
                                     bookingDetails.put("layoutName",layout_Name);
-
                                     bookingDetails.put("totalHours", totalHours.getText().toString());
                                     bookingDetails.put("totalDays", totalDays.getText().toString());
                                     bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
                                     bookingDetails.put("totalMonths", totalMonths.getText().toString());
                                     bookingDetails.put("totalYears", totalYears.getText().toString());
-                                  /*  if (!totalHours.equals(null) || !totalDays.equals(null)
-                                            || !totalWeeks.equals(null) || !totalMonths.equals(null)
-                                            || !totalYears.equals(null)){
-                                        bookingDetails.put("totalHours", totalHours.getText().toString());
-                                        bookingDetails.put("totalDays", totalDays.getText().toString());
-                                        bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
-                                        bookingDetails.put("totalMonths", totalMonths.getText().toString());
-                                        bookingDetails.put("totalYears", totalYears.getText().toString());
-                                    }else{
-                                        bookingDetails.put("totalHours", "");
-                                        bookingDetails.put("totalDays", "");
-                                        bookingDetails.put("totalWeeks", "");
-                                        bookingDetails.put("totalMonths", "");
-                                        bookingDetails.put("totalYears", "");
-                                    }*/
 
                                     AllSubmittedBookingRef.add(bookingDetails)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -643,20 +627,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             });
                         }
                     });
-
-                    /*String title = "Your Space has been booked!";
-                    String message = "hello";
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    //String spaceOwnerId = "OWNER_USER_ID_HERE"; // replace with the actual user ID of the space owner
-                    db.collection("OwnerUserAccounts").document(ownerId)
-                            .get()
-                            .addOnSuccessListener(documentSnapshot -> {
-                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
-                                FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.e(TAG, "Error getting FCM token for owner", e);
-                            });*/
                 }
             });
         }else{
@@ -1719,8 +1689,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     startCalendar.setTime(startDate);
                     Calendar endCalendar = Calendar.getInstance();
                     endCalendar.setTime(endDate);
-                    int totalYears = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
-                    // Check if the selected dates reach a year
+
+                    int startYear = startCalendar.get(Calendar.YEAR);
+                    int endYear = endCalendar.get(Calendar.YEAR);
+                    int totalYears = endYear - startYear;
+
                     if (totalYears < 1) {
                         Toast.makeText(getApplicationContext(), "Selected dates should reach at least a year", Toast.LENGTH_SHORT).show();
                     } else {
