@@ -1,19 +1,19 @@
 package com.example.caspaceapplication.customer;
 
-import android.widget.ImageView;
-
 public class CoworkingSpacesModel {
 
     String cospaceName;
     String cospaceImage;
+    String owner_id;
 
-
-    public CoworkingSpacesModel()
-    {
-
+    public CoworkingSpacesModel() {
     }
 
-
+    public CoworkingSpacesModel(String cospaceName, String cospaceImage, String owner_id) {
+        this.cospaceName = cospaceName;
+        this.cospaceImage = cospaceImage;
+        this.owner_id = owner_id;
+    }
 
     public String getCospaceName() {
         return cospaceName;
@@ -31,15 +31,11 @@ public class CoworkingSpacesModel {
         this.cospaceImage = cospaceImage;
     }
 
-    /*public String getCospaceAddress() {
-        return cospaceAddress;
+    public String getOwner_id() {
+        return owner_id;
     }
 
-    public void setCospaceAddress(String cospaceAddress) {
-        this.cospaceAddress = cospaceAddress;
-    }*/
-
-
-
-
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
+    }
 }

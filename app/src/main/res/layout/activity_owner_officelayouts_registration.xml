@@ -15,22 +15,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/owner_logoupperleft" />
-
-        </LinearLayout>
-
-        <LinearLayout
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/buttonwhite_borderblack"
@@ -40,76 +25,124 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/header_background_forownerhomepage"
+                android:fontFamily="@font/quicksand_medium"
                 android:padding="15dp"
+                android:paddingStart="70dp"
+                android:paddingEnd="70dp"
                 android:text="Register a Layout"
-                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
-            <ImageButton
-                android:id="@+id/layoutImage_imageButton"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+            <ImageView
+                android:id="@+id/layoutImage_imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/orange10"
                 android:scaleType="fitCenter"
                 android:src="@drawable/uploadphoto" />
 
-            <EditText
-                android:id="@+id/layoutName_editText"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
-                android:drawableLeft="@drawable/ic_rename"
-                android:drawablePadding="10dp"
                 android:fontFamily="@font/quicksand_medium"
-                android:hint="Layout Name"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                android:text="*Click above to select image"
+                android:textColor="@color/teal_700" />
 
-            <EditText
-                android:id="@+id/layoutPeopleSize_editText"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
-                android:drawableLeft="@drawable/ic_people_outline"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="No. of people"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                <EditText
+                    android:id="@+id/layoutName_editText"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableLeft="@drawable/ic_rename"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Layout Name"
+                    android:padding="8dp"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/underline"
+                    android:textSize="17dp" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:drawableLeft="@drawable/ic_people_outline"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@color/black"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Person Capacity"
+                        android:padding="8dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/orange"
+                        android:textColorHint="@color/underline"
+                        android:textSize="17dp" />
+
+                    <EditText
+                        android:id="@+id/layoutMinPersonCap_editText"
+                        android:layout_width="50dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Min"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/orange"
+                        android:textColorHint="@color/underline"
+                        android:textSize="17dp" />
+
+                    <EditText
+                        android:id="@+id/layoutMaxPersonCap_editText"
+                        android:layout_width="50dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/customer_recycler_cwshomepage"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:hint="Max"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/orange"
+                        android:textColorHint="@color/underline"
+                        android:textSize="17dp" />
+
+                </LinearLayout>
 
             <EditText
                 android:id="@+id/layoutAreaSize_editText"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableLeft="@drawable/branch_icon_white"
                 android:drawablePadding="10dp"
+                android:drawableTint="@color/black"
                 android:fontFamily="@font/quicksand_medium"
-                android:hint="Area size"
+                android:hint="Area size in sq. m."
                 android:padding="8dp"
                 android:paddingStart="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/underline"
                 android:textSize="17dp" />
 
             <EditText
@@ -117,51 +150,222 @@
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableLeft="@drawable/ic_baseline_bookmark_added_24"
                 android:drawablePadding="10dp"
-                android:drawableTint="@color/white"
                 android:fontFamily="@font/quicksand_medium"
                 android:hint="Layout Type"
                 android:padding="8dp"
                 android:paddingStart="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/underline"
                 android:textSize="17dp" />
 
-            <EditText
-                android:id="@+id/layoutLayoutPrice_editText"
-                android:layout_width="300dp"
-                android:layout_height="45dp"
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/custom_edittext_orange"
-                android:drawableLeft="@drawable/ic_baseline_payments_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
-                android:hint="Layout Price"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/orange"
-                android:textColorHint="@color/white"
-                android:textSize="17dp" />
+                android:columnCount="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_columnSpan="2"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="Pricing Rates"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_columnSpan="2"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:text="*put NA if not applicable"
+                    android:textColor="@color/teal_700" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Hourly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/layoutLayoutHourlyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Daily rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/layoutLayoutDailyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Weekly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/layoutLayoutWeeklyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Monthly rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/layoutLayoutMonthlyPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_payments_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="Annual rate"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/black"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/layoutLayoutAnnualPrice_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:hint="00.00"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/orange"
+                    android:textColorHint="@color/gray"
+                    android:textSize="17dp" />
+
+            </GridLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/saveLayout_Button"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/orange1"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/card_border_bottom"
+                android:drawableStart="@drawable/icons_save"
+                android:drawableTint="@color/black"
                 android:fontFamily="@font/quicksand_medium"
+                android:gravity="center"
+                android:padding="15dp"
                 android:text="SAVE LAYOUT"
-                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="20dp"
-                app:cornerRadius="20dp" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -172,11 +376,11 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:layout_alignParentBottom="true"
         app:itemIconTint="@color/orange3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/owner_menu_item" />
 
 </LinearLayout>

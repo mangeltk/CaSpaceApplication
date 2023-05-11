@@ -2,12 +2,15 @@ package com.example.caspaceapplication.Owner;
 
 public class OwnerRegistrationModel {
 
-    private String ownerIDNum, ownerCompanyName, ownerEmail, ownerFirstname, ownerLastname, ownerUsername, ownerPassword;
+    private String ownerIDNum, ownerCompanyName, ownerEmail, ownerFirstname, ownerLastname, ownerUsername, ownerPassword,ownerAccountStatus, userType;
 
     public OwnerRegistrationModel() {
     }
 
-    public OwnerRegistrationModel(String ownerIDNum, String ownerCompanyName, String ownerEmail, String ownerFirstname, String ownerLastname, String ownerUsername, String ownerPassword) {
+
+    public OwnerRegistrationModel(String ownerIDNum, String ownerCompanyName, String ownerEmail,
+                                  String ownerFirstname, String ownerLastname, String ownerUsername,
+                                  String ownerPassword, String ownerAccountStatus, String userType) {
         this.ownerIDNum = ownerIDNum;
         this.ownerCompanyName = ownerCompanyName;
         this.ownerEmail = ownerEmail;
@@ -15,6 +18,8 @@ public class OwnerRegistrationModel {
         this.ownerLastname = ownerLastname;
         this.ownerUsername = ownerUsername;
         this.ownerPassword = ownerPassword;
+        this.ownerAccountStatus= ownerAccountStatus;
+        this.userType= userType;
     }
 
     public String getOwnerIDNum() {
@@ -71,5 +76,20 @@ public class OwnerRegistrationModel {
 
     public void setOwnerPassword(String ownerPassword) {
         this.ownerPassword = ownerPassword;
+    }
+    public String getOwnerAccountStatus() {
+        return ownerAccountStatus;
+    }
+
+    public void setOwnerAccountStatus(String ownerAccountStatus) {
+        this.ownerAccountStatus = ownerAccountStatus;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

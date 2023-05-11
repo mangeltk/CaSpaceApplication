@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/buttonwhite_borderblack"
+            android:background="@drawable/coworkingspaces_search_bar"
             android:orientation="vertical"
             android:weightSum="5.5">
 
@@ -25,14 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/recImage"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="5dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/layout_sample" />
@@ -40,63 +39,111 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/recName"
+                    <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="5dp"
-                        android:text="Name"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/quicksand_medium"/>
+                        android:columnCount="2"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/noofpeople"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No of people:"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/quicksand_medium"/>
+                        <TextView
+                            android:id="@+id/recName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="2"
+                            android:layout_marginEnd="15dp"
+                            android:background="@drawable/customer_coworkingspace_textview"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Name"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/recPeopleAnswer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="3dp"
-                        android:text="-----------"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/quicksand_medium"/>
+                        <TextView
+                            android:id="@+id/noofpeople"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="No of people:"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/areasize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Area size:"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/quicksand_medium"/>
+                        <TextView
+                            android:id="@+id/recPeopleAnswer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="10"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
+                            android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/recAreasizeAnswer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-----------"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/quicksand_medium"
-                        />
+                        <TextView
+                            android:id="@+id/areasize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="Area size:"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/recAreasizeAnswer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="10 sq.m."
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:text="Availability:"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/recAvailabilityStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="Availablity not set"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textDirection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="2"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:hint="*edit availability on see more details"
+                            android:textColorHint="@color/teal_700"
+                            android:textSize="12sp" />
+
+                    </GridLayout>
+
 
                 </LinearLayout>
+
             </LinearLayout>
 
 
@@ -104,54 +151,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
-                android:background="@drawable/buttonwhite_borderblack"
-                >
+                android:background="@drawable/coworkingspaces_search_bar">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/recButton_OfficeLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:text="Edit details"
-                        android:padding="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:id="@+id/recButton_OfficeLayout"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/buttonwhite_borderblack"
                         android:backgroundTint="@color/orange12"
-                        android:fontFamily="@font/quicksand_medium"
-                        android:textStyle="bold"
-                        android:drawableStart="@drawable/ic_rename"
+                        android:drawableStart="@drawable/ic_menu_white"
                         android:drawableTint="@color/black"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Availability:"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:paddingStart="30dp"
+                        android:paddingEnd="30dp"
+                        android:text="See more details"
                         android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/quicksand_medium"/>
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Not/available"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="10dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-
-                        android:id="@+id/recAvailabilityStatus"
-                        android:fontFamily="@font/quicksand_medium"/>
 
                 </LinearLayout>
 

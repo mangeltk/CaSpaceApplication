@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginOwner extends AppCompatActivity {
 
@@ -36,11 +38,10 @@ public class LoginOwner extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-    TextView forgotPassword;
+    TextView forgotPassword; //todo:forgot password
     private EditText ownerEmail, ownerPassword;
     private Button loginButton;
     private CheckBox rememberMeCheckbox;
-    private SharedPreferences sharedPreferences;
 
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String KEY_EMAIL = "email";
@@ -52,7 +53,6 @@ public class LoginOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_owner);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         ownerEmail = findViewById(R.id.login_ownerEmail);
         ownerPassword = findViewById(R.id.login_ownerPassword);
@@ -64,75 +64,120 @@ public class LoginOwner extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String email = ownerEmail.getText().toString().trim();
-                String password = ownerPassword.getText().toString().trim();
-
-                if (email.isEmpty()) {
-                    ownerEmail.setError("Please enter email");
-                    ownerEmail.requestFocus();
-                    return;
-                }
-
-                if (password.isEmpty()) {
-                    ownerPassword.setError("Please enter password");
-                    ownerPassword.requestFocus();
-                    return;
-                }
-
-                if (rememberMeCheckbox.isChecked()) {
-                    // If the remember me checkbox is checked, save the user's email and password in shared preferences
-                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(KEY_EMAIL, email);
-                    editor.putString(KEY_PASSWORD, password);
-                    editor.apply();
-                    Toast.makeText(LoginOwner.this, "Credentials saved!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // If the remember me checkbox is not checked, clear the email and password saved in shared preferences
-                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.remove(KEY_EMAIL);
-                    editor.remove(KEY_PASSWORD);
-                    editor.apply();
-                }
-
-                firebaseAuth.signInWithEmailAndPassword(email,password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user.isEmailVerified()) {
-                                    progressDialog.setMessage("Logging in...");
-                                    progressDialog.show();
-                                    checkExistingBranch();
-                                } else {
-                                    user.sendEmailVerification()
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    progressDialog.cancel();
-                                                    Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    progressDialog.cancel();
-                                                    Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
-                            }
-                        });
+                loginUser();
             }
         });
+    }
+
+    public void loginUser(){
+        String email = ownerEmail.getText().toString().trim();
+        String password = ownerPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            ownerEmail.setError("Please enter email");
+            ownerEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            ownerPassword.setError("Please enter password");
+            ownerPassword.requestFocus();
+            return;
+        }
+        if (rememberMeCheckbox.isChecked()) {
+            // If the remember me checkbox is checked, save the user's email and password in shared preferences
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_EMAIL, email);
+            editor.putString(KEY_PASSWORD, password);
+            editor.apply();
+            Toast.makeText(LoginOwner.this, "Credentials saved!", Toast.LENGTH_SHORT).show();
+        } else {
+            // If the remember me checkbox is not checked, clear the email and password saved in shared preferences
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove(KEY_EMAIL);
+            editor.remove(KEY_PASSWORD);
+            editor.apply();
+        }
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user.isEmailVerified()) {
+                            progressDialog.setMessage("Logging in...");
+                            progressDialog.show();
+                            checkExistingBranch();
+                            updateOwnerFCMToken();
+                        } else {
+                            progressDialog.cancel();
+                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                            user.sendEmailVerification()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            progressDialog.cancel();
+                                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.cancel();
+                                            Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
+                    }
+                });
+    }
+
+    private void updateOwnerFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    String token = task.getResult();
+
+                    String ownerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    db.collection("OwnerUserAccounts").document(ownerId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String existingToken = documentSnapshot.getString("fcmToken");
+                                    if (!TextUtils.isEmpty(existingToken) && existingToken.equals(token)) {
+                                        Log.d(TAG, "FCM token already exists in database");
+                                        return;
+                                    }
+                                }
+
+                                db.collection("OwnerUserAccounts").document(ownerId)
+                                        .update("fcmToken", token)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "FCM token updated successfully");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.e(TAG, "Error updating FCM token", e);
+                                        });
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Error getting FCM token for owner", e);
+                            });
+                });
     }
 
 

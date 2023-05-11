@@ -17,4 +17,9 @@
         android:background="@color/orange14"
         />
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_viewAll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>

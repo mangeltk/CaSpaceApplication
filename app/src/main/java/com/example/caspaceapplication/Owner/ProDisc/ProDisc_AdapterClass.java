@@ -152,7 +152,6 @@ class ProDiscViewHolder<Button> extends RecyclerView.ViewHolder{
     ImageView recPD_Image;
     TextView recPD_Title;
     CardView recPD_Cardview;
-    //AppCompatButton deleteButtonProdiscDetailPopup;
 
     public ProDiscViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -161,6 +160,5 @@ class ProDiscViewHolder<Button> extends RecyclerView.ViewHolder{
         recPD_Title = itemView.findViewById(R.id.recPromotionTitle);
         recPD_Cardview = itemView.findViewById(R.id.recRDCardView);
 
-        //deleteButtonProdiscDetailPopup = itemView.findViewById(R.id.deleteButton_ProdiscDetailPopup);
     }
 }

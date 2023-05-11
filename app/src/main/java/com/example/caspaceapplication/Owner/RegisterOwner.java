@@ -47,6 +47,8 @@ public class RegisterOwner extends AppCompatActivity {
                 String owner_lastname = binding.ownersLastName.getText().toString();
                 String owner_username = binding.ownerUsername.getText().toString();
                 String owner_password = binding.ownerPassword.getText().toString();
+                String owner_account_status="Enabled";
+                String userType="Owner";
 
                 progressDialog.show();
 
@@ -60,7 +62,7 @@ public class RegisterOwner extends AppCompatActivity {
                                 // Store the additional user data in the database
                                 firebaseFirestore.collection("OwnerUserAccounts")
                                         .document(owner_idNum)
-                                        .set(new OwnerRegistrationModel(owner_idNum, owner_companyname, owner_email, owner_firstname, owner_lastname, owner_username, owner_password))
+                                        .set(new OwnerRegistrationModel(owner_idNum, owner_companyname, owner_email, owner_firstname, owner_lastname, owner_username, owner_password,owner_account_status,userType))
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

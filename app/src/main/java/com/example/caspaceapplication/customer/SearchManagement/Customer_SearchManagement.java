@@ -47,6 +47,12 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
         viewPager = findViewById(R.id.viewPagerSM);
         fragmentContainer = findViewById(R.id.fragment_container);
 
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        CustSM_SearchManually_fragment searchManually_fragment = new CustSM_SearchManually_fragment();
+        CustSM_NearMe_fragment nearMe_fragment = new CustSM_NearMe_fragment();
+        CustSM_ChooseMap_fragment chooseMap_fragment = new CustSM_ChooseMap_fragment();*/
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.addFragment(new CustSM_SearchManually_fragment(), "Search Manually");
         viewPagerAdapter.addFragment(new CustSM_NearMe_fragment(), "Near me");
@@ -73,8 +79,6 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
                 viewPager.setCurrentItem(2);
             }
         });
-
-
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
