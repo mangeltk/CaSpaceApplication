@@ -603,7 +603,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                     bookingDetails.put("branchName",branch_Name);
                                     bookingDetails.put("layoutImage",layout_Image);
                                     bookingDetails.put("layoutName",layout_Name);
-                                    if (!totalResultHours.getText().toString().equals("") || !totalResultDays.getText().toString().equals("")
+                                    /*if (!totalResultHours.getText().toString().equals("") || !totalResultDays.getText().toString().equals("")
                                             || !totalResultWeeks.getText().toString().equals("") || !totalResultMonths.getText().toString().equals("")
                                             || !totalResultYears.getText().toString().equals("")){
                                         bookingDetails.put("totalHours", totalHours.getText().toString());
@@ -617,7 +617,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                         bookingDetails.put("totalWeeks", "");
                                         bookingDetails.put("totalMonths", "");
                                         bookingDetails.put("totalYears", "");
-                                    }
+                                    }*/
+                                    bookingDetails.put("totalHours", totalHours.getText().toString());
+                                    bookingDetails.put("totalDays", totalDays.getText().toString());
+                                    bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
+                                    bookingDetails.put("totalMonths", totalMonths.getText().toString());
+                                    bookingDetails.put("totalYears", totalYears.getText().toString());
+
                                     AllSubmittedBookingRef.add(bookingDetails)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
@@ -652,7 +658,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 
         clearInputs();
-
         getDateAndTime();
 
         selectedStartDate.addTextChangedListener(new TextWatcher() {
@@ -885,7 +890,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         });
 
     }
-
 
     public void DailyCalculation(String perDay, int minPersonCap, int maxPersonCap){
 
@@ -1139,6 +1143,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_CODE);
             }
         });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
     }
 
     public void WeeklyCalculation(String perWeek, int minPersonCap, int maxPersonCap){
@@ -1181,8 +1192,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1231,8 +1241,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1281,8 +1290,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1331,8 +1339,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1364,6 +1371,46 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
         });
 
+        NoOfTenantsEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString().trim();
+                if (!input.isEmpty()) {
+                    if (!TextUtils.isDigitsOnly(input)) {
+                        s.clear();
+                        NoOfTenantsEditText.setError("Please enter only numbers");
+                    } else {
+                        int numTenants = Integer.parseInt(input);
+                        if (numTenants > maxPersonCap || numTenants < 1) {
+                            s.clear();
+                            NoOfTenantsEditText.setError("Person capacity is at " + minPersonCap + " to " + maxPersonCap);
+                        }
+                    }
+                }
+            }
+        });
+
+        CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_CODE);
+            }
+        });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
 
     }
 
