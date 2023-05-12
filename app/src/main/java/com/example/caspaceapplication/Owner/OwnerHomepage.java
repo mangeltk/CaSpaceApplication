@@ -108,34 +108,6 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                 return false;
         }
 
-
-
-   /* public void useBottomNavigationMenu(){
-        //Navigation Bar------------------------------------------
-        navigationView = findViewById(R.id.bottomNavigationView);
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuHome:
-                        Toast.makeText(OwnerHomepage.this, "Home", Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(OwnerHomepage.this, OwnerHomepage.class));
-                        break;
-                    case R.id.menuMessages:
-                        Toast.makeText(OwnerHomepage.this, "Messages", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuNotification:
-                        Toast.makeText(OwnerHomepage.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuProfile:
-                        Toast.makeText(OwnerHomepage.this, "Profile", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                }
-                return true;
-            }
-        });//Navigation Bar------------------------------------------
-    }*/
     }
 
 }

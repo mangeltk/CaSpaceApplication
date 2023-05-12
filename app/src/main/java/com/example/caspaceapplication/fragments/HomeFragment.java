@@ -135,7 +135,8 @@ public class HomeFragment extends Fragment {
 
     public void retrieveTopList(){
         firebaseFirestore.collection("CospaceBranches").whereGreaterThan("Likes", 0) // Only retrieve documents with a "Likes" field
-                .orderBy("Likes", Query.Direction.DESCENDING) // Sort in descending order based on "Likes"
+                .orderBy("Likes", Query.Direction.DESCENDING)
+                .limit(10)// Sort in descending order based on "Likes"
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
