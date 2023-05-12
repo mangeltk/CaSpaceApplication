@@ -343,7 +343,6 @@ public class CustomerProfileFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CustomerProfileFavorites_Adapter.ViewHolder holder, int position) {
-            //holder.rankNo.setText(branchModel.get(position).getRankNo());
             holder.branchName.setText(branchModel.get(position).getCospaceName());
             holder.branchAddress.setText(branchModel.get(position).getCospaceStreetAddress() + " " + branchModel.get(position).getCospaceCityAddress());
             holder.likesNo.setVisibility(View.GONE);
