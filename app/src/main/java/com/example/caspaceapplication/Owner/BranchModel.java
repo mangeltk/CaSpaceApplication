@@ -10,12 +10,13 @@ public class BranchModel {
     private GeoPoint location;
     private String owner_id;
     private Map<String, OpeningHours> openingHours;
+    int Likes, RankNo;
 
     public BranchModel() {
 
     }
 
-    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> openingHours) {
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> openingHours, int likes, int rankNo) {
         this.cospaceStreetAddress = cospaceStreetAddress;
         this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
@@ -25,9 +26,25 @@ public class BranchModel {
         this.location = location;
         this.owner_id = owner_id;
         this.openingHours = openingHours;
+        Likes = likes;
+        RankNo = rankNo;
     }
 
-    // Getters and setters for other fields
+    public int getRankNo() {
+        return RankNo;
+    }
+
+    public void setRankNo(int rankNo) {
+        RankNo = rankNo;
+    }
+
+    public int getLikes() {
+        return Likes;
+    }
+
+    public void setLikes(int likes) {
+        Likes = likes;
+    }
 
     public Map<String, OpeningHours> getOpeningHours() {
         return openingHours;

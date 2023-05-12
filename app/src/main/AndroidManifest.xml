@@ -164,13 +164,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".customer.Profile"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".customer.Customer_Homepage_BottomNav"
             android:exported="false">
             <meta-data

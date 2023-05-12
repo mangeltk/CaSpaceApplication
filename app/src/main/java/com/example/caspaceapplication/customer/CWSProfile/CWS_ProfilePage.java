@@ -1,23 +1,31 @@
 package com.example.caspaceapplication.customer.CWSProfile;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,12 +33,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CWS_ProfilePage extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    CollectionReference colref_CustomerUsers = firebaseFirestore.collection("CustomerUserAccounts");
     CollectionReference colref_BranchInfo = firebaseFirestore.collection("CospaceBranches");
     CollectionReference colref_ProDisc = firebaseFirestore.collection("OwnerPublishedPromotions");
     CollectionReference colref_OfficeLayouts = firebaseFirestore.collection("OfficeLayouts");
@@ -47,6 +57,8 @@ public class CWS_ProfilePage extends AppCompatActivity {
             CWSHours_FridayStartTextview, CWSHours_FridayEndTextview,
             CWSHours_SaturdayStartTextview, CWSHours_SaturdayEndTextview,
             CWSHours_SundayStartTextview, CWSHours_SundayEndTextview;
+
+    AppCompatImageButton likeButtonImageButton, unlikeButtonImageButton;
 
     RecyclerView CWSProfPage_Prodisc;
     List<OwnerProDisc_ModelClass> dataClassList;
@@ -96,8 +108,107 @@ public class CWS_ProfilePage extends AppCompatActivity {
         CWSHours_SundayStartTextview = findViewById(R.id.CWSHours_SundayStart_Textview);
         CWSHours_SundayEndTextview = findViewById(R.id.CWSHours_SundayEnd_Textview);
 
-        ProfPage_Title.setText(cospaceName);
+        likeButtonImageButton = findViewById(R.id.likeButton_Imagebutton);
+        unlikeButtonImageButton = findViewById(R.id.unlikeButton_Imagebutton);
 
+        likeButtonImageButton.setVisibility(View.GONE);
+
+        unlikeButtonImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                likeButtonImageButton.setVisibility(View.VISIBLE);
+                unlikeButtonImageButton.setVisibility(View.GONE);
+                Toast.makeText(CWS_ProfilePage.this, "Unlike " + cospaceName, Toast.LENGTH_SHORT).show();
+
+                colref_BranchInfo.whereEqualTo("cospaceName", cospaceName)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                    Map<String, Object> updates = new HashMap<>();
+                                    Long likesCount = (Long) documentSnapshot.get("Likes");
+                                    if (likesCount == null) {
+                                        likesCount = 0L;
+                                    }
+
+                                    updates.put("Likes", likesCount + 1);
+                                    documentSnapshot.getReference().update(updates)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "Likes count incremented");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "Failed to increment Likes count", e);
+                                                }
+                                            });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Failed to fetch document", e);
+                            }
+                        });
+            }
+        });
+
+        likeButtonImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                likeButtonImageButton.setVisibility(View.GONE);
+                unlikeButtonImageButton.setVisibility(View.VISIBLE);
+                Toast.makeText(CWS_ProfilePage.this, "Liked " + cospaceName, Toast.LENGTH_SHORT).show();
+                colref_BranchInfo.whereEqualTo("cospaceName", cospaceName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()){
+                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                            Map<String, Object> updates = new HashMap<>();
+                            Long likesCount = (Long) documentSnapshot.get("Likes");
+                            if (likesCount ==  null){
+                                likesCount = 0L;
+                            }
+
+                            updates.put("Likes", likesCount - 1);
+                            documentSnapshot.getReference().update(updates)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d(TAG, "Likes count decremented");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Failed to decrement Likes count", e);
+                                        }
+                                    });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Failed to fetch document", e);
+                    }
+                });
+
+
+                //store for customer favorites
+                FirebaseUser customerUserId = FirebaseAuth.getInstance().getCurrentUser();
+                //colref_CustomerUsers.whereEqualTo("customersIDNum", customerUserId.getUid())
+
+
+
+            }
+        });
+
+        ProfPage_Title.setText(cospaceName);
         //get textview details
         colref_BranchInfo.whereEqualTo("cospaceName", cospaceName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
