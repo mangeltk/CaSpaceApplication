@@ -1,8 +1,11 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +24,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -36,10 +42,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class BookingsFragment extends Fragment {
@@ -341,7 +351,8 @@ public class BookingsFragment extends Fragment {
                     custAddress.setText(model.getCustomerAddress());
                     custPhoneNum.setText(model.getCustomerPhoneNum());
                     custEmail.setText(model.getCustomerEmail());
-
+                    String ownerId= model.getOwnerId();
+                    String bookingId= model.getBookingId();
                     builder.setView(dialogView);
                     AlertDialog dialog = builder.create();
                     dialog.show();
@@ -368,7 +379,7 @@ public class BookingsFragment extends Fragment {
                             builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid());
+                                    Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
                                     queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -379,6 +390,48 @@ public class BookingsFragment extends Fragment {
                                             Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                             displayAllBookings();
+
+                                            String customerName= custFullname.getText().toString();
+                                            String spaceName = layoutName.getText().toString();
+                                            LocalDateTime now = LocalDateTime.now();
+                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                            String dateTimeString = now.format(formatter);
+                                            String title = "Booking Notification: "+dateTimeString;
+                                            String message = "\n"+spaceName + " booking from "+customerName +" has been cancelled.";
+                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                            db.collection("OwnerUserAccounts").document(ownerId)
+                                                    .get()
+                                                    .addOnSuccessListener(documentSnapshot -> {
+                                                        String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                                        FCMSend.pushNotification(getContext(), ownerFCMToken, title, message);
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        Log.e(TAG, "Error getting FCM token for owner", e);
+                                                    });
+                                            CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+                                            // Create a new notification document with a randomly generated ID
+                                            DocumentReference newNotificationRef = notificationsRef.document();
+                                            String newNotificationId = newNotificationRef.getId();
+                                            // Add the notification document to the "Notifications" collection
+                                            Map<String, Object> notification = new HashMap<>();
+                                            notification.put("notificationId", newNotificationId);
+                                            notification.put("title", title);
+                                            notification.put("message", message);
+                                            notification.put("ownerId", ownerId);
+                                            notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                            newNotificationRef.set(notification)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "Error adding notification", e);
+                                                        }
+                                                    });
                                         }
                                     });
                                 }

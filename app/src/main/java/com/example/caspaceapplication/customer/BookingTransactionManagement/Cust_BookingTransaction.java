@@ -61,6 +61,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -651,8 +652,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                                                     String customerName= custFullname;
                                                     String spaceName = layout_Name;
-                                                    String title = "Booking Notification";
-                                                    String message = customerName + " booked "+spaceName +".";
+                                                    LocalDateTime now = LocalDateTime.now();
+                                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                                    String dateTimeString = now.format(formatter);
+                                                    String title = "Booking Notification: "+dateTimeString;
+                                                    String message = "\n"+customerName + " booked "+spaceName +".";
                                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                                     db.collection("OwnerUserAccounts").document(ownerId)
                                                             .get()
@@ -673,6 +677,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     notification.put("title", title);
                                                     notification.put("message", message);
                                                     notification.put("ownerId", ownerId);
+                                                    notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
                                                     newNotificationRef.set(notification)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override

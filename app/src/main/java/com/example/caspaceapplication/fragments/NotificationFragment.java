@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.ktx.Firebase;
 
@@ -69,7 +70,7 @@ public class NotificationFragment extends Fragment {
                         String title = documentSnapshot.getString("title");
                         String message = documentSnapshot.getString("message");
                         TextView notificationTextView = new TextView(getContext());
-                        notificationTextView.setText(title + ": " + message);
+                        notificationTextView.setText(title  + message);
                         notificationTextView.setTextSize(18);
                         notificationTextView.setTextColor(Color.parseColor("#000000"));
                         notificationTextView.setPadding(16, 16, 16, 16);

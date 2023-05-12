@@ -148,28 +148,27 @@ public class Owner_UserProfile extends Fragment {
                 builder.setNegativeButton("No", null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-                Button signOutButton = view.findViewById(R.id.ownerSignOutProfile_Button);
-                signOutButton.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+        Button signOutButton = view.findViewById(R.id.ownerSignOutProfile_Button);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Sign Out");
+                builder.setMessage("Are you sure you want to sign out?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle("Sign Out");
-                        builder.setMessage("Are you sure you want to sign out?");
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(getActivity(), Front.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                        });
-                        builder.setNegativeButton("No", null);
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getActivity(), Front.class);
+                        startActivity(intent);
+                        getActivity().finish();
                     }
                 });
+                builder.setNegativeButton("No", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
