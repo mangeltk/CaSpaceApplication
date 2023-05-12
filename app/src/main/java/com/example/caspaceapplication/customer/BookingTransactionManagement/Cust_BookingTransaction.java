@@ -126,8 +126,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         setContentView(R.layout.activity_cust_booking_transaction);
 
         // Get the intent that started the activity
-        IntentFilter filter = new IntentFilter("com.google.firebase.MESSAGING_EVENT");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+ /*       IntentFilter filter = new IntentFilter("com.google.firebase.MESSAGING_EVENT");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);*/
         Intent intent = getIntent();
         String layoutName = intent.getStringExtra("layoutName");
         String layout_id = intent.getStringExtra("layout_id");
@@ -649,9 +649,10 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     startActivity(intent);
                                                     dialog.dismiss();
 
-                                                    /*String customerName= custFullname;
-                                                    String title = "Your Space has been booked!";
-                                                    String message = customerName + " booked a space.";
+                                                    String customerName= custFullname;
+                                                    String spaceName = layout_Name;
+                                                    String title = "Booking Notification";
+                                                    String message = customerName + " booked "+spaceName +".";
                                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                                     db.collection("OwnerUserAccounts").document(ownerId)
                                                             .get()
@@ -661,18 +662,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                             })
                                                             .addOnFailureListener(e -> {
                                                                 Log.e(TAG, "Error getting FCM token for owner", e);
-                                                            });*/
-                                                    String customerName= custFullname;
-                                                    String spaceName = layout_Name;
-                                                    String title = "Booking Notification";
-                                                    String message = customerName + " booked "+spaceName +"."+R.drawable.fivestara;
-                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                            });
                                                     CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
-
                                                     // Create a new notification document with a randomly generated ID
                                                     DocumentReference newNotificationRef = notificationsRef.document();
                                                     String newNotificationId = newNotificationRef.getId();
-
                                                         // Add the notification document to the "Notifications" collection
                                                     Map<String, Object> notification = new HashMap<>();
                                                     notification.put("notificationId", newNotificationId);
@@ -709,7 +703,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         }
     }
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+    /*private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
@@ -719,9 +713,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 }
             }
         }
-    };
+    };*/
 
-    public void onReceive(Context context, Intent intent) {
+    /*public void onReceive(Context context, Intent intent) {
         if (intent.getExtras() != null) {
             boolean isForeground = isAppInForeground(context);
             if (isForeground) {
@@ -738,9 +732,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 // ...
             }
         }
-    }
+    }*/
 
-    private boolean isAppInForeground(Context context) {
+    /*private boolean isAppInForeground(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
         if (!tasks.isEmpty()) {
@@ -748,7 +742,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             return packageName.equals(context.getPackageName());
         }
         return false;
-    }
+    }*/
 
 
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
