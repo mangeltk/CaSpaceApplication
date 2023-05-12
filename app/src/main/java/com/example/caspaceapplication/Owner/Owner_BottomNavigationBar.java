@@ -6,8 +6,11 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.fragments.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Owner_BottomNavigationBar extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -33,7 +36,8 @@ public class Owner_BottomNavigationBar extends AppCompatActivity implements Bott
                 //startActivity(new Intent(this, MessageActivity.class));
                 return true;
             case R.id.menuNotification:
-                //startActivity(new Intent(this, NotificationActivity.class));
+                // Create a new instance of the fragment
+                //startActivity(new Intent(this, OwnerNotification.class));
                 return true;
             case R.id.menuProfile:
                 //startActivity(new Intent(this, OwnerProfileActivity.class));

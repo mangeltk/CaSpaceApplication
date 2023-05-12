@@ -1,4 +1,4 @@
-package Notification;
+package com.example.caspaceapplication.Notification;
 
 import android.content.Context;
 import android.os.StrictMode;
