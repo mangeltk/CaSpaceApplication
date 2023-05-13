@@ -220,11 +220,8 @@ public class LoginOwner extends AppCompatActivity {
                         Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                         return;
                     }
-
                     String token = task.getResult();
-
                     String ownerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                     db.collection("OwnerUserAccounts").document(ownerId)
@@ -245,6 +242,14 @@ public class LoginOwner extends AppCompatActivity {
                                         })
                                         .addOnFailureListener(e -> {
                                             Log.e(TAG, "Error updating FCM token", e);
+                                        });
+                                db.collection("UserAccounts").document(ownerId)
+                                        .update("fcmToken", token)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "FCM token added to AnotherCollection successfully for customer");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.e(TAG, "Error adding FCM token to AnotherCollection for customer", e);
                                         });
                             })
                             .addOnFailureListener(e -> {
