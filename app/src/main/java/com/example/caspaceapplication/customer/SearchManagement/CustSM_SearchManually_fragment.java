@@ -57,7 +57,7 @@ public class CustSM_SearchManually_fragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 String searchText = locationSearchView.getQuery().toString();
-                if (!TextUtils.isEmpty(searchText.toLowerCase())) {
+                if (!TextUtils.isEmpty(searchText)) {
                     searchList(searchText);
                 }
                 return true;
@@ -68,7 +68,7 @@ public class CustSM_SearchManually_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String searchText = locationSearchView.getQuery().toString();
-                if (!TextUtils.isEmpty(searchText.toLowerCase())) {
+                if (!TextUtils.isEmpty(searchText)) {
                     searchList(searchText);
                 }
             }

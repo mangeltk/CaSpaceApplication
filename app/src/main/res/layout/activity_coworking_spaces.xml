@@ -25,13 +25,11 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/locationButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/ic_baseline_location_on_24"
-            android:backgroundTint="@color/colorError"
-             />
+            android:layout_marginStart="10dp"
+            android:background="@drawable/mapicon"
+            android:id="@+id/clickButton"/>
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchCWS"
@@ -60,6 +58,7 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2" />
+
     </LinearLayout>
 
 </LinearLayout>

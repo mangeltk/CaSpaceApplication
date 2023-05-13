@@ -18,6 +18,13 @@
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
         <activity
+            android:name=".customer.FeedbackRatingsManagement.CWS_FeedbackRatings"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Owner.OwnerNotification"
             android:exported="false">
             <meta-data

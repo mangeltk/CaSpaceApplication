@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.FeedbackRatingsManagement.CWS_FeedbackRatings;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -69,7 +72,11 @@ public class CWS_ProfilePage extends AppCompatActivity {
     AppCompatButton ProfPage_AmenitiesEdit_Button, ProfPage_SeeAllLayouts_Button;
     ImageView ProfPage_Image, ProfPage_FloorMap_Imageview;
 
+    ImageButton CWS_ProfPagebackButton;
+
     String cospaceId, cospaceImage;
+
+    LinearLayout clickToSeeFeedbacksLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +120,30 @@ public class CWS_ProfilePage extends AppCompatActivity {
         CWSHours_SundayEndTextview = findViewById(R.id.CWSHours_SundayEnd_Textview);
         likeButtonImageButton = findViewById(R.id.likeButton_Imagebutton);
         unlikeButtonImageButton = findViewById(R.id.unlikeButton_Imagebutton);
+        clickToSeeFeedbacksLinearLayout = findViewById(R.id.clickToSeeFeedbacks_LinearLayout);
+
+        CWS_ProfPagebackButton = findViewById(R.id.CWS_ProfPage_backButton);
+        CWS_ProfPagebackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo: back button
+            }
+        });
+
+        clickToSeeFeedbacksLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CWS_ProfilePage.this, "See all customer feedbacks", Toast.LENGTH_SHORT).show();
+                //todo: redirect to feedbacks and ratings\
+                Intent intent1 = new Intent(CWS_ProfilePage.this, CWS_FeedbackRatings.class);
+                intent1.putExtra("branchName", cospaceName);
+                intent1.putExtra("ownerId", owner_id);
+                startActivity(intent1);
+            }
+        });
 
         unlikeButtonImageButton.setVisibility(View.VISIBLE);
         likeButtonImageButton.setVisibility(View.GONE);
-
         // Check if the user already liked the current cws branch
         firebaseFirestore.collection("CustomerLikes")
                 .whereEqualTo("userId", customerUserId.getUid())
@@ -406,14 +433,12 @@ public class CWS_ProfilePage extends AppCompatActivity {
                                     }
                                 }
 
-
                                 if (image == null || image.isEmpty()){
                                     Picasso.get().load(R.drawable.uploadphoto).into(ProfPage_Image);
                                 }else{Picasso.get().load(image).into(ProfPage_Image);}
                                 ProfPage_Title.setText(name);
                                 ProfPage_TitleSmall.setText(name);
                                 ProfPage_Location.setText(streetLocation + " " + cityLocation);
-                                //ProfPage_StoreHours.setText(storeHours);
                                 ProfPage_AboutContent.setText(about);
                                 ProfPage_ContactInfo.setText(contact);
                                 if (floorMapPic == null || floorMapPic.isEmpty()){
@@ -422,7 +447,6 @@ public class CWS_ProfilePage extends AppCompatActivity {
                                     Picasso.get().load(floorMapPic).into(ProfPage_FloorMap_Imageview);
                                 }
                                 ProfPage_FloorMapDescription.setText(floorMapDesc);
-                                //ProfPage_ListOfRooms.setText();
                                 ProfPage_PricingContent.setText(pricing);
                                 ProfPage_Plans.setText(plans);
                             }

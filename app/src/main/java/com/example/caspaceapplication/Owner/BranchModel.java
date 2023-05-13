@@ -13,7 +13,6 @@ public class BranchModel {
     int Likes, RankNo;
 
     public BranchModel() {
-
     }
 
     public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> openingHours, int likes, int rankNo) {

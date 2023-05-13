@@ -5,6 +5,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/coworkingspaces_search_bar">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/closePopupDialog_AppCompatButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_baseline_clear"/>
+
     <!--Header-->
     <LinearLayout
         android:layout_margin="10dp"
@@ -17,7 +26,7 @@
             android:id="@+id/customerProfile_RecyclerBackground_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="My Favorites List"
+            android:hint="Title for "
             android:fontFamily="@font/quicksand_medium"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -42,7 +51,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:padding="5dp"/>
 
 

@@ -45,13 +45,7 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
         nearMeButton = findViewById(R.id.nearMe_Button);
         chooseMapButton = findViewById(R.id.chooseMap_Button);
         viewPager = findViewById(R.id.viewPagerSM);
-        fragmentContainer = findViewById(R.id.fragment_container);
-
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CustSM_SearchManually_fragment searchManually_fragment = new CustSM_SearchManually_fragment();
-        CustSM_NearMe_fragment nearMe_fragment = new CustSM_NearMe_fragment();
-        CustSM_ChooseMap_fragment chooseMap_fragment = new CustSM_ChooseMap_fragment();*/
+        //fragmentContainer = findViewById(R.id.fragment_container);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.addFragment(new CustSM_SearchManually_fragment(), "Search Manually");
@@ -126,7 +120,9 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
                 // startActivity(new Intent(this, NotificationActivity.class));
                 return true;
             case R.id.menuProfile:
-                // startActivity(new Intent(this, OwnerProfileActivity.class));
+                Intent intent = new Intent(this, Customer_Homepage_BottomNav.class);
+                intent.putExtra("Fragment", "CustomerProfileFragment");
+                startActivity(intent);
                 return true;
         }
         return true;

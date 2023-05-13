@@ -256,6 +256,7 @@ public class HomeFragment extends Fragment {
             holder.branchName.setText(dataClassList.get(position).getCospaceName());
             String completeAddress = dataClassList.get(position).getCospaceStreetAddress() + " " + dataClassList.get(position).getCospaceCityAddress();
             holder.branchAddress.setText(completeAddress);
+            holder.branchAddress.setVisibility(View.GONE);
             String likesNo = String.valueOf(dataClassList.get(position).getLikes());
             holder.likesNo.setText(likesNo);
             holder.rankNo.setText(String.valueOf(dataClassList.get(position).getRankNo()));

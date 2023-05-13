@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.caspaceapplication.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,11 +29,10 @@ public class CustSM_ChooseMap_fragment extends Fragment implements OnMapReadyCal
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private GoogleMap mMap;
     private MapView mMapView;
-    private View mView;
     private LocationManager locationManager;
 
     public CustSM_ChooseMap_fragment() {
-        // Required empty public constructor
+
     }
 
     //todo: choose map lets user enter location then it will plot the cws on the map
@@ -73,15 +73,6 @@ public class CustSM_ChooseMap_fragment extends Fragment implements OnMapReadyCal
         mMapView.onLowMemory();
     }
 
-    private void addMarkerToMap(LatLng location, String title, String snippet) {
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(location)
-                .title(title)
-                .snippet(snippet);
-
-        mMap.addMarker(markerOptions);
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap; // initialize mMap object
@@ -91,6 +82,10 @@ public class CustSM_ChooseMap_fragment extends Fragment implements OnMapReadyCal
         coworkingSpacesRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int count = 0;
+                double totalLat = 0;
+                double totalLong = 0;
+
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     GeoPoint geoPoint = documentSnapshot.getGeoPoint("location");
                     String coworkingSpaceName = documentSnapshot.getString("cospaceName");
@@ -100,8 +95,21 @@ public class CustSM_ChooseMap_fragment extends Fragment implements OnMapReadyCal
                         LatLng latLng = new LatLng(latitude, longitude);
 
                         mMap.addMarker(new MarkerOptions().position(latLng).title(coworkingSpaceName));
+
+                        count++;
+                        totalLat += latitude;
+                        totalLong += longitude;
+
                     }
                 }
+                // zooms to a n average center point where there are mostly cws marked
+                if (count > 0){
+                    double avgLat = totalLat / count;
+                    double avgLong = totalLong / count;
+                    LatLng avgCenter = new LatLng(avgLat, avgLong);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(avgCenter, 12));
+                }
+
                }
         });
     }

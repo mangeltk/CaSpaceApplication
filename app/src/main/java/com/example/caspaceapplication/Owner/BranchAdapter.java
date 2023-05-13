@@ -35,7 +35,6 @@ import java.util.Locale;
 
 public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.MyViewHolder> {
 
-
     private Context context;
     private List<BranchModel> dataClassList;
 

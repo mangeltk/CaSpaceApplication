@@ -3,7 +3,6 @@ package com.example.caspaceapplication.customer;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,11 +33,9 @@ public class CoworkingSpaces extends AppCompatActivity {
     ImageButton backButton;
 
     RecyclerView recyclerView;
-    ArrayList<BranchModel> coworkingSpacesModelArrayList;
+    ArrayList<BranchModel> branchModelArrayList;
     CoworkingSpacesAdapter coworkingSpacesAdapter;
     FirebaseFirestore firebaseFirestore;
-    ProgressDialog progressDialog;
-    AppCompatButton location_Button;
 
     SearchView search_CWS;
 
@@ -48,14 +45,11 @@ public class CoworkingSpaces extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coworking_spaces);
 
-
         backButton = findViewById(R.id.backImageButton);
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HomeFragment myFragment = new HomeFragment();
-
                 // Replace the current fragment with the new fragment
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, myFragment)
@@ -63,34 +57,23 @@ public class CoworkingSpaces extends AppCompatActivity {
             }
         });
 
-        location_Button = findViewById(R.id.locationButton);
-        location_Button.setOnClickListener(new View.OnClickListener() {
+        AppCompatButton clickButton = findViewById(R.id.clickButton);
+        clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CoworkingSpaces.this, Customer_SearchManagement.class));
             }
         });
 
-
-
-        /*progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching data");
-        progressDialog.show();*/
-
-
         recyclerView = findViewById(R.id.recycler_cws);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        coworkingSpacesModelArrayList = new ArrayList<>();
-        coworkingSpacesAdapter = new CoworkingSpacesAdapter(CoworkingSpaces.this, coworkingSpacesModelArrayList);
-
+        branchModelArrayList = new ArrayList<>();
+        coworkingSpacesAdapter = new CoworkingSpacesAdapter(this, branchModelArrayList);
         recyclerView.setAdapter(coworkingSpacesAdapter);
-
         retrieveCoworkingSpaces();
-
 
         search_CWS = findViewById(R.id.searchCWS);
         search_CWS.clearFocus();
@@ -118,7 +101,7 @@ public class CoworkingSpaces extends AppCompatActivity {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                             Log.d(TAG, "Document data: " + documentSnapshot.getData());
                             BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
-                            coworkingSpacesModelArrayList.add(modelClass);
+                            branchModelArrayList.add(modelClass);
                         }
                         coworkingSpacesAdapter.notifyDataSetChanged();
                     }
@@ -127,7 +110,7 @@ public class CoworkingSpaces extends AppCompatActivity {
     }
     public void searchList(String text){
         List<BranchModel> dataSearchList = new ArrayList<>();
-        for (BranchModel data: coworkingSpacesModelArrayList){
+        for (BranchModel data: branchModelArrayList){
             if (data.getCospaceName().toLowerCase().contains(text.toLowerCase())){
                 dataSearchList.add(data);
             }

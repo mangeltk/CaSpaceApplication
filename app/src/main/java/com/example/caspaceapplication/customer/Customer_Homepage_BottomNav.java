@@ -26,10 +26,16 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
+        if (savedInstanceState == null) {
+            String fragment = getIntent().getStringExtra("Fragment");
+            if (fragment != null && fragment.equals("CustomerProfileFragment")) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CustomerProfileFragment()).commit();
+            }
+        }
+
     }
 
-    private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            =new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

@@ -24,6 +24,7 @@ import com.example.caspaceapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class OwnerNotification extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class OwnerNotification extends AppCompatActivity {
                         String title = documentSnapshot.getString("title");
                         String message = documentSnapshot.getString("message");
                         TextView notificationTextView = new TextView(this);
-                        notificationTextView.setText(title + ": " + message);
+                        notificationTextView.setText(title + message);
                         notificationTextView.setTextSize(18);
                         notificationTextView.setTextColor(Color.parseColor("#000000"));
                         notificationTextView.setPadding(16, 16, 16, 16);

@@ -632,8 +632,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     dialog.dismiss();
 
                                                     String customerName= custFullname;
-                                                    String title = "Your Space has been booked!";
-                                                    String message = customerName + " booked a space.";
+                                                    String spaceName = layout_Name;
+                                                    String title = "Booking Notification";
+                                                    String message = customerName + " booked "+spaceName +".";
                                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                                     db.collection("OwnerUserAccounts").document(ownerId)
                                                             .get()
@@ -654,6 +655,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     notification.put("title", title);
                                                     notification.put("message", message);
                                                     notification.put("ownerId", ownerId);
+                                                    notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
                                                     newNotificationRef.set(notification)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
@@ -682,48 +684,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             Toast.makeText(Cust_BookingTransaction.this, "Please fill in all the details", Toast.LENGTH_SHORT).show();
         }
     }
-
-    /*private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getExtras() != null) {
-                for (String key : intent.getExtras().keySet()) {
-                    Object value = intent.getExtras().get(key);
-                    Log.d(TAG, "Key: " + key + " Value: " + value);
-                }
-            }
-        }
-    };*/
-
-    /*public void onReceive(Context context, Intent intent) {
-        if (intent.getExtras() != null) {
-            boolean isForeground = isAppInForeground(context);
-            if (isForeground) {
-                // Show alert dialog
-                String title = intent.getExtras().getString("title");
-                String message = intent.getExtras().getString("message");
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(title);
-                builder.setMessage(message);
-                builder.setPositiveButton("OK", null);
-                builder.create().show();
-            } else {
-                // Display notification in system tray
-                // ...
-            }
-        }
-    }*/
-
-    /*private boolean isAppInForeground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            String packageName = tasks.get(0).topActivity.getPackageName();
-            return packageName.equals(context.getPackageName());
-        }
-        return false;
-    }*/
-
 
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 

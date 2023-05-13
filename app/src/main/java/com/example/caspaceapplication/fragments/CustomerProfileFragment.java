@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,8 +27,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caspaceapplication.Owner.BranchModel;
+import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.customer.Front;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,13 +47,16 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerProfileFragment extends Fragment {
 
     String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    public TextView customerFirstName, customerLastName, customerEmail, customerOrganization,customerPopulation,customerPassword;
+    public TextView customerFirstName, customerLastName, customerEmail, customerOrganization,customerPopulation;
     public TextView firstName, lastName;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
@@ -63,11 +69,18 @@ public class CustomerProfileFragment extends Fragment {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     CollectionReference customerAccounts_colref = firebaseFirestore.collection("CustomerUserAccounts");
+    CollectionReference customerLikes_colref = firebaseFirestore.collection("CustomerLikes");
+    CollectionReference CospaceBranches_colref = firebaseFirestore.collection("CospaceBranches");
+    CollectionReference BookingTransactions_colref = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     CustomerProfileFavorites_Adapter favorites_adapter;
-    List<BranchModel> branchModelList;
+    CustomerProfileTransactionHistory_Adapter transactionHistory_adapter;
+    List<MyFavorites_ModelClass> favoritesList;
+    List<BookingDetails_ModelClass> bookingDetailsModelClassList;
+
+    String cospaceName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +91,6 @@ public class CustomerProfileFragment extends Fragment {
         customerEmail = view.findViewById(R.id.customerEmail);
         customerOrganization = view.findViewById(R.id.customerOrganization);
         customerPopulation=view.findViewById(R.id.customerPopulation);
-        /*customerPassword=view.findViewById(R.id.customerPassword);*/
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -106,38 +118,7 @@ public class CustomerProfileFragment extends Fragment {
         seeMyFavoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo: pop up for user's favorite cws
-                dialogBuilder = new AlertDialog.Builder(getContext());
-                final View myFavoritesPopup =getLayoutInflater().inflate(R.layout.recycleritem_customerprofile_popupbackground, null);
-                TextView title =(TextView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Title);
-                ImageView image = (ImageView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Image);
-                RecyclerView favoritesRecyclerView = (RecyclerView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Recyclerview);
-
-                title.setText("My List of favorites");
-                image.setImageResource(R.drawable.icons_red_heart48);
-                favoritesRecyclerView.setHasFixedSize(true);
-                favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                branchModelList = new ArrayList<>();
-                favorites_adapter = new CustomerProfileFavorites_Adapter(branchModelList);
-                favoritesRecyclerView.setAdapter(favorites_adapter);
-                firebaseFirestore.collection("CustomerLikes").whereEqualTo("userId", user)
-                                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                    BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
-                                    branchModelList.add(modelClass);
-                                }
-                                favorites_adapter.notifyDataSetChanged();
-                            }
-                        });
-
-
-                dialogBuilder.setView(myFavoritesPopup);
-                dialog = dialogBuilder.create();
-                dialog.show();
-
-
+                retrieveFavorites();
             }
         });
 
@@ -145,6 +126,8 @@ public class CustomerProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //todo: pop up for completed bookings
+                // retrieve completed and cancelled bookings.
+                retrieveTransactionHistory();
             }
         });
 
@@ -324,47 +307,297 @@ public class CustomerProfileFragment extends Fragment {
                 });
     }
 
+    public void retrieveFavorites(){
+        dialogBuilder = new AlertDialog.Builder(getContext());
+        final View myFavoritesPopup =getLayoutInflater().inflate(R.layout.recycleritem_customerprofile_popupbackground, null);
+        TextView title =(TextView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Title);
+        ImageView image = (ImageView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Image);
+        RecyclerView favoritesRecyclerView = (RecyclerView) myFavoritesPopup.findViewById(R.id.customerProfile_RecyclerBackground_Recyclerview);
+        AppCompatButton closePopupDialog_AppCompatButton = (AppCompatButton) myFavoritesPopup.findViewById(R.id.closePopupDialog_AppCompatButton);
+        closePopupDialog_AppCompatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(getContext(), "Close my favorites list", Toast.LENGTH_SHORT).show();
+            }
+        });
+        title.setText("My List of favorites");
+        image.setImageResource(R.drawable.icons_red_heart48);
+        favoritesRecyclerView.setHasFixedSize(true);
+        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        favoritesList = new ArrayList<>();
+        favorites_adapter = new CustomerProfileFavorites_Adapter(favoritesList);
+        favoritesRecyclerView.setAdapter(favorites_adapter);
+        customerLikes_colref.whereEqualTo("userId", user)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            MyFavorites_ModelClass modelClass = documentSnapshot.toObject(MyFavorites_ModelClass.class);
+                            favoritesList.add(modelClass);
+                        }
+                        favorites_adapter.notifyDataSetChanged();
+                    }
+                });
+
+        dialogBuilder.setView(myFavoritesPopup);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+    }
+
+    public void unlikeFavoriteBranch(){
+        customerLikes_colref.whereEqualTo("userId", user).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                            firebaseFirestore.collection("CustomerLikes").document(documentSnapshot.getId())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d(TAG, "CustomerLike document deleted successfully");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Error deleting CustomerLike document", e);
+                                        }
+                                    });
+                        } else {
+                            Log.w(TAG, "No matching documents found in CustomerLikes collection");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error getting documents from CustomerLikes collection", e);
+                    }
+                });
+
+        // Decrement the Likes count in the BranchInfo document
+        CospaceBranches_colref.whereEqualTo("cospaceName", cospaceName)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                            Map<String, Object> updates = new HashMap<>();
+                            Long likesCount = (Long) documentSnapshot.get("Likes");
+                            if (likesCount == null) {
+                                likesCount = 0L;
+                            }
+                            updates.put("Likes", likesCount - 1);
+                            documentSnapshot.getReference().update(updates)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d(TAG, "Likes count decremented");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Failed to decrement Likes count", e);
+                                        }
+                                    });
+                        } else {
+                            Log.w(TAG, "No matching documents found in BranchInfo collection");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Failed to fetch document", e);
+                    }
+                });
+    }
+
     public class CustomerProfileFavorites_Adapter extends RecyclerView.Adapter<CustomerProfileFragment.CustomerProfileFavorites_Adapter.ViewHolder>{
 
-        private List<BranchModel> branchModel;
+        private List<MyFavorites_ModelClass> favoritesList;
 
-        public CustomerProfileFavorites_Adapter(List<BranchModel> branchModel) {
-            this.branchModel = branchModel;
+        public CustomerProfileFavorites_Adapter(List<MyFavorites_ModelClass> favoritesList) {
+            this.favoritesList = favoritesList;
         }
 
         @NonNull
         @Override
         public CustomerProfileFavorites_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleritem_toplikedcws_cardview, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleritem_myfavorites_cardview, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull CustomerProfileFavorites_Adapter.ViewHolder holder, int position) {
+            cospaceName = favoritesList.get(position).getBranchName();
+            holder.branchName.setText(cospaceName);
+            String imageUri = favoritesList.get(position).getBranchImage();
+            if (imageUri!=null){
+                Picasso.get().load(imageUri).into(holder.branchImage);
+            }
+            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getContext());
+                    deleteDialogBuilder.setTitle("Unlike favorite branch confirmation");
+                    deleteDialogBuilder.setMessage("Are you sure you want to delete and unlike this branch?");
+                    deleteDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            unlikeFavoriteBranch();
+                            Toast.makeText(getContext(), "Unlike " + cospaceName, Toast.LENGTH_SHORT).show();
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Dialog dialog;
+                    dialog = deleteDialogBuilder.create();
+                    dialog.show();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return favoritesList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView branchName, branchAddress;
+            ImageView branchImage;
+            AppCompatButton deleteButton;
+            CardView cardview;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                branchName = itemView.findViewById(R.id.myfavorites_BranchName_Textview);
+                //branchAddress = itemView.findViewById(R.id.myfavorites_BranchAddress_Textview);
+                branchImage = itemView.findViewById(R.id.myfavorites_Imageview);
+                cardview = itemView.findViewById(R.id.myfavorites_Cardview);
+                deleteButton = itemView.findViewById(R.id.myfavorites_Delete_AppCompatButton);
+
+            }
+        }
+    }
+
+    public void retrieveTransactionHistory(){
+        dialogBuilder = new AlertDialog.Builder(getContext());
+        final View myTransactionHistoryPopup =getLayoutInflater().inflate(R.layout.recycleritem_customerprofile_popupbackground, null);
+        AppCompatButton closePopupDialog_AppCompatButton = (AppCompatButton) myTransactionHistoryPopup.findViewById(R.id.closePopupDialog_AppCompatButton);
+        TextView title =(TextView) myTransactionHistoryPopup.findViewById(R.id.customerProfile_RecyclerBackground_Title);
+        ImageView image = (ImageView) myTransactionHistoryPopup.findViewById(R.id.customerProfile_RecyclerBackground_Image);
+        RecyclerView transactionHistoryRecyclerview = (RecyclerView) myTransactionHistoryPopup.findViewById(R.id.customerProfile_RecyclerBackground_Recyclerview);
+
+        title.setText("My Transaction History");
+        image.setImageResource(R.drawable.icons_booking);
+        closePopupDialog_AppCompatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(getContext(), "Close my transaction history list", Toast.LENGTH_SHORT).show();
+            }
+        });
+        transactionHistoryRecyclerview.setHasFixedSize(true);
+        transactionHistoryRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        bookingDetailsModelClassList = new ArrayList<>();
+        transactionHistory_adapter = new CustomerProfileTransactionHistory_Adapter(bookingDetailsModelClassList);
+        transactionHistoryRecyclerview.setAdapter(transactionHistory_adapter);
+        BookingTransactions_colref.whereEqualTo("customerId", user)
+                .whereIn("bookingStatus", Arrays.asList("Cancelled", "Declined", "Completed"))
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.size() == 0){
+                            // handle empty result
+                        } else {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                                bookingDetailsModelClassList.add(modelClass);
+                            }
+                            transactionHistory_adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+        dialogBuilder.setView(myTransactionHistoryPopup);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+    }
+
+    public class CustomerProfileTransactionHistory_Adapter extends RecyclerView.Adapter<CustomerProfileFragment.CustomerProfileTransactionHistory_Adapter.ViewHolder>{
+
+        private List<BookingDetails_ModelClass> dataClass;
+
+        public CustomerProfileTransactionHistory_Adapter(List<BookingDetails_ModelClass> dataClass) {
+            this.dataClass = dataClass;
+        }
+
+        @NonNull
+        @Override
+        public CustomerProfileTransactionHistory_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleitem_custbookingcardview, parent, false);
+            return new CustomerProfileTransactionHistory_Adapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CustomerProfileTransactionHistory_Adapter.ViewHolder holder, int position) {
+            String branchImageUri = String.valueOf(dataClass.get(position).getBranchImage());
+            if (branchImageUri != null && !branchImageUri.isEmpty()){
+                Picasso.get().load(branchImageUri).into(holder.branchImage);
+            }
+            holder.branchName.setText(dataClass.get(position).getBranchName());
+            String layoutImageUri = String.valueOf(dataClass.get(position).getLayoutImage());
+            if (layoutImageUri !=null && !layoutImageUri.isEmpty()){
+                Picasso.get().load(layoutImageUri).into(holder.layoutImage);
+            }
+            holder.layoutName.setText(dataClass.get(position).getLayoutName());
+            holder.bookingStatus.setText(dataClass.get(position).getBookingStatus());
+            holder.bookingRateType.setText(dataClass.get(position).getRateType());
+            holder.bookingRateValue.setText("₱"+dataClass.get(position).getRateValue());
+            holder.bookingStartDate.setText(dataClass.get(position).getBookingStartDate());
+            holder.bookingTotalPayment.setText(dataClass.get(position).getTotalPayment());
+            holder.seeMoreDetails.setText("");
 
         }
 
         @Override
         public int getItemCount() {
-            return branchModelList.size();
+            return bookingDetailsModelClassList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView rankNo, branchName, branchAddress, likesNo;
-            ImageView branchImage;
-            CardView rankCardview;
+            ImageView branchImage, layoutImage;
+            TextView branchName, bookingStatus, layoutName, bookingRateType, bookingRateValue, bookingStartDate,bookingTotalPayment, seeMoreDetails;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
-                rankNo = itemView.findViewById(R.id.rankNo_Textview);
-                branchImage = itemView.findViewById(R.id.rankCWSImage_Imageview);
-                branchName = itemView.findViewById(R.id.rankCWSName_Textview);
-                branchAddress = itemView.findViewById(R.id.rankCWSAddress_Textview);
-                likesNo = itemView.findViewById(R.id.rankCWSLikes_Texview);
-                rankCardview = itemView.findViewById(R.id.rankCardview);
-
+                branchImage = itemView.findViewById(R.id.CustBookingBranchImage_Cardview);
+                branchName = itemView.findViewById(R.id.CustBookingBranchName_Cardview);
+                layoutImage = itemView.findViewById(R.id.CustBookingLayoutImage_Cardview);
+                layoutName = itemView.findViewById(R.id.CustBookingLayoutName_Cardview);
+                bookingStatus = itemView.findViewById(R.id.CustBookingBookingStatus_Cardview);
+                bookingRateType = itemView.findViewById(R.id.CustBookingBookingRateType_Cardview);
+                bookingRateValue = itemView.findViewById(R.id.CustBookingBookingRateValue_Cardview);
+                bookingStartDate = itemView.findViewById(R.id.CustBookingBookingStartDate_Cardview);
+                bookingTotalPayment = itemView.findViewById(R.id.CustBookingBookingTotalPayment_Cardview);
+                seeMoreDetails = itemView.findViewById(R.id.CustBookingBookingSeeMoreTextview_Cardview);
             }
         }
     }

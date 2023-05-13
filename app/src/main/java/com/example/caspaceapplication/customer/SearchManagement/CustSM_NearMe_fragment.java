@@ -41,16 +41,13 @@ public class CustSM_NearMe_fragment extends Fragment implements OnMapReadyCallba
     private static final int DEFAULT_ZOOM = 15;
     private GoogleMap mMap;
     private MapView mMapView;
-    private View mView;
     private LocationManager locationManager;
     private FusedLocationProviderClient locationClient;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference coworkingSpacesRef = firebaseFirestore.collection("CospaceBranches");
 
-    //todo: this fragment will display pinned cws on a map (N) away from location
-
     public CustSM_NearMe_fragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -88,15 +85,6 @@ public class CustSM_NearMe_fragment extends Fragment implements OnMapReadyCallba
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
-    }
-
-    private void addMarkerToMap(LatLng location, String title, String snippet) {
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(location)
-                .title(title)
-                .snippet(snippet);
-
-        mMap.addMarker(markerOptions);
     }
 
     private void moveCameraToLocation(Location location) {
