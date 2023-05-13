@@ -1,172 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/registerone"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:overScrollMode="never"
+    android:padding="@dimen/_24sdp"
+    android:scrollbars="none"
+    android:background="@drawable/signup"
     tools:context=".Owner.RegisterOwner">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
-            android:fontFamily="@font/amiko"
-            android:paddingTop="20dp"
-            android:text="SIGN UP"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Create New Account"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold"/>
+
+        <FrameLayout
+            android:id="@+id/layoutImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/ownerImageProfile"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/messaging_background_image"
+                android:scaleType="centerCrop"
+                app:riv_oval="true"/>
+
+            <TextView
+                android:id="@+id/textAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Add image"
+                android:fontFamily="@font/montserrat_light"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/_10ssp"/>
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_baseline_verified_24"
-            android:fontFamily="@font/quicksand_medium"
-            android:drawablePadding="3dp"
-            android:padding="3dp"
-            android:paddingStart="110dp"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/montserrat_light"
+            android:padding="8dp"
+            android:paddingStart="95dp"
             android:text="Owner"
             android:textColor="@color/black"
-            android:textSize="17dp"
+            android:textSize="@dimen/_16ssp"
             android:textStyle="bold" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/ownersFirstName"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/messaging_background_input"
+                android:hint="First Name"
+                android:textColorHint="@color/secondary_text"
+                android:fontFamily="@font/montserrat_light"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"/>
+
+            <EditText
+                android:id="@+id/ownersLastName"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_123sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/messaging_background_input"
+                android:hint="Last Name"
+                android:textColorHint="@color/secondary_text"
+                android:fontFamily="@font/montserrat_light"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"/>
+
+        </FrameLayout>
+
+
         <EditText
-            android:id="@+id/owner_CompanyName"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_add_business_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:id="@+id/ownersCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/messaging_background_input"
             android:hint="Company Name"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
+            android:textColorHint="@color/secondary_text"
+            android:fontFamily="@font/montserrat_light"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"/>
 
         <EditText
-            android:id="@+id/owner_email"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_email_24"
-            android:drawableTint="@color/white"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="Email"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
-
-        <EditText
-            android:id="@+id/owners_firstName"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="Firstname"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
-
-        <EditText
-            android:id="@+id/owners_lastName"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
-            android:hint="\Lastname"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
-
-        <EditText
-            android:id="@+id/ownerUsername"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_verified_user_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:id="@+id/ownersUsername"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/messaging_background_input"
             android:hint="Username"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
+            android:textColorHint="@color/secondary_text"
+            android:fontFamily="@font/montserrat_light"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"/>
+
+        <EditText
+            android:id="@+id/ownersEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/messaging_background_input"
+            android:hint="Email"
+            android:textColorHint="@color/secondary_text"
+            android:fontFamily="@font/montserrat_light"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"/>
+
+
+
 
 
 
         <EditText
-            android:id="@+id/owner_password"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_textbox"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/quicksand_medium"
+            android:id="@+id/ownersPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/messaging_background_input"
             android:hint="Password"
+            android:textColorHint="@color/secondary_text"
+            android:fontFamily="@font/montserrat_light"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:padding="8dp"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/orange"
-            android:drawableTint="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="17dp" />
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"/>
 
-        <Button
-            android:id="@+id/registerButtonOwner"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/orange1"
-            android:fontFamily="@font/quicksand_medium"
-            android:text="REGISTER"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:cornerRadius="20dp" />
+        <EditText
+            android:id="@+id/ownersConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/messaging_background_input"
+            android:hint="Confirm Password"
+            android:textColorHint="@color/secondary_text"
+            android:fontFamily="@font/montserrat_light"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/registerButtonOwner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:text="Sign Up"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_light"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_8sdp"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Log In"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/montserrat_light"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:src="@drawable/logocaspace">
+            </androidx.appcompat.widget.AppCompatImageView>
+        </FrameLayout>
 
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

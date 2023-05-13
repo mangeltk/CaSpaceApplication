@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.messaging.activities.MessagingMain;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Owner_BottomNavigationBar extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -30,8 +31,8 @@ public class Owner_BottomNavigationBar extends AppCompatActivity implements Bott
                 startActivity(new Intent(this, OwnerHomepage.class));
                 return true;
             case R.id.menuMessages:
-                //startActivity(new Intent(this, MessageActivity.class));
-                return true;
+                Intent intent = new Intent(getApplicationContext(), MessagingMain.class);
+                startActivity(intent);
             case R.id.menuNotification:
                 //startActivity(new Intent(this, NotificationActivity.class));
                 return true;

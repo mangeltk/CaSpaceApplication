@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
+import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
+import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
+import com.example.caspaceapplication.messaging.utilities.Constants;
+import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +33,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,36 +47,73 @@ public class LoginOwner extends AppCompatActivity {
 
     TextView forgotPassword; //todo:forgot password
     private EditText ownerEmail, ownerPassword;
-    private Button loginButton;
+    private Button loginButtonOwner;
     private CheckBox rememberMeCheckbox;
 
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
 
+    private ActivityLoginOwnerBinding binding;
+    private PreferenceManager preferenceManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_owner);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        binding = ActivityLoginOwnerBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         ownerEmail = findViewById(R.id.login_ownerEmail);
         ownerPassword = findViewById(R.id.login_ownerPassword);
         rememberMeCheckbox = findViewById(R.id.rememberme_ownerloginCheckbox);
-        loginButton = findViewById(R.id.loginButton_owner);
+        loginButtonOwner = findViewById(R.id.loginButton_owner);
 
+        setListeners();
         setRememberMeCheckbox();//remember me checkbox
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser();
+
+    }
+
+    private void setListeners()
+    {
+        //when the user clicks the sign in button for customer
+        binding.loginButtonOwner.setOnClickListener( v ->
+        {
+            if(isValidLogInDetails())
+            {
+                loginOwner();
             }
         });
     }
 
-    public void loginUser(){
+    private boolean isValidLogInDetails()
+    {
+        if(binding.loginOwnerEmail.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter email");
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.loginOwnerEmail.getText().toString()).matches())
+        {
+            showToast("Enter valid email");
+            return false;
+        }
+        else if(binding.loginOwnerPassword.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter password");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public void loginOwner(){
         String email = ownerEmail.getText().toString().trim();
         String password = ownerPassword.getText().toString().trim();
 
@@ -101,44 +145,73 @@ public class LoginOwner extends AppCompatActivity {
             editor.apply();
         }
 
-        firebaseAuth.signInWithEmailAndPassword(email,password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if (user.isEmailVerified()) {
-                            progressDialog.setMessage("Logging in...");
-                            progressDialog.show();
-                            checkExistingBranch();
-                            updateOwnerFCMToken();
-                        } else {
-                            progressDialog.cancel();
-                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                            user.sendEmailVerification()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            progressDialog.cancel();
-                                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.cancel();
-                                            Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
+        loading(true);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection(Constants.KEY_COLLECTION_OWNER)
+                .whereEqualTo(Constants.KEY_EMAIL, binding.loginOwnerEmail.getText().toString())
+                .whereEqualTo(Constants.KEY_PASSWORD, binding.loginOwnerPassword.getText().toString())
+                .get()
+                .addOnCompleteListener(task -> {
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if (user.isEmailVerified()) {
+                                        progressDialog.setMessage("Logging in...");
+                                        progressDialog.show();
+                                        checkExistingBranch();
+                                        updateOwnerFCMToken();
+                                    } else {
+                                        progressDialog.cancel();
+                                        Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                        user.sendEmailVerification()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        progressDialog.cancel();
+                                                        Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        progressDialog.cancel();
+                                                        Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
+                                }
+                            });
+
+                    if (task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0) {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
+                        preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
+                        preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
+                        Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.cancel();
-                        Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
+
+                    else {
+                        loading(false);
+                        showToast("Unable to sign in");
+
                     }
                 });
     }
+
+
 
     private void updateOwnerFCMToken() {
         FirebaseMessaging.getInstance().getToken()
@@ -205,6 +278,24 @@ public class LoginOwner extends AppCompatActivity {
         });
     }
 
+        private void loading(Boolean isLoading)
+        {
+            if(isLoading)
+            {
+                binding.loginButtonOwner.setVisibility(View.INVISIBLE);
+                binding.progressBar.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                binding.progressBar.setVisibility(View.INVISIBLE);
+                binding.loginButtonOwner.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private void showToast(String message)
+        {
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
 
     public void setRememberMeCheckbox(){
         // Get the email and password saved in shared preferences

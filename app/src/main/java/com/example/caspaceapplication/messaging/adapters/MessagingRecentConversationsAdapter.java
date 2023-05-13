@@ -62,7 +62,7 @@ public class MessagingRecentConversationsAdapter extends RecyclerView.Adapter<Me
             binding.getRoot().setOnClickListener(v ->
             {
                 UserMdl user = new UserMdl();
-                user.userIDNum = chatMessage.conversationId;
+                user.userCombinedId = chatMessage.conversationId;
                 user.userFirstName = chatMessage.conversationName;
                 user.image = chatMessage.conversationImage;
                 conversationListener.onConversationClicked(user);

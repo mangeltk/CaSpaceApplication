@@ -17,57 +17,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
+
         <activity
-            android:name=".messaging.activities.MessagingLoginFront"
+            android:name=".messaging.activities.MessagingMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".messaging.activities.MessagingRegisterFront"
+            android:name=".messaging.activities.MsgUsersActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".messaging.activities.MessagingUsersActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".messaging.activities.MsgChatActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
-            android:name=".messaging.activities.MessagingSignUpActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".messaging.activities.MessagingSignInActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".messaging.activities.MessagingMainActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".messaging.activities.MessagingChatActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".messaging.activities.MessagingBaseActivity"
+            android:name=".messaging.activities.MsgBaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -142,6 +112,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <!--
+        <activity
+            android:name=".customer.MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        -->
         <activity
             android:name=".customer.Front"
             android:exported="false">
@@ -233,6 +212,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <!--
+        <activity
+            android:name=".customer.Customer_Homepage_BottomNav"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
         <activity
             android:name=".customer.SearchManagement.Customer_SearchManagement"
             android:exported="false">

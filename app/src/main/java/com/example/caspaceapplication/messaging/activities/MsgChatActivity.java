@@ -7,12 +7,10 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.caspaceapplication.databinding.ActivityMessagingChatBinding;
-import com.example.caspaceapplication.messaging.adapters.MessagingChatAdapter;
+import com.example.caspaceapplication.databinding.ActivityMsgChatBinding;
+import com.example.caspaceapplication.messaging.adapters.MsgChatAdapter;
 import com.example.caspaceapplication.messaging.models.ChatMessage;
 import com.example.caspaceapplication.messaging.models.UserMdl;
-import com.example.caspaceapplication.messaging.network.ApiClient;
-import com.example.caspaceapplication.messaging.network.ApiService;
 import com.example.caspaceapplication.messaging.utilities.Constants;
 import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,33 +39,47 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MessagingChatActivity extends MessagingBaseActivity {
+public class MsgChatActivity extends MsgBaseActivity {
 
-    private ActivityMessagingChatBinding binding;
+    private ActivityMsgChatBinding binding;
     private UserMdl receiverUser;
     private List<ChatMessage> chatMessages;
-    private MessagingChatAdapter chatAdapter;
+    private MsgChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private String conversationId = null;
     private Boolean isReceiverAvailable = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMessagingChatBinding.inflate(getLayoutInflater());
+        binding = ActivityMsgChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setListeners();
         loadReceiverDetails();
         init();
         listenMessages();
+
+    }
+
+    private void init()
+    {
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        chatMessages = new ArrayList<>();
+        chatAdapter = new MsgChatAdapter(chatMessages, getBitmapFromEncodedString(receiverUser.userImage),
+                preferenceManager.getString(Constants.KEY_COMBINED_ID));
+
+
+        binding.chatRecyclerView.setAdapter(chatAdapter);
+        database = FirebaseFirestore.getInstance();
     }
 
     private void sendMessage()
     {
         HashMap<String, Object> message = new HashMap<>();
-        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-        message.put(Constants.KEY_RECEIVER_ID, receiverUser.userIDNum);
+        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
+        message.put(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
@@ -78,10 +90,10 @@ public class MessagingChatActivity extends MessagingBaseActivity {
         else
         {
             HashMap<String, Object> conversation = new HashMap<>();
-            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_FIRST_NAME));
-            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
-            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.userIDNum);
+            conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
+            conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_COMBINED_FIRST_NAME));
+            conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_COMBINED_IMAGE));
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId);
             conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.userFirstName);
             conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
             conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
@@ -95,7 +107,7 @@ public class MessagingChatActivity extends MessagingBaseActivity {
                 tokens.put(receiverUser.token);
 
                 JSONObject data = new JSONObject();
-                data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                data.put(Constants.KEY_COMBINED_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
                 data.put(Constants.KEY_FIRST_NAME, preferenceManager.getString(Constants.KEY_FIRST_NAME));
                 data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
                 data.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
@@ -104,7 +116,7 @@ public class MessagingChatActivity extends MessagingBaseActivity {
                 body.put(Constants.REMOTE_MSG_DATA, data);
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
-                sendNotification(body.toString());
+                //sendNotification(body.toString());
             }
             catch(Exception exception)
             {
@@ -114,12 +126,62 @@ public class MessagingChatActivity extends MessagingBaseActivity {
         binding.inputMessage.setText(null);
     }
 
-    private void showToast(String message)
+
+    private void listenMessages()
     {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        database.collection(Constants.KEY_COLLECTION_CHAT)
+                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID))
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId)
+                .addSnapshotListener(eventListener);
+        database.collection(Constants.KEY_COLLECTION_CHAT)
+                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.userCombinedId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID))
+                .addSnapshotListener(eventListener);
     }
 
-    private void sendNotification(String messageBody)
+    private final EventListener<QuerySnapshot> eventListener = (value, error) ->
+    {
+        if(error != null)
+        {
+            return;
+        }
+        if(value != null)
+        {
+            int count = chatMessages.size();
+            for(DocumentChange documentChange : value.getDocumentChanges())
+
+            {
+                if(documentChange.getType() == DocumentChange.Type.ADDED)
+                {
+                    ChatMessage chatMessage = new ChatMessage();
+                    chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
+                    chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
+                    chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
+                    chatMessage.dateTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
+                    chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
+                    chatMessages.add(chatMessage);
+                }
+            }
+            Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
+            if(count == 0)
+            {
+                chatAdapter.notifyDataSetChanged();
+            }
+            else
+            {
+                chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
+                binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() -1);
+            }
+            binding.chatRecyclerView.setVisibility(View.VISIBLE);
+        }
+        binding.progressBar.setVisibility(View.GONE);
+        /*if(conversationId == null)
+        {
+            checkForConversation();
+        }*/
+    };
+
+    /*private void sendNotification(String messageBody)
     {
         ApiClient.getClient().create(ApiService.class).sendMessage(
                         Constants.getRemoteMsgHeaders(), messageBody)
@@ -159,13 +221,14 @@ public class MessagingChatActivity extends MessagingBaseActivity {
                     }
                 });
 
-    }
+    }*/
+
 
     private void listenAvailabilityOfReceiver()
     {
-        database.collection(Constants.KEY_COLLECTION_USERS).document(
-                        receiverUser.userIDNum)
-                .addSnapshotListener(MessagingChatActivity.this, (value, error) ->
+        database.collection(Constants.KEY_COMBINED_COLLECTION).document(
+                        receiverUser.userCombinedId)
+                .addSnapshotListener(MsgChatActivity.this, (value, error) ->
                 {
                     if (error != null) {
                         return;
@@ -176,10 +239,10 @@ public class MessagingChatActivity extends MessagingBaseActivity {
                             isReceiverAvailable = availability == 1;
                         }
                         receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
-                        if(receiverUser.image == null)
+                        if(receiverUser.userImage == null)
                         {
-                            receiverUser.image = value.getString(Constants.KEY_IMAGE);
-                            chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.image));
+                            receiverUser.userImage = value.getString(Constants.KEY_COMBINED_IMAGE);
+                            chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.userImage));
                             chatAdapter.notifyItemRangeChanged(0, chatMessages.size());
                         }
                     }
@@ -195,72 +258,10 @@ public class MessagingChatActivity extends MessagingBaseActivity {
                 });
     }
 
-    private void listenMessages()
+    private void showToast(String message)
     {
-        database.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.userIDNum)
-                .addSnapshotListener(eventListener);
-        database.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.userIDNum)
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
-                .addSnapshotListener(eventListener);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
-
-
-    private void init()
-    {
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        chatMessages = new ArrayList<>();
-        chatAdapter = new MessagingChatAdapter(chatMessages, getBitmapFromEncodedString(receiverUser.image),
-                preferenceManager.getString(Constants.KEY_USER_ID));
-
-        binding.chatRecyclerView.setAdapter(chatAdapter);
-        database = FirebaseFirestore.getInstance();
-    }
-
-
-    private final EventListener<QuerySnapshot> eventListener = (value, error) ->
-    {
-        if(error != null)
-        {
-            return;
-        }
-        if(value != null)
-        {
-            int count = chatMessages.size();
-            for(DocumentChange documentChange : value.getDocumentChanges())
-
-            {
-                if(documentChange.getType() == DocumentChange.Type.ADDED)
-                {
-                    ChatMessage chatMessage = new ChatMessage();
-                    chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
-                    chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
-                    chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
-                    chatMessage.dateTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
-                    chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
-                    chatMessages.add(chatMessage);
-                }
-            }
-            Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
-            if(count == 0)
-            {
-                chatAdapter.notifyDataSetChanged();
-            }
-            else
-            {
-                chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
-                binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() -1);
-            }
-            binding.chatRecyclerView.setVisibility(View.VISIBLE);
-        }
-        binding.progressBar.setVisibility(View.GONE);
-        if(conversationId == null)
-        {
-            checkForConversation();
-        }
-    };
 
     private Bitmap getBitmapFromEncodedString(String encodedImage)
     {
@@ -311,8 +312,8 @@ public class MessagingChatActivity extends MessagingBaseActivity {
         if(chatMessages.size() !=0)
         {
             checkForConversionRemotely(
-                    preferenceManager.getString(Constants.KEY_USER_ID), receiverUser.userIDNum);
-            checkForConversionRemotely(receiverUser.userIDNum, preferenceManager.getString(Constants.KEY_USER_ID));
+                    preferenceManager.getString(Constants.KEY_USER_ID), receiverUser.userCombinedId);
+            checkForConversionRemotely(receiverUser.userCombinedId, preferenceManager.getString(Constants.KEY_COMBINED_ID));
         }
     }
 
@@ -339,6 +340,5 @@ public class MessagingChatActivity extends MessagingBaseActivity {
         super.onResume();
         listenAvailabilityOfReceiver();
     }
-
 
 }

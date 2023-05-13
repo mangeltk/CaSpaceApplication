@@ -5,14 +5,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.messaging.activities.MessagingChatActivity;
+import com.example.caspaceapplication.messaging.activities.MsgChatActivity;
 import com.example.caspaceapplication.messaging.models.UserMdl;
 import com.example.caspaceapplication.messaging.utilities.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -34,17 +33,17 @@ public class MessagingService extends FirebaseMessagingService {
 
         //Log.d("FCM", "Message: " + remoteMessage.getNotification().getBody());
         UserMdl user = new UserMdl();
-        user.userIDNum = remoteMessage.getData().get(Constants.KEY_USER_ID);
+        user.userCombinedId = remoteMessage.getData().get(Constants.KEY_USER_ID);
         user.userFirstName = remoteMessage.getData().get(Constants.KEY_FIRST_NAME);
         user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
 
         int notificationId = new Random().nextInt();
         String channelId = "chat_message";
 
-        Intent intent = new Intent(this, MessagingChatActivity.class);
+        Intent intent = new Intent(this, MsgChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //intent.putExtra(Constants.KEY_USER, user);
-        intent.putExtra(Constants.KEY_USER_ID, user.userIDNum);
+        intent.putExtra(Constants.KEY_USER_ID, user.userCombinedId);
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 

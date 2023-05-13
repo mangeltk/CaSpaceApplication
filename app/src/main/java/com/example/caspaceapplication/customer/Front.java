@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.caspaceapplication.Owner.LoginOwner;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.messaging.activities.MessagingRegisterFront;
-import com.example.caspaceapplication.messaging.activities.MessagingSignInActivity;
 
 public class Front extends AppCompatActivity {
 
@@ -32,21 +30,21 @@ public class Front extends AppCompatActivity {
         loginCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Front.this, MessagingSignInActivity.class));
+                startActivity(new Intent(Front.this, LoginCustomerTrial.class));
             }
         });
 
         loginOwner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Front.this, MessagingSignInActivity.class));
+                startActivity(new Intent(Front.this, LoginOwner.class));
             }
         });
 
         signUpHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Front.this, MessagingRegisterFront.class));
+                startActivity(new Intent(Front.this, FrontRegister.class));
             }
         });
 

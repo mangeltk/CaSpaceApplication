@@ -3,13 +3,12 @@ package com.example.caspaceapplication.customer;
 public class CustomerRegistrationModel {
 
     private String customersIDNum, customersEmail, customersFirstName, customersLastName, customersUsername, customersPassword, customersOrganization, customersPopulation,
-    customersAccountStatus,userType;
+    customersAccountStatus,userType, customer_image;
 
     public CustomerRegistrationModel() {
     }
 
-    public CustomerRegistrationModel(String customersIDNum, String customersEmail, String customersFirstName, String customersLastName,
-                                     String customersUsername, String customersPassword, String customersOrganization, String customersPopulation, String customersAccountStatus, String userType) {
+    public CustomerRegistrationModel(String customersIDNum, String customersEmail, String customersFirstName, String customersLastName, String customersUsername, String customersPassword, String customersOrganization, String customersPopulation, String customersAccountStatus, String userType, String customer_image) {
         this.customersIDNum = customersIDNum;
         this.customersEmail = customersEmail;
         this.customersFirstName = customersFirstName;
@@ -18,8 +17,17 @@ public class CustomerRegistrationModel {
         this.customersPassword = customersPassword;
         this.customersOrganization = customersOrganization;
         this.customersPopulation = customersPopulation;
-        this.customersAccountStatus=customersAccountStatus;
-        this.userType=userType;
+        this.customersAccountStatus = customersAccountStatus;
+        this.userType = userType;
+        this.customer_image = customer_image;
+    }
+
+    public String getCustomer_image() {
+        return customer_image;
+    }
+
+    public void setCustomer_image(String customer_image) {
+        this.customer_image = customer_image;
     }
 
     public String getCustomersIDNum() {

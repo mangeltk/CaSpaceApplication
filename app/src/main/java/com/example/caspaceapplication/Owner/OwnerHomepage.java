@@ -17,6 +17,7 @@ import com.example.caspaceapplication.Owner.OfficeLayouts.Owner_OfficeLayouts;
 import com.example.caspaceapplication.Owner.ProDisc.Owner_ProDisc;
 import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.messaging.activities.MessagingMain;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,7 +97,7 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menuMessages:
-                // startActivity(new Intent(this, MessageActivity.class));
+                startActivity(new Intent(this, MessagingMain.class));
                 return true;
             case R.id.menuNotification:
                 // startActivity(new Intent(this, NotificationActivity.class));

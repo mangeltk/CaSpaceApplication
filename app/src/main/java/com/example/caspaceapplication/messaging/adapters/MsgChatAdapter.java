@@ -13,7 +13,7 @@ import com.example.caspaceapplication.messaging.models.ChatMessage;
 
 import java.util.List;
 
-public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final List<ChatMessage> chatMessages;
     private Bitmap receiverProfileImage;
@@ -22,16 +22,17 @@ public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.View
     public static final int VIEW_TYPE_SENT = 1;
     public static final int VIEW_TYPE_RECEIVED = 2;
 
+    public MsgChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderId) {
+        this.chatMessages = chatMessages;
+        this.receiverProfileImage = receiverProfileImage;
+        this.senderId = senderId;
+    }
+
     public void setReceiverProfileImage(Bitmap bitmap)
     {
         receiverProfileImage = bitmap;
     }
 
-    public MessagingChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderId) {
-        this.chatMessages = chatMessages;
-        this.receiverProfileImage = receiverProfileImage;
-        this.senderId = senderId;
-    }
 
     @NonNull
     @Override
@@ -47,7 +48,6 @@ public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.View
             return new ReceivedMessageViewHolder(MessagingItemContainerReceivedMessageBinding
                     .inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
-
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public int getItemViewType(int position) {
+    /*public int getItemViewType(int position) {
         if(chatMessages.get(position).senderId.equals(senderId))
         {
             return VIEW_TYPE_SENT;
@@ -76,7 +76,17 @@ public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.View
         {
             return VIEW_TYPE_RECEIVED;
         }
+    }*/
+
+    public int getItemViewType(int position) {
+        ChatMessage chatMessage = chatMessages.get(position);
+        if (chatMessage != null && chatMessage.senderId != null && chatMessage.senderId.equals(senderId)) {
+            return VIEW_TYPE_SENT;
+        } else {
+            return VIEW_TYPE_RECEIVED;
+        }
     }
+
 
     static class SentMessageViewHolder extends RecyclerView.ViewHolder
     {
@@ -114,4 +124,5 @@ public class MessagingChatAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
     }
+
 }

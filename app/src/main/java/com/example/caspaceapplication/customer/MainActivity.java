@@ -1,16 +1,12 @@
 package com.example.caspaceapplication.customer;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.messaging.activities.MessagingLoginFront;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
