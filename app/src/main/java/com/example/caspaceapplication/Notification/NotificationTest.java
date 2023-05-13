@@ -1,4 +1,4 @@
-package Notification;
+package com.example.caspaceapplication.Notification;
 
 import static android.content.ContentValues.TAG;
 

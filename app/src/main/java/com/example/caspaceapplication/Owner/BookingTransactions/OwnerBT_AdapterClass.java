@@ -18,14 +18,21 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingDetails_ModelClass;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterClass.BookingViewHolder> {
 
@@ -62,6 +69,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         holder.bookingEndDate.setText(booking.getBookingEndDate());
         holder.totalPayment.setText(booking.getTotalPayment());
         holder.paymentOption.setText(booking.getPaymentOption());
+        String customerID = booking.getCustomerId();
 
         holder.cardViewBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +181,49 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Log.d(TAG, "Booking status updated successfully");
                                         Toast.makeText(context, "Booking accepted and is on ongoing tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
+
+                                        String branch_Name= branchName.getText().toString();
+                                        String spaceName = layoutName.getText().toString();
+                                        LocalDateTime now = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                        String dateTimeString = now.format(formatter);
+                                        String title = "Booking Notification: "+dateTimeString;
+                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been approved.";
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("CustomerUserAccounts").document(customerID)
+                                                .get()
+                                                .addOnSuccessListener(documentSnapshot -> {
+                                                    String customerFCMToken = documentSnapshot.getString("fcmToken");
+                                                    FCMSend.pushNotification(context.getApplicationContext(), customerFCMToken, title, message);
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Log.e(TAG, "Error getting FCM token for owner", e);
+                                                });
+                                        CollectionReference notificationsRef = db.collection("CustomerNotificationStorage");
+                                        // Create a new notification document with a randomly generated ID
+                                        DocumentReference newNotificationRef = notificationsRef.document();
+                                        String newNotificationId = newNotificationRef.getId();
+                                        // Add the notification document to the "Notifications" collection
+                                        Map<String, Object> notification = new HashMap<>();
+                                        notification.put("notificationId", newNotificationId);
+                                        notification.put("title", title);
+                                        notification.put("message", message);
+                                        notification.put("customerId", customerID);
+                                        notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                        newNotificationRef.set(notification)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding notification", e);
+                                                    }
+                                                });
+
                                     }
                                 });
                     }
@@ -190,6 +241,48 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Log.d(TAG, "Booking status updated successfully");
                                         Toast.makeText(context, "Booking completed and is on the completed tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
+
+                                        String branch_Name= branchName.getText().toString();
+                                        String spaceName = layoutName.getText().toString();
+                                        LocalDateTime now = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                        String dateTimeString = now.format(formatter);
+                                        String title = "Booking Notification: "+dateTimeString;
+                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been approved.";
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("CustomerUserAccounts").document(customerID)
+                                                .get()
+                                                .addOnSuccessListener(documentSnapshot -> {
+                                                    String customerFCMToken = documentSnapshot.getString("fcmToken");
+                                                    FCMSend.pushNotification(context.getApplicationContext(), customerFCMToken, title, message);
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Log.e(TAG, "Error getting FCM token for owner", e);
+                                                });
+                                        CollectionReference notificationsRef = db.collection("CustomerNotificationStorage");
+                                        // Create a new notification document with a randomly generated ID
+                                        DocumentReference newNotificationRef = notificationsRef.document();
+                                        String newNotificationId = newNotificationRef.getId();
+                                        // Add the notification document to the "Notifications" collection
+                                        Map<String, Object> notification = new HashMap<>();
+                                        notification.put("notificationId", newNotificationId);
+                                        notification.put("title", title);
+                                        notification.put("message", message);
+                                        notification.put("customerId", customerID);
+                                        notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                        newNotificationRef.set(notification)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding notification", e);
+                                                    }
+                                                });
                                     }
                                 });
                     }
@@ -207,6 +300,48 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Log.d(TAG, "Booking status updated successfully");
                                         Toast.makeText(context, "Booking declined and is on the completed tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
+
+                                        String branch_Name= branchName.getText().toString();
+                                        String spaceName = layoutName.getText().toString();
+                                        LocalDateTime now = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                        String dateTimeString = now.format(formatter);
+                                        String title = "Booking Notification: "+dateTimeString;
+                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been approved.";
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("CustomerUserAccounts").document(customerID)
+                                                .get()
+                                                .addOnSuccessListener(documentSnapshot -> {
+                                                    String customerFCMToken = documentSnapshot.getString("fcmToken");
+                                                    FCMSend.pushNotification(context.getApplicationContext(), customerFCMToken, title, message);
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Log.e(TAG, "Error getting FCM token for owner", e);
+                                                });
+                                        CollectionReference notificationsRef = db.collection("CustomerNotificationStorage");
+                                        // Create a new notification document with a randomly generated ID
+                                        DocumentReference newNotificationRef = notificationsRef.document();
+                                        String newNotificationId = newNotificationRef.getId();
+                                        // Add the notification document to the "Notifications" collection
+                                        Map<String, Object> notification = new HashMap<>();
+                                        notification.put("notificationId", newNotificationId);
+                                        notification.put("title", title);
+                                        notification.put("message", message);
+                                        notification.put("customerId", customerID);
+                                        notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                        newNotificationRef.set(notification)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding notification", e);
+                                                    }
+                                                });
                                     }
                                 });
                     }
@@ -215,6 +350,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         });
 
     }
+
 
     @Override
     public int getItemCount() {

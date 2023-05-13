@@ -101,6 +101,7 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                 return true;
             case R.id.menuNotification:
                 // startActivity(new Intent(this, NotificationActivity.class));
+                startActivity(new Intent(this, OwnerNotification.class));
                 return true;
             case R.id.menuProfile:
                  startActivity(new Intent(this, Owner_Profile.class));
@@ -108,8 +109,6 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
             default:
                 return false;
         }
-
-
 
    /* public void useBottomNavigationMenu(){
         //Navigation Bar------------------------------------------

@@ -1,7 +1,11 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.util.Log;
-import Notification.FCMSend;
+import com.example.caspaceapplication.Notification.FCMSend;
 import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -31,11 +35,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,9 +61,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -119,6 +127,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         setContentView(R.layout.activity_cust_booking_transaction);
 
         // Get the intent that started the activity
+ /*       IntentFilter filter = new IntentFilter("com.google.firebase.MESSAGING_EVENT");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);*/
         Intent intent = getIntent();
         String layoutName = intent.getStringExtra("layoutName");
         String layout_id = intent.getStringExtra("layout_id");
@@ -641,8 +651,12 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                     dialog.dismiss();
 
                                                     String customerName= custFullname;
-                                                    String title = "Your Space has been booked!";
-                                                    String message = customerName + " booked a space.";
+                                                    String spaceName = layout_Name;
+                                                    LocalDateTime now = LocalDateTime.now();
+                                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                                    String dateTimeString = now.format(formatter);
+                                                    String title = "Booking Notification: "+dateTimeString;
+                                                    String message = "\n"+customerName + " booked "+spaceName +".";
                                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                                     db.collection("OwnerUserAccounts").document(ownerId)
                                                             .get()
@@ -653,6 +667,33 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                             .addOnFailureListener(e -> {
                                                                 Log.e(TAG, "Error getting FCM token for owner", e);
                                                             });
+                                                    CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+                                                    // Create a new notification document with a randomly generated ID
+                                                    DocumentReference newNotificationRef = notificationsRef.document();
+                                                    String newNotificationId = newNotificationRef.getId();
+                                                        // Add the notification document to the "Notifications" collection
+                                                    Map<String, Object> notification = new HashMap<>();
+                                                    notification.put("notificationId", newNotificationId);
+                                                    notification.put("title", title);
+                                                    notification.put("message", message);
+                                                    notification.put("ownerId", ownerId);
+                                                    notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                                    newNotificationRef.set(notification)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error adding notification", e);
+                                                                }
+                                                            });
+
+
+
                                                 }
                                             });
                                 }
@@ -666,6 +707,48 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             Toast.makeText(Cust_BookingTransaction.this, "Please fill in all the details", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /*private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getExtras() != null) {
+                for (String key : intent.getExtras().keySet()) {
+                    Object value = intent.getExtras().get(key);
+                    Log.d(TAG, "Key: " + key + " Value: " + value);
+                }
+            }
+        }
+    };*/
+
+    /*public void onReceive(Context context, Intent intent) {
+        if (intent.getExtras() != null) {
+            boolean isForeground = isAppInForeground(context);
+            if (isForeground) {
+                // Show alert dialog
+                String title = intent.getExtras().getString("title");
+                String message = intent.getExtras().getString("message");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(title);
+                builder.setMessage(message);
+                builder.setPositiveButton("OK", null);
+                builder.create().show();
+            } else {
+                // Display notification in system tray
+                // ...
+            }
+        }
+    }*/
+
+    /*private boolean isAppInForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
+        if (!tasks.isEmpty()) {
+            String packageName = tasks.get(0).topActivity.getPackageName();
+            return packageName.equals(context.getPackageName());
+        }
+        return false;
+    }*/
+
 
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 
