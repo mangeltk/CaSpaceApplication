@@ -1,7 +1,5 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
-import android.util.Log;
-import Notification.FCMSend;
 import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
@@ -35,8 +33,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
@@ -64,12 +62,9 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import Notification.FCMSend;
 
 
 public class Cust_BookingTransaction extends AppCompatActivity {

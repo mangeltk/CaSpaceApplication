@@ -327,8 +327,6 @@ public class CustomerProfileFragment extends Fragment {
     public class CustomerProfileFavorites_Adapter extends RecyclerView.Adapter<CustomerProfileFragment.CustomerProfileFavorites_Adapter.ViewHolder>{
 
         private List<BranchModel> branchModel;
-        //dataclass that should have branchName, branchImage;
-
 
         public CustomerProfileFavorites_Adapter(List<BranchModel> branchModel) {
             this.branchModel = branchModel;
@@ -343,9 +341,7 @@ public class CustomerProfileFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CustomerProfileFavorites_Adapter.ViewHolder holder, int position) {
-            holder.branchName.setText(branchModel.get(position).getCospaceName());
-            holder.branchAddress.setText(branchModel.get(position).getCospaceStreetAddress() + " " + branchModel.get(position).getCospaceCityAddress());
-            holder.likesNo.setVisibility(View.GONE);
+
         }
 
         @Override

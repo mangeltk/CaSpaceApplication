@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.CWSProfile.CWS_ProfilePage;
 import com.squareup.picasso.Picasso;
@@ -21,14 +22,14 @@ import java.util.List;
 public class CoworkingSpacesAdapter extends RecyclerView.Adapter<CoworkingSpacesAdapter.MyViewHolder> {
 
     Context context;
-    List<CoworkingSpacesModel> coworkingSpacesModelArrayList;
+    List<BranchModel> coworkingSpacesModelArrayList;
 
-    public CoworkingSpacesAdapter(Context context, List<CoworkingSpacesModel> coworkingSpacesModelArrayList) {
+    public CoworkingSpacesAdapter(Context context, List<BranchModel> coworkingSpacesModelArrayList) {
         this.context = context;
         this.coworkingSpacesModelArrayList = coworkingSpacesModelArrayList;
     }
 
-    public void setSearchList(List<CoworkingSpacesModel> dataSearchList){
+    public void setSearchList(List<BranchModel> dataSearchList){
         this.coworkingSpacesModelArrayList = dataSearchList;
         notifyDataSetChanged();
     }

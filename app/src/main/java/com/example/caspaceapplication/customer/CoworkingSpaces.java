@@ -9,14 +9,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.SearchManagement.Customer_SearchManagement;
 import com.example.caspaceapplication.fragments.HomeFragment;
@@ -33,10 +34,11 @@ public class CoworkingSpaces extends AppCompatActivity {
     ImageButton backButton;
 
     RecyclerView recyclerView;
-    ArrayList<CoworkingSpacesModel> coworkingSpacesModelArrayList;
+    ArrayList<BranchModel> coworkingSpacesModelArrayList;
     CoworkingSpacesAdapter coworkingSpacesAdapter;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
+    AppCompatButton location_Button;
 
     SearchView search_CWS;
 
@@ -61,7 +63,7 @@ public class CoworkingSpaces extends AppCompatActivity {
             }
         });
 
-        ImageView location_Button = findViewById(R.id.locationButton);
+        location_Button = findViewById(R.id.locationButton);
         location_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +117,7 @@ public class CoworkingSpaces extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                             Log.d(TAG, "Document data: " + documentSnapshot.getData());
-                            CoworkingSpacesModel modelClass = documentSnapshot.toObject(CoworkingSpacesModel.class);
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
                             coworkingSpacesModelArrayList.add(modelClass);
                         }
                         coworkingSpacesAdapter.notifyDataSetChanged();
@@ -124,8 +126,8 @@ public class CoworkingSpaces extends AppCompatActivity {
 
     }
     public void searchList(String text){
-        List<CoworkingSpacesModel> dataSearchList = new ArrayList<>();
-        for (CoworkingSpacesModel data: coworkingSpacesModelArrayList){
+        List<BranchModel> dataSearchList = new ArrayList<>();
+        for (BranchModel data: coworkingSpacesModelArrayList){
             if (data.getCospaceName().toLowerCase().contains(text.toLowerCase())){
                 dataSearchList.add(data);
             }
