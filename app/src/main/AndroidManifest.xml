@@ -192,13 +192,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CustomerRecyclerCWSHomepage"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".customer.NavigationHomepage"
             android:exported="false">
             <meta-data

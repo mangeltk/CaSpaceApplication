@@ -86,9 +86,6 @@ public class LoginCustomerTrial extends AppCompatActivity  {
         });
     }
 
-
-
-
     private void loginCustomer()
     {
         String email = customerEmail.getText().toString().trim();
@@ -238,7 +235,6 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                         Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                         return;
                     }
-
                     String token = task.getResult();
                     String customersIDNum = firebaseAuth.getCurrentUser().getUid();
                     FirebaseFirestore db = FirebaseFirestore.getInstance();

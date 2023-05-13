@@ -41,6 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 });
                     }
 
+
                     // store the FCM token in the appropriate collection based on the userType field
                     if (userType.equals("customer")) {
                         db.collection("CustomerUserAccounts").document(uid)
