@@ -166,6 +166,14 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                         .addOnFailureListener(e -> {
                                             Log.e(TAG, "Error updating FCM token", e);
                                         });
+                                db.collection("UserAccounts").document(customersIDNum)
+                                        .update("fcmToken", token)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "FCM token added to AnotherCollection successfully for customer");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.e(TAG, "Error adding FCM token to AnotherCollection for customer", e);
+                                        });
                             })
                             .addOnFailureListener(e -> {
                                 Log.e(TAG, "Error getting FCM token for owner", e);

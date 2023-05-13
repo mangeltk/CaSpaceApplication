@@ -248,7 +248,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                                         String dateTimeString = now.format(formatter);
                                         String title = "Booking Notification: "+dateTimeString;
-                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been approved.";
+                                        String message = "\nYour booking of "+spaceName+" from "+branch_Name + " is now complete.";
                                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         db.collection("CustomerUserAccounts").document(customerID)
                                                 .get()
@@ -307,7 +307,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                                         String dateTimeString = now.format(formatter);
                                         String title = "Booking Notification: "+dateTimeString;
-                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been approved.";
+                                        String message = "\nThe "+spaceName+" that you booked from "+branch_Name + " has been declined.";
                                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         db.collection("CustomerUserAccounts").document(customerID)
                                                 .get()

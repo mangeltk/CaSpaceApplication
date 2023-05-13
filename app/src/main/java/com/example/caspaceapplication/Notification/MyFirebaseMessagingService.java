@@ -1,3 +1,4 @@
+/*
 package com.example.caspaceapplication.Notification;
 
 import android.util.Log;
@@ -26,6 +27,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // get the userType field value from either collection
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("UserAccounts").document(uid)
+                .update("fcmToken", token)
+                .addOnSuccessListener(anotherVoid -> {
+                    Log.d(TAG, "FCM token added to AnotherCollection successfully for customer");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error adding FCM token to AnotherCollection for customer", e);
+                });
         db.collection("CustomerUserAccounts").document(uid)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -43,20 +52,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     // store the FCM token in the appropriate collection based on the userType field
-                    if (userType.equals("customer")) {
+                    if (userType.equals("Customer")) {
                         db.collection("CustomerUserAccounts").document(uid)
                                 .update("fcmToken", token)
                                 .addOnSuccessListener(aVoid -> {
                                     Log.d(TAG, "FCM token updated successfully for customer");
+
                                 })
                                 .addOnFailureListener(e -> {
                                     Log.e(TAG, "Error updating FCM token for customer", e);
                                 });
-                    } else if (userType.equals("owner")) {
+                    } else if (userType.equals("0wner")) {
                         db.collection("OwnerUserAccounts").document(uid)
                                 .update("fcmToken", token)
                                 .addOnSuccessListener(aVoid -> {
                                     Log.d(TAG, "FCM token updated successfully for owner");
+                                    db.collection("UserAccounts").document(uid)
+                                            .update("fcmToken", token)
+                                            .addOnSuccessListener(anotherVoid -> {
+                                                Log.d(TAG, "FCM token added to AnotherCollection successfully for customer");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Log.e(TAG, "Error adding FCM token to AnotherCollection for customer", e);
+                                            });
                                 })
                                 .addOnFailureListener(e -> {
                                     Log.e(TAG, "Error updating FCM token for owner", e);
@@ -72,3 +90,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 }
+*/
