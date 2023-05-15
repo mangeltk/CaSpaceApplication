@@ -1,6 +1,5 @@
 package com.example.caspaceapplication.Owner;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,12 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.AllUserAccountsModelClass;
-import com.example.caspaceapplication.customer.CustomerRegistrationModel;
-import com.example.caspaceapplication.customer.LoginCustomerTrial;
-import com.example.caspaceapplication.customer.RegisterCustomer;
 import com.example.caspaceapplication.databinding.ActivityRegisterCustomerBinding;
 import com.example.caspaceapplication.databinding.ActivityRegisterOwnerBinding;
-import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
+import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

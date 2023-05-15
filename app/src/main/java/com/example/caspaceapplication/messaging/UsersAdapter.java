@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.adapters;
+package com.example.caspaceapplication.messaging;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,9 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.databinding.MessagingItemContainerUserBinding;
-import com.example.caspaceapplication.messaging.listeners.UserListener;
-import com.example.caspaceapplication.messaging.models.UserMdl;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,10 +26,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MessagingItemContainerUserBinding itemContainerUserBinding = MessagingItemContainerUserBinding.inflate(
+        MessagingItemContainerUserBinding messagingItemContainerUserBinding = MessagingItemContainerUserBinding.inflate(
                 LayoutInflater.from(parent.getContext()),
                 parent, false);
-        return new UserViewHolder(itemContainerUserBinding);
+        return new UserViewHolder(messagingItemContainerUserBinding);
     }
 
     @Override
@@ -64,7 +61,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
                 binding.imageProfile.setImageBitmap(bitmap);
             }
 
-            //binding.imageProfile.setImageBitmap(getUserImage(user.image));
+            binding.imageProfile.setImageBitmap(getUserImage(user.userImage));
             binding.getRoot().setOnClickListener(v -> userListener.onUserClicked(user));
         }
     }

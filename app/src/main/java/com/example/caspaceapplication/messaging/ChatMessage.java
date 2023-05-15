@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.models;
+package com.example.caspaceapplication.messaging;
 
 import java.util.Date;
 

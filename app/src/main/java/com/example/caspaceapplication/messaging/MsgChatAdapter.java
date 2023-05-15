@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.adapters;
+package com.example.caspaceapplication.messaging;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.databinding.MessagingItemContainerReceivedMessageBinding;
 import com.example.caspaceapplication.databinding.MessagingItemContainerSentMessageBinding;
-import com.example.caspaceapplication.messaging.models.ChatMessage;
 
 import java.util.List;
 
@@ -67,17 +66,6 @@ public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    /*public int getItemViewType(int position) {
-        if(chatMessages.get(position).senderId.equals(senderId))
-        {
-            return VIEW_TYPE_SENT;
-        }
-        else
-        {
-            return VIEW_TYPE_RECEIVED;
-        }
-    }*/
-
     public int getItemViewType(int position) {
         ChatMessage chatMessage = chatMessages.get(position);
         if (chatMessage != null && chatMessage.senderId != null && chatMessage.senderId.equals(senderId)) {
@@ -92,10 +80,10 @@ public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     {
         private final MessagingItemContainerSentMessageBinding binding;
 
-        SentMessageViewHolder(@NonNull MessagingItemContainerSentMessageBinding itemContainerSentMessageBinding)
+        SentMessageViewHolder(@NonNull MessagingItemContainerSentMessageBinding messagingItemContainerSentMessageBinding)
         {
-            super(itemContainerSentMessageBinding.getRoot());
-            binding = itemContainerSentMessageBinding;
+            super(messagingItemContainerSentMessageBinding.getRoot());
+            binding = messagingItemContainerSentMessageBinding;
         }
 
         void setData(ChatMessage chatMessage)
@@ -108,10 +96,10 @@ public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     static class ReceivedMessageViewHolder extends RecyclerView.ViewHolder
     {
         private final MessagingItemContainerReceivedMessageBinding binding;
-        ReceivedMessageViewHolder(@NonNull MessagingItemContainerReceivedMessageBinding itemContainerReceivedMessageBinding)
+        ReceivedMessageViewHolder(@NonNull MessagingItemContainerReceivedMessageBinding messagingItemContainerReceivedMessageBinding)
         {
-            super(itemContainerReceivedMessageBinding.getRoot());
-            binding = itemContainerReceivedMessageBinding;
+            super(messagingItemContainerReceivedMessageBinding.getRoot());
+            binding = messagingItemContainerReceivedMessageBinding;
         }
 
         void setData(ChatMessage chatMessage, Bitmap receiverProfileImage)

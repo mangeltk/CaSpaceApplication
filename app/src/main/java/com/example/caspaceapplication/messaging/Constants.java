@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.utilities;
+package com.example.caspaceapplication.messaging;
 
 import java.util.HashMap;
 
@@ -9,13 +9,17 @@ public class Constants {
     public static final String KEY_COMBINED_FIRST_NAME = "userFirstName";
     public static final String KEY_COMBINED_LAST_NAME = "userLastName";
     public static final String KEY_COMBINED_EMAIL = "userEmail";
+    public static final String KEY_COMBINED_PASSWORD = "userPassword";
     public static final String KEY_COMBINED_IMAGE = "userImage";
-
+    public static final String KEY_USER_ID = "userId";
     public static final String KEY_COMBINED_ID = "userCombinedId";
     public static final String KEY_SENDER_ID = "senderId";
     public static final String KEY_RECEIVER_ID = "receiverId";
+    public static final String KEY_NAME = "firstName";
 
-
+    public static final String KEY_FCM_TOKEN = "fcmToken";
+    public static final String KEY_USER = "user";
+    //public static final String KEY_USER_ID = "userId";
 
 
     //for cospace branches
@@ -48,11 +52,11 @@ public class Constants {
     public static final String KEY_CUSTOMER_ACCOUNT_STATUS = "customersAccountStatus";
     public static final String KEY_PREFERENCE_NAME = "chatAppPreference";
     public static final String KEY_IS_SIGNED_IN = "isSignedIn";
-    public static final String KEY_USER_ID = "customersIDNum";
+
     public static final String KEY_IMAGE = "image";
-    public static final String KEY_FCM_TOKEN = "fcmToken";
+
     public static final String KEY_FCM_TOKEN2 = "fcmToken2";
-    public static final String KEY_USER = "user";
+
     public static final String KEY_COLLECTION_CHAT = "chat";
 
     public static final String KEY_MESSAGE = "message";

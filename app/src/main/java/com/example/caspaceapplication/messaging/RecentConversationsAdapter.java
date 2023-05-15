@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.adapters;
+package com.example.caspaceapplication.messaging;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,21 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.caspaceapplication.databinding.MessagingItemContainerRecentConversationBinding;
-import com.example.caspaceapplication.messaging.listeners.ConversationListener;
-import com.example.caspaceapplication.messaging.models.ChatMessage;
-import com.example.caspaceapplication.messaging.models.UserMdl;
 
 import java.util.List;
 
-
-public class MessagingRecentConversationsAdapter extends RecyclerView.Adapter<MessagingRecentConversationsAdapter.ConversationViewHolder>{
+public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConversationsAdapter.ConversationViewHolder> {
 
     private final List<ChatMessage> chatMessages;
     private final ConversationListener conversationListener;
 
-    public MessagingRecentConversationsAdapter(List<ChatMessage> chatMessages, ConversationListener conversationListener) {
+    public RecentConversationsAdapter(List<ChatMessage> chatMessages, ConversationListener conversationListener) {
         this.chatMessages = chatMessages;
         this.conversationListener = conversationListener;
     }
@@ -47,28 +42,31 @@ public class MessagingRecentConversationsAdapter extends RecyclerView.Adapter<Me
         return chatMessages.size();
     }
 
-    class ConversationViewHolder extends RecyclerView.ViewHolder {
+    class ConversationViewHolder extends RecyclerView.ViewHolder
+    {
         MessagingItemContainerRecentConversationBinding binding;
 
-        ConversationViewHolder(MessagingItemContainerRecentConversationBinding itemContainerRecentConversationBinding) {
-            super(itemContainerRecentConversationBinding.getRoot());
-            binding = itemContainerRecentConversationBinding;
+        ConversationViewHolder(MessagingItemContainerRecentConversationBinding messagingItemContainerRecentConversationBinding)
+        {
+            super(messagingItemContainerRecentConversationBinding.getRoot());
+            binding = messagingItemContainerRecentConversationBinding;
         }
-
-        void setData(ChatMessage chatMessage) {
+        void setData(ChatMessage chatMessage)
+        {
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
             binding.textFirstName.setText(chatMessage.conversationName);
             binding.textRecentMessage.setText(chatMessage.message);
             binding.getRoot().setOnClickListener(v ->
             {
                 UserMdl user = new UserMdl();
-                user.userCombinedId = chatMessage.conversationId;
+                user.id = chatMessage.conversationId;
                 user.userFirstName = chatMessage.conversationName;
-                user.image = chatMessage.conversationImage;
+                user.userImage = chatMessage.conversationImage;
                 conversationListener.onConversationClicked(user);
             });
         }
     }
+
 
     private Bitmap getConversationImage(String encodedImage)
     {
@@ -82,3 +80,4 @@ public class MessagingRecentConversationsAdapter extends RecyclerView.Adapter<Me
         }
     }
 }
+

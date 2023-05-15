@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.activities;
+package com.example.caspaceapplication.messaging;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.databinding.ActivityMsgUsersBinding;
-import com.example.caspaceapplication.messaging.adapters.UsersAdapter;
-import com.example.caspaceapplication.messaging.listeners.UserListener;
-import com.example.caspaceapplication.messaging.models.UserMdl;
-import com.example.caspaceapplication.messaging.utilities.Constants;
-import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -20,7 +15,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MsgUsersActivity extends AppCompatActivity implements UserListener {
+public class MsgUsersActivity extends MsgBaseActivity implements UserListener {
 
     private ActivityMsgUsersBinding binding;
     private PreferenceManager preferenceManager;
@@ -42,14 +37,14 @@ public class MsgUsersActivity extends AppCompatActivity implements UserListener 
     }
 
 
-    private void getUsers() {
+    /*private void getUsers() {
         loading(true);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userCombinedId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Query for Customer user type
         Query queryCustomer = database.collection(Constants.KEY_COMBINED_COLLECTION)
-                .whereEqualTo(Constants.KEY_COMBINED_ID, userId)
+                .whereEqualTo(Constants.KEY_COMBINED_ID, userCombinedId)
                 .whereEqualTo(Constants.KEY_USER_TYPE, "Customer");
 
         queryCustomer.get().addOnCompleteListener(customerTask -> {
@@ -97,7 +92,7 @@ public class MsgUsersActivity extends AppCompatActivity implements UserListener 
 
         // Query for Owner user type
         Query queryOwner = database.collection(Constants.KEY_COMBINED_COLLECTION)
-                .whereEqualTo(Constants.KEY_COMBINED_ID, userId)
+                .whereEqualTo(Constants.KEY_COMBINED_ID, userCombinedId)
                 .whereEqualTo(Constants.KEY_USER_TYPE, "Owner");
 
         queryOwner.get().addOnCompleteListener(ownerTask -> {
@@ -142,6 +137,51 @@ public class MsgUsersActivity extends AppCompatActivity implements UserListener 
                 }
             }
         });
+    }*/
+
+    private void getUsers()
+    {
+        loading(true);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection(Constants.KEY_COMBINED_COLLECTION)
+                .get()
+                .addOnCompleteListener(task -> {
+                    loading(false);
+                    String currentUserId = preferenceManager.getString(Constants.KEY_COMBINED_ID);
+                    if(task.isSuccessful() && task.getResult() != null)
+                    {
+                        List<UserMdl> users = new ArrayList<>();
+                        for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult())
+                        {
+                            if(currentUserId.equals(queryDocumentSnapshot.getString(Constants.KEY_COMBINED_ID)))
+                            {
+                                continue;
+                            }
+                            UserMdl user = new UserMdl();
+                            user.userFirstName = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME);
+                            user.userLastName = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME);
+                            user.userEmail = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_EMAIL);
+                            user.userImage = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_IMAGE);
+                            user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                            user.id = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_ID);
+                            users.add(user);
+                        }
+                        if(users.size() > 0)
+                        {
+                            UsersAdapter usersAdapter = new UsersAdapter(users, this);
+                            binding.usersRecyclerView.setAdapter(usersAdapter);
+                            binding.usersRecyclerView.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            showErrorMessage();
+                        }
+                    }
+                    else
+                    {
+                        showErrorMessage();
+                    }
+                });
     }
     private void showErrorMessage()
     {

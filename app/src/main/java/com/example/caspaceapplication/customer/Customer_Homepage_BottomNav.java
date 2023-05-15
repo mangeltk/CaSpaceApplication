@@ -12,7 +12,7 @@ import com.example.caspaceapplication.customer.BookingTransactionManagement.Book
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
 import com.example.caspaceapplication.fragments.NotificationFragment;
-import com.example.caspaceapplication.messaging.activities.MessagingMain;
+import com.example.caspaceapplication.messaging.MsgMain;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Customer_Homepage_BottomNav extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BookingsFragment()).commit();
                     return true;
                 case R.id.menuMessages:
-                    Intent intent = new Intent(getApplicationContext(), MessagingMain.class);
+                    Intent intent = new Intent(getApplicationContext(), MsgMain.class);
                     startActivity(intent);
                     return true;
                 case R.id.menuNotification:

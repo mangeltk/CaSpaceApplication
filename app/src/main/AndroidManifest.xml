@@ -19,25 +19,25 @@
         tools:targetApi="32">
 
         <activity
-            android:name=".messaging.activities.MessagingMain"
+            android:name=".messaging.MsgMain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".messaging.activities.MsgUsersActivity"
+            android:name=".messaging.MsgUsersActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".messaging.activities.MsgChatActivity"
+            android:name=".messaging.MsgChatActivity"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".messaging.activities.MsgBaseActivity"
+            android:name=".messaging.MsgBaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

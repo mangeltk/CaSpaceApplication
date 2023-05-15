@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.activities;
+package com.example.caspaceapplication.messaging;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,11 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.caspaceapplication.databinding.ActivityMsgChatBinding;
-import com.example.caspaceapplication.messaging.adapters.MsgChatAdapter;
-import com.example.caspaceapplication.messaging.models.ChatMessage;
-import com.example.caspaceapplication.messaging.models.UserMdl;
-import com.example.caspaceapplication.messaging.utilities.Constants;
-import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,9 +16,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -34,10 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MsgChatActivity extends MsgBaseActivity {
 
@@ -70,7 +59,6 @@ public class MsgChatActivity extends MsgBaseActivity {
         chatAdapter = new MsgChatAdapter(chatMessages, getBitmapFromEncodedString(receiverUser.userImage),
                 preferenceManager.getString(Constants.KEY_COMBINED_ID));
 
-
         binding.chatRecyclerView.setAdapter(chatAdapter);
         database = FirebaseFirestore.getInstance();
     }
@@ -79,7 +67,7 @@ public class MsgChatActivity extends MsgBaseActivity {
     {
         HashMap<String, Object> message = new HashMap<>();
         message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
-        message.put(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId);
+        message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
@@ -93,9 +81,9 @@ public class MsgChatActivity extends MsgBaseActivity {
             conversation.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
             conversation.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_COMBINED_FIRST_NAME));
             conversation.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_COMBINED_IMAGE));
-            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId);
+            conversation.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
             conversation.put(Constants.KEY_RECEIVER_NAME, receiverUser.userFirstName);
-            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
+            conversation.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.userImage);
             conversation.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
             conversation.put(Constants.KEY_TIMESTAMP, new Date());
             addConversation(conversation);
@@ -108,7 +96,7 @@ public class MsgChatActivity extends MsgBaseActivity {
 
                 JSONObject data = new JSONObject();
                 data.put(Constants.KEY_COMBINED_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID));
-                data.put(Constants.KEY_FIRST_NAME, preferenceManager.getString(Constants.KEY_FIRST_NAME));
+                data.put(Constants.KEY_COMBINED_FIRST_NAME, preferenceManager.getString(Constants.KEY_COMBINED_FIRST_NAME));
                 data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
                 data.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
 
@@ -131,10 +119,10 @@ public class MsgChatActivity extends MsgBaseActivity {
     {
         database.collection(Constants.KEY_COLLECTION_CHAT)
                 .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID))
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.userCombinedId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id)
                 .addSnapshotListener(eventListener);
         database.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.userCombinedId)
+                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id)
                 .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_COMBINED_ID))
                 .addSnapshotListener(eventListener);
     }
@@ -175,59 +163,19 @@ public class MsgChatActivity extends MsgBaseActivity {
             binding.chatRecyclerView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
-        /*if(conversationId == null)
+        if(conversationId == null)
         {
             checkForConversation();
-        }*/
+        }
     };
 
-    /*private void sendNotification(String messageBody)
-    {
-        ApiClient.getClient().create(ApiService.class).sendMessage(
-                        Constants.getRemoteMsgHeaders(), messageBody)
-                .enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                        if(response.isSuccessful())
-                        {
-                            try{
-                                if(response.body() !=null )
-                                {
-                                    JSONObject responseJson = new JSONObject(response.body());
-                                    JSONArray results = responseJson.getJSONArray("results");
-                                    if(responseJson.getInt("failure") == 1)
-                                    {
-                                        JSONObject error = (JSONObject) results.get(0);
-                                        showToast(error.getString("error"));
-                                        return;
-                                    }
-                                }
-                            }
-                            catch (JSONException e)
-                            {
-                                e.printStackTrace();
-                            }
-                            showToast("Notification sent successfully");
-                        }
-                        else
-                        {
-                            showToast("Error: " + response.code());
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(@NonNull Call<String> call, Throwable t) {
-                        showToast(t.getMessage());
-                    }
-                });
-
-    }*/
 
 
     private void listenAvailabilityOfReceiver()
     {
         database.collection(Constants.KEY_COMBINED_COLLECTION).document(
-                        receiverUser.userCombinedId)
+                        receiverUser.id)
                 .addSnapshotListener(MsgChatActivity.this, (value, error) ->
                 {
                     if (error != null) {
@@ -278,7 +226,7 @@ public class MsgChatActivity extends MsgBaseActivity {
     private void loadReceiverDetails()
     {
         receiverUser = (UserMdl) getIntent().getSerializableExtra(Constants.KEY_USER);
-        binding.textName.setText(receiverUser.userFirstName);
+        binding.textFirstName.setText(receiverUser.userFirstName);
     }
 
     private void setListeners()
@@ -312,8 +260,8 @@ public class MsgChatActivity extends MsgBaseActivity {
         if(chatMessages.size() !=0)
         {
             checkForConversionRemotely(
-                    preferenceManager.getString(Constants.KEY_USER_ID), receiverUser.userCombinedId);
-            checkForConversionRemotely(receiverUser.userCombinedId, preferenceManager.getString(Constants.KEY_COMBINED_ID));
+                    preferenceManager.getString(Constants.KEY_COMBINED_ID), receiverUser.id);
+            checkForConversionRemotely(receiverUser.id, preferenceManager.getString(Constants.KEY_COMBINED_ID));
         }
     }
 

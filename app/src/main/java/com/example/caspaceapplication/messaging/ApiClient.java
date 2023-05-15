@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.network;
+package com.example.caspaceapplication.messaging;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;

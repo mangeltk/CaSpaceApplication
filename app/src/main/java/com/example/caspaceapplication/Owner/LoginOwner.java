@@ -23,8 +23,8 @@ import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
 import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
-import com.example.caspaceapplication.messaging.utilities.Constants;
-import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
+import com.example.caspaceapplication.messaging.Constants;
+import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +33,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -145,13 +146,6 @@ public class LoginOwner extends AppCompatActivity {
             editor.apply();
         }
 
-        loading(true);
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection(Constants.KEY_COLLECTION_OWNER)
-                .whereEqualTo(Constants.KEY_EMAIL, binding.loginOwnerEmail.getText().toString())
-                .whereEqualTo(Constants.KEY_PASSWORD, binding.loginOwnerPassword.getText().toString())
-                .get()
-                .addOnCompleteListener(task -> {
                     firebaseAuth.signInWithEmailAndPassword(email, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
@@ -160,6 +154,7 @@ public class LoginOwner extends AppCompatActivity {
                                     if (user.isEmailVerified()) {
                                         progressDialog.setMessage("Logging in...");
                                         progressDialog.show();
+                                        signIn();
                                         checkExistingBranch();
                                         updateOwnerFCMToken();
                                     } else {
@@ -190,28 +185,69 @@ public class LoginOwner extends AppCompatActivity {
                                 }
                             });
 
-                    if (task.isSuccessful() && task.getResult() != null
-                            && task.getResult().getDocuments().size() > 0) {
-                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+    }
+
+    private void signIn()
+    {
+        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection(Constants.KEY_COMBINED_COLLECTION)
+
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if(task.isSuccessful() && task.getResult() != null
+                            && task.getResult().getDocuments().size() > 0)
+                    {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(1);
                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
                         preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
                         preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
                         preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                        Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
+                        Toast.makeText(this, "ID"+documentSnapshot.getId(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
 
-                    else {
-                        loading(false);
-                        showToast("Unable to sign in");
+                });*/
 
-                    }
-                });
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            // User is logged in
+            String uid = user.getUid();
+
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference documentRef = db.collection(Constants.KEY_COMBINED_COLLECTION).document(uid);
+
+// Retrieve a specific column (field) from the document
+            documentRef.get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            // The document exists
+                            // Retrieve the specific column (field)
+                            preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                            preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
+                            preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
+                            preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
+                            preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
+                            Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            // The document does not exist
+                            System.out.println("Document does not exist.");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Error retrieving the document
+                        // Handle the error appropriately
+                    });
+        }
     }
-
-
 
     private void updateOwnerFCMToken() {
         FirebaseMessaging.getInstance().getToken()

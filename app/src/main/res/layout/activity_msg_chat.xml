@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
-    tools:context=".messaging.activities.MsgChatActivity">
+    tools:context=".messaging.MsgChatActivity">
 
     <View
         android:id="@+id/viewBackground"
@@ -52,7 +52,7 @@
         android:tint="@color/white"/>
 
     <TextView
-        android:id="@+id/textName"
+        android:id="@+id/textFirstName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"

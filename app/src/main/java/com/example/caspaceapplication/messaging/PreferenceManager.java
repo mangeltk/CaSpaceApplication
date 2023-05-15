@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.utilities;
+package com.example.caspaceapplication.messaging;
 
 import android.content.Context;
 import android.content.SharedPreferences;

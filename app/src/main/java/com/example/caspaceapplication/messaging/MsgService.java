@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.messaging.firebase;
+package com.example.caspaceapplication.messaging;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,15 +11,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.messaging.activities.MsgChatActivity;
-import com.example.caspaceapplication.messaging.models.UserMdl;
-import com.example.caspaceapplication.messaging.utilities.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
 
-public class MessagingService extends FirebaseMessagingService {
+public class MsgService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(@NonNull String token) {
@@ -33,8 +30,8 @@ public class MessagingService extends FirebaseMessagingService {
 
         //Log.d("FCM", "Message: " + remoteMessage.getNotification().getBody());
         UserMdl user = new UserMdl();
-        user.userCombinedId = remoteMessage.getData().get(Constants.KEY_USER_ID);
-        user.userFirstName = remoteMessage.getData().get(Constants.KEY_FIRST_NAME);
+        user.id = remoteMessage.getData().get(Constants.KEY_COMBINED_ID);
+        user.userFirstName = remoteMessage.getData().get(Constants.KEY_NAME);
         user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
 
         int notificationId = new Random().nextInt();
@@ -43,7 +40,7 @@ public class MessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, MsgChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //intent.putExtra(Constants.KEY_USER, user);
-        intent.putExtra(Constants.KEY_USER_ID, user.userCombinedId);
+        intent.putExtra(Constants.KEY_COMBINED_ID, user.id);
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
