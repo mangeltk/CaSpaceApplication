@@ -1,12 +1,7 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.util.Log;
-import com.example.caspaceapplication.Notification.FCMSend;
 import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -17,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,8 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
@@ -66,7 +62,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

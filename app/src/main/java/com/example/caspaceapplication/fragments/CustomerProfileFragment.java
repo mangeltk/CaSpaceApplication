@@ -27,9 +27,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.customer.Front;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +37,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -50,9 +52,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerProfileFragment extends Fragment {

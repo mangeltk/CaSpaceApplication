@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,14 +18,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.caspaceapplication.Owner.LoginOwner;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
-import com.example.caspaceapplication.messaging.Constants;
-import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,7 +33,6 @@ public class LoginCustomerTrial extends AppCompatActivity  {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     TextView forgotPassword;
     private EditText customerEmail, customerPassword;
@@ -51,18 +44,11 @@ public class LoginCustomerTrial extends AppCompatActivity  {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
 
-    private ActivityLoginCustomerTrialBinding binding;
-    private PreferenceManager preferenceManager;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferenceManager = new PreferenceManager(getApplicationContext());
-        binding = ActivityLoginCustomerTrialBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setContentView(R.layout.activity_login_customer_trial);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -71,59 +57,43 @@ public class LoginCustomerTrial extends AppCompatActivity  {
         rememberMeCheckbox = findViewById(R.id.rememberMe_customerloginCheckbox);
         loginButton = findViewById(R.id.loginButton_customer);
 
-        setListeners();
         setRememberMeCheckbox(); //remember me checkbox
 
-    }
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    private void setListeners()
-    {
-        binding.textCreateNewAccount.setOnClickListener(v -> {
-            startActivity(new Intent(LoginCustomerTrial.this, FrontRegister.class));
-        });
-        //when the user clicks the sign in button for customer
-        binding.loginButtonCustomer.setOnClickListener( v ->
-        {
-            if(isValidLogInDetails())
-            {
-                loginCustomer();
-            }
-        });
-    }
+                String email = customerEmail.getText().toString().trim();
+                String password = customerPassword.getText().toString().trim();
 
-    private void loginCustomer()
-    {
-        String email = customerEmail.getText().toString().trim();
-        String password = customerPassword.getText().toString().trim();
+                if (email.isEmpty()) {
+                    customerEmail.setError("Please enter email");
+                    customerEmail.requestFocus();
+                    return;
+                }
 
-        if (email.isEmpty()) {
-            customerEmail.setError("Please enter email");
-            customerEmail.requestFocus();
-            return;
-        }
+                if (password.isEmpty()) {
+                    customerPassword.setError("Please enter password");
+                    customerPassword.requestFocus();
+                    return;
+                }
 
-        if (password.isEmpty()) {
-            binding.customerPassword.setError("Please enter password");
-            binding.customerPassword.requestFocus();
-            return;
-        }
-
-        if (binding.rememberMeCustomerloginCheckbox.isChecked()) {
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(KEY_EMAIL, email);
-            editor.putString(KEY_PASSWORD, password);
-            editor.apply();
-            showToast("Credentials saved!");
-        }
-        else {
-            //If the remember me checkbox is not checked, clear the email and password saved in shared preferences
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.remove(KEY_EMAIL);
-            editor.remove(KEY_PASSWORD);
-            editor.apply();
-        }
+                if (rememberMeCheckbox.isChecked()) {
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(KEY_EMAIL, email);
+                    editor.putString(KEY_PASSWORD, password);
+                    editor.apply();
+                    Toast.makeText(LoginCustomerTrial.this, "Credentials saved!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //If the remember me checkbox is not checked, clear the email and password saved in shared preferences
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.remove(KEY_EMAIL);
+                    editor.remove(KEY_PASSWORD);
+                    editor.apply();
+                }
 
                 firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -165,46 +135,6 @@ public class LoginCustomerTrial extends AppCompatActivity  {
             }
         });
 
-    private void loading(Boolean isLoading)
-    {
-        if(isLoading)
-        {
-            binding.loginButtonCustomer.setVisibility(View.INVISIBLE);
-            binding.progressBar.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            binding.progressBar.setVisibility(View.INVISIBLE);
-            binding.loginButtonCustomer.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private boolean isValidLogInDetails()
-    {
-        if(binding.customerEmail.getText().toString().trim().isEmpty())
-        {
-            showToast("Enter email");
-            return false;
-        }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.customerEmail.getText().toString()).matches())
-        {
-            showToast("Enter valid email");
-            return false;
-        }
-        else if(binding.customerPassword.getText().toString().trim().isEmpty())
-        {
-            showToast("Enter password");
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    private void showToast(String message)
-    {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     private void updateCustomerFCMToken() {
@@ -214,6 +144,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                         Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                         return;
                     }
+
                     String token = task.getResult();
                     String customersIDNum = firebaseAuth.getCurrentUser().getUid();
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -234,14 +165,6 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                         })
                                         .addOnFailureListener(e -> {
                                             Log.e(TAG, "Error updating FCM token", e);
-                                        });
-                                db.collection("UserAccounts").document(customersIDNum)
-                                        .update("fcmToken", token)
-                                        .addOnSuccessListener(aVoid -> {
-                                            Log.d(TAG, "FCM token added to AnotherCollection successfully for customer");
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Log.e(TAG, "Error adding FCM token to AnotherCollection for customer", e);
                                         });
                             })
                             .addOnFailureListener(e -> {
@@ -282,10 +205,18 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                                 Toast.makeText(LoginCustomerTrial.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                                             }
                                         });
+
                             }
-                            customerUserActivity();
                         }
                     });
+                    /*.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.cancel();
+                            Toast.makeText(LoginCustomerTrial.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginCustomerTrial.this, RegisterCustomer.class));
+                        }
+                    });*/
         }
     }
 }
