@@ -93,7 +93,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     private static final int GALLERY_CODE = 1;
 
     CardView cardView, cardViewBelow;
-    LinearLayout radioButtonLinearLayout;
+    LinearLayout radioButtonLinearLayout, hourlyRateLinear;
     ScrollView bookingDetailsScrollview;
 
     EditText customerFullNameEditText, organizationNameEditText, NoOfTenantsEditText,CustPhoneNumberEdittext,
@@ -162,6 +162,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         cardViewBelow = findViewById(R.id.cardViewBookingBelow);
         bookingDetailsScrollview = findViewById(R.id.bookingDetails_Scrollview);
         radioButtonLinearLayout = findViewById(R.id.radioButton_LinearLayout);
+        hourlyRateLinear = findViewById(R.id.hourlyRateLinear);
         payOnsiteRadioButton = findViewById(R.id.payOnsiteOption_RadioButton);
         payOtherOptionRadioButton = findViewById(R.id.payOtherOption_RadioButton);
 
@@ -180,6 +181,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         totalResultYears = findViewById(R.id.totalYears_Textview);
         totalCalculatedFee = findViewById(R.id.totalPayment);
         ProofOfPaymentTitle = findViewById(R.id.ProofOfPaymentTitle_Textview);
+
 
         /*ProofOfPaymentTitle.setVisibility(View.GONE);
         CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
@@ -342,6 +344,15 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             CustBTLayoutNameTextViewBelow.setText(layoutName);
 
                             CustBTLayoutAvailabilityTextView.setText(availability);
+
+                            if (!availability.equals("Available")){
+                                radioButtonLinearLayout.setVisibility(View.GONE);
+                                hourlyRateLinear.setVisibility(View.GONE);
+                            }else{
+                                radioButtonLinearLayout.setVisibility(View.VISIBLE);
+                                hourlyRateLinear.setVisibility(View.VISIBLE);
+                            }
+
 
                             CustBTLayoutHourlyRateTextview.setText(perHour);
 
