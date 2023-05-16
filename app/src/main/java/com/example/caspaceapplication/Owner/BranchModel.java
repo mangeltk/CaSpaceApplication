@@ -2,6 +2,7 @@ package com.example.caspaceapplication.Owner;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BranchModel {
@@ -9,13 +10,14 @@ public class BranchModel {
     private String cospaceStreetAddress, cospaceCityAddress, cospaceCategory, cospaceId, cospaceImage, cospaceName;
     private GeoPoint location;
     private String owner_id;
-    private Map<String, OpeningHours> openingHours;
+    private Map<String, OpeningHours> hours;
+    int Likes, RankNo;
 
     public BranchModel() {
-
+        hours = new HashMap<>();
     }
 
-    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> openingHours) {
+    public BranchModel(String cospaceStreetAddress, String cospaceCityAddress, String cospaceCategory, String cospaceId, String cospaceImage, String cospaceName, GeoPoint location, String owner_id, Map<String, OpeningHours> hours, int likes, int rankNo) {
         this.cospaceStreetAddress = cospaceStreetAddress;
         this.cospaceCityAddress = cospaceCityAddress;
         this.cospaceCategory = cospaceCategory;
@@ -24,17 +26,33 @@ public class BranchModel {
         this.cospaceName = cospaceName;
         this.location = location;
         this.owner_id = owner_id;
-        this.openingHours = openingHours;
+        this.hours = hours;
+        Likes = likes;
+        RankNo = rankNo;
     }
 
-    // Getters and setters for other fields
+    public int getRankNo() {
+        return RankNo;
+    }
+
+    public void setRankNo(int rankNo) {
+        RankNo = rankNo;
+    }
+
+    public int getLikes() {
+        return Likes;
+    }
+
+    public void setLikes(int likes) {
+        Likes = likes;
+    }
 
     public Map<String, OpeningHours> getOpeningHours() {
-        return openingHours;
+        return hours;
     }
 
-    public void setOpeningHours(Map<String, OpeningHours> openingHours) {
-        this.openingHours = openingHours;
+    public void setOpeningHours(Map<String, OpeningHours> hours) {
+        this.hours = hours;
     }
 
     public static class OpeningHours {

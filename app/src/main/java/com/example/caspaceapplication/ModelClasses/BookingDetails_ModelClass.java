@@ -1,4 +1,4 @@
-package com.example.caspaceapplication.customer.BookingTransactionManagement;
+package com.example.caspaceapplication.ModelClasses;
 
 public class BookingDetails_ModelClass {
 

@@ -19,13 +19,16 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.CWSProfile.CWS_ProfilePage;
 import com.example.caspaceapplication.customer.CoworkingSpaces;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -37,8 +40,11 @@ public class HomeFragment extends Fragment {
 
     private FirebaseFirestore firebaseFirestore;
     private List<OwnerProDisc_ModelClass> promotionList;
+    private List<BranchModel> branchModelList;
     private RecyclerView promotionsRecyclerView;
+    private RecyclerView custHomeTopLikesRecyclerview;
     private CustHomePage_Prodisc_Adapter promotionsAdapter;
+    private CustHome_RecommendedList_Adapter recommendedList_adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,13 +99,18 @@ public class HomeFragment extends Fragment {
 
 
         promotionList = new ArrayList<>();
-
-        // Initialize RecyclerView and adapter
         promotionsRecyclerView = rootView.findViewById(R.id.custHomePromotionsRecyclerview);
         promotionsAdapter = new CustHomePage_Prodisc_Adapter(promotionList);
         promotionsRecyclerView.setAdapter(promotionsAdapter);
-
         retrievePromotions();
+
+        branchModelList = new ArrayList<>();
+        custHomeTopLikesRecyclerview = rootView.findViewById(R.id.custHomeTopLikesRecyclerview);
+        recommendedList_adapter = new CustHome_RecommendedList_Adapter(branchModelList);
+        custHomeTopLikesRecyclerview.setAdapter(recommendedList_adapter);
+        retrieveTopList();
+
+
 
         return rootView ;
     }
@@ -120,6 +131,30 @@ public class HomeFragment extends Fragment {
                 });
 
 
+    }
+
+    public void retrieveTopList(){
+        firebaseFirestore.collection("CospaceBranches").whereGreaterThan("Likes", 0) // Only retrieve documents with a "Likes" field
+                .orderBy("Likes", Query.Direction.DESCENDING)
+                .limit(10)// Sort in descending order based on "Likes"
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        branchModelList.clear();
+
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            BranchModel model = documentSnapshot.toObject(BranchModel.class);
+                            branchModelList.add(model);
+                        }
+
+                        for (int i = 0; i < branchModelList.size(); i++) {
+                            BranchModel model = branchModelList.get(i);
+                            int rankNo = i + 1;
+                            model.setRankNo(rankNo);
+                        }
+                        recommendedList_adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     public class CustHomePage_Prodisc_Adapter extends RecyclerView.Adapter<HomeFragment.CustHomePage_Prodisc_Adapter.ViewHolder>{
@@ -192,6 +227,73 @@ public class HomeFragment extends Fragment {
                 recPD_Image = itemView.findViewById(R.id.recPromotionImage);
                 recPD_Title = itemView.findViewById(R.id.recPromotionTitle);
                 recPD_Cardview = itemView.findViewById(R.id.recRDCardView);
+            }
+        }
+    }
+
+    public class CustHome_RecommendedList_Adapter extends  RecyclerView.Adapter<HomeFragment.CustHome_RecommendedList_Adapter.ViewHolder>{
+
+        private List<BranchModel> dataClassList;
+
+        public CustHome_RecommendedList_Adapter(List<BranchModel> dataClassList) {
+            this.dataClassList = dataClassList;
+        }
+
+        @NonNull
+        @Override
+        public CustHome_RecommendedList_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleritem_toplikedcws_cardview, parent, false);
+            return new CustHome_RecommendedList_Adapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CustHome_RecommendedList_Adapter.ViewHolder holder, int position) {
+
+            String branchImageUri = String.valueOf(dataClassList.get(position).getCospaceImage());
+            if (branchImageUri!=null && !branchImageUri.isEmpty()){
+                Picasso.get().load(branchImageUri).into(holder.branchImage);
+            }
+            holder.branchName.setText(dataClassList.get(position).getCospaceName());
+            String completeAddress = dataClassList.get(position).getCospaceStreetAddress() + " " + dataClassList.get(position).getCospaceCityAddress();
+            holder.branchAddress.setText(completeAddress);
+            holder.branchAddress.setVisibility(View.GONE);
+            String likesNo = String.valueOf(dataClassList.get(position).getLikes());
+            holder.likesNo.setText(likesNo);
+            holder.rankNo.setText(String.valueOf(dataClassList.get(position).getRankNo()));
+            holder.rankCardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int clickedPosition = holder.getAdapterPosition();
+                    Intent intent = new Intent(getContext(), CWS_ProfilePage.class);
+                    intent.putExtra("cospaceName", branchModelList.get(clickedPosition).getCospaceName());
+                    intent.putExtra("owner_id", branchModelList.get(clickedPosition).getOwner_id());
+                    startActivity(intent);
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return dataClassList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView rankNo, branchName, branchAddress, likesNo;
+            ImageView branchImage;
+            CardView rankCardview;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                rankNo = itemView.findViewById(R.id.rankNo_Textview);
+                branchImage = itemView.findViewById(R.id.rankCWSImage_Imageview);
+                branchName = itemView.findViewById(R.id.rankCWSName_Textview);
+                branchAddress = itemView.findViewById(R.id.rankCWSAddress_Textview);
+                likesNo = itemView.findViewById(R.id.rankCWSLikes_Texview);
+                rankCardview = itemView.findViewById(R.id.rankCardview);
+
             }
         }
     }

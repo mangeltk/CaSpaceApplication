@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -266,7 +267,7 @@ public class BookingsFragment extends Fragment {
             if (branchImageUri != null && !branchImageUri.isEmpty()){
                 Picasso.get().load(branchImageUri).into(holder.branchImage);
             }
-            holder.branchName.setText(dataClass.get(position).branchName);
+            holder.branchName.setText(dataClass.get(position).getBranchName());
             String layoutImageUri = String.valueOf(dataClass.get(position).getLayoutImage());
             if (layoutImageUri !=null && !layoutImageUri.isEmpty()){
                 Picasso.get().load(layoutImageUri).into(holder.layoutImage);
@@ -287,8 +288,9 @@ public class BookingsFragment extends Fragment {
                     View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                     ImageView branchImage, layoutImage, paymentImage;
-                    TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, startDate, endDate,
-                             startTime, endTime, totalHours, custFullname, orgName, custAddress, custPhoneNum, custEmail;
+                    TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum,
+                            startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths, totalYears,
+                            custFullname, orgName, custAddress, custPhoneNum, custEmail;
 
                     AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
 
@@ -310,6 +312,10 @@ public class BookingsFragment extends Fragment {
                     startTime = dialogView.findViewById(R.id.seemoreStartTime_Textview);
                     endTime = dialogView.findViewById(R.id.seemoreEndTime_Textview);
                     totalHours = dialogView.findViewById(R.id.seemoreTotalHours_Textview);
+                    totalDays = dialogView.findViewById(R.id.seemoreTotalDays_Textview);
+                    totalWeeks = dialogView.findViewById(R.id.seemoreTotalWeeks_Textview);
+                    totalMonths = dialogView.findViewById(R.id.seemoreTotalMonths_Textview);
+                    totalYears = dialogView.findViewById(R.id.seemoreTotalYears_Textview);
                     custFullname = dialogView.findViewById(R.id.seemoreCustFullname_Textview);
                     orgName = dialogView.findViewById(R.id.seemoreCustOrgName_Textview);
                     custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
@@ -333,6 +339,8 @@ public class BookingsFragment extends Fragment {
                     }
                     if (!paymentImageUri.isEmpty() && paymentImageUri!=null){
                         Picasso.get().load(paymentImageUri).into(paymentImage);
+                    }else{
+
                     }
 
                     branchName.setText(model.getBranchName());
@@ -348,6 +356,10 @@ public class BookingsFragment extends Fragment {
                     startTime.setText(model.getBookingStartTime());
                     endTime.setText(model.getBookingEndTime());
                     totalHours.setText(model.getTotalHours());
+                    totalDays.setText(model.getTotalDays());
+                    totalWeeks.setText(model.getTotalWeeks());
+                    totalMonths.setText(model.getTotalMonths());
+                    totalYears.setText(model.getTotalYears());
                     custFullname.setText(model.getCustomerFullname());
                     orgName.setText(model.getOrganizationName());
                     custAddress.setText(model.getCustomerAddress());
@@ -371,27 +383,29 @@ public class BookingsFragment extends Fragment {
                     acceptButton.setVisibility(View.GONE);
                     completeButton.setVisibility(View.GONE);
 
-                    cancelButton.setText("Cancel Booking");
-                    cancelButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                            builder1.setTitle("Cancel confirmation");
-                            builder1.setMessage("Are you sure you want to cancel this booking?");
-                            builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
-                                    queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                                    documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
-                                            }
-                                            Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-                                            displayAllBookings();
+                    if (bookingStatus.getText().toString().equals("Pending")){
+                        cancelButton.setVisibility(View.VISIBLE);
+                        cancelButton.setText("Cancel Booking");
+                        cancelButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                                builder1.setTitle("Cancel confirmation");
+                                builder1.setMessage("Are you sure you want to cancel this booking?");
+                                builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
+                                        queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+                                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                                        documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
+                                                }
+                                                Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                                displayAllBookings();
 
                                             String customerName= custFullname.getText().toString();
                                             String spaceName = layoutName.getText().toString();
@@ -434,8 +448,6 @@ public class BookingsFragment extends Fragment {
                                                             Log.w(TAG, "Error adding notification", e);
                                                         }
                                                     });
-
-                                            customerUserActivity(spaceName,branchName.getText().toString());
                                         }
                                     });
                                 }
@@ -446,10 +458,13 @@ public class BookingsFragment extends Fragment {
                                 }
                             });
 
-                            AlertDialog dialog1 = builder1.create();
-                            dialog1.show();
-                        }
-                    });
+                                AlertDialog dialog1 = builder1.create();
+                                dialog1.show();
+                            }
+                        });
+                    }else{
+                        cancelButton.setVisibility(View.GONE);
+                    }
 
                 }
             });

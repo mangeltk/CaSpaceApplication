@@ -1,22 +1,20 @@
 package com.example.caspaceapplication.customer.BookingTransactionManagement;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.util.Log;
-import com.example.caspaceapplication.Notification.FCMSend;
 import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,8 +33,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
@@ -59,14 +57,9 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -112,12 +105,12 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     ImageView CustProofOfPaymentImageviewUpload;
     AppCompatButton submitBooking;
 
-    String ownerId, branch_Image, branch_Name, layout_Image, layout_Name;
+    String ownerId, branch_Image, branch_Name, layout_Image, layout_Name, ProofOfPaymentImageUri;
 
     TextView selectedStartDate, selectedEndDate, selectedStartTime, selectedEndTime,
             totalResultHours, totalResultDays, totalResultWeeks, totalResultMonths,
             totalResultYears, totalCalculatedFee, totalHoursTitle, totalDaysTitle, totalWeeksTitle,
-            totalMonthsTitle, totalYearsTitle;
+            totalMonthsTitle, totalYearsTitle, ProofOfPaymentTitle;
 
     AppCompatButton selectStartDateButton, selectedEndDateButton, selectStartTime, selectEndTime;
     ProgressDialog progressDialog;
@@ -184,12 +177,19 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         totalResultMonths = findViewById(R.id.totalMonths_Textview);
         totalResultYears = findViewById(R.id.totalYears_Textview);
         totalCalculatedFee = findViewById(R.id.totalPayment);
+        ProofOfPaymentTitle = findViewById(R.id.ProofOfPaymentTitle_Textview);
 
+        /*ProofOfPaymentTitle.setVisibility(View.GONE);
+        CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
+        CustProofOfPaymentImageviewUpload.setVisibility(View.GONE);*/
         payOnsiteRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedPaymentOption = payOnsiteRadioButton.getText().toString();
                 Toast.makeText(Cust_BookingTransaction.this, "option is " + selectedPaymentOption, Toast.LENGTH_SHORT).show();
+                ProofOfPaymentTitle.setVisibility(View.GONE);
+                CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
+                CustProofOfPaymentImageviewUpload.setVisibility(View.GONE);
             }
         });
         payOtherOptionRadioButton.setOnClickListener(new View.OnClickListener() {
@@ -197,12 +197,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             public void onClick(View v) {
                 selectedPaymentOption = payOtherOptionRadioButton.getText().toString();
                 Toast.makeText(Cust_BookingTransaction.this, "option is " + selectedPaymentOption, Toast.LENGTH_SHORT).show();
-
+                ProofOfPaymentTitle.setVisibility(View.VISIBLE);
+                CustProofOfPaymentButtonUpload.setVisibility(View.VISIBLE);
+                CustProofOfPaymentImageviewUpload.setVisibility(View.VISIBLE);
             }
         });
 
         //Get customer's inputted details
-
          customerFullNameEditText = findViewById(R.id.customerFullName_EditText);
          organizationNameEditText = findViewById(R.id.organizationName_EditText);
          NoOfTenantsEditText = findViewById(R.id.NoOfTenants_EditText);
@@ -212,6 +213,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
          CustProofOfPaymentButtonUpload = findViewById(R.id.CustProofOfPayment_ButtonUpload);
          CustProofOfPaymentImageviewUpload = findViewById(R.id.CustProofOfPayment_ImageviewUpload);
          submitBooking = findViewById(R.id.SubmitBooking_Button);
+
+
 
         CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,8 +226,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         });
 
         bookingDetailsScrollview.setVisibility(View.GONE);
-
-        //initialize cardview below gone
         cardViewBelow.setVisibility(View.GONE);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +248,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         CustomerDetailsTitleLayout.setVisibility(View.GONE);
         CustomerDetailsLayout.setVisibility(View.GONE);
 
+        Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
+
         AllBranchesRef.whereEqualTo("owner_id", owner_id)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -266,6 +269,31 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             }
                             CustBTBranchLocationTextView.setText(StreetAddress + " " + cityAddress);
                             CustBTBranchContactInfoTextView.setText(contactInfo);
+
+                            Map<String, Object> data = documentSnapshot.getData(); // Retrieve the document data as a map
+                            Map<String, Map<String, Object>> hoursMap = (Map<String, Map<String, Object>>) data.get("hours"); // Retrieve the 'hours' map from the document data
+                            Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
+
+                            // Ensure the 'hoursMap' is not null before further processing
+                            if (hoursMap != null) {
+                                for (Map.Entry<String, Map<String, Object>> entry : hoursMap.entrySet()) {
+                                    String day = entry.getKey();
+                                    Map<String, Object> dayData = entry.getValue();
+
+                                    String openTime = (String) dayData.get("openTime");
+                                    String closeTime = (String) dayData.get("closeTime");
+                                    boolean isClosed = (boolean) dayData.get("closed");
+
+                                    BranchModel.OpeningHours openingHour = new BranchModel.OpeningHours(isClosed, openTime, closeTime);
+                                    openingHours.put(day, openingHour);
+
+                                    isBranchOpenForDate(selectedStartDate.getText().toString(), openingHours);
+
+                                }
+
+                            }
+
+
                         }
                     }
                 });
@@ -288,6 +316,17 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             String perWeek = documentSnapshot.getString("layoutWeeklyPrice");
                             String perMonth = documentSnapshot.getString("layoutMonthlyPrice");
                             String perYear = documentSnapshot.getString("layoutAnnualPrice");
+
+
+                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    seletedRateValueTextview.setText(perHour);
+                                    selectedRateTypeTextview.setText("Hourly rate");
+                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap, openingHours);
+                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
+                                }
+                            });
 
                             if (image != null || !image.isEmpty()){
                                 Picasso.get().load(image).into(CustBTLayoutImageImageView);
@@ -316,15 +355,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                             CustBTLayoutAreasizeTextView.setText(layoutAreasize + " sq. m.");
 
-                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    seletedRateValueTextview.setText(perHour);
-                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
-                                    selectedRateTypeTextview.setText("Hourly rate");
-                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
-                                }
-                            });
+
 
                             dailyRateRadioButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -352,6 +383,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perMonth);
                                     selectedRateTypeTextview.setText("Monthly rate");
+                                    MonthlyCalculation(perMonth, minPersonCap, maxPersonCap);
+                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
                                 }
                             });
 
@@ -360,6 +393,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perYear);
                                     selectedRateTypeTextview.setText("Annual rate");
+                                    YearlyCalculation(perYear, minPersonCap, maxPersonCap);
+                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
                                 }
                             });
 
@@ -369,35 +404,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 });
 
 
-    }
-
-    public static boolean isStoreOpen(BranchModel branchModel, LocalDateTime bookingStartDateTime, LocalDateTime bookingEndDateTime) {
-        // Get the opening hours for the store on the selected booking start date
-        LocalDate bookingStartDate = bookingStartDateTime.toLocalDate();
-        String bookingStartDayOfWeek = bookingStartDate.getDayOfWeek().name().toLowerCase();
-        BranchModel.OpeningHours openingHours = branchModel.getOpeningHours().get(bookingStartDayOfWeek);
-
-        // Check if the store is closed on the selected booking start date
-        if (openingHours.isClosed()) {
-            return false;
-        }
-
-        // Parse the opening and closing times for the store on the selected booking start date
-        LocalTime openingTime = LocalTime.parse(openingHours.getOpenTime());
-        LocalTime closingTime = LocalTime.parse(openingHours.getCloseTime());
-
-        // Check if the booking start time is before the store opens or after it closes
-        if (bookingStartDateTime.toLocalTime().isBefore(openingTime) || bookingStartDateTime.toLocalTime().isAfter(closingTime)) {
-            return false;
-        }
-
-        // Check if the booking end time is before the store opens or after it closes
-        if (bookingEndDateTime.toLocalTime().isBefore(openingTime) || bookingEndDateTime.toLocalTime().isAfter(closingTime)) {
-            return false;
-        }
-
-        // If none of the above conditions are true, the store is open during the booking period
-        return true;
     }
 
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -415,12 +421,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // Set the selected date to the button's text
-                        //TextView selectedStartDate = findViewById(R.id.selectedStartDate_Textview);
                         date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
-                        /*TextView selectedEndDate = findViewById(R.id.selectedEndDate_Textview);
-                        date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);*/
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
@@ -511,7 +512,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         String custEmail = CustEmailEdittext.getText().toString();
         String custAddress = CustAddressEdittext.getText().toString();
 
-        if (filepath!=null && selectedPaymentOption != null && !custFullname.isEmpty() && !custOrganizationName.isEmpty() &&
+        if (selectedPaymentOption != null && !custFullname.isEmpty() && !custOrganizationName.isEmpty() &&
                 !noOfTenants.isEmpty() && !custPhoneNum.isEmpty() && !custEmail.isEmpty() && !custAddress.isEmpty()){
             Toast.makeText(Cust_BookingTransaction.this, "Please check and review all the details", Toast.LENGTH_SHORT).show();
 
@@ -540,9 +541,15 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             phoneNum = (TextView) custReviewDetails.findViewById(R.id.CustPhoneNumber_Textview);
             email = (TextView) custReviewDetails.findViewById(R.id.CustEmail_Textview);
             address = (TextView) custReviewDetails.findViewById(R.id.CustAddress_Textview);
+            TextView CustProofOfPaymentTitle = (TextView) custReviewDetails.findViewById(R.id.CustProofOfPaymentTitle_Textview);
             ImageView paymentPic = (ImageView) custReviewDetails.findViewById(R.id.CustProofOfPayment_Imageview);
             AppCompatButton confirmButton = (AppCompatButton) custReviewDetails.findViewById(R.id.confirmBooking_ButtonPopup);
             AppCompatButton cancelButton = (AppCompatButton) custReviewDetails.findViewById(R.id.cancelBooking_ButtonPopup);
+
+            if (selectedPaymentOption.equals("Onsite")){
+                CustProofOfPaymentTitle.setVisibility(View.GONE);
+                paymentPic.setVisibility(View.GONE);
+            }
 
             rateType.setText(selectedRateTypeTextview.getText());
             rateValue.setText(seletedRateValueTextview.getText().toString());
@@ -550,13 +557,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             bookEndDate.setText(selectedEndDate.getText().toString());
             startTime.setText(selectedStartTime.getText().toString());
             endTime.setText(selectedEndTime.getText().toString());
-            totalHours.setText(totalResultHours.getText().toString());
-            totalDays.setText(totalResultDays.getText().toString());
-            totalWeeks.setText(totalResultWeeks.getText().toString());
-            totalMonths.setText(totalResultMonths.getText().toString());
-            totalYears.setText(totalResultYears.getText().toString());
-            totalMonths.setText(totalResultMonths.getText().toString());
-            totalYears.setText(totalResultYears.getText().toString());
             paymentOption.setText(selectedPaymentOption);
             totalPay.setText(totalCalculatedFee.getText().toString());
             fullname.setText(customerFullNameEditText.getText().toString());
@@ -566,6 +566,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             email.setText(CustEmailEdittext.getText().toString());
             address.setText(CustAddressEdittext.getText().toString());
             paymentPic.setImageURI(filepath);
+            totalHours.setText(totalResultHours.getText().toString());
+            totalDays.setText(totalResultDays.getText().toString());
+            totalWeeks.setText(totalResultWeeks.getText().toString());
+            totalMonths.setText(totalResultMonths.getText().toString());
+            totalYears.setText(totalResultYears.getText().toString());
 
             dialogBuilder.setView(custReviewDetails);
             dialog = dialogBuilder.create();
@@ -584,7 +589,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 public void onClick(View v) {
                     progressDialog.show();
 
-                    FirebaseUser customerId = FirebaseAuth.getInstance().getCurrentUser();
                     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
                     StorageReference path = firebaseStorage.getReference().child("ProofOfPayment").child(filepath.getLastPathSegment());
                     path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -645,14 +649,12 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                                 }
                                                             });
                                                     progressDialog.dismiss();
-                                                    customerUserActivity();
+
                                                     Intent intent = new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     dialog.dismiss();
 
-
-                                                    //Send notification
                                                     String customerName= custFullname;
                                                     String spaceName = layout_Name;
                                                     LocalDateTime now = LocalDateTime.now();
@@ -711,33 +713,51 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         }
     }
 
-    public void customerUserActivity(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String customerId = firebaseAuth.getCurrentUser().getUid();
-        String spaceName = layout_Name;
-        String branchName= branch_Name;
-        String activity = "Booked "+spaceName+" from "+ branchName;
+    /*private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getExtras() != null) {
+                for (String key : intent.getExtras().keySet()) {
+                    Object value = intent.getExtras().get(key);
+                    Log.d(TAG, "Key: " + key + " Value: " + value);
+                }
+            }
+        }
+    };*/
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("customerId",customerId);
-        data.put("activity", activity);
-        data.put("dateTime", Timestamp.now());
+    /*public void onReceive(Context context, Intent intent) {
+        if (intent.getExtras() != null) {
+            boolean isForeground = isAppInForeground(context);
+            if (isForeground) {
+                // Show alert dialog
+                String title = intent.getExtras().getString("title");
+                String message = intent.getExtras().getString("message");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(title);
+                builder.setMessage(message);
+                builder.setPositiveButton("OK", null);
+                builder.create().show();
+            } else {
+                // Display notification in system tray
+                // ...
+            }
+        }
+    }*/
 
-        db.collection("CustomerActivity")
-                .add(data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "Activity Stored.");
-                    }
-                });
+    /*private boolean isAppInForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
+        if (!tasks.isEmpty()) {
+            String packageName = tasks.get(0).topActivity.getPackageName();
+            return packageName.equals(context.getPackageName());
+        }
+        return false;
+    }*/
 
 
-    }
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 
         clearInputs();
-
         getDateAndTime();
 
         selectedStartDate.addTextChangedListener(new TextWatcher() {
@@ -767,15 +787,25 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     }
                     long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
                     long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60;
-                    //Double total = (hours + ((double) minutes / 60.0)) * rate;
-                    Double total = hours * Double.parseDouble(perHour);
-                    if (total >= 0) {
-                        totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
+
+                    // Check if the branch is open for the selected start date and time
+                    boolean isBranchOpen = isBranchOpenForDate(startDateString, openingHours);
+
+                    if (isBranchOpen) {
+                        // Calculate the total fee based on the booking duration and perHour rate
+                        Double total = hours * Double.parseDouble(perHour);
+                        if (total >= 0) {
+                            totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
+                            totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
+                        } else {
+                            totalResultHours.setText("");
+                            totalCalculatedFee.setText("");
+                            Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         totalResultHours.setText("");
                         totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "The branch is closed for the selected date and time.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -794,7 +824,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -823,7 +853,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }*/
             }
 
             @Override
@@ -839,7 +869,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -868,7 +898,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }*/
             }
 
             @Override
@@ -882,7 +912,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -906,13 +936,20 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     if (total >= 0) {
                         totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
                         totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-
+                        totalResultDays.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                     } else {
                         totalResultHours.setText("");
+                        totalResultDays.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }*/
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -971,7 +1008,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
     }
 
-
     public void DailyCalculation(String perDay, int minPersonCap, int maxPersonCap){
 
         clearInputs();
@@ -1005,17 +1041,18 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     if (totalDays < 0){
                         totalResultDays.setText("");
                         totalResultHours.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }else{
-                        Double total = fee;
-                        if (totalDays > 0){
-                            Double hourlyRate = fee / 24;
-                            //total += hourlyRate * remainingHours;
-                        }
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        totalResultDays.setText(Long.toString(totalDays));
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
+                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
                         totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
             }
@@ -1054,17 +1091,18 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     if (totalDays < 0){
                         totalResultDays.setText("");
                         totalResultHours.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }else{
-                        Double total = fee;
-                        if (totalDays > 0){
-                            Double hourlyRate = fee / 24;
-                            //total += hourlyRate * remainingHours;
-                        }
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        totalResultDays.setText(Long.toString(totalDays));
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
+                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
                         totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
             }
@@ -1103,17 +1141,18 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     if (totalDays < 0){
                         totalResultDays.setText("");
                         totalResultHours.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }else{
-                        Double total = fee;
-                        if (totalDays > 0){
-                            Double hourlyRate = fee / 24;
-                            //total += hourlyRate * remainingHours;
-                        }
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        totalResultDays.setText(Long.toString(totalDays));
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
+                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
                         totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
             }
@@ -1152,17 +1191,18 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     if (totalDays < 0){
                         totalResultDays.setText("");
                         totalResultHours.setText("");
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }else{
-                        Double total = fee;
-                        if (totalDays > 0){
-                            Double hourlyRate = fee / 24;
-                            //total += hourlyRate * remainingHours;
-                        }
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        totalResultDays.setText(Long.toString(totalDays));
+                        totalResultWeeks.setText("");
+                        totalResultMonths.setText("");
+                        totalResultYears.setText("");
+                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
                         totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
             }
@@ -1224,6 +1264,13 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 startActivityForResult(intent,GALLERY_CODE);
             }
         });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
     }
 
     public void WeeklyCalculation(String perWeek, int minPersonCap, int maxPersonCap){
@@ -1266,8 +1313,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1316,8 +1362,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1366,8 +1411,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1416,8 +1460,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         int totalWeeks = (int) (totalDays / 7);
                         double totalFee = totalWeeks * feePerWeek;
 
-                        String calcFee = String.valueOf(totalFee);
-                        totalCalculatedFee.setText(calcFee);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
                         totalResultDays.setText("");
                         totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
                         totalResultHours.setText("");
@@ -1449,8 +1492,455 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
         });
 
+        NoOfTenantsEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString().trim();
+                if (!input.isEmpty()) {
+                    if (!TextUtils.isDigitsOnly(input)) {
+                        s.clear();
+                        NoOfTenantsEditText.setError("Please enter only numbers");
+                    } else {
+                        int numTenants = Integer.parseInt(input);
+                        if (numTenants > maxPersonCap || numTenants < 1) {
+                            s.clear();
+                            NoOfTenantsEditText.setError("Person capacity is at " + minPersonCap + " to " + maxPersonCap);
+                        }
+                    }
+                }
+            }
+        });
+
+        CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_CODE);
+            }
+        });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
 
     }
 
+    public void MonthlyCalculation(String perMonth, int minPersonCap, int maxPersonCap){
+
+        clearInputs();
+        getDateAndTime();
+
+        selectedStartDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                Date startDate = null;
+                Date endDate = null;
+                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
+                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                try {
+                    startDate = sdf.parse(startDateString);
+                    endDate = sdf.parse(endDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (startDate != null && endDate != null) {
+
+                    Calendar startCalendar = Calendar.getInstance();
+                    startCalendar.setTime(startDate);
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTime(endDate);
+
+                    int totalMonths = 0;
+                    while (startCalendar.before(endCalendar)) {
+                        startCalendar.add(Calendar.MONTH, 1);
+                        totalMonths++;
+                    }
+                    // Check if the selected dates reach a month
+                    if (totalMonths < 1) {
+                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
+                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        selectedEndDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                Date startDate = null;
+                Date endDate = null;
+                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
+                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                try {
+                    startDate = sdf.parse(startDateString);
+                    endDate = sdf.parse(endDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (startDate != null && endDate != null) {
+
+                    Calendar startCalendar = Calendar.getInstance();
+                    startCalendar.setTime(startDate);
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTime(endDate);
+
+                    int totalMonths = 0;
+                    while (startCalendar.before(endCalendar)) {
+                        startCalendar.add(Calendar.MONTH, 1);
+                        totalMonths++;
+                    }
+                    // Check if the selected dates reach a month
+                    if (totalMonths < 1) {
+                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
+                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        selectedStartTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                Date startDate = null;
+                Date endDate = null;
+                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
+                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                try {
+                    startDate = sdf.parse(startDateString);
+                    endDate = sdf.parse(endDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (startDate != null && endDate != null) {
+
+                    Calendar startCalendar = Calendar.getInstance();
+                    startCalendar.setTime(startDate);
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTime(endDate);
+
+                    int totalMonths = 0;
+                    while (startCalendar.before(endCalendar)) {
+                        startCalendar.add(Calendar.MONTH, 1);
+                        totalMonths++;
+                    }
+                    // Check if the selected dates reach a month
+                    if (totalMonths < 1) {
+                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
+                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        selectedEndTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                Date startDate = null;
+                Date endDate = null;
+                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
+                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                try {
+                    startDate = sdf.parse(startDateString);
+                    endDate = sdf.parse(endDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (startDate != null && endDate != null) {
+
+                    Calendar startCalendar = Calendar.getInstance();
+                    startCalendar.setTime(startDate);
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTime(endDate);
+
+                    int totalMonths = 0;
+                    while (startCalendar.before(endCalendar)) {
+                        startCalendar.add(Calendar.MONTH, 1);
+                        totalMonths++;
+                    }
+                    // Check if the selected dates reach a month
+                    if (totalMonths < 1) {
+                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
+                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        totalCalculatedFee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomerDetailsTitleLayout.setVisibility(View.VISIBLE);
+                CustomerDetailsLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        NoOfTenantsEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString().trim();
+                if (!input.isEmpty()) {
+                    if (!TextUtils.isDigitsOnly(input)) {
+                        s.clear();
+                        NoOfTenantsEditText.setError("Please enter only numbers");
+                    } else {
+                        int numTenants = Integer.parseInt(input);
+                        if (numTenants > maxPersonCap || numTenants < 1) {
+                            s.clear();
+                            NoOfTenantsEditText.setError("Person capacity is at " + minPersonCap + " to " + maxPersonCap);
+                        }
+                    }
+                }
+            }
+        });
+
+        CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_CODE);
+            }
+        });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
+    }
+
+    public void YearlyCalculation(String perYear, int minPersonCap, int maxPersonCap){
+        clearInputs();
+        selectStartDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the current year, month, and day
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Cust_BookingTransaction.this,
+                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+                                selectedStartDate.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear);
+                            }
+                        }, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setCalendarViewShown(false);
+                datePickerDialog.show();
+            }
+        });
+
+        selectedEndDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Cust_BookingTransaction.this,
+                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+                                selectedEndDate.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear);
+                            }
+                        }, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setCalendarViewShown(false);
+                datePickerDialog.show();
+            }
+        });
+
+
+        selectedEndDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.getDefault());
+                Date startDate = null;
+                Date endDate = null;
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
+                try {
+                    startDate = sdf.parse(startDateString);
+                    endDate = sdf.parse(endDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (startDate != null && endDate != null) {
+                    Calendar startCalendar = Calendar.getInstance();
+                    startCalendar.setTime(startDate);
+                    Calendar endCalendar = Calendar.getInstance();
+                    endCalendar.setTime(endDate);
+
+                    int startYear = startCalendar.get(Calendar.YEAR);
+                    int endYear = endCalendar.get(Calendar.YEAR);
+                    int totalYears = endYear - startYear;
+
+                    if (totalYears <= 1) {
+                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a year", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double bookingFee = totalYears * Double.parseDouble(perYear);
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
+                        totalResultYears.setText(Integer.toString(totalYears) + " year" + (totalYears > 1 ? "s" : ""));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        totalCalculatedFee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomerDetailsTitleLayout.setVisibility(View.VISIBLE);
+                CustomerDetailsLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        NoOfTenantsEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString().trim();
+                if (!input.isEmpty()) {
+                    if (!TextUtils.isDigitsOnly(input)) {
+                        s.clear();
+                        NoOfTenantsEditText.setError("Please enter only numbers");
+                    } else {
+                        int numTenants = Integer.parseInt(input);
+                        if (numTenants > maxPersonCap || numTenants < 1) {
+                            s.clear();
+                            NoOfTenantsEditText.setError("Person capacity is at " + minPersonCap + " to " + maxPersonCap);
+                        }
+                    }
+                }
+            }
+        });
+
+        CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_CODE);
+            }
+        });
+
+        submitBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store();
+            }
+        });
+    }
 
 }

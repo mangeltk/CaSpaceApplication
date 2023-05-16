@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingDetails_ModelClass;
+import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;

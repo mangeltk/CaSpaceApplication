@@ -5,14 +5,13 @@
     android:id="@+id/customerViewProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profilebg"
+    android:background="@color/white"
     tools:context=".fragments.CustomerProfileFragment">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/card_border_bottom"
         tools:context=".ProfileActivity">
 
         <ImageView
@@ -20,57 +19,59 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="84dp"
-            android:src="@drawable/profilephoto"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.723"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/uploadImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="84dp"
             android:src="@drawable/uploadphoto"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintHorizontal_bias="0.713"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.063" />
+            app:layout_constraintVertical_bias="0.037" />
 
         <TextView
-            android:id="@+id/titleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_medium"
-            android:text="Name"
+            android:text="Select image to change"
+            android:textColor="@color/dialog_color2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.731"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImg"
+            app:layout_constraintVertical_bias="0.01" />
+
+        <TextView
+            android:id="@+id/titleFirstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="FirstName"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/profileImg"
-            app:layout_constraintHorizontal_bias="0.61"
+            app:layout_constraintHorizontal_bias="0.626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.165"
+            app:layout_constraintVertical_bias="0.156"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/titleUsername"
+            android:id="@+id/titleLastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_medium"
-            android:text="username"
+            android:text="Lastname"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/titleName"
+            app:layout_constraintEnd_toEndOf="@id/titleFirstname"
             app:layout_constraintHorizontal_bias="0.37"
-            app:layout_constraintStart_toStartOf="@id/titleName"
-            app:layout_constraintTop_toBottomOf="@id/titleName"
+            app:layout_constraintStart_toStartOf="@id/titleFirstname"
+            app:layout_constraintTop_toBottomOf="@id/titleFirstname"
             app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
@@ -85,10 +86,10 @@
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleUsername"
-            app:layout_constraintVertical_bias="0.107">
+            app:layout_constraintTop_toBottomOf="@id/titleLastname"
+            app:layout_constraintVertical_bias="0.138">
 
 
             <LinearLayout
@@ -112,7 +113,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customerFirstname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,7 +146,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customerLastname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,7 +179,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customerEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,7 +211,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customerOrganization"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -242,7 +243,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customerPopulation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -257,65 +258,76 @@
             </LinearLayout>
 
 
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/customer_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Password"
-                    android:textColor="@color/orange1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/customerPassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="password"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>-->
-
         </LinearLayout>
-
-        <Button
-            android:id="@+id/customerEditProfileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.123"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.875" />
 
         <Button
             android:id="@+id/customerDeleteProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete Profile"
+            android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.826"
+            app:layout_constraintHorizontal_bias="0.921"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.875" />
+            app:layout_constraintVertical_bias="0.778" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/seeMyHistoryTransactions_AppCompatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/coworkingspaces_search_bar"
+            android:backgroundTint="@color/orange13"
+            android:drawableStart="@drawable/icons_booking"
+            android:padding="10dp"
+            android:text="My History Transactions"
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.876"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.914" />
+
+        <Button
+            android:id="@+id/customerEditProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.927"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.714" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/seeMyFavorites_AppCompatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/coworkingspaces_search_bar"
+            android:backgroundTint="@color/orange13"
+            android:drawableStart="@drawable/icons_red_heart48"
+            android:fontFamily="@font/quicksand_medium"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="My Favorites"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.848" />
 
         <Button
             android:id="@+id/customerSignOutButton"
@@ -325,10 +337,10 @@
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintHorizontal_bias="0.934"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.931" />
+            app:layout_constraintVertical_bias="0.029" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
