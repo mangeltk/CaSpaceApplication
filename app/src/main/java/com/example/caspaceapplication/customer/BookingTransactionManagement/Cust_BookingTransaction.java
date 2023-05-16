@@ -108,7 +108,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     AppCompatButton submitBooking;
 
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    String customerId = user.getUid();  
+    String customerId = user.getUid();
 
     String ownerId, branch_Image, branch_Name, layout_Image, layout_Name, ProofOfPaymentImageUri;
 
