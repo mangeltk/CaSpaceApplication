@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customer_recycler_cwshomepage"
+        android:orientation="vertical">
+
+
+        <!-- Header section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/header_background_forownerhomepage"
+            android:backgroundTint="@color/orange11"
+            android:orientation="vertical">
+
+            <!-- Feedback header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/icons8_feedbackpeople_48" />
+
+                <TextView
+                    android:id="@+id/PopupFeedbackTitle_Textview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:gravity="center"
+                    android:text="Leave Feedback"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/feedbackCloseButton_ImageButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/card_border_bottom"
+                    android:src="@drawable/ic_baseline_clear" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Feedback section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/feedbackMessageTitle_Textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Your feedback:"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/customerProfileImage_ShapeableImageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/recoone"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"/>
+
+                <EditText
+                    android:id="@+id/CustomerFeedbackMessage_Edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/coworkingspaces_search_bar"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:hint="Enter feedback here..."
+                    android:maxLines="5"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray" />
+
+            </GridLayout>
+
+
+            <TextView
+                android:id="@+id/ratingMessageTitle_Textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Rate your experience:"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/CustomerRating_RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/orange14"
+                android:progressTint="@color/dialog_color1"
+                android:rating="0"
+                android:stepSize="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/SubmitFeedback_AppCompatButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/buttonwhite_borderblack"
+                android:backgroundTint="@color/orange11"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="Submit"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

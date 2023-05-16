@@ -337,6 +337,8 @@ public class BookingsFragment extends Fragment {
                     }
                     if (!paymentImageUri.isEmpty() && paymentImageUri!=null){
                         Picasso.get().load(paymentImageUri).into(paymentImage);
+                    }else{
+
                     }
 
                     branchName.setText(model.getBranchName());
