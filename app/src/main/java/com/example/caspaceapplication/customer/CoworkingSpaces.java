@@ -94,7 +94,13 @@ public class CoworkingSpaces extends AppCompatActivity {
 
     public void retrieveCoworkingSpaces(){
         // Retrieve promotions from Firestore
+
+        //String tbi = "Technology Business Incubation Program (TBI)";
+        //String fblb = "Fabrication Laboratory (Fab lab)";
+
         firebaseFirestore.collection("CospaceBranches")
+                //.whereEqualTo("cospaceCategory", tbi)
+                //.whereEqualTo("cospaaceCategory", fblb)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
