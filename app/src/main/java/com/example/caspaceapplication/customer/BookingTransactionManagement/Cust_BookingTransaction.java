@@ -107,6 +107,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     ImageView CustProofOfPaymentImageviewUpload;
     AppCompatButton submitBooking;
 
+    FirebaseUser user = firebaseAuth.getCurrentUser();
+    String customerId = user.getUid();  
+
     String ownerId, branch_Image, branch_Name, layout_Image, layout_Name, ProofOfPaymentImageUri;
 
     TextView selectedStartDate, selectedEndDate, selectedStartTime, selectedEndTime,
@@ -291,7 +294,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                     BranchModel.OpeningHours openingHour = new BranchModel.OpeningHours(isClosed, openTime, closeTime);
                                     openingHours.put(day, openingHour);
 
-                                    isBranchOpenForDate(selectedStartDate.getText().toString(), openingHours);
+                                   // isBranchOpenForDate(selectedStartDate.getText().toString(), openingHours);
 
                                 }
 
@@ -327,7 +330,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perHour);
                                     selectedRateTypeTextview.setText("Hourly rate");
-                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap, openingHours);
+                                   // HourlyCalculation(perHour, minPersonCap, maxPersonCap, openingHours);
                                     bookingDetailsScrollview.setVisibility(View.VISIBLE);
                                 }
                             });
@@ -611,7 +614,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Map<String,String> bookingDetails = new HashMap<>();
-                                    bookingDetails.put("customerId",customerId.getUid());
+                                    bookingDetails.put("customerId",customerId);
                                     bookingDetails.put("ownerId", ownerId);
                                     bookingDetails.put("bookingId", "");
                                     bookingDetails.put("rateType", rateType.getText().toString());
@@ -760,7 +763,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60;
 
                     // Check if the branch is open for the selected start date and time
-                    boolean isBranchOpen = isBranchOpenForDate(startDateString, openingHours);
+                   /* boolean isBranchOpen = isBranchOpenForDate(startDateString, openingHours);
 
                     if (isBranchOpen) {
                         // Calculate the total fee based on the booking duration and perHour rate
@@ -777,7 +780,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalResultHours.setText("");
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "The branch is closed for the selected date and time.", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
                 }
             }
 
