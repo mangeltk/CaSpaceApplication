@@ -160,6 +160,7 @@ public class LoginOwner extends AppCompatActivity {
                             progressDialog.show();
                             checkExistingBranch();
                             updateOwnerFCMToken();
+                            ownerUserActivity();
                         } else {
                             progressDialog.cancel();
                             Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
