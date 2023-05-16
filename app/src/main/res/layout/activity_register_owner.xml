@@ -8,7 +8,7 @@
     android:overScrollMode="never"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
-    android:background="@drawable/signup"
+    android:background="@color/primary"
     tools:context=".Owner.RegisterOwner">
 
 
@@ -24,7 +24,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Create New Account"
             android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/white"
             android:textSize="@dimen/_17ssp"
             android:textStyle="bold"/>
 
@@ -47,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Add image"
-                android:fontFamily="@font/montserrat_light"
+                android:drawableTint="@color/gray"
+                android:drawableLeft="@drawable/uploadpic"
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -64,7 +64,7 @@
             android:padding="8dp"
             android:paddingStart="95dp"
             android:text="Owner"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold" />
 
@@ -211,6 +211,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:text="Sign Up"
+                android:backgroundTint="@color/orange1"
                 android:textColor="@color/white"
                 android:fontFamily="@font/montserrat_light"
                 android:textSize="@dimen/_13ssp"
@@ -232,7 +233,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Log In"
-            android:textColor="@color/primary"
+            android:textColor="@color/white"
             android:fontFamily="@font/montserrat_light"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
@@ -244,8 +245,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_80sdp"
-                android:src="@drawable/logocaspace">
+                android:layout_marginTop="@dimen/_70sdp"
+                android:src="@drawable/logodark">
             </androidx.appcompat.widget.AppCompatImageView>
         </FrameLayout>
 

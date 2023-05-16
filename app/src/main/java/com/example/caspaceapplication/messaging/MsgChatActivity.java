@@ -1,14 +1,22 @@
 package com.example.caspaceapplication.messaging;
 
+import static android.content.ContentValues.TAG;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.caspaceapplication.Notification.FCMSend;
+import com.example.caspaceapplication.customer.BookingTransactionManagement.Cust_BookingTransaction;
 import com.example.caspaceapplication.databinding.ActivityMsgChatBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,17 +24,26 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MsgChatActivity extends MsgBaseActivity {
 
@@ -56,7 +73,7 @@ public class MsgChatActivity extends MsgBaseActivity {
     {
         preferenceManager = new PreferenceManager(getApplicationContext());
         chatMessages = new ArrayList<>();
-        chatAdapter = new MsgChatAdapter(chatMessages, getBitmapFromEncodedString(receiverUser.userImage),
+        chatAdapter = new MsgChatAdapter(chatMessages, (receiverUser.userImage),
                 preferenceManager.getString(Constants.KEY_COMBINED_ID));
 
         binding.chatRecyclerView.setAdapter(chatAdapter);
@@ -104,7 +121,7 @@ public class MsgChatActivity extends MsgBaseActivity {
                 body.put(Constants.REMOTE_MSG_DATA, data);
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
-                //sendNotification(body.toString());
+                sendNotification(body.toString());
             }
             catch(Exception exception)
             {
@@ -190,7 +207,8 @@ public class MsgChatActivity extends MsgBaseActivity {
                         if(receiverUser.userImage == null)
                         {
                             receiverUser.userImage = value.getString(Constants.KEY_COMBINED_IMAGE);
-                            chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.userImage));
+                            chatAdapter.setReceiverProfileImage(receiverUser.userImage);
+                            //chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.userImage));
                             chatAdapter.notifyItemRangeChanged(0, chatMessages.size());
                         }
                     }
@@ -211,7 +229,7 @@ public class MsgChatActivity extends MsgBaseActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private Bitmap getBitmapFromEncodedString(String encodedImage)
+    /*private Bitmap getBitmapFromEncodedString(String encodedImage)
     {
         if(encodedImage != null) {
             byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -222,7 +240,7 @@ public class MsgChatActivity extends MsgBaseActivity {
             return null;
         }
     }
-
+*/
     private void loadReceiverDetails()
     {
         receiverUser = (UserMdl) getIntent().getSerializableExtra(Constants.KEY_USER);
@@ -282,6 +300,93 @@ public class MsgChatActivity extends MsgBaseActivity {
             conversationId = documentSnapshot.getId();
         }
     };
+
+    /*private void sendNotification()
+    {
+        String customerName= ;
+        String spaceName = layout_Name;
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateTimeString = now.format(formatter);
+        String title = "Booking Notification: "+dateTimeString;
+        String message = "\n"+customerName + " booked "+spaceName +".";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("OwnerUserAccounts").document(ownerId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                    FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting FCM token for owner", e);
+                });
+        CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+        // Create a new notification document with a randomly generated ID
+        DocumentReference newNotificationRef = notificationsRef.document();
+        String newNotificationId = newNotificationRef.getId();
+        // Add the notification document to the "Notifications" collection
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("notificationId", newNotificationId);
+        notification.put("title", title);
+        notification.put("message", message);
+        notification.put("ownerId", ownerId);
+        notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+        newNotificationRef.set(notification)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding notification", e);
+                    }
+                });
+    }*/
+
+    private void sendNotification(String messageBody)
+    {
+        ApiClient.getClient().create(ApiService.class).sendMessage(
+                        Constants.getRemoteMsgHeaders(), messageBody)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(@org.checkerframework.checker.nullness.qual.NonNull Call<String> call, @org.checkerframework.checker.nullness.qual.NonNull Response<String> response) {
+                        if(response.isSuccessful())
+                        {
+                            try{
+                                if(response.body() !=null )
+                                {
+                                    JSONObject responseJson = new JSONObject(response.body());
+                                    JSONArray results = responseJson.getJSONArray("results");
+                                    if(responseJson.getInt("failure") == 1)
+                                    {
+                                        JSONObject error = (JSONObject) results.get(0);
+                                        showToast(error.getString("error"));
+                                        return;
+                                    }
+                                }
+                            }
+                            catch (JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            //showToast("Notification sent successfully");
+                        }
+                        else
+                        {
+                            showToast("Error: " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<String> call, Throwable t) {
+                        showToast(t.getMessage());
+                    }
+                });
+
+    }
 
     @Override
     protected void onResume() {

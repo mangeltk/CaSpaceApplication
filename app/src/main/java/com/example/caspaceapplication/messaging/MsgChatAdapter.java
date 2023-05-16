@@ -9,29 +9,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.databinding.MessagingItemContainerReceivedMessageBinding;
 import com.example.caspaceapplication.databinding.MessagingItemContainerSentMessageBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final List<ChatMessage> chatMessages;
-    private Bitmap receiverProfileImage;
+    private String receiverProfileImage;
     private final String senderId;
 
     public static final int VIEW_TYPE_SENT = 1;
     public static final int VIEW_TYPE_RECEIVED = 2;
 
-    public MsgChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderId) {
+    public MsgChatAdapter(List<ChatMessage> chatMessages, String receiverProfileImage, String senderId) {
         this.chatMessages = chatMessages;
         this.receiverProfileImage = receiverProfileImage;
         this.senderId = senderId;
     }
 
-    public void setReceiverProfileImage(Bitmap bitmap)
-    {
-        receiverProfileImage = bitmap;
+    public String getReceiverProfileImage() {
+        return receiverProfileImage;
     }
 
+    public void setReceiverProfileImage(String receiverProfileImage) {
+        this.receiverProfileImage = receiverProfileImage;
+    }
 
     @NonNull
     @Override
@@ -102,13 +105,13 @@ public class MsgChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             binding = messagingItemContainerReceivedMessageBinding;
         }
 
-        void setData(ChatMessage chatMessage, Bitmap receiverProfileImage)
+        void setData(ChatMessage chatMessage, String receiverProfileImage)
         {
             binding.textMessage.setText(chatMessage.message);
             binding.textDateTime.setText(chatMessage.dateTime);
             if(receiverProfileImage != null)
             {
-                binding.imageProfile.setImageBitmap(receiverProfileImage);
+                Picasso.get().load(receiverProfileImage).into(binding.imageProfile);
             }
         }
     }

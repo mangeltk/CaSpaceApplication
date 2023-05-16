@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.databinding.MessagingItemContainerRecentConversationBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -53,7 +54,11 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
         }
         void setData(ChatMessage chatMessage)
         {
-            binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
+            //binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
+            String imageProfileUri = chatMessage.conversationImage;
+            if (imageProfileUri!=null){
+                Picasso.get().load(imageProfileUri).into(binding.imageProfile);
+            }
             binding.textFirstName.setText(chatMessage.conversationName);
             binding.textRecentMessage.setText(chatMessage.message);
             binding.getRoot().setOnClickListener(v ->

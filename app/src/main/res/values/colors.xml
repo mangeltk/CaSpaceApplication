@@ -55,6 +55,8 @@
         <color name="colorError">#CC0000</color>
         <color name="colorTextPrimary">#212121</color>
 
+    <color name="cream">#fee4cb</color>
+
     <color name="underline">#D8D6D6</color>
 
     <color name="dialog_color1">#dc6601</color>

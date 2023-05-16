@@ -19,25 +19,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.caspaceapplication.Owner.LoginOwner;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
-import com.example.caspaceapplication.messaging.utilities.Constants;
-import com.example.caspaceapplication.messaging.utilities.PreferenceManager;
+import com.example.caspaceapplication.messaging.Constants;
+import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Map;
 
 public class LoginCustomerTrial extends AppCompatActivity  {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     TextView forgotPassword;
     private EditText customerEmail, customerPassword;
@@ -76,6 +82,9 @@ public class LoginCustomerTrial extends AppCompatActivity  {
 
     private void setListeners()
     {
+        binding.textCreateNewAccount.setOnClickListener(v -> {
+            startActivity(new Intent(LoginCustomerTrial.this, FrontRegister.class));
+        });
         //when the user clicks the sign in button for customer
         binding.loginButtonCustomer.setOnClickListener( v ->
         {
@@ -130,9 +139,29 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                             progressDialog.setMessage("Logging in...");
                             progressDialog.show();
 
-                            signIn();
-                            Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                            updateCustomerFCMToken();
+                            firebaseFirestore.collection("UserAccounts").document(user.getUid())
+                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if (documentSnapshot.exists()){
+                                                String userRole = documentSnapshot.getString("userType");
+
+                                                if (userRole.equals("Customer")){
+                                                    signIn();
+                                                    Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                                                    updateCustomerFCMToken();
+                                                }else {
+                                                    Toast.makeText(LoginCustomerTrial.this, "No customer registered on this account credentials.", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(getApplicationContext(), LoginCustomerTrial.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                }
+
+                                            }
+                                        }
+                                    });
+
+
                         }
                         else {
                             user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -163,7 +192,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
 
     private void signIn()
     {
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection(Constants.KEY_COMBINED_COLLECTION)
 
                 .get()
@@ -172,18 +201,57 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                     if(task.isSuccessful() && task.getResult() != null
                             && task.getResult().getDocuments().size() > 0)
                     {
+
                         DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
                         preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
                         preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
                         preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
+                        //Toast.makeText(this, "Firstname"+documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
 
-                });
+                });*/
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            // User is logged in
+            String uid = user.getUid();
+
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference documentRef = db.collection(Constants.KEY_COMBINED_COLLECTION).document(uid);
+
+            // Retrieve a specific column (field) from the document
+            documentRef.get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            // The document exists
+                            // Retrieve the specific column (field)
+                            preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                            preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
+                            preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
+                            //preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
+                            preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
+                            Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            // The document does not exist
+                            System.out.println("Document does not exist.");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Error retrieving the document
+                        // Handle the error appropriately
+                    }
+                    );
+        }
     }
 
     private void loading(Boolean isLoading)

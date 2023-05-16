@@ -16,6 +16,8 @@ public class Constants {
     public static final String KEY_SENDER_ID = "senderId";
     public static final String KEY_RECEIVER_ID = "receiverId";
     public static final String KEY_NAME = "firstName";
+    public static final String KEY_BRANCH_NAME = "branchName";
+    public static final String KEY_BRANCH_IMAGE = "branchImage";
 
     public static final String KEY_FCM_TOKEN = "fcmToken";
     public static final String KEY_USER = "user";
@@ -25,8 +27,8 @@ public class Constants {
     //for cospace branches
     public static final String KEY_COLLECTION_BRANCH = "CospaceBranches";
     public static final String KEY_BRANCH_CITY_ADDRESS = "cospaceCityAddress";
-    public static final String KEY_BRANCH_NAME = "cospaceName";
-    public static final String KEY_BRANCH_IMAGE = "cospaceImage";
+    //public static final String KEY_BRANCH_NAME = "cospaceName";
+    //public static final String KEY_BRANCH_IMAGE = "cospaceImage";
 
     //for owners
     public static final String KEY_COLLECTION_OWNER = "OwnerUserAccounts";

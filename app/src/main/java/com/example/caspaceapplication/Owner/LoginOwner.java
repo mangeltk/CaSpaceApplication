@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
+import com.example.caspaceapplication.customer.FrontRegister;
+import com.example.caspaceapplication.customer.LoginCustomerTrial;
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
 import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
 import com.example.caspaceapplication.messaging.Constants;
@@ -81,6 +83,10 @@ public class LoginOwner extends AppCompatActivity {
 
     private void setListeners()
     {
+
+        binding.textCreateNewAccount.setOnClickListener(v -> {
+            startActivity(new Intent(LoginOwner.this, FrontRegister.class));
+        });
         //when the user clicks the sign in button for customer
         binding.loginButtonOwner.setOnClickListener( v ->
         {
@@ -154,9 +160,30 @@ public class LoginOwner extends AppCompatActivity {
                                     if (user.isEmailVerified()) {
                                         progressDialog.setMessage("Logging in...");
                                         progressDialog.show();
-                                        signIn();
-                                        checkExistingBranch();
-                                        updateOwnerFCMToken();
+
+
+
+                                        firebaseFirestore.collection("UserAccounts").document(user.getUid())
+                                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        if (documentSnapshot.exists()){
+                                                            String userRole = documentSnapshot.getString("userType");
+
+                                                            if (userRole.equals("Owner")){
+                                                                signIn();
+                                                                Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                                                                updateOwnerFCMToken();
+                                                            }else {
+                                                                Toast.makeText(LoginOwner.this, "No owner registered on this account credentials.", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(getApplicationContext(), LoginOwner.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                startActivity(intent);
+                                                            }
+
+                                                        }
+                                                    }
+                                                });
                                     } else {
                                         progressDialog.cancel();
                                         Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
@@ -223,7 +250,7 @@ public class LoginOwner extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference documentRef = db.collection(Constants.KEY_COMBINED_COLLECTION).document(uid);
 
-// Retrieve a specific column (field) from the document
+            // Retrieve a specific column (field) from the document
             documentRef.get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
@@ -232,9 +259,9 @@ public class LoginOwner extends AppCompatActivity {
                             preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                             preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
                             preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
-                            preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
+                            //preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
                             preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                            Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
+                            Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {

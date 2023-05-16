@@ -12,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,11 +161,12 @@ public class MsgUsersActivity extends MsgBaseActivity implements UserListener {
                             }
                             UserMdl user = new UserMdl();
                             user.userFirstName = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME);
-                            user.userLastName = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME);
+                            //user.userLastName = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME);
                             user.userEmail = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_EMAIL);
                             user.userImage = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_IMAGE);
                             user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
                             user.id = queryDocumentSnapshot.getString(Constants.KEY_COMBINED_ID);
+
                             users.add(user);
                         }
                         if(users.size() > 0)
@@ -183,6 +186,9 @@ public class MsgUsersActivity extends MsgBaseActivity implements UserListener {
                     }
                 });
     }
+
+
+
     private void showErrorMessage()
     {
         binding.textErrorMessage.setText(String.format("%s", "No user available"));

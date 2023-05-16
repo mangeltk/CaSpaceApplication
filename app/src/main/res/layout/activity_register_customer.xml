@@ -8,7 +8,7 @@
     android:overScrollMode="never"
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
-    android:background="@drawable/signup"
+    android:background="@color/primary"
     tools:context=".customer.RegisterCustomer">
 
 
@@ -21,9 +21,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:text="Create New Account"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_light"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold"/>
 
@@ -46,7 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Add image"
+                android:drawableTint="@color/white"
+                android:drawableLeft="@drawable/uploadpic"
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -58,12 +60,13 @@
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_baseline_verified_24"
             android:drawablePadding="5dp"
-            android:padding="7dp"
+            android:padding="8dp"
             android:paddingStart="95dp"
             android:text="Customer"
+            android:fontFamily="@font/montserrat_light"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/black"
-            android:textSize="17dp"
+            android:textColor="@color/white"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <FrameLayout
@@ -72,11 +75,12 @@
 
             <EditText
                 android:id="@+id/customerFirstName"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="First Name"
+                android:fontFamily="@font/montserrat_light"
                 android:textColorHint="@color/secondary_text"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -88,12 +92,13 @@
 
             <EditText
                 android:id="@+id/customerLastName"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_137sdp"
+                android:layout_marginStart="@dimen/_134sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="Last Name"
+                android:fontFamily="@font/montserrat_light"
                 android:textColorHint="@color/secondary_text"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -109,9 +114,10 @@
             android:id="@+id/customer_email"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/messaging_background_input"
             android:hint="Email"
+            android:fontFamily="@font/montserrat_light"
             android:textColorHint="@color/secondary_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -125,9 +131,10 @@
             android:id="@+id/customer_username"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/messaging_background_input"
             android:hint="Username"
+            android:fontFamily="@font/montserrat_light"
             android:textColorHint="@color/secondary_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -143,11 +150,12 @@
 
             <EditText
                 android:id="@+id/customer_organization"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="Organization"
+                android:fontFamily="@font/montserrat_light"
                 android:textColorHint="@color/secondary_text"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -159,12 +167,13 @@
 
             <EditText
                 android:id="@+id/customer_population"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_137sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_134sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="Population"
+                android:fontFamily="@font/montserrat_light"
                 android:textColorHint="@color/secondary_text"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -182,9 +191,10 @@
             android:id="@+id/customer_password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/messaging_background_input"
             android:hint="Password"
+            android:fontFamily="@font/montserrat_light"
             android:textColorHint="@color/secondary_text"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -198,9 +208,10 @@
             android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/messaging_background_input"
             android:hint="Confirm Password"
+            android:fontFamily="@font/montserrat_light"
             android:textColorHint="@color/secondary_text"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
@@ -221,6 +232,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:text="Sign Up"
+                android:backgroundTint="@color/orange1"
+                android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
@@ -241,7 +254,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Log In"
-            android:textColor="@color/primary"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 
@@ -252,8 +266,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:src="@drawable/logocaspace">
+                android:layout_marginTop="@dimen/_25sdp"
+                android:src="@drawable/logodark">
             </androidx.appcompat.widget.AppCompatImageView>
         </FrameLayout>
 

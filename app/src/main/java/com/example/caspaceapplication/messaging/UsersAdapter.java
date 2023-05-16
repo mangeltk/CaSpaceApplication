@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.databinding.MessagingItemContainerUserBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,16 +53,20 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         }
 
         void setUserData(UserMdl user) {
-            binding.textFirstName.setText(user.userFirstName + " " + user.userLastName);
+            binding.textFirstName.setText(user.userFirstName);
             binding.textEmail.setText(user.userEmail);
             String imageUri = user.userImage;
-            if (imageUri != null && !imageUri.isEmpty()) {
+            /*if (imageUri != null && !imageUri.isEmpty()) {
                 byte[] decodedString = Base64.decode(imageUri, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 binding.imageProfile.setImageBitmap(bitmap);
             }
 
-            binding.imageProfile.setImageBitmap(getUserImage(user.userImage));
+            binding.imageProfile.setImageBitmap(getUserImage(user.userImage));*/
+
+            if (!imageUri.isEmpty() && imageUri!=null){
+                Picasso.get().load(imageUri).into(binding.imageProfile);
+            }
             binding.getRoot().setOnClickListener(v -> userListener.onUserClicked(user));
         }
     }

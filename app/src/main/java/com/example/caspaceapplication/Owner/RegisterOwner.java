@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.AllUserAccountsModelClass;
+import com.example.caspaceapplication.customer.Front;
+import com.example.caspaceapplication.customer.RegisterCustomer;
 import com.example.caspaceapplication.databinding.ActivityRegisterCustomerBinding;
 import com.example.caspaceapplication.databinding.ActivityRegisterOwnerBinding;
 import com.example.caspaceapplication.messaging.PreferenceManager;
@@ -55,7 +57,9 @@ public class RegisterOwner extends AppCompatActivity {
     }
     private void setListeners()
     {
-        binding.textSignIn.setOnClickListener(v -> onBackPressed());
+        binding.textSignIn.setOnClickListener(v -> {
+            startActivity(new Intent(RegisterOwner.this, Front.class));
+        });
 
         binding.registerButtonOwner.setOnClickListener(v ->
         {

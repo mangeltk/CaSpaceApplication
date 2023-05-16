@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,12 +163,16 @@ public class MsgMain extends MsgBaseActivity implements ConversationListener {
 
     private void loadUserDetails() {
         binding.textFirstName.setText(preferenceManager.getString(Constants.KEY_COMBINED_FIRST_NAME));
-        binding.textLastName.setText(preferenceManager.getString(Constants.KEY_COMBINED_LAST_NAME));
+        //binding.textLastName.setText(preferenceManager.getString(Constants.KEY_COMBINED_LAST_NAME));
         String imageString = preferenceManager.getString(Constants.KEY_COMBINED_IMAGE);
+
+
         if (imageString != null) {
-            byte[] bytes = Base64.decode(imageString, Base64.DEFAULT);
+          /*byte[] bytes = Base64.decode(imageString, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            binding.imageProfile.setImageBitmap(bitmap);
+            binding.imageProfile.setImageBitmap(bitmap);*/
+
+            Picasso.get().load(imageString).into(binding.imageProfile);
         }
     }
 
