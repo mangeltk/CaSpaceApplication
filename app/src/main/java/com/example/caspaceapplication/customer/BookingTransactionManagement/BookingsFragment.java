@@ -407,56 +407,57 @@ public class BookingsFragment extends Fragment {
                                                 dialog.dismiss();
                                                 displayAllBookings();
 
-                                            String customerName= custFullname.getText().toString();
-                                            String spaceName = layoutName.getText().toString();
-                                            LocalDateTime now = LocalDateTime.now();
-                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                                            String dateTimeString = now.format(formatter);
-                                            String title = "Booking Notification: "+dateTimeString;
-                                            String message = "\n"+spaceName + " booking from "+customerName +" has been cancelled.";
-                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                            db.collection("OwnerUserAccounts").document(ownerId)
-                                                    .get()
-                                                    .addOnSuccessListener(documentSnapshot -> {
-                                                        String ownerFCMToken = documentSnapshot.getString("fcmToken");
-                                                        FCMSend.pushNotification(getContext(), ownerFCMToken, title, message);
-                                                    })
-                                                    .addOnFailureListener(e -> {
-                                                        Log.e(TAG, "Error getting FCM token for owner", e);
-                                                    });
-                                            CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
-                                            // Create a new notification document with a randomly generated ID
-                                            DocumentReference newNotificationRef = notificationsRef.document();
-                                            String newNotificationId = newNotificationRef.getId();
-                                            // Add the notification document to the "Notifications" collection
-                                            Map<String, Object> notification = new HashMap<>();
-                                            notification.put("notificationId", newNotificationId);
-                                            notification.put("title", title);
-                                            notification.put("message", message);
-                                            notification.put("ownerId", ownerId);
-                                            notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
-                                            newNotificationRef.set(notification)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d(TAG, "Notification added with ID: " + newNotificationId);
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error adding notification", e);
-                                                        }
-                                                    });
-                                        }
-                                    });
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
+                                                String customerName= custFullname.getText().toString();
+                                                String spaceName = layoutName.getText().toString();
+                                                customerUserActivity(spaceName, branchName.getText().toString());
+                                                LocalDateTime now = LocalDateTime.now();
+                                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                                String dateTimeString = now.format(formatter);
+                                                String title = "Booking Notification: "+dateTimeString;
+                                                String message = "\n"+spaceName + " booking from "+customerName +" has been cancelled.";
+                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                db.collection("OwnerUserAccounts").document(ownerId)
+                                                        .get()
+                                                        .addOnSuccessListener(documentSnapshot -> {
+                                                            String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                                            FCMSend.pushNotification(getContext(), ownerFCMToken, title, message);
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Log.e(TAG, "Error getting FCM token for owner", e);
+                                                        });
+                                                CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+                                                // Create a new notification document with a randomly generated ID
+                                                DocumentReference newNotificationRef = notificationsRef.document();
+                                                String newNotificationId = newNotificationRef.getId();
+                                                // Add the notification document to the "Notifications" collection
+                                                Map<String, Object> notification = new HashMap<>();
+                                                notification.put("notificationId", newNotificationId);
+                                                notification.put("title", title);
+                                                notification.put("message", message);
+                                                notification.put("ownerId", ownerId);
+                                                notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                                newNotificationRef.set(notification)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w(TAG, "Error adding notification", e);
+                                                            }
+                                                        });
+                                            }
+                                        });
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
 
                                 AlertDialog dialog1 = builder1.create();
                                 dialog1.show();
