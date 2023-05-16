@@ -32,6 +32,7 @@ import com.example.caspaceapplication.customer.Front;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -42,6 +43,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -164,6 +168,7 @@ public class Owner_UserProfile extends Fragment {
                         Intent intent = new Intent(getActivity(), Front.class);
                         startActivity(intent);
                         getActivity().finish();
+                        ownerUserActivity();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -171,6 +176,28 @@ public class Owner_UserProfile extends Fragment {
                 dialog.show();
             }
         });
+    }
+
+    public void ownerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Sign Out";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
     }
 
     private void deleteAccount() {

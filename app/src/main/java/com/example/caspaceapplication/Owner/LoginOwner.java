@@ -31,19 +31,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class LoginOwner extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
 
+public class LoginOwner extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -152,130 +153,66 @@ public class LoginOwner extends AppCompatActivity {
             editor.apply();
         }
 
-                    firebaseAuth.signInWithEmailAndPassword(email, password)
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    if (user.isEmailVerified()) {
-                                        progressDialog.setMessage("Logging in...");
-                                        progressDialog.show();
-
-
-
-                                        firebaseFirestore.collection("UserAccounts").document(user.getUid())
-                                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                        if (documentSnapshot.exists()){
-                                                            String userRole = documentSnapshot.getString("userType");
-
-                                                            if (userRole.equals("Owner")){
-                                                                signIn();
-                                                                Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                                                                updateOwnerFCMToken();
-                                                            }else {
-                                                                Toast.makeText(LoginOwner.this, "No owner registered on this account credentials.", Toast.LENGTH_SHORT).show();
-                                                                Intent intent = new Intent(getApplicationContext(), LoginOwner.class);
-                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                                startActivity(intent);
-                                                            }
-
-                                                        }
-                                                    }
-                                                });
-                                    } else {
-                                        progressDialog.cancel();
-                                        Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                        user.sendEmailVerification()
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void unused) {
-                                                        progressDialog.cancel();
-                                                        Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        progressDialog.cancel();
-                                                        Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.cancel();
-                                    Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
-                                }
-                            });
-
-    }
-
-    private void signIn()
-    {
-        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection(Constants.KEY_COMBINED_COLLECTION)
-
-                .get()
-                .addOnCompleteListener(task -> {
-
-                    if(task.isSuccessful() && task.getResult() != null
-                            && task.getResult().getDocuments().size() > 0)
-                    {
-                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(1);
-                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
-                        preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
-                        preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
-                        preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                        Toast.makeText(this, "ID"+documentSnapshot.getId(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-
-                });*/
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-
-        if (user != null) {
-            // User is logged in
-            String uid = user.getUid();
-
-
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference documentRef = db.collection(Constants.KEY_COMBINED_COLLECTION).document(uid);
-
-            // Retrieve a specific column (field) from the document
-            documentRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // The document exists
-                            // Retrieve the specific column (field)
-                            preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                            preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
-                            preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
-                            //preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
-                            preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                            Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user.isEmailVerified()) {
+                            progressDialog.setMessage("Logging in...");
+                            progressDialog.show();
+                            checkExistingBranch();
+                            updateOwnerFCMToken();
                         } else {
-                            // The document does not exist
-                            System.out.println("Document does not exist.");
+                            progressDialog.cancel();
+                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                            user.sendEmailVerification()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            progressDialog.cancel();
+                                            Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.cancel();
+                                            Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
-                    })
-                    .addOnFailureListener(e -> {
-                        // Error retrieving the document
-                        // Handle the error appropriately
-                    });
-        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.cancel();
+                        Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
+                    }
+                });
     }
 
+    public void ownerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Login";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
     private void updateOwnerFCMToken() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
@@ -398,6 +335,7 @@ public class LoginOwner extends AppCompatActivity {
                                             }
                                         });
                             }
+                            ownerUserActivity();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

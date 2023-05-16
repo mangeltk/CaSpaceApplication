@@ -1,5 +1,7 @@
 package com.example.caspaceapplication.Owner;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -10,6 +12,7 @@ import android.graphics.Paint;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -559,6 +563,27 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
         }
     }
 
+    public void ownerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Registered" + branchName;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
     private void registerBranch(String namebranch, String streetAddressBranch, String cityAddressBranch, String selectedCategory){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -619,34 +644,17 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                                             @Override
                                                                             public void onSuccess(Void unused) {
                                                                                 Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
+                                                                                ownerUserActivity();
                                                                             }
                                                                         });
                                                                 progressDialog.dismiss();
                                                                 startActivity(new Intent(RegisterOwner_SpaceBranch.this, OwnerHomepage.class));
                                                             }
                                                         });
-
-                                                firebaseFirestore.collection("UserAccounts")
-                                                        .whereEqualTo("userCombinedId", user.getUid())
-                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                                if(!queryDocumentSnapshots.isEmpty()){
-                                                                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                                                                    String documentId = documentSnapshot.getId();
-
-                                                                    firebaseFirestore.collection("UserAccounts")
-                                                                            .document(documentId)
-                                                                            .update("userImage", task.getResult().toString(), "userFirstName", namebranch)
-                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                                @Override
-                                                                                public void onSuccess(Void unused) {
-
-                                                                                }
-                                                                            });
-                                                                }
-                                                            }
-                                                        });
+                                            }
+                                        });
+                                    }
+                                });
 
                                             }
                                         });

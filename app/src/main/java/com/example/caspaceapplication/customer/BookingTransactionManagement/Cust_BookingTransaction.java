@@ -44,6 +44,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -72,7 +73,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Cust_BookingTransaction extends AppCompatActivity {
-
+    FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     CollectionReference OfficeLayoutsRef = firebaseFirestore.collection("OfficeLayouts");
     CollectionReference AllBranchesRef = firebaseFirestore.collection("CospaceBranches");
@@ -644,12 +645,14 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                                                 }
                                                             });
                                                     progressDialog.dismiss();
-
+                                                    customerUserActivity();
                                                     Intent intent = new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     dialog.dismiss();
 
+
+                                                    //Send notification
                                                     String customerName= custFullname;
                                                     String spaceName = layout_Name;
                                                     LocalDateTime now = LocalDateTime.now();
@@ -708,48 +711,29 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         }
     }
 
-    /*private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getExtras() != null) {
-                for (String key : intent.getExtras().keySet()) {
-                    Object value = intent.getExtras().get(key);
-                    Log.d(TAG, "Key: " + key + " Value: " + value);
-                }
-            }
-        }
-    };*/
+    public void customerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String customerId = firebaseAuth.getCurrentUser().getUid();
+        String spaceName = layout_Name;
+        String branchName= branch_Name;
+        String activity = "Booked "+spaceName+" from "+ branchName;
 
-    /*public void onReceive(Context context, Intent intent) {
-        if (intent.getExtras() != null) {
-            boolean isForeground = isAppInForeground(context);
-            if (isForeground) {
-                // Show alert dialog
-                String title = intent.getExtras().getString("title");
-                String message = intent.getExtras().getString("message");
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(title);
-                builder.setMessage(message);
-                builder.setPositiveButton("OK", null);
-                builder.create().show();
-            } else {
-                // Display notification in system tray
-                // ...
-            }
-        }
-    }*/
+        Map<String, Object> data = new HashMap<>();
+        data.put("customerId",customerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
 
-    /*private boolean isAppInForeground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            String packageName = tasks.get(0).topActivity.getPackageName();
-            return packageName.equals(context.getPackageName());
-        }
-        return false;
-    }*/
+        db.collection("CustomerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
 
 
+    }
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 
         clearInputs();

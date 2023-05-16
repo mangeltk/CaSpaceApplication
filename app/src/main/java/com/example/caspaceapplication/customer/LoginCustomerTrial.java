@@ -26,17 +26,13 @@ import com.example.caspaceapplication.messaging.Constants;
 import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.Map;
 
 public class LoginCustomerTrial extends AppCompatActivity  {
 
@@ -129,130 +125,45 @@ public class LoginCustomerTrial extends AppCompatActivity  {
             editor.apply();
         }
 
-
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if (user.isEmailVerified()) {
-                            progressDialog.setMessage("Logging in...");
-                            progressDialog.show();
-
-                            firebaseFirestore.collection("UserAccounts").document(user.getUid())
-                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if (documentSnapshot.exists()){
-                                                String userRole = documentSnapshot.getString("userType");
-
-                                                if (userRole.equals("Customer")){
-                                                    signIn();
-                                                    Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-                                                    updateCustomerFCMToken();
-                                                }else {
-                                                    Toast.makeText(LoginCustomerTrial.this, "No customer registered on this account credentials.", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(getApplicationContext(), LoginCustomerTrial.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(intent);
+                firebaseAuth.signInWithEmailAndPassword(email,password)
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user.isEmailVerified()) {
+                                    progressDialog.setMessage("Logging in...");
+                                    progressDialog.show();
+                                    Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
+                                    updateCustomerFCMToken();
+                                }
+                                else {
+                                    user.sendEmailVerification()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    progressDialog.cancel();
+                                                    Toast.makeText(LoginCustomerTrial.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
                                                 }
-
-                                            }
-                                        }
-                                    });
-
-
-                        }
-                        else {
-                            user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressDialog.cancel();
-                                                        Toast.makeText(LoginCustomerTrial.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        progressDialog.cancel();
-                                                        Toast.makeText(LoginCustomerTrial.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                    }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    progressDialog.cancel();
+                                                    Toast.makeText(LoginCustomerTrial.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.cancel();
-                                    Toast.makeText(LoginCustomerTrial.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginCustomerTrial.this, RegisterCustomer.class));
-                                }
-                            });
-    }
-
-    private void signIn()
-    {
-        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
-        database.collection(Constants.KEY_COMBINED_COLLECTION)
-
-                .get()
-                .addOnCompleteListener(task -> {
-
-                    if(task.isSuccessful() && task.getResult() != null
-                            && task.getResult().getDocuments().size() > 0)
-                    {
-
-                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                        preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
-                        preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
-                        preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
-                        preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                        //Toast.makeText(this, "Firstname"+documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-
-                });*/
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-
-        if (user != null) {
-            // User is logged in
-            String uid = user.getUid();
-
-
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference documentRef = db.collection(Constants.KEY_COMBINED_COLLECTION).document(uid);
-
-            // Retrieve a specific column (field) from the document
-            documentRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // The document exists
-                            // Retrieve the specific column (field)
-                            preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                            preferenceManager.putString(Constants.KEY_COMBINED_ID, documentSnapshot.getString(Constants.KEY_COMBINED_ID));
-                            preferenceManager.putString(Constants.KEY_COMBINED_FIRST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_FIRST_NAME));
-                            //preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
-                            preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
-                            Intent intent = new Intent(getApplicationContext(), Customer_Homepage_BottomNav.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        } else {
-                            // The document does not exist
-                            System.out.println("Document does not exist.");
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        // Error retrieving the document
-                        // Handle the error appropriately
-                    }
-                    );
-        }
-    }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
+                                Toast.makeText(LoginCustomerTrial.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginCustomerTrial.this, RegisterCustomer.class));
+                            }
+                        });
+            }
+        });
 
     private void loading(Boolean isLoading)
     {
@@ -339,9 +250,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                 });
     }
 
-    public void setRememberMeCheckbox()
-    {
-
+    public void setRememberMeCheckbox(){
         //Get the email and password saved in shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String email = sharedPreferences.getString(KEY_EMAIL, "");
@@ -374,6 +283,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                             }
                                         });
                             }
+                            customerUserActivity();
                         }
                     });
         }

@@ -23,6 +23,8 @@ import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterClass.BookingViewHolder> {
-
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private List<BookingDetails_ModelClass> bookingList;
     private Context context;
 
@@ -68,6 +70,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         holder.totalPayment.setText(booking.getTotalPayment());
         holder.paymentOption.setText(booking.getPaymentOption());
         String customerID = booking.getCustomerId();
+        String customerName =booking.getCustomerFullname();
 
         holder.cardViewBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +192,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Toast.makeText(context, "Booking accepted and is on ongoing tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
 
+                                        ownerUserAcceptBookingActivity(custFullname.getText().toString());
+
                                         String branch_Name= branchName.getText().toString();
                                         String spaceName = layoutName.getText().toString();
                                         LocalDateTime now = LocalDateTime.now();
@@ -249,6 +254,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Toast.makeText(context, "Booking completed and is on the completed tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
 
+                                        ownerUserCompletedBookingActivity(custFullname.getText().toString());
+
                                         String branch_Name= branchName.getText().toString();
                                         String spaceName = layoutName.getText().toString();
                                         LocalDateTime now = LocalDateTime.now();
@@ -308,6 +315,8 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                                         Toast.makeText(context, "Booking declined and is on the completed tab", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
 
+                                        ownerUserDeclineBookingActivity(custFullname.getText().toString());
+
                                         String branch_Name= branchName.getText().toString();
                                         String spaceName = layoutName.getText().toString();
                                         LocalDateTime now = LocalDateTime.now();
@@ -358,6 +367,70 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
     }
 
+    public void ownerUserAcceptBookingActivity( String customerName){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Accepted a booking from " + customerName ;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
+    public void ownerUserDeclineBookingActivity( String customerName){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Declined a booking from " + customerName ;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
+
+    public void ownerUserCompletedBookingActivity( String customerName){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Completed a booking from " + customerName ;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
 
     @Override
     public int getItemCount() {
