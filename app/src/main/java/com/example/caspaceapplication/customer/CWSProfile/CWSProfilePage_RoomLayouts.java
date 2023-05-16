@@ -422,7 +422,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
-
         public CWSProfilePage_RoomLayouts_Adapter(List<OfficeLayout_DataClass> dataClass) {
             this.dataClass = dataClass;
         }
@@ -491,7 +490,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-
 
                     builder.setView(dialogView);
                     AlertDialog dialog = builder.create();
