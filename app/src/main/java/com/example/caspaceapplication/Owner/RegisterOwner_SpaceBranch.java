@@ -46,6 +46,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -650,6 +651,30 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                                 startActivity(new Intent(RegisterOwner_SpaceBranch.this, OwnerHomepage.class));
                                                             }
                                                         });
+
+                                                firebaseFirestore.collection("UserAccounts")
+                                                        .whereEqualTo("userCombinedId", user.getUid())
+                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                                if(!queryDocumentSnapshots.isEmpty()){
+                                                                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                                                    String documentId = documentSnapshot.getId();
+
+                                                                    firebaseFirestore.collection("UserAccounts")
+                                                                            .document(documentId)
+                                                                            .update("userImage", task.getResult().toString(), "userFirstName", namebranch)
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void unused) {
+
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                        });
+
+
                                             }
                                         });
                                     }

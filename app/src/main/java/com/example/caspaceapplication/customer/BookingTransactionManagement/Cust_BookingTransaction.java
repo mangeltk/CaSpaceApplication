@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -55,6 +56,8 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -662,7 +665,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                     }
                                 });
                         progressDialog.dismiss();
-
+                        customerUserActivity();
                         Intent intent = new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
@@ -670,8 +673,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
                         String customerName= custFullname;
                         String spaceName = layout_Name;
-                        String title = "Booking Notification";
-                        String message = customerName + " booked "+spaceName +".";
+                        LocalDateTime now = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        String dateTimeString = now.format(formatter);
+                        String title = "Booking Notification: "+dateTimeString;
+                        String message = "\n"+customerName + " booked "+spaceName +".";
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         db.collection("OwnerUserAccounts").document(ownerId)
                                 .get()
@@ -713,6 +719,31 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         }else{
             Toast.makeText(Cust_BookingTransaction.this, "Please fill in all the details", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void customerUserActivity(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String customerId = firebaseAuth.getCurrentUser().getUid();
+        String spaceName = layout_Name;
+        String branchName= branch_Name;
+        String activity = "Booked "+spaceName+" from "+ branchName;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("customerId",customerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("CustomerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
     }
 
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){

@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.AllUserAccountsModelClass;
 import com.example.caspaceapplication.customer.Front;
-import com.example.caspaceapplication.customer.RegisterCustomer;
-import com.example.caspaceapplication.databinding.ActivityRegisterCustomerBinding;
 import com.example.caspaceapplication.databinding.ActivityRegisterOwnerBinding;
 import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -220,4 +218,3 @@ public class RegisterOwner extends AppCompatActivity {
     }
 
 }
-
