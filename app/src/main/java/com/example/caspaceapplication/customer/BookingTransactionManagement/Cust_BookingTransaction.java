@@ -35,14 +35,12 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
 import com.example.caspaceapplication.Notification.FCMSend;
-import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -57,8 +55,6 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,7 +64,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Cust_BookingTransaction extends AppCompatActivity {
-    FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     CollectionReference OfficeLayoutsRef = firebaseFirestore.collection("OfficeLayouts");
     CollectionReference AllBranchesRef = firebaseFirestore.collection("CospaceBranches");
@@ -106,9 +102,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
     ImageView CustProofOfPaymentImageviewUpload;
     AppCompatButton submitBooking;
-
-    FirebaseUser user = firebaseAuth.getCurrentUser();
-    String customerId = user.getUid();
 
     String ownerId, branch_Image, branch_Name, layout_Image, layout_Name, ProofOfPaymentImageUri;
 
@@ -185,10 +178,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         totalCalculatedFee = findViewById(R.id.totalPayment);
         ProofOfPaymentTitle = findViewById(R.id.ProofOfPaymentTitle_Textview);
 
-
-        /*ProofOfPaymentTitle.setVisibility(View.GONE);
-        CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
-        CustProofOfPaymentImageviewUpload.setVisibility(View.GONE);*/
         payOnsiteRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,7 +244,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         CustomerDetailsTitleLayout.setVisibility(View.GONE);
         CustomerDetailsLayout.setVisibility(View.GONE);
 
-        Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
 
         AllBranchesRef.whereEqualTo("owner_id", owner_id)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -276,30 +264,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             }
                             CustBTBranchLocationTextView.setText(StreetAddress + " " + cityAddress);
                             CustBTBranchContactInfoTextView.setText(contactInfo);
-
-                            Map<String, Object> data = documentSnapshot.getData(); // Retrieve the document data as a map
-                            Map<String, Map<String, Object>> hoursMap = (Map<String, Map<String, Object>>) data.get("hours"); // Retrieve the 'hours' map from the document data
-                            Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
-
-                            // Ensure the 'hoursMap' is not null before further processing
-                            if (hoursMap != null) {
-                                for (Map.Entry<String, Map<String, Object>> entry : hoursMap.entrySet()) {
-                                    String day = entry.getKey();
-                                    Map<String, Object> dayData = entry.getValue();
-
-                                    String openTime = (String) dayData.get("openTime");
-                                    String closeTime = (String) dayData.get("closeTime");
-                                    boolean isClosed = (boolean) dayData.get("closed");
-
-                                    BranchModel.OpeningHours openingHour = new BranchModel.OpeningHours(isClosed, openTime, closeTime);
-                                    openingHours.put(day, openingHour);
-
-                                   // isBranchOpenForDate(selectedStartDate.getText().toString(), openingHours);
-
-                                }
-
-                            }
-
 
                         }
                     }
@@ -330,7 +294,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perHour);
                                     selectedRateTypeTextview.setText("Hourly rate");
-                                   // HourlyCalculation(perHour, minPersonCap, maxPersonCap, openingHours);
+                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
                                     bookingDetailsScrollview.setVisibility(View.VISIBLE);
                                 }
                             });
@@ -356,7 +320,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 hourlyRateLinear.setVisibility(View.VISIBLE);
                             }
 
-
                             CustBTLayoutHourlyRateTextview.setText(perHour);
 
                             CustBTLayoutDailyRateTextview.setText(perDay);
@@ -370,8 +333,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             CustBTLayoutPersonCapTextView.setText(minPersonCap + " - " + maxPersonCap);
 
                             CustBTLayoutAreasizeTextView.setText(layoutAreasize + " sq. m.");
-
-
 
                             dailyRateRadioButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -606,122 +567,147 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     progressDialog.show();
 
                     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-                    StorageReference path = firebaseStorage.getReference().child("ProofOfPayment").child(filepath.getLastPathSegment());
-                    path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> downloadUri = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    Map<String,String> bookingDetails = new HashMap<>();
-                                    bookingDetails.put("customerId",customerId);
-                                    bookingDetails.put("ownerId", ownerId);
-                                    bookingDetails.put("bookingId", "");
-                                    bookingDetails.put("rateType", rateType.getText().toString());
-                                    bookingDetails.put("rateValue", rateValue.getText().toString());
-                                    bookingDetails.put("bookingStartDate", bookStartDate.getText().toString());
-                                    bookingDetails.put("bookingEndDate", bookEndDate.getText().toString());
-                                    bookingDetails.put("bookingStartTime", startTime.getText().toString());
-                                    bookingDetails.put("bookingEndTime", endTime.getText().toString());
-                                    bookingDetails.put("totalPayment", totalPay.getText().toString());
-                                    bookingDetails.put("customerFullname", fullname.getText().toString());
-                                    bookingDetails.put("organizationName", orgName.getText().toString());
-                                    bookingDetails.put("numOfTenants", numTenants.getText().toString());
-                                    bookingDetails.put("customerPhoneNum", phoneNum.getText().toString());
-                                    bookingDetails.put("customerEmail", email.getText().toString());
-                                    bookingDetails.put("customerAddress", address.getText().toString());
-                                    bookingDetails.put("paymentOption", selectedPaymentOption);
-                                    bookingDetails.put("proofOfPayment", task.getResult().toString());
-                                    bookingDetails.put("bookingStatus", "Pending");
-                                    bookingDetails.put("branchImage",branch_Image);
-                                    bookingDetails.put("branchName",branch_Name);
-                                    bookingDetails.put("layoutImage",layout_Image);
-                                    bookingDetails.put("layoutName",layout_Name);
-                                    if (!totalResultHours.getText().toString().equals("") || !totalResultDays.getText().toString().equals("")
-                                            || !totalResultWeeks.getText().toString().equals("") || !totalResultMonths.getText().toString().equals("")
-                                            || !totalResultYears.getText().toString().equals("")){
-                                        bookingDetails.put("totalHours", totalHours.getText().toString());
-                                        bookingDetails.put("totalDays", totalDays.getText().toString());
-                                        bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
-                                        bookingDetails.put("totalMonths", totalMonths.getText().toString());
-                                        bookingDetails.put("totalYears", totalYears.getText().toString());
-                                    }else{
-                                        bookingDetails.put("totalHours", "");
-                                        bookingDetails.put("totalDays", "");
-                                        bookingDetails.put("totalWeeks", "");
-                                        bookingDetails.put("totalMonths", "");
-                                        bookingDetails.put("totalYears", "");
-                                    }
-                                    AllSubmittedBookingRef.add(bookingDetails)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    AllSubmittedBookingRef.document(documentReference.getId())
-                                                            .update("bookingId", documentReference.getId())
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void unused) {
-                                                                    Toast.makeText(Cust_BookingTransaction.this, "Booking details submitted!", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                    progressDialog.dismiss();
+                    if (filepath != null) {
+                        StorageReference path = firebaseStorage.getReference().child("ProofOfPayment").child(filepath.getLastPathSegment());
 
-                                                    Intent intent = new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    dialog.dismiss();
-
-                                                    String customerName= custFullname;
-                                                    String spaceName = layout_Name;
-                                                    LocalDateTime now = LocalDateTime.now();
-                                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                                                    String dateTimeString = now.format(formatter);
-                                                    String title = "Booking Notification: "+dateTimeString;
-                                                    String message = "\n"+customerName + " booked "+spaceName +".";
-                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                                    db.collection("OwnerUserAccounts").document(ownerId)
-                                                            .get()
-                                                            .addOnSuccessListener(documentSnapshot -> {
-                                                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
-                                                                FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
-                                                            })
-                                                            .addOnFailureListener(e -> {
-                                                                Log.e(TAG, "Error getting FCM token for owner", e);
-                                                            });
-                                                    CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
-                                                    // Create a new notification document with a randomly generated ID
-                                                    DocumentReference newNotificationRef = notificationsRef.document();
-                                                    String newNotificationId = newNotificationRef.getId();
-                                                        // Add the notification document to the "Notifications" collection
-                                                    Map<String, Object> notification = new HashMap<>();
-                                                    notification.put("notificationId", newNotificationId);
-                                                    notification.put("title", title);
-                                                    notification.put("message", message);
-                                                    notification.put("ownerId", ownerId);
-                                                    notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
-                                                    newNotificationRef.set(notification)
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    Log.d(TAG, "Notification added with ID: " + newNotificationId);
-                                                                }
-                                                            })
-                                                            .addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-                                                                    Log.w(TAG, "Error adding notification", e);
-                                                                }
-                                                            });
-
-
-
+                        path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Task<Uri> downloadUri = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        if (task.isSuccessful()) {
+                                            ProofOfPaymentImageUri = task.getResult().toString();
+                                            // If the user selected "Onsite Payment" option, allow booking to be submitted with or without a proof of payment image
+                                            if (payOnsiteRadioButton.isChecked()) {
+                                                // Submit booking details
+                                                submitBookingDetails();
+                                            } else {
+                                                // If the user selected "Other Payment Option" option, require proof of payment image to be uploaded before submitting the booking
+                                                if (ProofOfPaymentImageUri.isEmpty()) {
+                                                    // Display an error message to the user and return
+                                                    Toast.makeText(Cust_BookingTransaction.this, "Please upload a proof of payment image.", Toast.LENGTH_SHORT).show();
+                                                    return;
+                                                } else {
+                                                    // Submit booking details
+                                                    submitBookingDetails();
                                                 }
-                                            });
-                                }
-                            });
+                                            }
+                                        } else {
+                                            // Handle the error
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        // If no image was selected and the user selected "Other Payment Option" option, require a proof of payment image to be uploaded before submitting the booking
+                        if (payOtherOptionRadioButton.isChecked() && ProofOfPaymentImageUri.isEmpty()) {
+                            // Display an error message to the user and return
+                            Toast.makeText(Cust_BookingTransaction.this, "Please upload a proof of payment image.", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            // Submit booking details
+                            submitBookingDetails();
                         }
-                    });
+                    }
 
+
+
+    }
+
+    public void submitBookingDetails(){
+        FirebaseUser customerId = FirebaseAuth.getInstance().getCurrentUser();
+
+        Map<String,String> bookingDetails = new HashMap<>();
+        bookingDetails.put("customerId",customerId.getUid());
+        bookingDetails.put("ownerId", ownerId);
+        bookingDetails.put("bookingId", "");
+        bookingDetails.put("rateType", rateType.getText().toString());
+        bookingDetails.put("rateValue", rateValue.getText().toString());
+        bookingDetails.put("bookingStartDate", bookStartDate.getText().toString());
+        bookingDetails.put("bookingEndDate", bookEndDate.getText().toString());
+        bookingDetails.put("bookingStartTime", startTime.getText().toString());
+        bookingDetails.put("bookingEndTime", endTime.getText().toString());
+        bookingDetails.put("totalPayment", totalPay.getText().toString());
+        bookingDetails.put("customerFullname", fullname.getText().toString());
+        bookingDetails.put("organizationName", orgName.getText().toString());
+        bookingDetails.put("numOfTenants", numTenants.getText().toString());
+        bookingDetails.put("customerPhoneNum", phoneNum.getText().toString());
+        bookingDetails.put("customerEmail", email.getText().toString());
+        bookingDetails.put("customerAddress", address.getText().toString());
+        bookingDetails.put("paymentOption", selectedPaymentOption);
+        bookingDetails.put("proofOfPayment", ProofOfPaymentImageUri);
+        bookingDetails.put("bookingStatus", "Pending");
+        bookingDetails.put("branchImage",branch_Image);
+        bookingDetails.put("branchName",branch_Name);
+        bookingDetails.put("layoutImage",layout_Image);
+        bookingDetails.put("layoutName",layout_Name);
+        bookingDetails.put("totalHours", totalHours.getText().toString());
+        bookingDetails.put("totalDays", totalDays.getText().toString());
+        bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
+        bookingDetails.put("totalMonths", totalMonths.getText().toString());
+        bookingDetails.put("totalYears", totalYears.getText().toString());
+
+        AllSubmittedBookingRef.add(bookingDetails)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        AllSubmittedBookingRef.document(documentReference.getId())
+                                .update("bookingId", documentReference.getId())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(Cust_BookingTransaction.this, "Booking details submitted!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        progressDialog.dismiss();
+
+                        Intent intent = new Intent(Cust_BookingTransaction.this, Customer_Homepage_BottomNav.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                        String customerName= custFullname;
+                        String spaceName = layout_Name;
+                        String title = "Booking Notification";
+                        String message = customerName + " booked "+spaceName +".";
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("OwnerUserAccounts").document(ownerId)
+                                .get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                    FCMSend.pushNotification(Cust_BookingTransaction.this, ownerFCMToken, title, message);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Error getting FCM token for owner", e);
+                                });
+                        CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+                        // Create a new notification document with a randomly generated ID
+                        DocumentReference newNotificationRef = notificationsRef.document();
+                        String newNotificationId = newNotificationRef.getId();
+                        // Add the notification document to the "Notifications" collection
+                        Map<String, Object> notification = new HashMap<>();
+                        notification.put("notificationId", newNotificationId);
+                        notification.put("title", title);
+                        notification.put("message", message);
+                        notification.put("ownerId", ownerId);
+                        notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                        newNotificationRef.set(notification)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding notification", e);
+                                    }
+                                });
+                    }
+                });
                 }
             });
         }else{
@@ -761,26 +747,16 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     }
                     long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
                     long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60;
-
-                    // Check if the branch is open for the selected start date and time
-                   /* boolean isBranchOpen = isBranchOpenForDate(startDateString, openingHours);
-
-                    if (isBranchOpen) {
-                        // Calculate the total fee based on the booking duration and perHour rate
-                        Double total = hours * Double.parseDouble(perHour);
-                        if (total >= 0) {
-                            totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
-                            totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        } else {
-                            totalResultHours.setText("");
-                            totalCalculatedFee.setText("");
-                            Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
-                        }
+                    //Double total = (hours + ((double) minutes / 60.0)) * rate;
+                    Double total = hours * Double.parseDouble(perHour);
+                    if (total >= 0) {
+                        totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
                     } else {
                         totalResultHours.setText("");
                         totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "The branch is closed for the selected date and time.", Toast.LENGTH_SHORT).show();
-                    }*/
+                        Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -798,7 +774,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -827,7 +803,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
 
             @Override
@@ -843,7 +819,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -872,7 +848,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
 
             @Override
@@ -886,7 +862,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -923,7 +899,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {

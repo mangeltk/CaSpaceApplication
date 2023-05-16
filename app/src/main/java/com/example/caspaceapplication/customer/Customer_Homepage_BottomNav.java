@@ -1,18 +1,18 @@
 package com.example.caspaceapplication.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.BookingTransactionManagement.BookingsFragment;
 import com.example.caspaceapplication.fragments.CustomerProfileFragment;
 import com.example.caspaceapplication.fragments.HomeFragment;
-import com.example.caspaceapplication.fragments.MessageFragment;
 import com.example.caspaceapplication.fragments.NotificationFragment;
+import com.example.caspaceapplication.messaging.MsgMain;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Customer_Homepage_BottomNav extends AppCompatActivity {
@@ -26,42 +26,32 @@ public class Customer_Homepage_BottomNav extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
-        if (savedInstanceState == null) {
-            String fragment = getIntent().getStringExtra("Fragment");
-            if (fragment != null && fragment.equals("CustomerProfileFragment")) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CustomerProfileFragment()).commit();
-            }
-        }
-
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            Fragment selectedFragment=null;
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case R.id.menuHome:
-                    selectedFragment= new HomeFragment();
-                    break;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                    return true;
                 case R.id.menuBookings:
-                    selectedFragment= new BookingsFragment();
-                    break;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BookingsFragment()).commit();
+                    return true;
                 case R.id.menuMessages:
-                    selectedFragment= new MessageFragment();
-                    break;
+                    Intent intent = new Intent(getApplicationContext(), MsgMain.class);
+                    startActivity(intent);
+                    return true;
                 case R.id.menuNotification:
-                    selectedFragment= new NotificationFragment();
-                    break;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotificationFragment()).commit();
+                    return true;
                 case R.id.menuProfile:
-                    selectedFragment= new CustomerProfileFragment();
-                    break;
-
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CustomerProfileFragment()).commit();
+                    return true;
+                default:
+                    return false;
             }
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
-            return true;
         }
     };
 

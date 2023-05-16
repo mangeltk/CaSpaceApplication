@@ -13,16 +13,19 @@
         <item>@font/carrois_gothic</item>
         <item>@font/chakra_petch_medium</item>
         <item>@font/dm_sans</item>
+        <item>@font/doppio_one</item>
         <item>@font/droid_sans</item>
         <item>@font/maven_pro</item>
         <item>@font/monda</item>
         <item>@font/mondaa</item>
+        <item>@font/montserrat_light</item>
         <item>@font/open_sans</item>
         <item>@font/poppins_bold_italic</item>
         <item>@font/poppins_medium</item>
         <item>@font/poppins_medium_italic</item>
         <item>@font/quicksand</item>
         <item>@font/quicksand_medium</item>
+        <item>@font/sawarabi_gothic</item>
         <item>@font/sintony</item>
         <item>@font/sintony_bold</item>
         <item>@font/source_sans_pro</item>
@@ -31,5 +34,6 @@
         <item>@font/trade_winds</item>
         <item>@font/unica_one</item>
         <item>@font/work_sans</item>
+        <item>@font/work_sans_medium</item>
     </array>
 </resources>

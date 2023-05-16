@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.FrontRegister;
+import com.example.caspaceapplication.databinding.ActivityLoginOwnerBinding;
+import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,36 +48,77 @@ public class LoginOwner extends AppCompatActivity {
 
     TextView forgotPassword; //todo:forgot password
     private EditText ownerEmail, ownerPassword;
-    private Button loginButton;
+    private Button loginButtonOwner;
     private CheckBox rememberMeCheckbox;
 
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
 
+    private ActivityLoginOwnerBinding binding;
+    private PreferenceManager preferenceManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_owner);
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        binding = ActivityLoginOwnerBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         ownerEmail = findViewById(R.id.login_ownerEmail);
         ownerPassword = findViewById(R.id.login_ownerPassword);
         rememberMeCheckbox = findViewById(R.id.rememberme_ownerloginCheckbox);
-        loginButton = findViewById(R.id.loginButton_owner);
+        loginButtonOwner = findViewById(R.id.loginButton_owner);
 
+        setListeners();
         setRememberMeCheckbox();//remember me checkbox
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser();
+
+    }
+
+    private void setListeners()
+    {
+
+        binding.textCreateNewAccount.setOnClickListener(v -> {
+            startActivity(new Intent(LoginOwner.this, FrontRegister.class));
+        });
+        //when the user clicks the sign in button for customer
+        binding.loginButtonOwner.setOnClickListener( v ->
+        {
+            if(isValidLogInDetails())
+            {
+                loginOwner();
             }
         });
     }
 
-    public void loginUser(){
+    private boolean isValidLogInDetails()
+    {
+        if(binding.loginOwnerEmail.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter email");
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.loginOwnerEmail.getText().toString()).matches())
+        {
+            showToast("Enter valid email");
+            return false;
+        }
+        else if(binding.loginOwnerPassword.getText().toString().trim().isEmpty())
+        {
+            showToast("Enter password");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public void loginOwner(){
         String email = ownerEmail.getText().toString().trim();
         String password = ownerPassword.getText().toString().trim();
 
@@ -115,7 +160,6 @@ public class LoginOwner extends AppCompatActivity {
                             progressDialog.show();
                             checkExistingBranch();
                             updateOwnerFCMToken();
-                            ownerUserActivity();
                         } else {
                             progressDialog.cancel();
                             Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
@@ -236,6 +280,24 @@ public class LoginOwner extends AppCompatActivity {
         });
     }
 
+        private void loading(Boolean isLoading)
+        {
+            if(isLoading)
+            {
+                binding.loginButtonOwner.setVisibility(View.INVISIBLE);
+                binding.progressBar.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                binding.progressBar.setVisibility(View.INVISIBLE);
+                binding.loginButtonOwner.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private void showToast(String message)
+        {
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
 
     public void setRememberMeCheckbox(){
         // Get the email and password saved in shared preferences

@@ -600,7 +600,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                                 Toast.makeText(RegisterOwner_SpaceBranch.this, "A branch with this name already exists.", Toast.LENGTH_SHORT).show();
-                            } else{
+                            } else {
                                 progressDialog.setMessage("Registering branch...");
                                 progressDialog.show();
                                 StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
@@ -613,15 +613,15 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
 
                                                 Map<String, BranchModel.OpeningHours> hours = new HashMap<>();
                                                 hours.put("Monday", new BranchModel.OpeningHours(isMondayClosed, CWSHours_MondayStartEdittext.getText().toString(), CWSHours_MondayEndEdittext.getText().toString()));
-                                                hours.put("Tuesday", new BranchModel.OpeningHours(isTuesdayClosed,CWSHours_TuesdayStartEdittext.getText().toString(), CWSHours_TuesdayEndEdittext.getText().toString()));
-                                                hours.put("Wednesday", new BranchModel.OpeningHours(isWednesdayClosed,CWSHours_WednesdayStartEdittext.getText().toString(), CWSHours_WednesdayEndEdittext.getText().toString()));
-                                                hours.put("Thursday", new BranchModel.OpeningHours(isThursdayClosed,CWSHours_ThursdayStartEdittext.getText().toString(), CWSHours_ThursdayEndEdittext.getText().toString()));
-                                                hours.put("Friday", new BranchModel.OpeningHours(isFridayClosed,CWSHours_FridayStartEdittext.getText().toString(), CWSHours_FridayEndEdittext.getText().toString()));
-                                                hours.put("Saturday", new BranchModel.OpeningHours(isSaturdayClosed,CWSHours_SaturdayStartEdittext.getText().toString(), CWSHours_SaturdayEndEdittext.getText().toString()));
-                                                hours.put("Sunday", new BranchModel.OpeningHours(isSundayClosed,CWSHours_SundayEndEdittext.getText().toString(), CWSHours_SundayEndEdittext.getText().toString()));
+                                                hours.put("Tuesday", new BranchModel.OpeningHours(isTuesdayClosed, CWSHours_TuesdayStartEdittext.getText().toString(), CWSHours_TuesdayEndEdittext.getText().toString()));
+                                                hours.put("Wednesday", new BranchModel.OpeningHours(isWednesdayClosed, CWSHours_WednesdayStartEdittext.getText().toString(), CWSHours_WednesdayEndEdittext.getText().toString()));
+                                                hours.put("Thursday", new BranchModel.OpeningHours(isThursdayClosed, CWSHours_ThursdayStartEdittext.getText().toString(), CWSHours_ThursdayEndEdittext.getText().toString()));
+                                                hours.put("Friday", new BranchModel.OpeningHours(isFridayClosed, CWSHours_FridayStartEdittext.getText().toString(), CWSHours_FridayEndEdittext.getText().toString()));
+                                                hours.put("Saturday", new BranchModel.OpeningHours(isSaturdayClosed, CWSHours_SaturdayStartEdittext.getText().toString(), CWSHours_SaturdayEndEdittext.getText().toString()));
+                                                hours.put("Sunday", new BranchModel.OpeningHours(isSundayClosed, CWSHours_SundayEndEdittext.getText().toString(), CWSHours_SundayEndEdittext.getText().toString()));
 
-                                                Map<String,Object> branch = new HashMap<>();
-                                                branch.put("cospaceImage",task.getResult().toString());
+                                                Map<String, Object> branch = new HashMap<>();
+                                                branch.put("cospaceImage", task.getResult().toString());
                                                 branch.put("cospaceName", namebranch);
                                                 branch.put("cospaceCategory", selectedCategory);
                                                 branch.put("cospaceStreetAddress", streetAddressBranch);
@@ -647,17 +647,17 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
                                                                             }
                                                                         });
                                                                 progressDialog.dismiss();
-                                                                startActivity(new Intent(RegisterOwner_SpaceBranch.this,OwnerHomepage.class));
+                                                                startActivity(new Intent(RegisterOwner_SpaceBranch.this, OwnerHomepage.class));
                                                             }
                                                         });
-
                                             }
                                         });
                                     }
                                 });
-
                             }
                         }
                     });
+
+
     }
 }

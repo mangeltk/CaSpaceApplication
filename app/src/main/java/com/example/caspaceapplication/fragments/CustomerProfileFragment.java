@@ -27,9 +27,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.customer.Front;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,9 +52,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerProfileFragment extends Fragment {

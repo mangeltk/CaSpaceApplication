@@ -11,16 +11,9 @@ import android.view.ViewGroup;
 import com.example.caspaceapplication.R;
 
 
-public class HomeFragment2 extends Fragment {
+public class BookingsFragment extends Fragment {
 
 
-
-
-
-    public static HomeFragment2 newInstance(String param1, String param2) {
-
-        return null;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +25,6 @@ public class HomeFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home2, container, false);
+        return inflater.inflate(R.layout.fragment_bookings, container, false);
     }
 }

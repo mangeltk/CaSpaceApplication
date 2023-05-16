@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,8 @@ import com.example.caspaceapplication.R;
 
 public class FrontRegister extends AppCompatActivity {
 
-    Button registerCustomer, registerOwner, loginButton;
+    Button registerCustomer, registerOwner;
+    TextView textSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ public class FrontRegister extends AppCompatActivity {
 
         registerCustomer = findViewById(R.id.registerCustomer);
         registerOwner = findViewById(R.id.registerOwner);
-        loginButton = findViewById(R.id.loginButton);
+        textSignIn = findViewById(R.id.textSignIn);
 
         registerCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +40,7 @@ public class FrontRegister extends AppCompatActivity {
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        textSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FrontRegister.this,Front.class));

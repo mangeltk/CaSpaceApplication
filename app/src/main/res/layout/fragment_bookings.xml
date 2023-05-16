@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:background="@drawable/header_background_forownerhomepage"
         android:backgroundTint="@color/teal_700"
-        android:fontFamily="@font/quicksand_medium"
+        android:fontFamily="@color/primary"
         android:gravity="center"
         android:padding="10dp"
         android:text="My Booking Transactions"
@@ -32,6 +32,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/custbooking_searchbar"
         android:focusable="false"
+        android:backgroundTint="@color/primary"
         app:closeIcon="@drawable/ic_baseline_clear"
         app:queryHint="Search by branch or layout name"
         app:searchIcon="@drawable/ic_baseline_search_24" />
