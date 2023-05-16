@@ -35,7 +35,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
 import com.example.caspaceapplication.Notification.FCMSend;
-import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -179,10 +178,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         totalCalculatedFee = findViewById(R.id.totalPayment);
         ProofOfPaymentTitle = findViewById(R.id.ProofOfPaymentTitle_Textview);
 
-
-        /*ProofOfPaymentTitle.setVisibility(View.GONE);
-        CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
-        CustProofOfPaymentImageviewUpload.setVisibility(View.GONE);*/
         payOnsiteRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,7 +244,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         CustomerDetailsTitleLayout.setVisibility(View.GONE);
         CustomerDetailsLayout.setVisibility(View.GONE);
 
-        Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
 
         AllBranchesRef.whereEqualTo("owner_id", owner_id)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -270,30 +264,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             }
                             CustBTBranchLocationTextView.setText(StreetAddress + " " + cityAddress);
                             CustBTBranchContactInfoTextView.setText(contactInfo);
-
-                            Map<String, Object> data = documentSnapshot.getData(); // Retrieve the document data as a map
-                            Map<String, Map<String, Object>> hoursMap = (Map<String, Map<String, Object>>) data.get("hours"); // Retrieve the 'hours' map from the document data
-                            Map<String, BranchModel.OpeningHours> openingHours = new HashMap<>(); // Initialize the openingHours map
-
-                            // Ensure the 'hoursMap' is not null before further processing
-                            if (hoursMap != null) {
-                                for (Map.Entry<String, Map<String, Object>> entry : hoursMap.entrySet()) {
-                                    String day = entry.getKey();
-                                    Map<String, Object> dayData = entry.getValue();
-
-                                    String openTime = (String) dayData.get("openTime");
-                                    String closeTime = (String) dayData.get("closeTime");
-                                    boolean isClosed = (boolean) dayData.get("closed");
-
-                                    BranchModel.OpeningHours openingHour = new BranchModel.OpeningHours(isClosed, openTime, closeTime);
-                                    openingHours.put(day, openingHour);
-
-                                    isBranchOpenForDate(selectedStartDate.getText().toString(), openingHours);
-
-                                }
-
-                            }
-
 
                         }
                     }
@@ -324,7 +294,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 public void onClick(View v) {
                                     seletedRateValueTextview.setText(perHour);
                                     selectedRateTypeTextview.setText("Hourly rate");
-                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap, openingHours);
+                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
                                     bookingDetailsScrollview.setVisibility(View.VISIBLE);
                                 }
                             });
@@ -350,7 +320,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                                 hourlyRateLinear.setVisibility(View.VISIBLE);
                             }
 
-
                             CustBTLayoutHourlyRateTextview.setText(perHour);
 
                             CustBTLayoutDailyRateTextview.setText(perDay);
@@ -364,8 +333,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             CustBTLayoutPersonCapTextView.setText(minPersonCap + " - " + maxPersonCap);
 
                             CustBTLayoutAreasizeTextView.setText(layoutAreasize + " sq. m.");
-
-
 
                             dailyRateRadioButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -748,63 +715,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         }
     }
 
-    public boolean isBranchOpenForDate(String selectedDate, Map<String, BranchModel.OpeningHours> openingHours) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-        Date date;
-        try {
-            date = dateFormat.parse(selectedDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-        String dayOfWeekString = getDayOfWeekString(dayOfWeek);
-        BranchModel.OpeningHours hours = openingHours.get(dayOfWeekString);
-
-        if (hours != null && hours.isClosed()) {
-            return false;
-        }
-
-        if (hours != null && !hours.isClosed()) {
-            String selectedTime = dateFormat.format(date);
-            String startTime = hours.getOpenTime();
-            String endTime = hours.getCloseTime();
-
-            if (selectedTime.compareTo(startTime) >= 0 && selectedTime.compareTo(endTime) < 0) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private String getDayOfWeekString(int dayOfWeek) {
-        switch (dayOfWeek) {
-            case Calendar.SUNDAY:
-                return "Sunday";
-            case Calendar.MONDAY:
-                return "Monday";
-            case Calendar.TUESDAY:
-                return "Tuesday";
-            case Calendar.WEDNESDAY:
-                return "Wednesday";
-            case Calendar.THURSDAY:
-                return "Thursday";
-            case Calendar.FRIDAY:
-                return "Friday";
-            case Calendar.SATURDAY:
-                return "Saturday";
-            default:
-                return "";
-        }
-    }
-
-
-    public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap, Map<String, BranchModel.OpeningHours> openingHours){
+    public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
 
         clearInputs();
         getDateAndTime();
@@ -836,25 +747,15 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     }
                     long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
                     long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60;
-
-                    // Check if the branch is open for the selected start date and time
-                    boolean isBranchOpen = isBranchOpenForDate(startDateString, openingHours);
-
-                    if (isBranchOpen) {
-                        // Calculate the total fee based on the booking duration and perHour rate
-                        Double total = hours * Double.parseDouble(perHour);
-                        if (total >= 0) {
-                            totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
-                            totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
-                        } else {
-                            totalResultHours.setText("");
-                            totalCalculatedFee.setText("");
-                            Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
-                        }
+                    //Double total = (hours + ((double) minutes / 60.0)) * rate;
+                    Double total = hours * Double.parseDouble(perHour);
+                    if (total >= 0) {
+                        totalResultHours.setText(String.format(Locale.getDefault(), "%d:%02d", hours, minutes));
+                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", total));
                     } else {
                         totalResultHours.setText("");
                         totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "The branch is closed for the selected date and time.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -873,7 +774,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -902,7 +803,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
 
             @Override
@@ -918,7 +819,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -947,7 +848,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
 
             @Override
@@ -961,7 +862,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
@@ -998,7 +899,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalCalculatedFee.setText("");
                         Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
                     }
-                }*/
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {
