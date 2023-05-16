@@ -27,9 +27,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerProfileFragment extends Fragment {
 
@@ -107,6 +112,7 @@ public class CustomerProfileFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        customerUserActivity();
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getActivity(), Front.class);
                         startActivity(intent);
@@ -121,6 +127,27 @@ public class CustomerProfileFragment extends Fragment {
 
     }
 
+    public void customerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String customerId = fAuth.getCurrentUser().getUid();
+        String activity = "Sign Out";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("customerId",customerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("CustomerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
     private void deleteAccount() {
         // Delete customer's data from Firestore
         fStore.collection("CustomerUserAccounts").document(customersIDNum)

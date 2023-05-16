@@ -23,17 +23,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class LoginOwner extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
 
+public class LoginOwner extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -111,6 +115,7 @@ public class LoginOwner extends AppCompatActivity {
                             progressDialog.show();
                             checkExistingBranch();
                             updateOwnerFCMToken();
+                            ownerUserActivity();
                         } else {
                             progressDialog.cancel();
                             Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
@@ -140,6 +145,27 @@ public class LoginOwner extends AppCompatActivity {
                 });
     }
 
+    public void ownerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
+        String activity = "Login";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("ownerId",ownerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("OwnerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
     private void updateOwnerFCMToken() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
@@ -244,6 +270,7 @@ public class LoginOwner extends AppCompatActivity {
                                             }
                                         });
                             }
+                            ownerUserActivity();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
