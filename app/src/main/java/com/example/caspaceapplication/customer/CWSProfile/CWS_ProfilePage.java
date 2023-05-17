@@ -19,12 +19,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.FeedbackRatingsManagement.CWS_FeedbackRatings;
+import com.example.caspaceapplication.messaging.MsgMain;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -78,6 +80,8 @@ public class CWS_ProfilePage extends AppCompatActivity {
 
     LinearLayout clickToSeeFeedbacksLinearLayout;
 
+    AppCompatImageView toMessaging;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +125,7 @@ public class CWS_ProfilePage extends AppCompatActivity {
         likeButtonImageButton = findViewById(R.id.likeButton_Imagebutton);
         unlikeButtonImageButton = findViewById(R.id.unlikeButton_Imagebutton);
         clickToSeeFeedbacksLinearLayout = findViewById(R.id.clickToSeeFeedbacks_LinearLayout);
+        toMessaging = findViewById(R.id.toMessaging);
 
         CWS_ProfPagebackButton = findViewById(R.id.CWS_ProfPage_backButton);
         CWS_ProfPagebackButton.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +134,15 @@ public class CWS_ProfilePage extends AppCompatActivity {
                 //todo: back button
             }
         });
+
+        /*toMessaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(CWS_ProfilePage.this, MsgMain.class);
+                intent1.putExtra("ownerId", owner_id);
+                startActivity(intent1);
+            }
+        });*/
 
         clickToSeeFeedbacksLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
