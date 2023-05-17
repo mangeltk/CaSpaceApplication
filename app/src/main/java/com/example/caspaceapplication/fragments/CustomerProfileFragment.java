@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -53,6 +56,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 public class CustomerProfileFragment extends Fragment {
 
@@ -205,7 +218,7 @@ public class CustomerProfileFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteAccount();
+                        deleteAccountEmail();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -260,7 +273,61 @@ public class CustomerProfileFragment extends Fragment {
 
 
     }
-    private void deleteAccount() {
+    private  void deleteAccountEmail(){
+        final String email = "forcaspace@gmail.com";
+        final String password = "xvgqwzvcxvkvqtff";
+        final String recipientEmail = customerEmail.getText().toString();
+        final String subject = "HAI";
+        final String messageBody = "HELLO";
+        // Create a new thread to send the email
+        new Thread(() -> {
+            try {
+                // Create email properties
+                Properties props = new Properties();
+                props.put("mail.smtp.auth","true");
+                props.put("mail.smtp.starttls.enable","true");
+                props.put("mail.smtp.host","smtp.gmail.com");
+                props.put("mail.smtp.port","587");
+
+                // Create a session with authentication
+                Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(email, password);
+                    }
+                });
+                // Create email message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(email));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+                message.setSubject(subject);
+                message.setText(messageBody);
+                // Send the email
+                Transport.send(message);
+
+                // Display a Toast or perform any UI updates on the main thread if needed
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Email sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                // Display a Toast or perform any UI updates using a Handler
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Failed to send email", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+
+    }
+//
+    /*private void deleteAccount() {
         // Delete customer's data from Firestore
         fStore.collection("CustomerUserAccounts").document(customersIDNum)
                 .delete()
@@ -291,7 +358,7 @@ public class CustomerProfileFragment extends Fragment {
                         }
                     }
                 });
-    }
+    }*/
 
     private void openFragmentB() {
         CustomerEditProfileFragment fragmentB = new CustomerEditProfileFragment();
