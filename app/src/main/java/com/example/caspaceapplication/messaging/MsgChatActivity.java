@@ -41,9 +41,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import retrofit2.Call;
+/*import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Response;*/
 
 public class MsgChatActivity extends MsgBaseActivity {
 
@@ -121,7 +121,7 @@ public class MsgChatActivity extends MsgBaseActivity {
                 body.put(Constants.REMOTE_MSG_DATA, data);
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
-                sendNotification(body.toString());
+                //sendNotification(body.toString());
             }
             catch(Exception exception)
             {
@@ -346,7 +346,7 @@ public class MsgChatActivity extends MsgBaseActivity {
                 });
     }*/
 
-    private void sendNotification(String messageBody)
+    /*private void sendNotification(String messageBody)
     {
         ApiClient.getClient().create(ApiService.class).sendMessage(
                         Constants.getRemoteMsgHeaders(), messageBody)
@@ -386,7 +386,7 @@ public class MsgChatActivity extends MsgBaseActivity {
                     }
                 });
 
-    }
+    }*/
 
     @Override
     protected void onResume() {
