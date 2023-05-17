@@ -61,6 +61,8 @@ public class LoginOwner extends AppCompatActivity {
     private ActivityLoginOwnerBinding binding;
     private PreferenceManager preferenceManager;
 
+    private String userIdString;
+    private String ownerBranchStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,28 +160,23 @@ public class LoginOwner extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        userIdString = user.getUid();
                         if (user.isEmailVerified()) {
                             progressDialog.setMessage("Logging in...");
                             progressDialog.show();
-                            checkExistingBranch();
-                            updateOwnerFCMToken();
-                            ownerUserActivity();
 
-
-
-                            firebaseFirestore.collection("UserAccounts").document(user.getUid())
+                            firebaseFirestore.collection("UserAccounts").document(userIdString)
                                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()){
                                                 String userRole = documentSnapshot.getString("userType");
-
                                                 if (userRole.equals("Owner")){
-                                                    signIn();
+                                                    checkBranchStatus();
                                                     Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                                 }else {
                                                     Toast.makeText(LoginOwner.this, "No owner registered on this account credentials.", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(getApplicationContext(), LoginOwner.class);
+                                                    Intent intent = new Intent(getApplicationContext(), RegisterOwner.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                     startActivity(intent);
                                                 }
@@ -206,7 +203,8 @@ public class LoginOwner extends AppCompatActivity {
                                     });
                         }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+                })
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.cancel();
@@ -215,6 +213,93 @@ public class LoginOwner extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void setRememberMeCheckbox(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String email = sharedPreferences.getString(KEY_EMAIL, "");
+        String password = sharedPreferences.getString(KEY_PASSWORD, "");
+
+        if (!email.isEmpty() && !password.isEmpty()){
+            progressDialog.setMessage("Logging in...");
+            progressDialog.show();
+
+            firebaseAuth.signInWithEmailAndPassword(email,password)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String userString = user.getUid();
+                            if (user.isEmailVerified()) {
+                                //checkExistingBranch();
+                                firebaseFirestore.collection("UserAccounts").document(userString)
+                                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()){
+                                                    String userRole = documentSnapshot.getString("userType");
+                                                    if (userRole.equals("Owner")){
+                                                        checkBranchStatus();
+                                                        Toast.makeText(LoginOwner.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Toast.makeText(LoginOwner.this, "No owner registered on this account credentials.", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), RegisterOwner.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+
+                                                }
+                                            }
+                                        });
+                            } else {
+                                user.sendEmailVerification()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.cancel();
+                                                Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                            ownerUserActivity();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.cancel();
+                            Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
+                        }
+                    });
+
+        }
+    }
+
+    private void checkBranchStatus(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userIdString = user.getUid();
+        firebaseFirestore.collection("OwnerUserAccounts").document(userIdString)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            ownerBranchStatus = documentSnapshot.getString("ownerBranchStatus");
+                            if (ownerBranchStatus != null && ownerBranchStatus.equals("Unverified")){
+                                signIn();
+                                updateOwnerFCMToken();
+                                ownerUserActivity();
+                            }else {
+                                checkExistingBranch();
+                            }
+                        }
+                    }
+                });
     }
 
     private void signIn()
@@ -265,7 +350,7 @@ public class LoginOwner extends AppCompatActivity {
                             //preferenceManager.putString(Constants.KEY_COMBINED_LAST_NAME, documentSnapshot.getString(Constants.KEY_COMBINED_LAST_NAME));
                             preferenceManager.putString(Constants.KEY_COMBINED_IMAGE, documentSnapshot.getString(Constants.KEY_COMBINED_IMAGE));
                             Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("ownerBranchStatus", ownerBranchStatus);
                             startActivity(intent);
                         } else {
                             // The document does not exist
@@ -346,9 +431,10 @@ public class LoginOwner extends AppCompatActivity {
                 });
     }
 
-
     public void checkExistingBranch(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //OwnerRegistrationModel ownerRegistrationModel = new OwnerRegistrationModel();
+
         // Check if the user has registered their store information before
         CollectionReference branchesRef = firebaseFirestore.collection("CospaceBranches");
         Query queryBranch = branchesRef.whereEqualTo("owner_id", user.getUid());
@@ -359,7 +445,11 @@ public class LoginOwner extends AppCompatActivity {
                     QuerySnapshot document = task.getResult();
                     if (document!=null && !document.isEmpty()){
                         // Redirect to homepage
-                        startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
+                        Intent intent = new Intent(getApplicationContext(), OwnerHomepage.class);
+                        intent.putExtra("ownerBranchStatus", ownerBranchStatus);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getApplicationContext().startActivity(intent);
+                        //startActivity(new Intent(LoginOwner.this, OwnerHomepage.class));
                     } else{
                         startActivity(new Intent(LoginOwner.this, RegisterOwner_SpaceBranch.class));
                     }
@@ -390,50 +480,5 @@ public class LoginOwner extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    public void setRememberMeCheckbox(){
-        // Get the email and password saved in shared preferences
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String email = sharedPreferences.getString(KEY_EMAIL, "");
-        String password = sharedPreferences.getString(KEY_PASSWORD, "");
 
-        if (!email.isEmpty() && !password.isEmpty()){
-            progressDialog.setMessage("Logging in...");
-            progressDialog.show();
-
-            firebaseAuth.signInWithEmailAndPassword(email,password)
-                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            if (user.isEmailVerified()) {
-                                checkExistingBranch();
-                            } else {
-                                user.sendEmailVerification()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                progressDialog.cancel();
-                                                Toast.makeText(LoginOwner.this, "Please check and verify email.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressDialog.cancel();
-                                                Toast.makeText(LoginOwner.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                            ownerUserActivity();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.cancel();
-                            Toast.makeText(LoginOwner.this, "Failed to log in. No user registered!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginOwner.this, RegisterOwner.class));
-                        }
-                    });
-
-        }
-    }
 }

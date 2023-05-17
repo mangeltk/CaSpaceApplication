@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Select image"
+            android:textColor="@color/white"
             android:id="@+id/selectImage_Button"/>
 
         <TextView

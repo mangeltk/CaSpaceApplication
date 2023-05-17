@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.caspaceapplication.Owner.AmenitiesOffered.Owner_AmenitiesOffered;
 import com.example.caspaceapplication.Owner.BookingTransactions.Owner_BookingTransactions;
@@ -23,11 +25,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 public class OwnerHomepage extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     FirebaseFirestore firebaseFirestore;
     BottomNavigationView navigationView;
+
+    ConstraintLayout FourIconsHome;
+    LinearLayout OwnerHomepageUnverifiedNotice;
+    ImageView OwnerHomepageUploadedPermitImageview;
+    String ownerBranchStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,20 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
         ImageView bookingTransactions = findViewById(R.id.bookingTransactions_Imageview);
         ImageView AmenitiesOffered = findViewById(R.id.AmenitiesOffered_Imageview);
         TextView username = findViewById(R.id.textUsername);
+        FourIconsHome = findViewById(R.id.OwnerHomepageIcons);
+        OwnerHomepageUnverifiedNotice = findViewById(R.id.OwnerHomepageUnverifiedNotice);
+        OwnerHomepageUploadedPermitImageview = findViewById(R.id.OwnerHomepageUploadedPermit_Imageview);
+        //BRANCH STATUS
+        Intent intent = getIntent();
+        ownerBranchStatus = intent.getStringExtra("ownerBranchStatus");
+
+        if (!ownerBranchStatus.equals("Unverified")){
+            FourIconsHome.setVisibility(View.VISIBLE);
+            OwnerHomepageUnverifiedNotice.setVisibility(View.GONE);
+        }else{
+            FourIconsHome.setVisibility(View.GONE);
+            OwnerHomepageUnverifiedNotice.setVisibility(View.VISIBLE);
+        }
 
         FirebaseFirestore.getInstance().collection("OwnerUserAccounts")
                 .document(user)
@@ -49,7 +71,16 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             String name = documentSnapshot.getString("ownerUsername");
+                            String permitImage = documentSnapshot.getString("ownerBusinessPermit");
+
                             username.setText(name);
+
+                            if (ownerBranchStatus.equals("Unverified")){
+                                if (permitImage!=null){
+                                    Picasso.get().load(permitImage).into(OwnerHomepageUploadedPermitImageview);
+                                }
+                            }
+
                         }
                     }
                 });
@@ -103,7 +134,16 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
                  startActivity(new Intent(this, OwnerNotification.class));
                 return true;
             case R.id.menuProfile:
-                 startActivity(new Intent(this, Owner_Profile.class));
+                 if (!ownerBranchStatus.equals("Unverified")){
+                     startActivity(new Intent(this, Owner_Profile.class));
+                 }
+                 else{
+                     Intent intent = new Intent(this, Owner_Profile.class);
+                     intent.putExtra("targetFragment", "Owner_UserProfile");
+                     startActivity(intent);
+                 }
+
+
                 return true;
             default:
                 return false;
