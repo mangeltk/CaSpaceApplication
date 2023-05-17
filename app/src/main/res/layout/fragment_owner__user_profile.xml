@@ -186,6 +186,14 @@
 
         </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ownerEditUserProfile_Button"
             android:layout_width="177dp"
@@ -198,7 +206,8 @@
             android:padding="15dp"
             android:text="Edit profile"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginEnd="10dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ownerDeleteProfile_Button"
@@ -214,10 +223,15 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
+
+    </LinearLayout>
+
+
         <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="10dp"
             android:id="@+id/ownerSignOutProfile_Button"
             android:layout_width="177dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/card_border_bottom"
             android:drawableStart="@drawable/ic_baseline_logout_24"
@@ -227,6 +241,8 @@
             android:text="Sign Out"
             android:textColor="@color/black"
             android:textStyle="bold" />
+
+
 
 
     </LinearLayout>
