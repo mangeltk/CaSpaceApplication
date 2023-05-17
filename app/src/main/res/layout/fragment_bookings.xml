@@ -56,7 +56,7 @@
             app:drawableEnd="@drawable/ic_baseline_arrow_upward_24"
             app:drawableTint="@color/black"
             android:fontFamily="@font/quicksand_medium"
-            android:text="Recent"
+            android:text="Oldest"
             android:textColor="@color/black" />
 
         <TextView
@@ -71,7 +71,7 @@
             app:drawableEnd="@drawable/ic_baseline_arrow_downward_24"
             app:drawableTint="@color/black"
             android:fontFamily="@font/quicksand_medium"
-            android:text="Oldest"
+            android:text="Recent"
             android:textColor="@color/black" />
 
         <LinearLayout
