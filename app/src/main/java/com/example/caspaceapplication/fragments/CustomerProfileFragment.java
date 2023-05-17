@@ -317,39 +317,6 @@ public class CustomerProfileFragment extends Fragment {
         }).start();*/
 
     }
-//
-    /*private void deleteAccount() {
-        // Delete customer's data from Firestore
-        fStore.collection("CustomerUserAccounts").document(customersIDNum)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
-        // Delete customer's account from Firebase Auth
-        fAuth.getCurrentUser().delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Sign the customer out of the app
-                            Intent intent = new Intent(getActivity(), Front.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            Log.e(TAG, "Error deleting account", task.getException());
-                        }
-                    }
-                });
-    }*/
 
     private void openFragmentB() {
         CustomerEditProfileFragment fragmentB = new CustomerEditProfileFragment();
