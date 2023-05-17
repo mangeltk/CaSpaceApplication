@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class CoworkingSpaces extends AppCompatActivity {
 
-    ImageButton backButton;
+    AppCompatImageView backButton;
 
     RecyclerView recyclerView;
     ArrayList<BranchModel> branchModelArrayList;

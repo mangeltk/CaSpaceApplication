@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.app.AlertDialog;
@@ -15,12 +16,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caspaceapplication.Owner.Profile.Owner_Profile;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.messaging.Constants;
+import com.example.caspaceapplication.messaging.MsgChatActivity;
+import com.example.caspaceapplication.messaging.MsgUsersActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,6 +55,21 @@ public class OwnerNotification extends AppCompatActivity {
         );
         layoutParams.setMargins(16, 16, 16, 16);
         retrieveNotifications();
+
+
+        AppCompatImageView toMessaging = findViewById(R.id.toMessaging);
+        toMessaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //String conversationId = "ywFqcPUSURabNboRL6ZT0txzIQ42";
+                Intent intent = new Intent(OwnerNotification.this, MsgUsersActivity.class);
+                //intent.putExtra("userCombinedId", conversationId);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     private void retrieveNotifications() {
