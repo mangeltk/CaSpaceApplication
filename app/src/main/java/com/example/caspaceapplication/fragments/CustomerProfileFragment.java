@@ -374,7 +374,7 @@ public class CustomerProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
-                            String customerImage = documentSnapshot.getString("customerImage");
+                            String customerImage = documentSnapshot.getString("customer_image");
                             if (customerImage!=null && !customerImage.isEmpty()){
                                 Picasso.get().load(customerImage).into(profileImg);
                             }
