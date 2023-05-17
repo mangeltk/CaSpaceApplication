@@ -17,14 +17,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/coworkingspaces_search_bar"
+            android:background="@drawable/backgroundnistephanie_ayawhilabti"
             android:orientation="vertical"
             android:weightSum="5.5">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
+                android:layout_weight="4.1"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -150,24 +150,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.5"
-                android:background="@drawable/coworkingspaces_search_bar">
+                android:layout_weight="1.8"
+                android:layout_margin="1dp"
+                android:background="@drawable/customer_coworkingspace_textview">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/recButton_OfficeLayout"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:background="@drawable/buttonwhite_borderblack"
-                        android:backgroundTint="@color/primary"
                         android:drawableStart="@drawable/ic_menu_white"
                         android:drawableTint="@color/orange1"
                         android:fontFamily="@font/quicksand_medium"

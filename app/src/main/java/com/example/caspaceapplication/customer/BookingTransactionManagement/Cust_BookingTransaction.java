@@ -743,7 +743,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     }
                 });
 
-
     }
 
     public void HourlyCalculation(String perHour, int minPersonCap, int maxPersonCap){
