@@ -473,6 +473,25 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         });
     }
 
+    public void getDatesOnly(){
+        selectStartDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(selectedStartDate);
+            }
+        });
+
+        selectedEndDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(selectedEndDate);
+            }
+        });
+
+        selectStartTime.setVisibility(View.GONE);
+        selectEndTime.setVisibility(View.GONE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -991,7 +1010,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     public void DailyCalculation(String perDay, int minPersonCap, int maxPersonCap){
 
         clearInputs();
-        getDateAndTime();
+        getDatesOnly();
 
         selectedStartDate.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1031,7 +1050,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalResultMonths.setText("");
                         totalResultYears.setText("");
                         totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
-                        totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        //totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
                         totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
@@ -1051,11 +1070,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
                 try {
                     startDate = sdf.parse(startDateString);
                     endDate = sdf.parse(endDateString);
@@ -1081,107 +1100,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                         totalResultMonths.setText("");
                         totalResultYears.setText("");
                         totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
-                        totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectStartTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (startDate != null && endDate != null) {
-                    long diffInMillis = endDate.getTime() - startDate.getTime();
-                    long totalDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
-                    long remainingHours = TimeUnit.MILLISECONDS.toHours(diffInMillis - TimeUnit.DAYS.toMillis(totalDays));
-                    double fee = totalDays * Double.parseDouble(perDay);
-
-                    if (totalDays < 0){
-                        totalResultDays.setText("");
-                        totalResultHours.setText("");
-                        totalResultWeeks.setText("");
-                        totalResultMonths.setText("");
-                        totalResultYears.setText("");
-                        totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
-                    }else{
-                        totalResultWeeks.setText("");
-                        totalResultMonths.setText("");
-                        totalResultYears.setText("");
-                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
-                        totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectedEndTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (startDate != null && endDate != null) {
-                    long diffInMillis = endDate.getTime() - startDate.getTime();
-                    long totalDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
-                    long remainingHours = TimeUnit.MILLISECONDS.toHours(diffInMillis - TimeUnit.DAYS.toMillis(totalDays));
-                    double fee = totalDays * Double.parseDouble(perDay);
-
-                    if (totalDays < 0){
-                        totalResultDays.setText("");
-                        totalResultHours.setText("");
-                        totalResultWeeks.setText("");
-                        totalResultMonths.setText("");
-                        totalResultYears.setText("");
-                        totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "End time should be after start time", Toast.LENGTH_SHORT).show();
-                    }else{
-                        totalResultWeeks.setText("");
-                        totalResultMonths.setText("");
-                        totalResultYears.setText("");
-                        totalResultDays.setText((int) totalDays + " day" + (totalDays >= 1 ? "s" : ""));
-                        totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
+                        //totalResultHours.setText(Long.toString(remainingHours)  + " hour" + (remainingHours >= 1 ? "s" : ""));
                         totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", fee));
                     }
                 }
