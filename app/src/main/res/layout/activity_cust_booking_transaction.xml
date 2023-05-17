@@ -65,7 +65,6 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/coworkingspaces_search_bar"
@@ -616,7 +615,6 @@
                     android:textStyle="bold" />
 
                 <GridLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -1210,20 +1208,66 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:fontFamily="@font/quicksand_medium"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="Other Payment Platform"
                             android:textColor="@color/black" />
 
                     </RadioGroup>
 
+
+                    <LinearLayout
+                        android:id="@+id/ownerPaymentChannels_LinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/customer_coworkingspace_textview"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:drawableStart="@drawable/icons8_card_payment_48"
+                            android:text="Branch Payment channels:"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:text="Banco De Oro:  99273642494"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:text="Gcash Number:  99273642494"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
                     <TextView
                         android:id="@+id/ProofOfPaymentTitle_Textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_columnSpan="1"
+                        android:layout_columnSpan="3"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/quicksand_medium"
                         android:padding="5dp"
+                        android:layout_gravity="center"
                         android:text="Proof of payment:"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -1234,28 +1278,18 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:backgroundTint="@color/orange11"
-                        android:layout_columnSpan="2"
+                        android:layout_columnSpan="3"
                         android:layout_marginTop="20dp"
                         android:layout_gravity="center"
                         android:text="Upload photo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_columnSpan="1"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/quicksand_medium"
-                        android:padding="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/CustProofOfPayment_ImageviewUpload"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        android:layout_columnSpan="2"
+                        android:layout_columnSpan="3"
                         android:layout_columnWeight="2"
-                        android:layout_gravity="start"
+                        android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/uploadphoto" />

@@ -69,9 +69,11 @@ import java.util.concurrent.TimeUnit;
 public class Cust_BookingTransaction extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     CollectionReference OfficeLayoutsRef = firebaseFirestore.collection("OfficeLayouts");
     CollectionReference AllBranchesRef = firebaseFirestore.collection("CospaceBranches");
     CollectionReference AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
+    CollectionReference CustomerAccountsRef = firebaseFirestore.collection("CustomerUserAccounts");
 
     TextView CustBTBranchNameTextView, CustBTLayoutNameTextView, CustBTLayoutAvailabilityTextView,
              CustBTLayoutPersonCapTextView, CustBTLayoutAreasizeTextView, CustBTLayoutHourlyRateTextview,
@@ -115,6 +117,8 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
     AppCompatButton selectStartDateButton, selectedEndDateButton, selectStartTime, selectEndTime;
     ProgressDialog progressDialog;
+
+    LinearLayout ownerPaymentChannelsLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +184,9 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         totalResultYears = findViewById(R.id.totalYears_Textview);
         totalCalculatedFee = findViewById(R.id.totalPayment);
         ProofOfPaymentTitle = findViewById(R.id.ProofOfPaymentTitle_Textview);
+        ownerPaymentChannelsLinearLayout = findViewById(R.id.ownerPaymentChannels_LinearLayout);
+
+        ownerPaymentChannelsLinearLayout.setVisibility(View.GONE);
 
         payOnsiteRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +196,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 ProofOfPaymentTitle.setVisibility(View.GONE);
                 CustProofOfPaymentButtonUpload.setVisibility(View.GONE);
                 CustProofOfPaymentImageviewUpload.setVisibility(View.GONE);
+                ownerPaymentChannelsLinearLayout.setVisibility(View.GONE);
             }
         });
         payOtherOptionRadioButton.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +207,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                 ProofOfPaymentTitle.setVisibility(View.VISIBLE);
                 CustProofOfPaymentButtonUpload.setVisibility(View.VISIBLE);
                 CustProofOfPaymentImageviewUpload.setVisibility(View.VISIBLE);
+                ownerPaymentChannelsLinearLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -212,8 +221,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
          CustProofOfPaymentButtonUpload = findViewById(R.id.CustProofOfPayment_ButtonUpload);
          CustProofOfPaymentImageviewUpload = findViewById(R.id.CustProofOfPayment_ImageviewUpload);
          submitBooking = findViewById(R.id.SubmitBooking_Button);
-
-
 
         CustProofOfPaymentButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,17 +298,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             String perMonth = documentSnapshot.getString("layoutMonthlyPrice");
                             String perYear = documentSnapshot.getString("layoutAnnualPrice");
 
-
-                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    seletedRateValueTextview.setText(perHour);
-                                    selectedRateTypeTextview.setText("Hourly rate");
-                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
-                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
-                                }
-                            });
-
                             if (image != null || !image.isEmpty()){
                                 Picasso.get().load(image).into(CustBTLayoutImageImageView);
                                 layout_Image = image;
@@ -336,6 +332,16 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             CustBTLayoutPersonCapTextView.setText(minPersonCap + " - " + maxPersonCap);
 
                             CustBTLayoutAreasizeTextView.setText(layoutAreasize + " sq. m.");
+
+                            hourlyRateRadioButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    seletedRateValueTextview.setText(perHour);
+                                    selectedRateTypeTextview.setText("Hourly rate");
+                                    HourlyCalculation(perHour, minPersonCap, maxPersonCap);
+                                    bookingDetailsScrollview.setVisibility(View.VISIBLE);
+                                }
+                            });
 
                             dailyRateRadioButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -379,11 +385,28 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                             });
 
                         }
-
                     }
                 });
 
+        CustomerAccountsRef.whereEqualTo("customersIDNum", user.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                            String custFirstname = documentSnapshot.getString("customersFirstName");
+                            String custLastname = documentSnapshot.getString("customersLastName");
+                            String customersEmail = documentSnapshot.getString("customersEmail");
+                            String customersOrganization = documentSnapshot.getString("customersOrganization");
 
+                            customerFullNameEditText.setText(custFirstname + " " + custLastname);
+                            customerFullNameEditText.setEnabled(false);
+                            CustEmailEdittext.setText(customersEmail);
+                            customerFullNameEditText.setEnabled(false);
+                            organizationNameEditText.setText(customersOrganization);
+                            organizationNameEditText.setEnabled(false);
+                        }
+                    }
+                });
     }
 
     private int mYear, mMonth, mDay, mHour, mMinute;

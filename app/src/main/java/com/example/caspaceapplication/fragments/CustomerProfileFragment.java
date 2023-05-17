@@ -261,7 +261,7 @@ public class CustomerProfileFragment extends Fragment {
 
     }
     private  void deleteAccountEmail(){
-        /*final String email = "forcaspace@gmail.com";
+      /*  final String email = "forcaspace@gmail.com";
         final String password = "xvgqwzvcxvkvqtff";
         final String recipientEmail = customerEmail.getText().toString();
         final String subject = "Account Deletion";
@@ -314,8 +314,8 @@ public class CustomerProfileFragment extends Fragment {
                     }
                 });
             }
-        }).start();*/
-
+        }).start();
+*/
     }
 
     private void openFragmentB() {
