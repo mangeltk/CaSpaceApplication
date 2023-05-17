@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,15 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -147,7 +158,7 @@ public class Owner_UserProfile extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteAccount();
+                        deleteAccountEmail();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -179,6 +190,63 @@ public class Owner_UserProfile extends Fragment {
         });
     }
 
+    private  void deleteAccountEmail(){
+        final String email = "forcaspace@gmail.com";
+        final String password = "xvgqwzvcxvkvqtff";
+        final String recipientEmail = ownerProfile_Email.getText().toString();
+        final String subject = "Account Deletion";
+        final String messageBody = "Good day, you have requested an account deletion. Please give the admins a 3 days to delete your account." +
+                "\n After 3 days, the CaSpace will email you to let you know that your account deletion is complete."+
+                "\n If you wish to cancel your account deletion, please reply to this email."+
+                "\n\n\n Best regards,\nCaSpace Team";
+        ;
+        // Create a new thread to send the email
+        new Thread(() -> {
+            try {
+                // Create email properties
+                Properties props = new Properties();
+                props.put("mail.smtp.auth","true");
+                props.put("mail.smtp.starttls.enable","true");
+                props.put("mail.smtp.host","smtp.gmail.com");
+                props.put("mail.smtp.port","587");
+
+                // Create a session with authentication
+                Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(email, password);
+                    }
+                });
+                // Create email message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(email));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+                message.setSubject(subject);
+                message.setText(messageBody);
+                // Send the email'
+                Transport.send(message);
+
+                // Display a Toast or perform any UI updates on the main thread if needed
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Email sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                // Display a Toast or perform any UI updates using a Handler
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Failed to send email", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+
+    }
     public void ownerUserActivity(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String ownerId= firebaseAuth.getCurrentUser().getUid();
@@ -199,40 +267,6 @@ public class Owner_UserProfile extends Fragment {
                 });
 
 
-    }
-
-    private void deleteAccount() {
-        // Delete owner's data from Firestore collections
-        // Example:
-        firebaseFirestore.collection("coworkingSpaces").whereEqualTo("ownerID", ownerProfile_IDNumber)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                document.getReference().delete();
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting coworking spaces", task.getException());
-                        }
-                    }
-                });
-
-        // Delete owner's account from Firebase Auth
-        firebaseAuth.getCurrentUser().delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Sign the owner out of the app
-                            Intent intent = new Intent(getActivity(),Front.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            Log.e(TAG, "Error deleting account", task.getException());
-                        }
-                    }
-                });
     }
 
     @Override

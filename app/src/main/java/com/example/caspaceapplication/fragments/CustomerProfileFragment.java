@@ -169,7 +169,7 @@ public class CustomerProfileFragment extends Fragment {
                                     if (!queryDocumentSnapshots.isEmpty()){
                                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
                                             String docId = documentSnapshot.getId();
-                                            customerAccounts_colref.document(docId).update("customerImage", uri.toString())
+                                            customerAccounts_colref.document(docId).update("customer_image", uri.toString())
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void unused) {
@@ -218,6 +218,7 @@ public class CustomerProfileFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         deleteAccountEmail();
                     }
                 });
@@ -277,8 +278,12 @@ public class CustomerProfileFragment extends Fragment {
         final String email = "forcaspace@gmail.com";
         final String password = "xvgqwzvcxvkvqtff";
         final String recipientEmail = customerEmail.getText().toString();
-        final String subject = "HAI";
-        final String messageBody = "HELLO";
+        final String subject = "Account Deletion";
+        final String messageBody = "Good day, you have requested an account deletion. Please give the admins a 3 days to delete your account." +
+                "\n After 3 days, the CaSpace will email you to let you know that your account deletion is complete."+
+                "\n If you wish to cancel your account deletion, please reply to this email."+
+                "\n\n\n Best regards,\nCaSpace Team";
+                ;
         // Create a new thread to send the email
         new Thread(() -> {
             try {
@@ -301,7 +306,7 @@ public class CustomerProfileFragment extends Fragment {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
                 message.setSubject(subject);
                 message.setText(messageBody);
-                // Send the email
+                // Send the email'
                 Transport.send(message);
 
                 // Display a Toast or perform any UI updates on the main thread if needed
