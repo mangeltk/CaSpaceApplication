@@ -65,6 +65,7 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/coworkingspaces_search_bar"
@@ -615,6 +616,7 @@
                     android:textStyle="bold" />
 
                 <GridLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -1197,7 +1199,7 @@
                         <RadioButton
                             android:id="@+id/payOnsiteOption_RadioButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand_medium"
                             android:gravity="center"
                             android:text="Onsite"
@@ -1208,7 +1210,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:fontFamily="@font/quicksand_medium"
-                            android:gravity="start"
+                            android:gravity="center"
                             android:text="Other Payment Platform"
                             android:textColor="@color/black" />
 

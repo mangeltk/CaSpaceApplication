@@ -9,8 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +31,11 @@ import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Front;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -56,16 +52,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 
 public class CustomerProfileFragment extends Fragment {
 
@@ -275,7 +261,7 @@ public class CustomerProfileFragment extends Fragment {
 
     }
     private  void deleteAccountEmail(){
-        final String email = "forcaspace@gmail.com";
+        /*final String email = "forcaspace@gmail.com";
         final String password = "xvgqwzvcxvkvqtff";
         final String recipientEmail = customerEmail.getText().toString();
         final String subject = "Account Deletion";
@@ -283,7 +269,7 @@ public class CustomerProfileFragment extends Fragment {
                 "\n After 3 days, the CaSpace will email you to let you know that your account deletion is complete."+
                 "\n If you wish to cancel your account deletion, please reply to this email."+
                 "\n\n\n Best regards,\nCaSpace Team";
-                ;
+        ;
         // Create a new thread to send the email
         new Thread(() -> {
             try {
@@ -328,7 +314,7 @@ public class CustomerProfileFragment extends Fragment {
                     }
                 });
             }
-        }).start();
+        }).start();*/
 
     }
 //
