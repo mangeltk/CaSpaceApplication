@@ -379,7 +379,28 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             if (user.isEmailVerified()) {
-                                startActivity(new Intent(LoginCustomerTrial.this, Customer_Homepage_BottomNav.class));
+                                firebaseFirestore.collection("UserAccounts").document(user.getUid())
+                                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()){
+                                                    String userRole = documentSnapshot.getString("userType");
+
+                                                    if (userRole.equals("Customer")){
+                                                        signIn();
+                                                        Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                                                        updateCustomerFCMToken();
+                                                        customerUserActivity();
+                                                    }else {
+                                                        Toast.makeText(LoginCustomerTrial.this, "No customer registered on this account credentials.", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), LoginCustomerTrial.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+
+                                                }
+                                            }
+                                        });
                             } else{
                                 user.sendEmailVerification()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
