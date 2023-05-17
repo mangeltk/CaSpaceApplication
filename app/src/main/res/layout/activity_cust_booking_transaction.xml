@@ -1229,6 +1229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:backgroundTint="@color/orange11"
                         android:layout_columnSpan="2"
                         android:layout_marginTop="20dp"
                         android:layout_gravity="center"

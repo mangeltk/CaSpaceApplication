@@ -62,7 +62,8 @@
     <color name="dialog_color1">#dc6601</color>
     <color name="dialog_color2">#3B5796</color>
 
-    <color name="primary">#1C2E46</color>
+    <color name="primary">#FFC591</color>
+    <color name="primary2">#1C2E46</color>
     <color name="primary_dark">#142232</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>

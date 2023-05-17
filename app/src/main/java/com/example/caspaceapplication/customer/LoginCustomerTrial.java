@@ -19,23 +19,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.caspaceapplication.Owner.LoginOwner;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.databinding.ActivityLoginCustomerTrialBinding;
 import com.example.caspaceapplication.messaging.Constants;
 import com.example.caspaceapplication.messaging.PreferenceManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LoginCustomerTrial extends AppCompatActivity  {
@@ -150,6 +150,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                                     signIn();
                                                     Toast.makeText(LoginCustomerTrial.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                                                     updateCustomerFCMToken();
+                                                    customerUserActivity();
                                                 }else {
                                                     Toast.makeText(LoginCustomerTrial.this, "No customer registered on this account credentials.", Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(getApplicationContext(), LoginCustomerTrial.class);
@@ -339,6 +340,27 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                 });
     }
 
+    public void customerUserActivity(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String customerId = firebaseAuth.getCurrentUser().getUid();
+        String activity = "Login";
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("customerId",customerId);
+        data.put("activity", activity);
+        data.put("dateTime", Timestamp.now());
+
+        db.collection("CustomerActivity")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Activity Stored.");
+                    }
+                });
+
+
+    }
     public void setRememberMeCheckbox()
     {
 
@@ -374,6 +396,7 @@ public class LoginCustomerTrial extends AppCompatActivity  {
                                             }
                                         });
                             }
+                            customerUserActivity();
                         }
                     });
         }

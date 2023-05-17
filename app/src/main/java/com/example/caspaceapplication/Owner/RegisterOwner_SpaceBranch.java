@@ -64,8 +64,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-    ;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();;
     ProgressDialog progressDialog;
 
     Uri filepath = null;
@@ -83,20 +82,20 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
     private Spinner categorySpinner;
 
     EditText CWSHours_MondayStartEdittext, CWSHours_MondayEndEdittext,
-            CWSHours_TuesdayStartEdittext, CWSHours_TuesdayEndEdittext,
-            CWSHours_WednesdayStartEdittext, CWSHours_WednesdayEndEdittext,
-            CWSHours_ThursdayStartEdittext, CWSHours_ThursdayEndEdittext,
-            CWSHours_FridayStartEdittext, CWSHours_FridayEndEdittext,
-            CWSHours_SaturdayStartEdittext, CWSHours_SaturdayEndEdittext,
-            CWSHours_SundayStartEdittext, CWSHours_SundayEndEdittext;
+             CWSHours_TuesdayStartEdittext, CWSHours_TuesdayEndEdittext,
+             CWSHours_WednesdayStartEdittext, CWSHours_WednesdayEndEdittext,
+             CWSHours_ThursdayStartEdittext, CWSHours_ThursdayEndEdittext,
+             CWSHours_FridayStartEdittext, CWSHours_FridayEndEdittext,
+             CWSHours_SaturdayStartEdittext, CWSHours_SaturdayEndEdittext,
+             CWSHours_SundayStartEdittext, CWSHours_SundayEndEdittext;
 
     AppCompatButton CWSHours_Monday24hoursAppCompButton, CWSHours_Tuesday24hoursAppCompButton,
-            CWSHours_Wednesday24hoursAppCompButton, CWSHours_Thursday24hoursAppCompButton,
-            CWSHours_Friday24hoursAppCompButton, CWSHours_Saturday24hoursAppCompButton, CWSHours_Sunday24hoursAppCompButton;
+                    CWSHours_Wednesday24hoursAppCompButton, CWSHours_Thursday24hoursAppCompButton,
+                    CWSHours_Friday24hoursAppCompButton, CWSHours_Saturday24hoursAppCompButton, CWSHours_Sunday24hoursAppCompButton;
 
     AppCompatButton CWSHours_MondayCloseAppCompButton, CWSHours_TuesdayCloseAppCompButton,
-            CWSHours_WednesdayCloseAppCompButton, CWSHours_ThursdayCloseAppCompButton,
-            CWSHours_FridayCloseAppCompButton, CWSHours_SaturdayCloseAppCompButton, CWSHours_SundayCloseAppCompButton;
+                    CWSHours_WednesdayCloseAppCompButton, CWSHours_ThursdayCloseAppCompButton,
+                    CWSHours_FridayCloseAppCompButton, CWSHours_SaturdayCloseAppCompButton, CWSHours_SundayCloseAppCompButton;
 
     Boolean isMondayClosed = false, isTuesdayClosed = false, isWednesdayClosed = false, isThursdayClosed = false, isFridayClosed = false, isSaturdayClosed = false, isSundayClosed = false;
 
@@ -125,7 +124,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, GALLERY_CODE);
+                startActivityForResult(intent,GALLERY_CODE);
             }
         });
 
@@ -150,7 +149,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
 
     }
 
-    public void editTextFieldsForHours() {
+    public void editTextFieldsForHours(){
 
         CWSHours_MondayStartEdittext = findViewById(R.id.CWSHours_MondayStart_Edittext);
         CWSHours_MondayEndEdittext = findViewById(R.id.CWSHours_MondayEnd_Edittext);
@@ -426,7 +425,7 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
         });
     }
 
-    public void displayMap() {
+    public void displayMap(){
         final Dialog mapDialog = new Dialog(RegisterOwner_SpaceBranch.this);
         mapDialog.setContentView(R.layout.enterlocation_googlemap_popup);
 
@@ -558,19 +557,19 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK){
             filepath = data.getData();
             branch_image.setImageURI(filepath);
         }
     }
 
-    public void ownerUserActivity() {
+    public void ownerUserActivity(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String ownerId = firebaseAuth.getCurrentUser().getUid();
+        String ownerId= firebaseAuth.getCurrentUser().getUid();
         String activity = "Registered" + branchName;
 
         Map<String, Object> data = new HashMap<>();
-        data.put("ownerId", ownerId);
+        data.put("ownerId",ownerId);
         data.put("activity", activity);
         data.put("dateTime", Timestamp.now());
 
@@ -585,75 +584,105 @@ public class RegisterOwner_SpaceBranch extends AppCompatActivity {
 
 
     }
-
-    private void registerBranch(String namebranch, String streetAddressBranch, String cityAddressBranch, String selectedCategory) {
+    private void registerBranch(String namebranch, String streetAddressBranch, String cityAddressBranch, String selectedCategory){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (filepath == null || namebranch.isEmpty() || streetAddressBranch.isEmpty() || cityAddressBranch.isEmpty()) {
+        if(filepath == null || namebranch.isEmpty() || streetAddressBranch.isEmpty() || cityAddressBranch.isEmpty()) {
             Toast.makeText(RegisterOwner_SpaceBranch.this, "Please fill all fields and choose an image.", Toast.LENGTH_SHORT).show();
             return;
         }
+            // Check for existing branch name based owner_id:current user
+            firebaseFirestore.collection("CospaceBranches")
+                    .whereEqualTo("cospaceName", namebranch)
+                    .whereEqualTo("owner_id", user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                Toast.makeText(RegisterOwner_SpaceBranch.this, "A branch with this name already exists.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                progressDialog.setMessage("Registering branch...");
+                                progressDialog.show();
+                                StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
+                                path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
 
-        // Check for existing branch name based owner_id:current user
-        firebaseFirestore.collection("CospaceBranches")
-                .whereEqualTo("cospaceName", namebranch)
-                .whereEqualTo("owner_id", user.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                            Toast.makeText(RegisterOwner_SpaceBranch.this, "A branch with this name already exists.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            progressDialog.setMessage("Registering branch...");
-                            progressDialog.show();
-                            StorageReference path = firebaseStorage.getReference().child("BranchImages").child(filepath.getLastPathSegment());
-                            path.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Uri> task) {
-                                            Map<String, BranchModel.OpeningHours> hours = new HashMap<>();
-                                            hours.put("Monday", new BranchModel.OpeningHours(isMondayClosed, CWSHours_MondayStartEdittext.getText().toString(), CWSHours_MondayEndEdittext.getText().toString()));
-                                            // Add other days' opening hours here
+                                                Map<String, BranchModel.OpeningHours> hours = new HashMap<>();
+                                                hours.put("Monday", new BranchModel.OpeningHours(isMondayClosed, CWSHours_MondayStartEdittext.getText().toString(), CWSHours_MondayEndEdittext.getText().toString()));
+                                                hours.put("Tuesday", new BranchModel.OpeningHours(isTuesdayClosed, CWSHours_TuesdayStartEdittext.getText().toString(), CWSHours_TuesdayEndEdittext.getText().toString()));
+                                                hours.put("Wednesday", new BranchModel.OpeningHours(isWednesdayClosed, CWSHours_WednesdayStartEdittext.getText().toString(), CWSHours_WednesdayEndEdittext.getText().toString()));
+                                                hours.put("Thursday", new BranchModel.OpeningHours(isThursdayClosed, CWSHours_ThursdayStartEdittext.getText().toString(), CWSHours_ThursdayEndEdittext.getText().toString()));
+                                                hours.put("Friday", new BranchModel.OpeningHours(isFridayClosed, CWSHours_FridayStartEdittext.getText().toString(), CWSHours_FridayEndEdittext.getText().toString()));
+                                                hours.put("Saturday", new BranchModel.OpeningHours(isSaturdayClosed, CWSHours_SaturdayStartEdittext.getText().toString(), CWSHours_SaturdayEndEdittext.getText().toString()));
+                                                hours.put("Sunday", new BranchModel.OpeningHours(isSundayClosed, CWSHours_SundayEndEdittext.getText().toString(), CWSHours_SundayEndEdittext.getText().toString()));
 
-                                            Map<String, Object> branch = new HashMap<>();
-                                            branch.put("cospaceImage", task.getResult().toString());
-                                            branch.put("cospaceName", namebranch);
-                                            branch.put("cospaceCategory", selectedCategory);
-                                            branch.put("cospaceStreetAddress", streetAddressBranch);
-                                            branch.put("cospaceCityAddress", cityAddressBranch);
-                                            branch.put("location", location);
-                                            branch.put("owner_id", user.getUid());
-                                            branch.put("cospaceId", "");
-                                            branch.put("hours", hours);
+                                                Map<String, Object> branch = new HashMap<>();
+                                                branch.put("cospaceImage", task.getResult().toString());
+                                                branch.put("cospaceName", namebranch);
+                                                branch.put("cospaceCategory", selectedCategory);
+                                                branch.put("cospaceStreetAddress", streetAddressBranch);
+                                                branch.put("cospaceCityAddress", cityAddressBranch);
+                                                branch.put("location", location);
+                                                branch.put("owner_id", user.getUid());
+                                                branch.put("cospaceId", "");
+                                                branch.put("hours", hours);
 
-                                            firebaseFirestore.collection("CospaceBranches")
-                                                    .add(branch)
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
-                                                            FirebaseFirestore.getInstance().collection("CospaceBranches")
-                                                                    .document(documentReference.getId())
-                                                                    .update("cospaceId", documentReference.getId())
-                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                        @Override
-                                                                        public void onSuccess(Void unused) {
-                                                                            Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
-                                                                            ownerUserActivity();
-                                                                        }
-                                                                    });
-                                                            progressDialog.dismiss();
-                                                            startActivity(new Intent(RegisterOwner_SpaceBranch.this, OwnerHomepage.class));
-                                                        }
-                                                    });
-                                        }
-                                    });
-                                }
-                            });
+                                                firebaseFirestore.collection("CospaceBranches")
+                                                        .add(branch)
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                FirebaseFirestore.getInstance().collection("CospaceBranches")
+                                                                        .document(documentReference.getId())
+                                                                        .update("cospaceId", documentReference.getId())
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void unused) {
+                                                                                Toast.makeText(RegisterOwner_SpaceBranch.this, "Branch registered!", Toast.LENGTH_SHORT).show();
+                                                                                ownerUserActivity();
+                                                                            }
+                                                                        });
+                                                                progressDialog.dismiss();
+                                                                startActivity(new Intent(RegisterOwner_SpaceBranch.this, OwnerHomepage.class));
+                                                            }
+                                                        });
+
+                                                firebaseFirestore.collection("UserAccounts")
+                                                        .whereEqualTo("userCombinedId", user.getUid())
+                                                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                                if(!queryDocumentSnapshots.isEmpty()){
+                                                                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                                                    String documentId = documentSnapshot.getId();
+
+                                                                    firebaseFirestore.collection("UserAccounts")
+                                                                            .document(documentId)
+                                                                            .update("userImage", task.getResult().toString(), "userFirstName", namebranch)
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void unused) {
+
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                        });
+
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+
+
     }
 }

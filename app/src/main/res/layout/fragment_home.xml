@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@drawable/trending_background_forownerhomepage"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
 
@@ -24,18 +24,26 @@
             android:src="@drawable/logohomepage" />
 
         <TextView
-            android:id="@+id/displayHomepageCustName_Textview"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:drawableStart="@drawable/verified_customer"
-            android:drawableTint="@color/orange1"
             android:fontFamily="@font/montserrat_light"
-            android:text=" Customer"
-            android:textColor="@color/white"
+            android:text="Hello,"
+            android:textColor="@color/primary2"
             android:textSize="17dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/displayHomepageCustName_Textview"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text=" Customer"
+            android:textColor="@color/primary2"
+            android:textSize="17dp" />
 
     </LinearLayout>
 
@@ -46,7 +54,7 @@
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Select by category"
-        android:textColor="@color/white"
+        android:textColor="@color/primary2"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -96,6 +104,30 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Recommended Coworking Spaces"
+        android:textColor="@color/primary2"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/custHomeTopLikesRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
     <!--Promotions-->
     <TextView
         android:layout_width="wrap_content"
@@ -104,7 +136,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Promotions"
-        android:textColor="@color/white"
+        android:textColor="@color/primary2"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -128,29 +160,6 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Recommended Coworking Spaces"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/custHomeTopLikesRecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 
 

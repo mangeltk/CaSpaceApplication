@@ -18,11 +18,16 @@ public class Owner_Profile extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Owner_BranchProfile branchProfileFragment = new Owner_BranchProfile();
-        Owner_UserProfile userProfileFragment = new Owner_UserProfile();
+        String targetFragment = getIntent().getStringExtra("targetFragment");
 
-        fragmentTransaction.add(R.id.frameLayout_ownerProfile, branchProfileFragment);
+        if (targetFragment != null && targetFragment.equals("Owner_UserProfile")) {
+            Owner_UserProfile userProfileFragment = new Owner_UserProfile();
+            fragmentTransaction.replace(R.id.frameLayout_ownerProfile, userProfileFragment);
+        } else {
+            Owner_BranchProfile branchProfileFragment = new Owner_BranchProfile();
+            fragmentTransaction.replace(R.id.frameLayout_ownerProfile, branchProfileFragment);
+        }
+
         fragmentTransaction.commit();
-
     }
 }
