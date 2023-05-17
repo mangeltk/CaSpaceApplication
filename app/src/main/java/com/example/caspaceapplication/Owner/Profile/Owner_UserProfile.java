@@ -56,7 +56,7 @@ public class Owner_UserProfile extends Fragment {
     CollectionReference colref = FirebaseFirestore.getInstance().collection("OwnerUserAccounts");
 
     ImageButton owner_userBranchButton;
-    TextView ownerProfile_FullName, ownerProfile_CompanyName, ownerProfile_Firstname, ownerProfile_Lastname, ownerProfile_IDNumber, ownerProfile_Email;
+    TextView ownerProfile_Status, ownerProfile_CompanyName, ownerProfile_Firstname, ownerProfile_Lastname, ownerProfile_IDNumber, ownerProfile_Email;
     AppCompatButton ownerEditUserProfileButton;
     Button selectImageButton;
     CircleImageView ownerProfileImageview;
@@ -73,6 +73,7 @@ public class Owner_UserProfile extends Fragment {
 
         owner_userBranchButton = rootView.findViewById(R.id.owner_userBranch_Button);
 
+
         owner_userBranchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +88,7 @@ public class Owner_UserProfile extends Fragment {
 
         selectImageButton = rootView.findViewById(R.id.selectImage_Button);
         ownerProfileImageview = rootView.findViewById(R.id.ownerProfile_Image_Imageview);
-        ownerProfile_FullName = rootView.findViewById(R.id.ownerProfile_FullName_Texview);
+        ownerProfile_Status = rootView.findViewById(R.id.ownerProfile_Status_Texview);
         ownerProfile_CompanyName = rootView.findViewById(R.id.ownerProfile_Company_Texview);
         ownerProfile_Firstname = rootView.findViewById(R.id.ownerProfile_Firstname_Texview);
         ownerProfile_Lastname = rootView.findViewById(R.id.ownerProfile_Lastname_Texview);
@@ -289,6 +290,7 @@ public class Owner_UserProfile extends Fragment {
                                 String lastName = documentSnapshot.getString("ownerLastname");
                                 String idNumber = documentSnapshot.getString("ownerIDNum");
                                 String email = documentSnapshot.getString("ownerEmail");
+                                String ownerBranchStatus = documentSnapshot.getString("ownerBranchStatus");
 
                                 // Set the retrieved details to the UI
                                 if (image == null){
@@ -296,12 +298,21 @@ public class Owner_UserProfile extends Fragment {
                                 }else{
                                     Glide.with(getContext()).load(image).into(ownerProfileImageview);
                                 }
-                                ownerProfile_FullName.setText(firstName + " " + lastName);
+                                ownerProfile_Status.setText("Branch " + ownerBranchStatus);
                                 ownerProfile_CompanyName.setText(companyName);
                                 ownerProfile_Firstname.setText(firstName);
                                 ownerProfile_Lastname.setText(lastName);
                                 ownerProfile_IDNumber.setText(idNumber);
                                 ownerProfile_Email.setText(email);
+
+                                if (ownerBranchStatus.equals("Unverified")){
+                                    owner_userBranchButton.setVisibility(View.GONE);
+                                    ownerProfile_Status.setTextColor(getResources().getColor(R.color.colorError));
+                                }else{
+                                    owner_userBranchButton.setVisibility(View.VISIBLE);
+                                    ownerProfile_Status.setTextColor(getResources().getColor(R.color.colorSuccess));
+                                }
+
                             }
                         }
                     }

@@ -2,15 +2,14 @@ package com.example.caspaceapplication.Owner;
 
 public class OwnerRegistrationModel {
 
-    private String ownerIDNum, ownerCompanyName, ownerEmail, ownerFirstname, ownerLastname, ownerUsername, ownerPassword,ownerAccountStatus, userType;
+    private String ownerImage, ownerIDNum, ownerCompanyName, ownerEmail, ownerFirstname, ownerLastname, ownerUsername, ownerPassword,ownerAccountStatus, userType, ownerBusinessPermit;
+    private String ownerBranchStatus;
 
     public OwnerRegistrationModel() {
     }
 
-
-    public OwnerRegistrationModel(String ownerIDNum, String ownerCompanyName, String ownerEmail,
-                                  String ownerFirstname, String ownerLastname, String ownerUsername,
-                                  String ownerPassword, String ownerAccountStatus, String userType) {
+    public OwnerRegistrationModel(String ownerImage, String ownerIDNum, String ownerCompanyName, String ownerEmail, String ownerFirstname, String ownerLastname, String ownerUsername, String ownerPassword, String ownerAccountStatus, String userType, String ownerBusinessPermit, String ownerBranchStatus) {
+        this.ownerImage = ownerImage;
         this.ownerIDNum = ownerIDNum;
         this.ownerCompanyName = ownerCompanyName;
         this.ownerEmail = ownerEmail;
@@ -18,8 +17,34 @@ public class OwnerRegistrationModel {
         this.ownerLastname = ownerLastname;
         this.ownerUsername = ownerUsername;
         this.ownerPassword = ownerPassword;
-        this.ownerAccountStatus= ownerAccountStatus;
-        this.userType= userType;
+        this.ownerAccountStatus = ownerAccountStatus;
+        this.userType = userType;
+        this.ownerBusinessPermit = ownerBusinessPermit;
+        this.ownerBranchStatus = ownerBranchStatus;
+    }
+
+    public String getOwnerBranchStatus() {
+        return ownerBranchStatus;
+    }
+
+    public void setOwnerBranchStatus(String ownerBranchStatus) {
+        this.ownerBranchStatus = ownerBranchStatus;
+    }
+
+    public String getOwnerImage() {
+        return ownerImage;
+    }
+
+    public void setOwnerImage(String ownerImage) {
+        this.ownerImage = ownerImage;
+    }
+
+    public String getOwnerBusinessPermit() {
+        return ownerBusinessPermit;
+    }
+
+    public void setOwnerBusinessPermit(String ownerBusinessPermit) {
+        this.ownerBusinessPermit = ownerBusinessPermit;
     }
 
     public String getOwnerIDNum() {
