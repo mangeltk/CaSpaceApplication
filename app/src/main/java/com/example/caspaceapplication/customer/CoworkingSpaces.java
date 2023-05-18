@@ -46,7 +46,7 @@ public class CoworkingSpaces extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coworking_spaces);
 
-        backButton = findViewById(R.id.backImageButton);
+/*        backButton = findViewById(R.id.backImageButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +56,7 @@ public class CoworkingSpaces extends AppCompatActivity {
                         .replace(R.id.fragment_container, myFragment)
                         .commit();
             }
-        });
+        });*/
 
         AppCompatButton clickButton = findViewById(R.id.clickButton);
         clickButton.setOnClickListener(new View.OnClickListener() {

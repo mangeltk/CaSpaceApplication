@@ -4,30 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/backgroundcaspace"
     android:orientation="vertical"
     tools:context=".customer.CoworkingSpaces">
 
-    <androidx.appcompat.widget.AppCompatImageView
+<!--    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/backImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/white"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
             android:background="@drawable/mapicon"
             android:id="@+id/clickButton"/>
 

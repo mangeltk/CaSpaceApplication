@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintCircleRadius="@dimen/_8sdp"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
+<!--    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageSignOut"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -33,7 +33,7 @@
         android:src="@drawable/messaging_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:tint="@color/white"/>
+        android:tint="@color/white"/>-->
 
 
     <!--    <TextView

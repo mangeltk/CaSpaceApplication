@@ -48,8 +48,8 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:layout_marginBottom="10dp"/>
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginBottom="0dp"/>
 
             </LinearLayout>
 

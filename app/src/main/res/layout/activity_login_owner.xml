@@ -116,7 +116,7 @@
             android:layout_marginTop="@dimen/_25sdp"
             android:fontFamily="@font/montserrat_light"
             android:text="Create New Account"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold" />
 

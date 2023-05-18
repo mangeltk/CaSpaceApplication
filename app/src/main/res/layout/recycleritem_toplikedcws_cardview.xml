@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange11"
+        android:background="@color/cream"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/customer_coworkingspace_textview"
-            android:backgroundTint="@color/colorWhite"
+            android:backgroundTint="@color/cream"
             android:orientation="horizontal">
 
             <TextView
@@ -31,12 +31,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/custom_textbox"
-                android:backgroundTint="@color/orange12"
-                android:fontFamily="@font/quicksand_medium"
+                android:backgroundTint="@color/primary2"
+                android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:hint="1"
                 android:padding="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -62,11 +62,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
                     android:hint="Coworking Space Branch"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,42 +85,42 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="0dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/custom_textbox"
-                    android:backgroundTint="@color/orange11"
-                    android:padding="8dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp">
+
+                    android:backgroundTint="@color/primary2"
+                    android:padding="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@drawable/icons_red_heart48"
                         android:layout_gravity="center"
                         />
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Likes:"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" />-->
 
                     <TextView
                         android:id="@+id/rankCWSLikes_Texview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
-                        android:hint="10"
                         android:layout_marginStart="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/days_one"
+                        android:hint="10"
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                         />
 
 
                 </LinearLayout>

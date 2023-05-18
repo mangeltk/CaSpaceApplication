@@ -117,7 +117,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_25sdp"
             android:text="Create New Account"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/montserrat_light"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold" />
@@ -138,22 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
-
-
         </LinearLayout>
-
-
-
-
-
-
-
-
     </LinearLayout>
-
-
-
 </ScrollView>
 

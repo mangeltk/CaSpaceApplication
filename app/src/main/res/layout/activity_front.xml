@@ -91,7 +91,7 @@
         android:layout_marginTop="@dimen/_140sdp"
         android:text="Sign up here"
         android:layout_gravity="center"
-        android:textColor="@color/primary"
+        android:textColor="@color/primary2"
         android:fontFamily="@font/montserrat_light"
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"/>

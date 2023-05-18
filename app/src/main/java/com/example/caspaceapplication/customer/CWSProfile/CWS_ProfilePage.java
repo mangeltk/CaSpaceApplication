@@ -27,6 +27,7 @@ import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.FeedbackRatingsManagement.CWS_FeedbackRatings;
 import com.example.caspaceapplication.messaging.MsgMain;
+import com.example.caspaceapplication.messaging.MsgUsersActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -127,22 +128,22 @@ public class CWS_ProfilePage extends AppCompatActivity {
         clickToSeeFeedbacksLinearLayout = findViewById(R.id.clickToSeeFeedbacks_LinearLayout);
         toMessaging = findViewById(R.id.toMessaging);
 
-        CWS_ProfPagebackButton = findViewById(R.id.CWS_ProfPage_backButton);
+        /*CWS_ProfPagebackButton = findViewById(R.id.CWS_ProfPage_backButton);
         CWS_ProfPagebackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo: back button
             }
-        });
+        });*/
 
-        /*toMessaging.setOnClickListener(new View.OnClickListener() {
+        toMessaging.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(CWS_ProfilePage.this, MsgMain.class);
+                Intent intent1 = new Intent(CWS_ProfilePage.this, MsgUsersActivity.class);
                 intent1.putExtra("ownerId", owner_id);
                 startActivity(intent1);
             }
-        });*/
+        });
 
         clickToSeeFeedbacksLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
