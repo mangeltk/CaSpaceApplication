@@ -31,7 +31,6 @@ import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Front;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -156,7 +155,7 @@ public class CustomerProfileFragment extends Fragment {
                                     if (!queryDocumentSnapshots.isEmpty()){
                                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
                                             String docId = documentSnapshot.getId();
-                                            customerAccounts_colref.document(docId).update("customerImage", uri.toString())
+                                            customerAccounts_colref.document(docId).update("customer_image", uri.toString())
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void unused) {
@@ -205,7 +204,8 @@ public class CustomerProfileFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteAccount();
+
+                        deleteAccountEmail();
                     }
                 });
                 builder.setNegativeButton("No", null);
@@ -260,37 +260,62 @@ public class CustomerProfileFragment extends Fragment {
 
 
     }
-    private void deleteAccount() {
-        // Delete customer's data from Firestore
-        fStore.collection("CustomerUserAccounts").document(customersIDNum)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
-        // Delete customer's account from Firebase Auth
-        fAuth.getCurrentUser().delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Sign the customer out of the app
-                            Intent intent = new Intent(getActivity(), Front.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            Log.e(TAG, "Error deleting account", task.getException());
-                        }
+    private  void deleteAccountEmail(){
+      /*  final String email = "forcaspace@gmail.com";
+        final String password = "xvgqwzvcxvkvqtff";
+        final String recipientEmail = customerEmail.getText().toString();
+        final String subject = "Account Deletion";
+        final String messageBody = "Good day, you have requested an account deletion. Please give the admins a 3 days to delete your account." +
+                "\n After 3 days, the CaSpace will email you to let you know that your account deletion is complete."+
+                "\n If you wish to cancel your account deletion, please reply to this email."+
+                "\n\n\n Best regards,\nCaSpace Team";
+        ;
+        // Create a new thread to send the email
+        new Thread(() -> {
+            try {
+                // Create email properties
+                Properties props = new Properties();
+                props.put("mail.smtp.auth","true");
+                props.put("mail.smtp.starttls.enable","true");
+                props.put("mail.smtp.host","smtp.gmail.com");
+                props.put("mail.smtp.port","587");
+
+                // Create a session with authentication
+                Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(email, password);
                     }
                 });
+                // Create email message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(email));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+                message.setSubject(subject);
+                message.setText(messageBody);
+                // Send the email'
+                Transport.send(message);
+
+                // Display a Toast or perform any UI updates on the main thread if needed
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Email sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (MessagingException e) {
+                e.printStackTrace();
+                // Display a Toast or perform any UI updates using a Handler
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Failed to send email", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+*/
     }
 
     private void openFragmentB() {
@@ -307,7 +332,7 @@ public class CustomerProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
-                            String customerImage = documentSnapshot.getString("customerImage");
+                            String customerImage = documentSnapshot.getString("customer_image");
                             if (customerImage!=null && !customerImage.isEmpty()){
                                 Picasso.get().load(customerImage).into(profileImg);
                             }
