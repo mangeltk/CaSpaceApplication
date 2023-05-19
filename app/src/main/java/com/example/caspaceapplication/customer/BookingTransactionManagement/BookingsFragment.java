@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
+import com.example.caspaceapplication.ModelClasses.Booking_ModelClass;
 import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +44,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -63,12 +65,12 @@ public class BookingsFragment extends Fragment {
 
     CollectionReference AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
-    List<BookingDetails_ModelClass> modelClassList;
+    List<Booking_ModelClass> modelClassList;
     CustBookingFragmentAdapter adapter;
 
     RecyclerView customerBookingsRecyclerview;
 
-    boolean isAscendingOrder = true; //for dates sorting
+    boolean isAscendingOrder = true;
     SearchView custBookingsSearchview;
     TextView recentTextview, oldestTextview;
     Spinner bookingStatusSpinner;
@@ -80,7 +82,6 @@ public class BookingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bookings, container, false);
-
 
         customerBookingsRecyclerview = rootView.findViewById(R.id.customerBookings_Recyclerview);
         customerBookingsRecyclerview.setHasFixedSize(true);
@@ -121,7 +122,7 @@ public class BookingsFragment extends Fragment {
         });
 
         bookingStatusSpinner = rootView.findViewById(R.id.custBookingsStatus_Spinner);
-        String[] bookingStatusItems = {"","Pending", "Ongoing", "Completed", "Cancelled", "Declined"};
+        String[] bookingStatusItems = {"","Accepted","Pending", "Ongoing", "Completed", "Cancelled", "Declined"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, bookingStatusItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bookingStatusSpinner.setAdapter(adapter);
@@ -129,7 +130,6 @@ public class BookingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String selectedStatus = adapterView.getItemAtPosition(position).toString();
-
                 if (selectedStatus == "" && selectedStatus.equals("")){
                     displayAllBookings();
                 }else{
@@ -148,8 +148,8 @@ public class BookingsFragment extends Fragment {
 
     //Search by layout name or branch name
     private void searchBookingList(String newText) {
-        List<BookingDetails_ModelClass> dataSearchList = new ArrayList<>();
-        for (BookingDetails_ModelClass data : modelClassList){
+        List<Booking_ModelClass> dataSearchList = new ArrayList<>();
+        for (Booking_ModelClass data : modelClassList){
             if (data.getBranchName().toLowerCase().contains(newText.toLowerCase())
                     || data.getLayoutName().toLowerCase().contains(newText.toLowerCase())){
                 dataSearchList.add(data);
@@ -170,7 +170,7 @@ public class BookingsFragment extends Fragment {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
-                            BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                            Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                             modelClassList.add(modelClass);
                         }
                         adapter.notifyDataSetChanged();
@@ -186,7 +186,7 @@ public class BookingsFragment extends Fragment {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                            BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                            Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                             modelClassList.add(modelClass);
                         }
                         adapter.notifyDataSetChanged();
@@ -200,16 +200,16 @@ public class BookingsFragment extends Fragment {
     }
 
     public void sortRecent(){
-        Collections.sort(modelClassList, new Comparator<BookingDetails_ModelClass>() {
+        Collections.sort(modelClassList, new Comparator<Booking_ModelClass>() {
             @Override
-            public int compare(BookingDetails_ModelClass o1, BookingDetails_ModelClass o2) {
-                if (o1.getBookingStartDate() == null || o2.getBookingStartDate() == null) {
+            public int compare(Booking_ModelClass o1, Booking_ModelClass o2) {
+                if (o1.getBookSubmittedDate() == null || o2.getBookSubmittedDate() == null) {
                     return 0;
                 }
                 if (isAscendingOrder) {
-                    return o1.getBookingStartDate().compareTo(o2.getBookingStartDate());
+                    return o1.getBookSubmittedDate().compareTo(o2.getBookSubmittedDate());
                 } else {
-                    return o2.getBookingStartDate().compareTo(o1.getBookingStartDate());
+                    return o2.getBookSubmittedDate().compareTo(o1.getBookSubmittedDate());
                 }
             }
         });
@@ -221,16 +221,16 @@ public class BookingsFragment extends Fragment {
     }
 
     public void sortOldest(){
-        Collections.sort(modelClassList, new Comparator<BookingDetails_ModelClass>() {
+        Collections.sort(modelClassList, new Comparator<Booking_ModelClass>() {
             @Override
-            public int compare(BookingDetails_ModelClass o1, BookingDetails_ModelClass o2) {
-                if (o1.getBookingStartDate() == null || o2.getBookingStartDate() == null) {
+            public int compare(Booking_ModelClass o1, Booking_ModelClass o2) {
+                if (o1.getBookSubmittedDate() == null || o2.getBookSubmittedDate() == null) {
                     return 0;
                 }
                 if (isAscendingOrder) {
-                    return o2.getBookingStartDate().compareTo(o1.getBookingStartDate());
+                    return o2.getBookSubmittedDate().compareTo(o1.getBookSubmittedDate());
                 } else {
-                    return o1.getBookingStartDate().compareTo(o2.getBookingStartDate());
+                    return o1.getBookSubmittedDate().compareTo(o2.getBookSubmittedDate());
                 }
             }
         });
@@ -243,13 +243,13 @@ public class BookingsFragment extends Fragment {
 
     public class CustBookingFragmentAdapter extends RecyclerView.Adapter<CustBookingFragmentAdapter.ViewHolder>{
 
-        private  List<BookingDetails_ModelClass> dataClass;
+        private  List<Booking_ModelClass> dataClass;
 
-        public CustBookingFragmentAdapter(List<BookingDetails_ModelClass> dataClass) {
+        public CustBookingFragmentAdapter(List<Booking_ModelClass> dataClass) {
             this.dataClass = dataClass;
         }
 
-        public void setSearchList(List<BookingDetails_ModelClass> dataSearchList){
+        public void setSearchList(List<Booking_ModelClass> dataSearchList){
             this.dataClass = dataSearchList;
             notifyDataSetChanged();
         }
@@ -275,22 +275,22 @@ public class BookingsFragment extends Fragment {
             holder.layoutName.setText(dataClass.get(position).getLayoutName());
             holder.bookingStatus.setText(dataClass.get(position).getBookingStatus());
             holder.bookingRateType.setText(dataClass.get(position).getRateType());
-            holder.bookingRateValue.setText("₱"+dataClass.get(position).getRateValue());
-            holder.bookingStartDate.setText(dataClass.get(position).getBookingStartDate());
+            holder.bookingRateValue.setText("₱"+dataClass.get(position).getRatePrice());
+            holder.bookingStartDate.setText(dataClass.get(position).getBookDateSelected());
             holder.bookingTotalPayment.setText(dataClass.get(position).getTotalPayment());
             holder.seeMoreDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int clickedPosition = holder.getAdapterPosition();
-                    BookingDetails_ModelClass model = modelClassList.get(clickedPosition);
+                    Booking_ModelClass model = modelClassList.get(clickedPosition);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
                     View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                     ImageView branchImage, layoutImage, paymentImage;
-                    TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum,
-                            startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths, totalYears,
-                            custFullname, orgName, custAddress, custPhoneNum, custEmail;
+                    TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, ProofOfPaymentTitle,
+                            custFullname, orgName, custAddress, custPhoneNum, custEmail, startDate, endDate, startTime, endTime,
+                            totalHours, totalHoursTitle, totalDays, totalDaysTitle, totalWeeks, totalWeeksTitle, totalMonths, totalMonthsTitle;
 
                     AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
 
@@ -298,6 +298,7 @@ public class BookingsFragment extends Fragment {
 
                     branchImage = dialogView.findViewById(R.id.seemoreBranchImage_Imageview);
                     layoutImage = dialogView.findViewById(R.id.seemoreLayoutImage_Imageview);
+                    ProofOfPaymentTitle = dialogView.findViewById(R.id.ProofOfPaymentTitle);
                     paymentImage = dialogView.findViewById(R.id.seemorePaymentPic_Imageview);
                     branchName = dialogView.findViewById(R.id.seemoreBranchName_Textview);
                     layoutName = dialogView.findViewById(R.id.seemoreLayoutName_Textview);
@@ -311,11 +312,14 @@ public class BookingsFragment extends Fragment {
                     endDate = dialogView.findViewById(R.id.seemoreEndDate_Textview);
                     startTime = dialogView.findViewById(R.id.seemoreStartTime_Textview);
                     endTime = dialogView.findViewById(R.id.seemoreEndTime_Textview);
+                    totalHoursTitle = dialogView.findViewById(R.id.hoursTitle);
                     totalHours = dialogView.findViewById(R.id.seemoreTotalHours_Textview);
+                    totalDaysTitle = dialogView.findViewById(R.id.daysTitle);
                     totalDays = dialogView.findViewById(R.id.seemoreTotalDays_Textview);
+                    totalWeeksTitle = dialogView.findViewById(R.id.weeksTitle);
                     totalWeeks = dialogView.findViewById(R.id.seemoreTotalWeeks_Textview);
+                    totalMonthsTitle = dialogView.findViewById(R.id.monthsTitle);
                     totalMonths = dialogView.findViewById(R.id.seemoreTotalMonths_Textview);
-                    totalYears = dialogView.findViewById(R.id.seemoreTotalYears_Textview);
                     custFullname = dialogView.findViewById(R.id.seemoreCustFullname_Textview);
                     orgName = dialogView.findViewById(R.id.seemoreCustOrgName_Textview);
                     custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
@@ -330,6 +334,20 @@ public class BookingsFragment extends Fragment {
                     String branchImageUri = String.valueOf(dataClass.get(clickedPosition).getBranchImage());
                     String layoutImageUri = String.valueOf(dataClass.get(clickedPosition).getLayoutImage());
                     String paymentImageUri = String.valueOf(dataClass.get(clickedPosition).getProofOfPayment());
+
+                    if (model.getRateType().equals("Hourly rate")){
+                        totalDaysTitle.setVisibility(View.GONE);
+                        totalDays.setVisibility(View.GONE);
+                        totalWeeksTitle.setVisibility(View.GONE);
+                        totalWeeks.setVisibility(View.GONE);
+                        totalMonthsTitle.setVisibility(View.GONE);
+                        totalMonths.setVisibility(View.GONE);
+                    }
+
+                    if (model.getPaymentOption().equals("Onsite")){
+                        paymentImage.setVisibility(View.GONE);
+                        ProofOfPaymentTitle.setVisibility(View.GONE);
+                    }
 
                     if (!branchImageUri.isEmpty() && branchImageUri !=null){
                         Picasso.get().load(branchImageUri).into(branchImage);
@@ -348,18 +366,29 @@ public class BookingsFragment extends Fragment {
                     bookingStatus.setText(model.getBookingStatus());
                     bookingPayment.setText(model.getTotalPayment());
                     rateType.setText(model.getRateType());
-                    ratePrice.setText("₱"+model.getRateValue());
+                    ratePrice.setText("₱"+model.getRatePrice());
                     paymentOption.setText(model.getPaymentOption());
                     tenantsNum.setText(model.getNumOfTenants());
-                    startDate.setText(model.getBookingStartDate());
-                    endDate.setText(model.getBookingEndDate());
-                    startTime.setText(model.getBookingStartTime());
-                    endTime.setText(model.getBookingEndTime());
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                    String startDateString = dateFormat.format(model.getBookStartTimeSelected().toDate());
+                    startDate.setText(startDateString);
+
+                    String endDateString = dateFormat.format(model.getBookEndTimeSelected().toDate());
+                    endDate.setText(endDateString);
+
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+                    String startTimeString = timeFormat.format(model.getBookStartTimeSelected().toDate());
+                    startTime.setText(startTimeString);
+
+                    String endTimeString = timeFormat.format(model.getBookEndTimeSelected().toDate());
+                    endTime.setText(endTimeString);
+
                     totalHours.setText(model.getTotalHours());
-                    totalDays.setText(model.getTotalDays());
-                    totalWeeks.setText(model.getTotalWeeks());
-                    totalMonths.setText(model.getTotalMonths());
-                    totalYears.setText(model.getTotalYears());
+                    //totalDays.setText(model.getTotalDays());
+                    //totalWeeks.setText(model.getTotalWeeks());
+                    //totalMonths.setText(model.getTotalMonths());
+
                     custFullname.setText(model.getCustomerFullname());
                     orgName.setText(model.getOrganizationName());
                     custAddress.setText(model.getCustomerAddress());

@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
                     android:text="Leave Feedback"
                     android:textColor="@color/black"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Your feedback:"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:background="@drawable/coworkingspaces_search_bar"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/montserrat_light"
                     android:hint="Enter feedback here..."
                     android:maxLines="5"
                     android:padding="10dp"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Rate your experience:"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -137,10 +137,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/buttonwhite_borderblack"
-                android:backgroundTint="@color/orange11"
-                android:fontFamily="@font/quicksand_medium"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/montserrat_light"
                 android:text="Submit"
-                android:textColor="@color/black" />
+                android:textSize="20sp"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

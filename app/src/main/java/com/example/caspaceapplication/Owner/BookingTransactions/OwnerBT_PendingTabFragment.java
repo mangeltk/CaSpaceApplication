@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.ModelClasses.Booking_ModelClass;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,7 +27,7 @@ public class OwnerBT_PendingTabFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private OwnerBT_AdapterClass adapterClass;
-    private List<BookingDetails_ModelClass> dataClassList;
+    private List<Booking_ModelClass> dataClassList;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -60,7 +60,7 @@ public class OwnerBT_PendingTabFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                    Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                     dataClassList.add(modelClass);
                 }
                 adapterClass.notifyDataSetChanged();

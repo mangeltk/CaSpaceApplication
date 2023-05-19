@@ -32,11 +32,12 @@
                 android:layout_gravity="center"
                 android:layout_margin="3dp"
                 android:background="@drawable/customer_recycler_cwshomepage"
-                android:backgroundTint="@color/orange11"
-                android:fontFamily="@font/quicksand_medium"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
+                android:textColorHint="@color/gray"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -121,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="2"
                         android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:hint="Layout name"
                         android:textColor="@color/black"
@@ -131,7 +132,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Customer Fullname: "
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -142,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/montserrat_light"
                         android:hint="firstname lastname"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -150,7 +151,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Booking Start Date: "
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -161,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/montserrat_light"
                         android:hint="00/00/0000"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -169,7 +170,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Booking End Date: "
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -180,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/montserrat_light"
                         android:hint="00/00/0000"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -188,7 +189,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Total Payment: "
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -199,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/montserrat_light"
                         android:hint="P00.00"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -207,7 +208,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Mode of Payment: "
                         android:textColor="@color/black"
                         android:textSize="12sp"
@@ -218,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/montserrat_light"
                         android:hint="Other payment option"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -232,9 +233,9 @@
                         android:layout_marginTop="10dp"
                         android:drawableStart="@drawable/ic_baseline_read_more_24"
                         android:drawableTint="@color/blue13"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="See more details"
-                        android:textColor="@color/blue13"
+                        android:textColor="@color/primary2"
                         android:textSize="15sp"
                         android:textStyle="bold|italic" />
 

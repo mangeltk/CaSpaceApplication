@@ -46,18 +46,6 @@ public class CoworkingSpaces extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coworking_spaces);
 
-/*        backButton = findViewById(R.id.backImageButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeFragment myFragment = new HomeFragment();
-                // Replace the current fragment with the new fragment
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, myFragment)
-                        .commit();
-            }
-        });*/
-
         AppCompatButton clickButton = findViewById(R.id.clickButton);
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,14 +82,41 @@ public class CoworkingSpaces extends AppCompatActivity {
     }
 
     public void retrieveCoworkingSpaces(){
-        // Retrieve promotions from Firestore
 
-        //String tbi = "Technology Business Incubation Program (TBI)";
-        //String fblb = "Fabrication Laboratory (Fab lab)";
+        String PrivateOffice = "Office space exclusive for an organization";
+        String IndivOffice = "Office space of individual";
+        String other = "Individual desk or table for 4 people";
 
         firebaseFirestore.collection("CospaceBranches")
-                //.whereEqualTo("cospaceCategory", tbi)
-                //.whereEqualTo("cospaaceCategory", fblb)
+                .whereEqualTo("cospaceCategory", PrivateOffice)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
+                        }
+                        coworkingSpacesAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        firebaseFirestore.collection("CospaceBranches")
+                .whereEqualTo("cospaceCategory", IndivOffice)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
+                        }
+                        coworkingSpacesAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        firebaseFirestore.collection("CospaceBranches")
+                .whereEqualTo("cospaceCategory", other)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

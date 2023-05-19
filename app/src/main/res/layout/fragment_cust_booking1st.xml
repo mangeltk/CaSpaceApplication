@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".customer.BookingManagement.CustBooking1st">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:id="@+id/TimePlots_LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_border_bottom"
+                android:orientation="vertical">
+
+                <!-- Calendar booked dates-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/changeTextForDateSelected_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/error_bg"
+                        android:backgroundTint="@color/primary"
+                        android:drawableLeft="@drawable/ic_baseline_edit_calendar_24"
+                        android:drawableTint="@color/white"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Select to browse for available dates"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:id="@+id/CalendarSection_LinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CalendarView
+                            android:id="@+id/calendar_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/filter_background" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Plot Time Header-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/buttonwhite_borderblack"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_columnWeight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Accepted Bookings"
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/noBookings_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_columnWeight="1"
+                        android:background="@drawable/buttonwhite_borderblack"
+                        android:backgroundTint="@color/gray"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="No Accepted Bookings this day"
+                        android:padding="5dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/acceptedBookingsTime_Recylerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:scrollbars="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_columnWeight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:text="Available time slots"
+                        android:textColor="@color/primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/noBookingsaAvailable_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_columnWeight="1"
+                        android:background="@drawable/buttonwhite_borderblack"
+                        android:backgroundTint="@color/gray"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="This day is fully booked"
+                        android:padding="5dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/availableTime_Recylerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:scrollbars="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="4" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bookNow_AppCompatButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttonwhite_borderblack"
+                    android:backgroundTint="@color/primary"
+                    android:drawableLeft="@drawable/ic_baseline_book_online_24"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:paddingStart="80dp"
+                    android:paddingEnd="80dp"
+                    android:text="Book now"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/FORHOURLYselectDatesAndTime_LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/selectDate_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/selectedDateTitle_Textview"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
+                        android:drawableTint="@color/dialog_color2"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Selected Date: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/selectedDateFromCalendar_Textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="No date selected"
+                        android:padding="10dp"
+                        android:textColor="@color/orange1"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/selectEndDate_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
+                            android:drawableTint="@color/dialog_color2"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="End Date: "
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/selectedEndDateFromCalendar_Textview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:hint="No date selected"
+                            android:padding="10dp"
+                            android:textColor="@color/orange1"
+                            android:textColorHint="@color/gray"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/deleteButtonForDays_ImageButton"
+                        android:layout_width="40dp"
+                        android:layout_gravity="end|center"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_baseline_clear"
+                        android:backgroundTint="@color/orange"
+                        android:background="@drawable/ic_circle_black"
+                        android:layout_marginEnd="10dp"/>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/selectRateTitle_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:text="Select rate type"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/RadioButtonGroup_ForRates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/hourlyRate_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:buttonTint="@color/orange"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:text="Hourly"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/dailyRate_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:buttonTint="@color/orange"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:text="Daily"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/weeklyRate_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:buttonTint="@color/orange"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:text="Weekly"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/monthlyRate_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:buttonTint="@color/orange"
+                            android:fontFamily="@font/quicksand_medium"
+                            android:gravity="center"
+                            android:text="Monthly"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black" />
+
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rateDetails_LinearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:paddingStart="60dp"
+                    android:paddingEnd="60dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:backgroundTint="@color/orange"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/selectedRateType_Textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_payments_24"
+                        android:drawableTint="@color/black"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:hint="Hourly rate "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp"
+                        android:textStyle="bold"  />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="₱"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/selectedRatePrice_Textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="start|center"
+                        android:hint="10"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/selectStartTime_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_access_time_24"
+                        android:drawableTint="@color/dialog_color2"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Start Time: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/selected_startTime_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="No time selected"
+                        android:padding="10dp"
+                        android:textColor="@color/orange1"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/selectEndTime_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_access_time_24"
+                        android:drawableTint="@color/dialog_color2"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="End Time: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/selected_endTime_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="No time selected"
+                        android:padding="10dp"
+                        android:textColor="@color/orange1"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/totalDuration_LinearLayout"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/totalCalcDurationTitle_Texview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_hourglass_top_24"
+                        android:drawableTint="@color/dialog_color2"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Total duration: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/totalCalcDuration_Texview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00"
+                        android:padding="10dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/orange1"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:visibility="gone"
+                        android:id="@+id/addButtonForDays_ImageButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add"
+                        android:backgroundTint="@color/orange"
+                        android:background="@drawable/ic_circle_black"
+                        android:layout_marginEnd="5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/totalPayment_LinearLayout"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_baseline_payments_24"
+                        android:drawableTint="@color/dialog_color2"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Total payment: "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/totalCalcPayment_Texview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="center"
+                        android:hint="00.00"
+                        android:padding="10dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/orange1"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/custBookingDets_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/customer_recycler_cwshomepage"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Customer details"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <GridLayout
+                android:id="@+id/CustomerDetails_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:columnCount="3"
+                android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="Customer Name:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/customerDetails_Fullname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="Customer's Full Name"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="Organization Name:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/customerDetails_OrgName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="Organization Name"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="No. of tenants:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/customerDetails_TenantsNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="2"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="00"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:layout_rowSpan="2"
+                android:text="Customer Contact info:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/customerDetails_PhoneNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="Phone"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/customerDetails_Email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="xsxzxwss@hmail.com"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="Customer Address:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/customerDetails_Address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/customer_recycler_cwshomepage"
+                android:fontFamily="@font/days_one"
+                android:gravity="start"
+                android:hint="Address"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="Payment option:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/customerDetails_OnsiteRadButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_gravity="center"
+                    android:text="Onsite"
+                    android:buttonTint="@color/orange"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/customerDetails_OtherOptRadButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:buttonTint="@color/orange"
+                    android:text="Other Payment Platform"
+                    android:textColor="@color/black" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/branchPaymentChannels_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/customer_coworkingspace_textview"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:padding="10dp"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/icons8_card_payment_48"
+                        android:text="Branch Payment channels:"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/days_one"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="Banco De Oro:  99273642494"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/days_one"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="Gcash Number:  99273642494"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/uploadPaymentImage_LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_columnSpan="3">
+
+                    <Button
+                        android:id="@+id/CustomerDetails_UploadButtonPaymentImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:backgroundTint="@color/primary"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_gravity="center"
+                        android:text="Upload photo receipt" />
+
+                    <ImageView
+                        android:id="@+id/CustomerDetails_ProofPaymentImage"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_columnWeight="2"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/uploadphoto" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <CheckBox
+                            android:id="@+id/Terms_Checkbox"
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/ReadTerms_Textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/days_one"
+                            android:text="Read terms and conditions"
+                            android:textColor="@color/primary2" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/SubmitBookingDetails_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/primary"
+                    android:background="@drawable/custom_edittext_orange"
+                    android:drawableStart="@drawable/ic_baseline_bookmark_added_24"
+                    android:drawableTint="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:layout_columnSpan="3"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:textStyle="bold"
+                    android:text="Submit booking"
+                    android:textColor="@color/white" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+
+
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+                 android:background="@drawable/customer_recycler_cwshomepage"
+                 android:padding="10dp"
+                 >
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:text="SUMMARY"
+                     android:gravity="center"
+                     android:layout_gravity="center"
+                     android:textStyle="bold"
+                     android:textColor="@color/black"
+                     android:background="@color/orange"
+                     android:fontFamily="@font/quicksand_medium"/>
+
+                 <GridLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:columnCount="2"
+                     android:layout_gravity="center"
+                     android:padding="10dp">
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Total hours:"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:textStyle="bold"
+                         android:layout_gravity="end|center"
+                         android:textColor="@color/black"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="00"
+                         android:layout_gravity="center"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:textColor="@color/black"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Total payment:"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:textStyle="bold"
+                         android:layout_gravity="end|center"
+                         android:textColor="@color/black"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="00"
+                         android:layout_gravity="center"
+                         android:fontFamily="@font/quicksand_medium"
+                         android:textColor="@color/black"/>
+
+                 </GridLayout>
+
+             </LinearLayout>-->
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

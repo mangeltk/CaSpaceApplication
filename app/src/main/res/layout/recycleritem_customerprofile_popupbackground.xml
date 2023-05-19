@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Title for "
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/poppins_medium"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_gravity="center"

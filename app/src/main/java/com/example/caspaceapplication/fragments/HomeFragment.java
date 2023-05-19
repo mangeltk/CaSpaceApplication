@@ -24,6 +24,7 @@ import com.example.caspaceapplication.Owner.ProDisc.OwnerProDisc_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.CWSProfile.CWS_ProfilePage;
 import com.example.caspaceapplication.customer.CoworkingSpaces;
+import com.example.caspaceapplication.customer.TechnologyHubs;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -68,8 +69,14 @@ public class HomeFragment extends Fragment {
         imageview_cws.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CoworkingSpaces.class);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(), CoworkingSpaces.class));
+            }
+        });
+
+        imageview_techhubs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), TechnologyHubs.class));
             }
         });
 
@@ -135,8 +142,7 @@ public class HomeFragment extends Fragment {
 
     public void retrieveTopList(){
         firebaseFirestore.collection("CospaceBranches").whereGreaterThan("Likes", 0) // Only retrieve documents with a "Likes" field
-                .orderBy("Likes", Query.Direction.DESCENDING)
-                .limit(10)// Sort in descending order based on "Likes"
+                .orderBy("Likes", Query.Direction.DESCENDING)// Sort in descending order based on "Likes"
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

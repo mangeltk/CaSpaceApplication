@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:padding="2dp"
+    android:padding="5dp"
     android:orientation="vertical"
     android:background="@drawable/coworkingspaces_search_bar">
 
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/orange11">
+            android:background="@color/primary">
 
             <ImageView
                 android:id="@+id/CustBookingBranchImage_Cardview"
@@ -32,9 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/quicksand_medium"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppins_medium"
                 android:hint="Branch name"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -43,10 +44,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:gravity="end"
                 android:hint="Completed"
-                android:textColor="@color/teal_700"
+                android:textColor="@color/primary2"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -92,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:hint="Layout name"
                         android:textColor="@color/black"
                         android:textSize="15sp"
@@ -106,7 +107,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:text="Booking rate type:"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -116,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:hint="Daily rate"
                             android:textColor="@color/black" />
 
@@ -125,14 +126,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:hint="P00.00"
                             android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:text="Booking Start date:"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -143,14 +144,14 @@
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="2"
                             android:layout_marginStart="10dp"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:hint="00/00/0000"
                             android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:text="Total payment"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -161,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="2"
                             android:layout_marginStart="10dp"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:hint="P00.00"
                             android:textColor="@color/black" />
 
@@ -172,9 +173,10 @@
                             android:layout_columnSpan="3"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:text="*click here to see more details"
-                            android:textColor="@color/teal_700"
+                            android:textColor="@color/primary2"
+                            android:textStyle="italic|bold"
                             android:textSize="12sp" />
 
 

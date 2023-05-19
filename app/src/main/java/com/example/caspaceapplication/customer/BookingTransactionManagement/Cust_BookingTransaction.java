@@ -554,7 +554,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             totalDays = (TextView) custReviewDetails.findViewById(R.id.totalDaysPopup);
             totalWeeks = (TextView) custReviewDetails.findViewById(R.id.totalWeeksPopup);
             totalMonths = (TextView) custReviewDetails.findViewById(R.id.totalMonthsPopup);
-            totalYears = (TextView) custReviewDetails.findViewById(R.id.totalYearsPopup);
+            //totalYears = (TextView) custReviewDetails.findViewById(R.id.totalYearsPopup);
             paymentOption = (TextView) custReviewDetails.findViewById(R.id.CustPaymentOption_Textview);
             totalPay = (TextView) custReviewDetails.findViewById(R.id.totalPaymentPopup);
             fullname = (TextView) custReviewDetails.findViewById(R.id.customerFullName_Textview);
@@ -592,7 +592,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             totalDays.setText(totalResultDays.getText().toString());
             totalWeeks.setText(totalResultWeeks.getText().toString());
             totalMonths.setText(totalResultMonths.getText().toString());
-            totalYears.setText(totalResultYears.getText().toString());
+            //totalYears.setText(totalResultYears.getText().toString());
 
             dialogBuilder.setView(custReviewDetails);
             dialog = dialogBuilder.create();
@@ -692,7 +692,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         bookingDetails.put("totalDays", totalDays.getText().toString());
         bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
         bookingDetails.put("totalMonths", totalMonths.getText().toString());
-        bookingDetails.put("totalYears", totalYears.getText().toString());
+        //bookingDetails.put("totalYears", totalYears.getText().toString());
 
         AllSubmittedBookingRef.add(bookingDetails)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -1198,7 +1198,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     public void WeeklyCalculation(String perWeek, int minPersonCap, int maxPersonCap){
 
         clearInputs();
-        getDateAndTime();
+        getDatesOnly();
 
         selectedStartDate.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1208,11 +1208,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
                 try {
                     startDate = sdf.parse(startDateString);
                     endDate = sdf.parse(endDateString);
@@ -1257,109 +1257,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                if (startDate != null && endDate != null) {
-                    long diffInMillis = endDate.getTime() - startDate.getTime();
-                    long totalDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
-
-                    // Check if the selected dates cover a full week
-                    if (totalDays % 7 != 0) {
-                        totalResultDays.setText("");
-                        totalResultHours.setText("");
-                        totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "Selected dates must cover a full week", Toast.LENGTH_SHORT).show();
-                    } else{
-                        double feePerWeek = Double.parseDouble(perWeek);
-                        int totalWeeks = (int) (totalDays / 7);
-                        double totalFee = totalWeeks * feePerWeek;
-
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
-                        totalResultDays.setText("");
-                        totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
-                        totalResultHours.setText("");
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectedStartTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                if (startDate != null && endDate != null) {
-                    long diffInMillis = endDate.getTime() - startDate.getTime();
-                    long totalDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
-
-                    // Check if the selected dates cover a full week
-                    if (totalDays % 7 != 0) {
-                        totalResultDays.setText("");
-                        totalResultHours.setText("");
-                        totalCalculatedFee.setText("");
-                        Toast.makeText(getApplicationContext(), "Selected dates must cover a full week", Toast.LENGTH_SHORT).show();
-                    } else{
-                        double feePerWeek = Double.parseDouble(perWeek);
-                        int totalWeeks = (int) (totalDays / 7);
-                        double totalFee = totalWeeks * feePerWeek;
-
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", totalFee));
-                        totalResultDays.setText("");
-                        totalResultWeeks.setText(totalWeeks == 1 ? "1 week" : totalWeeks + " weeks");
-                        totalResultHours.setText("");
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectedEndTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
                 try {
                     startDate = sdf.parse(startDateString);
                     endDate = sdf.parse(endDateString);
@@ -1460,7 +1362,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
     public void MonthlyCalculation(String perMonth, int minPersonCap, int maxPersonCap){
 
         clearInputs();
-        getDateAndTime();
+        getDatesOnly();
 
         selectedStartDate.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1470,11 +1372,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
                 try {
                     startDate = sdf.parse(startDateString);
                     endDate = sdf.parse(endDateString);
@@ -1518,107 +1420,11 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (startDate != null && endDate != null) {
-
-                    Calendar startCalendar = Calendar.getInstance();
-                    startCalendar.setTime(startDate);
-                    Calendar endCalendar = Calendar.getInstance();
-                    endCalendar.setTime(endDate);
-
-                    int totalMonths = 0;
-                    while (startCalendar.before(endCalendar)) {
-                        startCalendar.add(Calendar.MONTH, 1);
-                        totalMonths++;
-                    }
-                    // Check if the selected dates reach a month
-                    if (totalMonths < 1) {
-                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
-                    } else {
-                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
-                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectedStartTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
-                try {
-                    startDate = sdf.parse(startDateString);
-                    endDate = sdf.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (startDate != null && endDate != null) {
-
-                    Calendar startCalendar = Calendar.getInstance();
-                    startCalendar.setTime(startDate);
-                    Calendar endCalendar = Calendar.getInstance();
-                    endCalendar.setTime(endDate);
-
-                    int totalMonths = 0;
-                    while (startCalendar.before(endCalendar)) {
-                        startCalendar.add(Calendar.MONTH, 1);
-                        totalMonths++;
-                    }
-                    // Check if the selected dates reach a month
-                    if (totalMonths < 1) {
-                        Toast.makeText(getApplicationContext(), "Selected dates should reach at least a month", Toast.LENGTH_SHORT).show();
-                    } else {
-                        double bookingFee = totalMonths * Double.parseDouble(perMonth);
-                        totalCalculatedFee.setText(String.format(Locale.getDefault(), "₱%.2f", bookingFee));
-                        totalResultMonths.setText(Integer.toString(totalMonths)  + " month" + (totalMonths > 1 ? "s" : ""));
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        selectedEndTime.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
-                Date startDate = null;
-                Date endDate = null;
-                String startDateString = selectedStartDate.getText().toString() + " " + selectedStartTime.getText().toString();
-                String endDateString = selectedEndDate.getText().toString() + " " + selectedEndTime.getText().toString();
+                String startDateString = selectedStartDate.getText().toString();
+                String endDateString = selectedEndDate.getText().toString();
                 try {
                     startDate = sdf.parse(startDateString);
                     endDate = sdf.parse(endDateString);
@@ -1716,6 +1522,10 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
     public void YearlyCalculation(String perYear, int minPersonCap, int maxPersonCap){
         clearInputs();
+
+        selectStartTime.setVisibility(View.GONE);
+        selectEndTime.setVisibility(View.GONE);
+
         selectStartDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1759,7 +1569,6 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             }
         });
 
-
         selectedEndDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1768,7 +1577,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date startDate = null;
                 Date endDate = null;
                 String startDateString = selectedStartDate.getText().toString();
@@ -1789,7 +1598,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
                     int endYear = endCalendar.get(Calendar.YEAR);
                     int totalYears = endYear - startYear;
 
-                    if (totalYears <= 1) {
+                    if (totalYears < 1) {
                         Toast.makeText(getApplicationContext(), "Selected dates should reach at least a year", Toast.LENGTH_SHORT).show();
                     } else {
                         double bookingFee = totalYears * Double.parseDouble(perYear);
