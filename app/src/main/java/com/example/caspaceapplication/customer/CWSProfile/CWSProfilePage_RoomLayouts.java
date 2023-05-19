@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.OfficeLayouts.OfficeLayout_DataClass;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.customer.BookingTransactionManagement.Cust_BookingTransaction;
+import com.example.caspaceapplication.customer.BookingManagement.CustomerBookingActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -481,7 +481,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     BookNow_AppComButtonDETAILS.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(CWSProfilePage_RoomLayouts.this, Cust_BookingTransaction.class);
+                            Intent intent = new Intent(CWSProfilePage_RoomLayouts.this, CustomerBookingActivity.class);
                             Toast.makeText(CWSProfilePage_RoomLayouts.this, "Book now", Toast.LENGTH_SHORT).show();
                             int pos = holder.getAdapterPosition();
                             intent.putExtra("layoutName", dataClassList.get(pos).getLayoutName());

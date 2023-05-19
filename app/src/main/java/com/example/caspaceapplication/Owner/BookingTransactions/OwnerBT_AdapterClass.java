@@ -18,9 +18,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caspaceapplication.ModelClasses.Booking_ModelClass;
 import com.example.caspaceapplication.Notification.FCMSend;
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -38,10 +38,10 @@ import java.util.Map;
 
 public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterClass.BookingViewHolder> {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private List<BookingDetails_ModelClass> bookingList;
+    private List<Booking_ModelClass> bookingList;
     private Context context;
 
-    public OwnerBT_AdapterClass(List<BookingDetails_ModelClass> bookingList, Context context) {
+    public OwnerBT_AdapterClass(List<Booking_ModelClass> bookingList, Context context) {
         this.bookingList = bookingList;
         this.context = context;
     }
@@ -55,7 +55,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
     @Override
     public void onBindViewHolder(@NonNull OwnerBT_AdapterClass.BookingViewHolder holder, int position) {
-        BookingDetails_ModelClass booking = bookingList.get(position);
+        Booking_ModelClass booking = bookingList.get(position);
         holder.bookingStatus.setText(booking.getBookingStatus());
         String layoutImageUri = booking.getLayoutImage();
         if (layoutImageUri != null && !layoutImageUri.isEmpty()){
@@ -63,10 +63,10 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         }
         holder.layoutName.setText(booking.getLayoutName());
         holder.layoutRateType.setText(booking.getRateType());
-        holder.layoutRatePrice.setText(booking.getRateValue());
+        holder.layoutRatePrice.setText(booking.getRatePrice());
         holder.customerFullname.setText(booking.getCustomerFullname());
-        holder.bookingStartDate.setText(booking.getBookingStartDate());
-        holder.bookingEndDate.setText(booking.getBookingEndDate());
+        //holder.bookingStartDate.setText(booking.getBookingStartDate());
+        //holder.bookingEndDate.setText(booking.getBookingEndDate());
         holder.totalPayment.setText(booking.getTotalPayment());
         holder.paymentOption.setText(booking.getPaymentOption());
         String customerID = booking.getCustomerId();
@@ -76,14 +76,14 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
             @Override
             public void onClick(View v) {
                 int clickedPosition = holder.getAdapterPosition();
-                BookingDetails_ModelClass model = bookingList.get(clickedPosition);
+                Booking_ModelClass model = bookingList.get(clickedPosition);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
                 View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                 ImageView branchImage, layoutImage, paymentImage;
                 TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum,
-                        startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths, totalYears,
+                        startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths,
                         custFullname, orgName, custAddress, custPhoneNum, custEmail;
 
                 AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
@@ -108,7 +108,6 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 totalDays = dialogView.findViewById(R.id.seemoreTotalDays_Textview);
                 totalWeeks = dialogView.findViewById(R.id.seemoreTotalWeeks_Textview);
                 totalMonths = dialogView.findViewById(R.id.seemoreTotalMonths_Textview);
-                totalYears = dialogView.findViewById(R.id.seemoreTotalYears_Textview);
                 custFullname = dialogView.findViewById(R.id.seemoreCustFullname_Textview);
                 orgName = dialogView.findViewById(R.id.seemoreCustOrgName_Textview);
                 custAddress = dialogView.findViewById(R.id.seemoreCustAddress_Textview);
@@ -139,18 +138,17 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 bookingStatus.setText(model.getBookingStatus());
                 bookingPayment.setText(model.getTotalPayment());
                 rateType.setText(model.getRateType());
-                ratePrice.setText("₱"+model.getRateValue());
+                ratePrice.setText("₱"+model.getRatePrice());
                 paymentOption.setText(model.getPaymentOption());
                 tenantsNum.setText(model.getNumOfTenants());
-                startDate.setText(model.getBookingStartDate());
-                endDate.setText(model.getBookingEndDate());
-                startTime.setText(model.getBookingStartTime());
-                endTime.setText(model.getBookingEndTime());
+                //startDate.setText(model.getBookingStartDate());
+                //endDate.setText(model.getBookingEndDate());
+                //startTime.setText(model.getBookingStartTime());
+                //endTime.setText(model.getBookingEndTime());
                 totalHours.setText(model.getTotalHours());
-                totalDays.setText(model.getTotalDays());
-                totalWeeks.setText(model.getTotalWeeks());
-                totalMonths.setText(model.getTotalMonths());
-                totalYears.setText(model.getTotalYears());
+                //totalDays.setText(model.getTotalDays());
+                //totalWeeks.setText(model.getTotalWeeks());
+                //totalMonths.setText(model.getTotalMonths());
 
                 custFullname.setText(model.getCustomerFullname());
                 orgName.setText(model.getOrganizationName());

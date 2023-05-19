@@ -56,7 +56,7 @@ public class OwnerNotification extends AppCompatActivity {
         layoutParams.setMargins(16, 16, 16, 16);
         retrieveNotifications();
 
-
+/*
         AppCompatImageView toMessaging = findViewById(R.id.toMessaging);
         toMessaging.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class OwnerNotification extends AppCompatActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
 
 
     }

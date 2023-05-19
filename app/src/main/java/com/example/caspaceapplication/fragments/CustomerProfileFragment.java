@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +54,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class CustomerProfileFragment extends Fragment {
 
@@ -261,7 +272,7 @@ public class CustomerProfileFragment extends Fragment {
 
     }
     private  void deleteAccountEmail(){
-      /*  final String email = "forcaspace@gmail.com";
+        final String email = "forcaspace@gmail.com";
         final String password = "xvgqwzvcxvkvqtff";
         final String recipientEmail = customerEmail.getText().toString();
         final String subject = "Account Deletion";
@@ -315,7 +326,6 @@ public class CustomerProfileFragment extends Fragment {
                 });
             }
         }).start();
-*/
     }
 
     private void openFragmentB() {

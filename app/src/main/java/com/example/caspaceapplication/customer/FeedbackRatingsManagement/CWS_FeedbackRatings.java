@@ -66,6 +66,8 @@ public class CWS_FeedbackRatings extends AppCompatActivity {
     List<BookingDetails_ModelClass> bookingDetailsModelClassList;
     FeedbacksAdapter feedbacksAdapter;
 
+    RatingBar ratingBarDisplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +94,40 @@ public class CWS_FeedbackRatings extends AppCompatActivity {
         feedbacksAdapter = new FeedbacksAdapter(feedbacksModelClassList);
         feedbacksRecyclerview.setAdapter(feedbacksAdapter);
 
+        ratingBarDisplay = findViewById(R.id.ratingBar);
+
+
+        getTotalRating();
         displayFeedbacks();
     }
+
+    public void getTotalRating(){
+        CustomerSubmittedFeedbacksColref.whereEqualTo("cospaceName", branchName)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        long totalCount = 0;
+                        int count = 0;
+
+                        for(DocumentSnapshot documentSnapshot: queryDocumentSnapshots.getDocuments()){
+                            Long value = documentSnapshot.getLong("ratingValue");
+                            if (value != null) {
+                                totalCount += value;
+                                count++;
+                            }
+                        }
+
+                        if (count > 0) {
+                            int average = (int) totalCount / count;
+                            ratingBarDisplay.setRating(average);
+                            Toast.makeText(CWS_FeedbackRatings.this, String.valueOf(average), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(CWS_FeedbackRatings.this, "No ratings found.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
 
     public void getCustomerDetails(){
         CustomerDetailsColref.whereEqualTo("customersIDNum", currentCustomerUser)

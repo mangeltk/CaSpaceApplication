@@ -8,15 +8,6 @@
     android:orientation="vertical"
     tools:context=".customer.CoworkingSpaces">
 
-<!--    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/backImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/white"
-        app:srcCompat="@drawable/back" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
