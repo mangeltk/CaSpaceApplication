@@ -3,6 +3,7 @@ package com.example.caspaceapplication.customer;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.SearchManagement.Customer_SearchManagement;
 import com.example.caspaceapplication.fragments.HomeFragment;
@@ -33,7 +35,7 @@ public class TechnologyHubs extends AppCompatActivity {
     ImageButton backButton;
 
     RecyclerView recyclerView;
-    ArrayList<TechnologyHubsModel> technologyHubsModelArrayList;
+    ArrayList<BranchModel> branchModelArrayList;
     TechnologyHubsAdapter technologyHubsAdapter;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
@@ -45,20 +47,8 @@ public class TechnologyHubs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_technology_hubs);
 
-        backButton = findViewById(R.id.backImageButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeFragment myFragment = new HomeFragment();
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, myFragment)
-                        .commit();
-            }
-        });
-
-        ImageView location_Button = findViewById(R.id.locationButton);
+        AppCompatButton location_Button = findViewById(R.id.clickButtonTechHubLocation);
         location_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,19 +56,17 @@ public class TechnologyHubs extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recycler_techhubs);
+        recyclerView = findViewById(R.id.recycler_cwstechhub);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(TechnologyHubs.this, 2));
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        technologyHubsModelArrayList = new ArrayList<>();
-        technologyHubsAdapter = new TechnologyHubsAdapter(TechnologyHubs.this, technologyHubsModelArrayList);
-
+        branchModelArrayList = new ArrayList<>();
+        technologyHubsAdapter = new TechnologyHubsAdapter(TechnologyHubs.this, branchModelArrayList);
         recyclerView.setAdapter(technologyHubsAdapter);
-
         retrieveTechnologyHubs();
 
-        search_techhubs = findViewById(R.id.search_techhubs);
+        search_techhubs = findViewById(R.id.searchCWStechhubs);
         search_techhubs.clearFocus();
         search_techhubs.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -88,6 +76,7 @@ public class TechnologyHubs extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchList(newText);
                 return false;
             }
         });
@@ -96,21 +85,50 @@ public class TechnologyHubs extends AppCompatActivity {
 
     private void retrieveTechnologyHubs() {
 
-        String ty = "Technology Business Incubation Program (TBI)";
-        String fblb = "Fabrication Laboratory (Fab lab)";
-
+        String FabLab = "Fabrication Laboratory (Fab lab)";
+        String QBO = "QBO Innovation Hub";
+        String TBI = "Technology Business Incubation Program (TBI)";
 
         firebaseFirestore.collection("CospaceBranches")
-                .whereEqualTo("cospaceCategory", ty)
-                .whereEqualTo("cospaceCategory", fblb)
+                .whereEqualTo("cospaceCategory", FabLab)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
                         {
                             Log.d(TAG, "Document data: " + documentSnapshot.getData());
-                            TechnologyHubsModel modelClass = documentSnapshot.toObject(TechnologyHubsModel.class);
-                            technologyHubsModelArrayList.add(modelClass);
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
+                        }
+                        technologyHubsAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        firebaseFirestore.collection("CospaceBranches")
+                .whereEqualTo("cospaceCategory", QBO)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
+                        }
+                        technologyHubsAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        firebaseFirestore.collection("CospaceBranches")
+                .whereEqualTo("cospaceCategory", TBI)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                        {
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
                         }
                         technologyHubsAdapter.notifyDataSetChanged();
                     }
@@ -119,18 +137,14 @@ public class TechnologyHubs extends AppCompatActivity {
 
     public void searchList(String text)
     {
-        List<TechnologyHubsModel> dataSearchList = new ArrayList<>();
-        for(TechnologyHubsModel data: technologyHubsModelArrayList)
-        {
-            if(data.getCospaceName().toLowerCase().contains(text.toLowerCase()))
-            {
+        List<BranchModel> dataSearchList = new ArrayList<>();
+        for (BranchModel data: branchModelArrayList){
+            if (data.getCospaceName().toLowerCase().contains(text.toLowerCase())){
                 dataSearchList.add(data);
             }
-        }
-        technologyHubsAdapter.setSearchList(dataSearchList);
-        if(dataSearchList.isEmpty())
-        {
-            Toast.makeText(this, "Not found", Toast.LENGTH_SHORT).show();
+        }technologyHubsAdapter.setSearchList(dataSearchList);
+        if (dataSearchList.isEmpty()){
+            Toast.makeText(this, "not found", Toast.LENGTH_SHORT).show();
         }
     }
 }

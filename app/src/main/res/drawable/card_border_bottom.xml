@@ -7,7 +7,7 @@
         android:color="@color/black"/>
 
     <solid
-        android:color="@color/orange14"
+        android:color="@color/cream"
         />
 
     <corners

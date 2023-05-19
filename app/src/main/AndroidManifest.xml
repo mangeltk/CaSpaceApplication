@@ -58,6 +58,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".customer.TechnologyHubs"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".customer.BookingTransactionManagement.Cust_BookingTransaction"
             android:exported="false">
             <meta-data
