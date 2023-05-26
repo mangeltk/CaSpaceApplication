@@ -295,7 +295,7 @@ public class CustBooking1st extends Fragment {
                                                 String formattedStartTime = timeFormat.format(startTime);
                                                 String formattedEndTime = timeFormat.format(endTime);
 
-                                                bookedHours.add(formattedStartTime + " - " + formattedEndTime);
+                                                bookedHours.add(formattedStartTime + " - " + formattedEndTime + "\nHourly rate booked");
                                             }
                                         } else if (RateType != null && RateType.equals("Daily rate")) {
                                             endTimeSelectedDaily = documentSnapshot.getTimestamp("BookEndTimeSelected");
@@ -330,7 +330,7 @@ public class CustBooking1st extends Fragment {
                                                 String formattedStartTime = timeFormat.format(startTime);
                                                 String formattedEndTime = timeFormat.format(endTime);
 
-                                                bookedHours.add(formattedStartTime + " - " + formattedEndTime);
+                                                bookedHours.add(formattedStartTime + " - " + formattedEndTime+ "\nDaily rate booked");
                                                 availableHours.clear();
                                             }
                                         }
@@ -384,7 +384,7 @@ public class CustBooking1st extends Fragment {
                                             String formattedStartTime = timeFormat.format(startTime);
                                             String formattedEndTime = timeFormat.format(endTime);
 
-                                            bookedHours.add(formattedStartTime + " - " + formattedEndTime);
+                                            bookedHours.add(formattedStartTime + " - " + formattedEndTime+ "\nDaily rate booked");
                                             availableHours.clear();
                                         }
 
@@ -413,7 +413,7 @@ public class CustBooking1st extends Fragment {
                                             String formattedStartTime = timeFormat.format(startTime);
                                             String formattedEndTime = timeFormat.format(endTime);
 
-                                            bookedHours.add(formattedStartTime + " - " + formattedEndTime);
+                                            bookedHours.add(formattedStartTime + " - " + formattedEndTime + "\nDaily rate booked");
                                             availableHours.clear();
                                         }
                                     }
@@ -1677,33 +1677,24 @@ public class CustBooking1st extends Fragment {
         @NonNull
         @Override
         public TimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            // Inflate the layout for a single time slot item
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.time_slot_item, parent, false);
             return new TimeSlotViewHolder(itemView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
-            // Bind the time slot data to the view
             String timeSlot = timeSlots.get(position);
             holder.TimeTextview.setText(timeSlot);
 
             holder.cardviewTime.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
-            /*holder.TimeTextview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.TimeTextview.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.orange));
-                }
-            });*/
 
-            // Set the text color based on the booked status
             if (isBooked) {
-                holder.TimeTextview.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorError));
-                holder.cardviewTime.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.gray));
-                holder.TimeTextview.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.gray));
+                holder.TimeTextview.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.dialog_color1));
+                holder.cardviewTime.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.orange14));
+                holder.TimeTextview.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.orange14));
 
             } else {
-                holder.TimeTextview.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.green));
+                holder.TimeTextview.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorSuccess));
                 holder.cardviewTime.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
                 holder.TimeTextview.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
             }
