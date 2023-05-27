@@ -17,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaSpaceApplication"
         tools:targetApi="32">
-
+        <activity
+            android:name=".customer.BookingManagement.CustomerBookingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".messaging.MsgMain"
             android:exported="false">
@@ -34,8 +40,7 @@
         </activity>
         <activity
             android:name=".messaging.MsgChatActivity"
-            android:windowSoftInputMode="adjustResize"/>
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".messaging.MsgBaseActivity"
             android:exported="false">

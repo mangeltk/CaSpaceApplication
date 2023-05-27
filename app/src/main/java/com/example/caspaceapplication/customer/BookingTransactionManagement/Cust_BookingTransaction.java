@@ -554,7 +554,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             totalDays = (TextView) custReviewDetails.findViewById(R.id.totalDaysPopup);
             totalWeeks = (TextView) custReviewDetails.findViewById(R.id.totalWeeksPopup);
             totalMonths = (TextView) custReviewDetails.findViewById(R.id.totalMonthsPopup);
-            totalYears = (TextView) custReviewDetails.findViewById(R.id.totalYearsPopup);
+            //totalYears = (TextView) custReviewDetails.findViewById(R.id.totalYearsPopup);
             paymentOption = (TextView) custReviewDetails.findViewById(R.id.CustPaymentOption_Textview);
             totalPay = (TextView) custReviewDetails.findViewById(R.id.totalPaymentPopup);
             fullname = (TextView) custReviewDetails.findViewById(R.id.customerFullName_Textview);
@@ -592,7 +592,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
             totalDays.setText(totalResultDays.getText().toString());
             totalWeeks.setText(totalResultWeeks.getText().toString());
             totalMonths.setText(totalResultMonths.getText().toString());
-            totalYears.setText(totalResultYears.getText().toString());
+            //totalYears.setText(totalResultYears.getText().toString());
 
             dialogBuilder.setView(custReviewDetails);
             dialog = dialogBuilder.create();
@@ -692,7 +692,7 @@ public class Cust_BookingTransaction extends AppCompatActivity {
         bookingDetails.put("totalDays", totalDays.getText().toString());
         bookingDetails.put("totalWeeks", totalWeeks.getText().toString());
         bookingDetails.put("totalMonths", totalMonths.getText().toString());
-        bookingDetails.put("totalYears", totalYears.getText().toString());
+        //bookingDetails.put("totalYears", totalYears.getText().toString());
 
         AllSubmittedBookingRef.add(bookingDetails)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

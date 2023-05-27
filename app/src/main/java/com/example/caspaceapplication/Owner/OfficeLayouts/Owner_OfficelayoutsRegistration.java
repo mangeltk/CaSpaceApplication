@@ -108,6 +108,7 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                 String layout_WeeklyRate = layoutWeeklyPrice.getText().toString().trim();
                 String layout_MonthlyRate = layoutMonthlyPrice.getText().toString().trim();
                 String layout_AnnualRate = layoutAnnualPrice.getText().toString().trim();
+                String defaultAvailStatus = "Available";
 
                 if (TextUtils.isEmpty(layout_name) || filepath == null || TextUtils.isEmpty(layout_personMinCapacity) ||
                         TextUtils.isEmpty(layout_personMaxCapacity) || TextUtils.isEmpty(layout_areasize) || TextUtils.isEmpty(layout_type) ||
@@ -167,6 +168,7 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                                                             layout.put("layoutMonthlyPrice", layout_MonthlyRate);
                                                             layout.put("layoutAnnualPrice", layout_AnnualRate);
                                                             layout.put("owner_id", user.getUid());
+                                                            layout.put("layoutAvailability", defaultAvailStatus);
                                                             layout.put("layout_id", "");
 
                                                             firebaseFirestore.collection("OfficeLayouts")

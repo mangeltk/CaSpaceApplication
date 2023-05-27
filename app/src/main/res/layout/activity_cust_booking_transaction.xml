@@ -72,6 +72,7 @@
                 android:orientation="horizontal">
 
                 <GridLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2">
@@ -511,6 +512,7 @@
 
     <!-- Booking Details Choose on radio buttons what rate -->
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/radioButton_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -622,6 +624,7 @@
                     android:textStyle="bold" />
 
                 <GridLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

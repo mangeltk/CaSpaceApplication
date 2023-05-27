@@ -347,8 +347,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:layout_gravity="center"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="2"
                     android:layout_margin="2dp"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/poppins_medium"
@@ -360,16 +360,17 @@
                 <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:columnCount="5"
+                    android:columnCount="4"
                     android:rowCount="2"
-                    android:layout_gravity="center"
-                    android:layout_columnSpan="2"
-                    >
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_columnSpan="1"
+                    android:layout_rowSpan="2">
 
                     <TextView
+                        android:id="@+id/hoursTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_margin="2dp"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/poppins_medium"
@@ -379,6 +380,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/daysTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -391,6 +393,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/weeksTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -403,6 +406,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/monthsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -415,26 +419,14 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:text="Years:"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/seemoreTotalHours_Textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_margin="2dp"
+                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/days_one"
-                        android:gravity="center"
                         android:hint="00:00"
+                        android:gravity="center"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -470,118 +462,8 @@
                         android:hint="00:00"
                         android:textColor="@color/black" />
 
-                    <TextView
-                        android:id="@+id/seemoreTotalYears_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:fontFamily="@font/days_one"
-                        android:gravity="center"
-                        android:hint="00:00"
-                        android:textColor="@color/black" />
 
                 </GridLayout>
-
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Total hours:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTotalHours_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Total days:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTotalDays_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Total weeks:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTotalWeeks_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Total months:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTotalMonths_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text="Total years:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTotalYears_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -648,8 +530,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_marginStart="5dp"
+                    android:layout_rowSpan="2"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Customer Contact Info:"
+                    android:text="Customer Contact \nInfo:"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -664,28 +547,24 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/quicksand_medium"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/seemoreCustEmail_Textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
+                    android:layout_columnSpan="1"
                     android:fontFamily="@font/days_one"
-                    android:hint="cejgejhsagedch@gmail.com"
+                    android:paddingLeft="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_rowSpan="2"
+                    android:hint="stephaniemondejar.22@gmail.com"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/ProofOfPaymentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
+                    android:layout_rowSpan="2"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Proof of payment:"
