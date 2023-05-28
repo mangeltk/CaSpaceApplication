@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange9"
-    tools:context=".Owner.BookingTransactions.OwnerBT_OngoingTabFragment">
+    tools:context=".Owner.BookingTransactions.OwnerBT_CancelledTabFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,43 +16,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@color/primary2">
+            android:background="@color/primary2"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="5dp"
                 android:fontFamily="@font/poppins_medium"
-                android:padding="5dp"
-                android:text="Ongoing Bookings"
-                android:textAllCaps="true"
-                android:textColor="@color/orange13"
+                android:text="Cancelled Bookings"
+                android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sizeOngoingBookingsTextview"
+                android:id="@+id/sizeCancelledBookingsTextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="0"
-                android:layout_marginTop="2dp"
-                android:layout_gravity="top"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="top"
                 android:gravity="center"
-                android:textAlignment="center"
                 android:background="@drawable/ic_circle_black"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/orange13"
+                android:textColor="@color/red"
                 android:textStyle="bold"
                 android:textSize="12sp"/>
 
-
-
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary2"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_medium"
+            android:text="(cancelled by customers)"
+            android:textColor="@color/red"
+            android:textSize="12sp"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ongoingTransactionsList"
+            android:id="@+id/cancelledTransactionsList"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_below="@+id/textView" />
@@ -60,22 +67,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@color/primary2">
+            android:background="@color/primary2"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="5dp"
-                android:text="Accepted Bookings"
-                android:textAllCaps="true"
-                android:textColor="@color/green"
+                android:paddingTop="5dp"
+                android:text="Declined Bookings"
+                android:textColor="@color/red"
                 android:textSize="18sp"
+                android:fontFamily="@font/poppins_medium"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sizeAcceptedBookingsTextview"
+                android:id="@+id/sizeDeclinedBookingsTextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="0"
@@ -84,21 +90,29 @@
                 android:layout_marginTop="2dp"
                 android:layout_gravity="top"
                 android:gravity="center"
-                android:textAlignment="center"
                 android:background="@drawable/ic_circle_black"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/green"
+                android:textColor="@color/red"
                 android:textStyle="bold"
                 android:textSize="12sp"/>
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/acceptedTransactionsList"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@+id/textView" />
+            android:layout_height="wrap_content"
+            android:background="@color/primary2"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_medium"
+            android:text="(declined by owners or system)"
+            android:textColor="@color/red"
+            android:textSize="12sp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/declinedTransactionsList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/textView" />
 
     </LinearLayout>
 

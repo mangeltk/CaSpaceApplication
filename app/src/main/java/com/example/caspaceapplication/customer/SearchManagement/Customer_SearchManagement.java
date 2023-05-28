@@ -47,10 +47,10 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
         viewPager = findViewById(R.id.viewPagerSM);
         //fragmentContainer = findViewById(R.id.fragment_container);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.addFragment(new CustSM_SearchManually_fragment(), "Search Manually");
-        viewPagerAdapter.addFragment(new CustSM_NearMe_fragment(), "Near me");
-        viewPagerAdapter.addFragment(new CustSM_ChooseMap_fragment(), "Choose Map");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.addFragment(new CustSM_SearchManually_fragment(), "Search Manually",0);
+        viewPagerAdapter.addFragment(new CustSM_NearMe_fragment(), "Near me",0);
+        viewPagerAdapter.addFragment(new CustSM_ChooseMap_fragment(), "Choose Map",0);
         viewPager.setAdapter(viewPagerAdapter);
 
         searchManually.setOnClickListener(new View.OnClickListener() {

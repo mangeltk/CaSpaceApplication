@@ -206,7 +206,6 @@ public class CustBooking1st extends Fragment {
         OnsiteRadButton = rootView.findViewById(R.id.customerDetails_OnsiteRadButton);
         OtherOptRadButton = rootView.findViewById(R.id.customerDetails_OtherOptRadButton);
 
-
         Calendar calendar = Calendar.getInstance();
         calendarView.setMinDate(calendar.getTimeInMillis());
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -226,6 +225,15 @@ public class CustBooking1st extends Fragment {
 
                 if (selectedDate != null) {
                     CalendarSectionLinearLayout.setVisibility(View.GONE);
+                }
+
+                // todo: gone visibility for other payment option if within the day selected date
+                Date currentDate = calendar.getTime();
+                String formattedCurrentDate = dateFormat.format(currentDate);
+                if (formattedDate.equals(formattedCurrentDate)) {
+                    OtherOptRadButton.setVisibility(View.GONE);
+                } else {
+                    OtherOptRadButton.setVisibility(View.VISIBLE);
                 }
 
                 changeTextForDateSelectedTextview.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +275,7 @@ public class CustBooking1st extends Fragment {
                                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                                         String status = documentSnapshot.getString("bookingStatus");
                                         String RateType = documentSnapshot.getString("RateType");
-                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing"))) && (RateType != null && RateType.equals("Hourly rate"))) {
+                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing") || status.equals("Completed"))) && (RateType != null && RateType.equals("Hourly rate"))) {
                                             Timestamp endTimeSelected = documentSnapshot.getTimestamp("BookEndTimeSelected");
                                             Timestamp startTimeSelected = documentSnapshot.getTimestamp("BookStartTimeSelected");
 
@@ -577,7 +585,14 @@ public class CustBooking1st extends Fragment {
 
                                     progressDialog.dismiss();
                                     // Show the AlertDialog with available dates
-                                    showAvailableDatesDialog(availableDates);
+                                    if (availableDates.isEmpty()) {
+                                        // No available further dates
+                                        deleteButtonForDaysImageButton.performClick();
+                                        Toast.makeText(getContext(), "No available further dates", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Show the AlertDialog with available dates
+                                        showAvailableDatesDialog(availableDates);
+                                    }
                                 }
                             });
 
@@ -677,7 +692,6 @@ public class CustBooking1st extends Fragment {
         branchPaymentChannelsLinearLayout.setVisibility(View.GONE);
         uploadPaymentImageLinearLayout.setVisibility(View.GONE);
 
-
         OnsiteRadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -760,18 +774,6 @@ public class CustBooking1st extends Fragment {
             filepath = data.getData();
             ProofPaymentImage.setImageURI(filepath);
         }
-    }
-
-    public void clearInputs(){
-        selectedStartTimeTextview.setText("");
-        selectedEndTimeTextview.setText("");
-        //totalHoursTextview.setText("");
-        totalPaymentTextview.setText("");
-        custTenantsNumEdittext.setText("");
-        AgreeTermsCheckbox.setChecked(false);
-        uploadPaymentImageLinearLayout.setVisibility(View.GONE);
-        branchPaymentChannelsLinearLayout.setVisibility(View.GONE);
-        custBookingDetsLinearLayout.setVisibility(View.GONE);
     }
 
     // Function to show the AlertDialog with available dates
@@ -922,11 +924,11 @@ public class CustBooking1st extends Fragment {
                                         rateType = "Daily rate";
                                         selectedRateTypeTextview.setText(rateType);
                                         selectedRatePriceTextview.setText(dailyRate);
-                                        selectStartTimeLinearLayout.setVisibility(View.GONE);
-                                        selectedStartTimeTextview.setText("");
-                                        selectEndTimeLinearLayout.setVisibility(View.GONE);
-                                        selectedEndTimeTextview.setText("");
-                                        totalPaymentTextview.setText("");
+                                        if (selectedRatePriceTextview.getText().toString().isEmpty() ||
+                                                selectedRateTypeTextview.getText().toString().isEmpty() ||
+                                                selectedDateTextview.getText().toString().isEmpty()) {
+                                            return;
+                                        }
                                     }
                                 });
 
@@ -1129,21 +1131,7 @@ public class CustBooking1st extends Fragment {
     }
 
     public void DailyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
-        //clearInputs();
-
-        if (selectedRatePriceTextview.getText().toString().isEmpty() ||
-                selectedRateTypeTextview.getText().toString().isEmpty() ||
-                selectedDateTextview.getText().toString().isEmpty()) {
-            return;
-        }
-
-        RadioButtonGroupForRates.setVisibility(View.GONE);
-        selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
         String selectedStartDate = selectedDateTextview.getText().toString();
-        String selectedEndDate = selectedEndDateTextview.getText().toString();
-
-        final int totalDays; // Declare as final
-        final double bookingFee; // Declare as final
 
         // Check if there are any booked hours for the selected date
         boolean hasBookedHours = false;
@@ -1152,20 +1140,30 @@ public class CustBooking1st extends Fragment {
                 hasBookedHours = true;
             }
         }
-
         if (hasBookedHours) {
             Toast.makeText(getContext(), "Cannot book for daily rate. There are existing hourly bookings on this date.", Toast.LENGTH_SHORT).show();
             return; // Exit the method to prevent further processing
         }
 
-        totalDays = 1; // Assuming the booking is for one day
+        selectStartTimeLinearLayout.setVisibility(View.GONE);
+        selectedStartTimeTextview.setText("");
+        selectEndTimeLinearLayout.setVisibility(View.GONE);
+        selectedEndTimeTextview.setText("");
+        totalPaymentTextview.setText("");
 
+        RadioButtonGroupForRates.setVisibility(View.GONE);
+        selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
+
+
+
+        final int totalDays = 1;
         double rate = Double.parseDouble(dailyRate);
-        bookingFee = rate * totalDays;
+        double calculatedBookingFee = rate * totalDays;
 
         totalDurationLinearLayout.setVisibility(View.VISIBLE);
         totalCalcDurationTitleTextview.setText("Total Days:");
         totalCalcDurationTextview.setText(String.valueOf(totalDays));
+        totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f",calculatedBookingFee));
         totalPaymentLinearLayout.setVisibility(View.VISIBLE);
         addButtonForDaysImageButton.setVisibility(View.VISIBLE);
         selectEndDateLinearLayout.setVisibility(View.GONE);

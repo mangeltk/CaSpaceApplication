@@ -4,18 +4,22 @@ import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.ModelClasses.Booking_ModelClass;
@@ -30,10 +34,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterClass.BookingViewHolder> {
@@ -56,21 +62,84 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
     @Override
     public void onBindViewHolder(@NonNull OwnerBT_AdapterClass.BookingViewHolder holder, int position) {
         Booking_ModelClass booking = bookingList.get(position);
-        holder.bookingStatus.setText(booking.getBookingStatus());
+
+        holder.bookingIdTextview.setText("Booking ID:\t\t"+booking.getBookingId());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        String submittedDate = dateFormat.format(booking.getBookSubmittedDate().toDate());
+
+        holder.bookingSubmittedDate.setText(submittedDate);
+
+        String status = booking.getBookingStatus();
+
+        if (status.equals("Pending")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.colorWarning));
+
+
+
+        } else if (status.equals("Accepted")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.green));
+
+
+
+
+        } else if (status.equals("Ongoing")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.orange13));
+
+
+
+
+        } else if (status.equals("Cancelled")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.red));
+
+
+        } else if (status.equals("Declined")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.red));
+
+
+        }else if (status.equals("Completed")) {
+            holder.bookingStatus.setText(status);
+            Drawable backgroundDrawable = holder.OwnerBT_HeaderLinearLayout.getBackground();
+            DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.gray));
+
+
+        }
+
         String layoutImageUri = booking.getLayoutImage();
         if (layoutImageUri != null && !layoutImageUri.isEmpty()){
             Picasso.get().load(layoutImageUri).into( holder.layoutImage);
         }
         holder.layoutName.setText(booking.getLayoutName());
         holder.layoutRateType.setText(booking.getRateType());
-        holder.layoutRatePrice.setText(booking.getRatePrice());
+        holder.layoutRatePrice.setText("₱"+booking.getRatePrice());
         holder.customerFullname.setText(booking.getCustomerFullname());
-        //holder.bookingStartDate.setText(booking.getBookingStartDate());
-        //holder.bookingEndDate.setText(booking.getBookingEndDate());
+
+        String rateType = booking.getRateType();
+        String startDate = booking.getBookDateSelected();
+        String endDate = booking.getBookEndDateSelected();
+
+        if (rateType.equals("Hourly rate")){
+            holder.bookingStartDate.setText(startDate);
+            holder.bookingEndDate.setText(startDate);
+        }else{
+            holder.bookingStartDate.setText(startDate);
+            holder.bookingEndDate.setText(endDate);
+        }
+
         holder.totalPayment.setText(booking.getTotalPayment());
         holder.paymentOption.setText(booking.getPaymentOption());
         String customerID = booking.getCustomerId();
-        String customerName =booking.getCustomerFullname();
+        String customerName = booking.getCustomerFullname();
 
         holder.cardViewBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,19 +151,21 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                 ImageView branchImage, layoutImage, paymentImage;
-                TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum,
-                        startDate, endDate, startTime, endTime, totalHours, totalDays, totalWeeks, totalMonths,
-                        custFullname, orgName, custAddress, custPhoneNum, custEmail;
+                TextView branchName, layoutName, bookingId, bookingStatusBelow, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, ProofOfPaymentTitle,
+                        custFullname, orgName, custAddress, custPhoneNum, custEmail, startDate, endDate, startTime, endTime,
+                        totalHours, totalHoursTitle, totalDays, totalDaysTitle, totalWeeks, totalWeeksTitle, totalMonths, totalMonthsTitle;
 
                 AppCompatButton declineButton, acceptButton, completeButton, cancelButton;
                 ImageButton exitButton;
 
                 branchImage = dialogView.findViewById(R.id.seemoreBranchImage_Imageview);
                 layoutImage = dialogView.findViewById(R.id.seemoreLayoutImage_Imageview);
+                ProofOfPaymentTitle = dialogView.findViewById(R.id.ProofOfPaymentTitle);
                 paymentImage = dialogView.findViewById(R.id.seemorePaymentPic_Imageview);
                 branchName = dialogView.findViewById(R.id.seemoreBranchName_Textview);
                 layoutName = dialogView.findViewById(R.id.seemoreLayoutName_Textview);
-                bookingStatus = dialogView.findViewById(R.id.seemoreBookingStatus_Textview);
+                bookingId = dialogView.findViewById(R.id.seemoreBookingId_Textview);
+                bookingStatusBelow = dialogView.findViewById(R.id.seemoreBookingStatusBelow_Textview);
                 bookingPayment = dialogView.findViewById(R.id.seemoreTotalPayment_Textview);
                 rateType = dialogView.findViewById(R.id.seemoreRateType_Textview);
                 ratePrice = dialogView.findViewById(R.id.seemoreRatePrice_Textview);
@@ -104,9 +175,13 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 endDate = dialogView.findViewById(R.id.seemoreEndDate_Textview);
                 startTime = dialogView.findViewById(R.id.seemoreStartTime_Textview);
                 endTime = dialogView.findViewById(R.id.seemoreEndTime_Textview);
+                totalHoursTitle = dialogView.findViewById(R.id.hoursTitle);
                 totalHours = dialogView.findViewById(R.id.seemoreTotalHours_Textview);
+                totalDaysTitle = dialogView.findViewById(R.id.daysTitle);
                 totalDays = dialogView.findViewById(R.id.seemoreTotalDays_Textview);
+                totalWeeksTitle = dialogView.findViewById(R.id.weeksTitle);
                 totalWeeks = dialogView.findViewById(R.id.seemoreTotalWeeks_Textview);
+                totalMonthsTitle = dialogView.findViewById(R.id.monthsTitle);
                 totalMonths = dialogView.findViewById(R.id.seemoreTotalMonths_Textview);
                 custFullname = dialogView.findViewById(R.id.seemoreCustFullname_Textview);
                 orgName = dialogView.findViewById(R.id.seemoreCustOrgName_Textview);
@@ -123,6 +198,29 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 String layoutImageUri = String.valueOf(bookingList.get(clickedPosition).getLayoutImage());
                 String paymentImageUri = String.valueOf(bookingList.get(clickedPosition).getProofOfPayment());
 
+                if (model.getRateType().equals("Hourly rate")){
+                    totalDaysTitle.setVisibility(View.GONE);
+                    totalDays.setVisibility(View.GONE);
+                    totalWeeksTitle.setVisibility(View.GONE);
+                    totalWeeks.setVisibility(View.GONE);
+                    totalMonthsTitle.setVisibility(View.GONE);
+                    totalMonths.setVisibility(View.GONE);
+                }
+
+                if (model.getRateType().equals("Daily rate")){
+                    totalHoursTitle.setVisibility(View.GONE);
+                    totalHours.setVisibility(View.GONE);
+                    totalWeeksTitle.setVisibility(View.GONE);
+                    totalWeeks.setVisibility(View.GONE);
+                    totalMonthsTitle.setVisibility(View.GONE);
+                    totalMonths.setVisibility(View.GONE);
+                }
+
+                if (model.getPaymentOption().equals("Onsite")){
+                    paymentImage.setVisibility(View.GONE);
+                    ProofOfPaymentTitle.setVisibility(View.GONE);
+                }
+
                 if (!branchImageUri.isEmpty() && branchImageUri !=null){
                     Picasso.get().load(branchImageUri).into(branchImage);
                 }
@@ -135,17 +233,31 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
                 branchName.setText(model.getBranchName());
                 layoutName.setText(model.getLayoutName());
-                bookingStatus.setText(model.getBookingStatus());
+                bookingId.setText(model.getBookingId());
+                bookingStatusBelow.setText(model.getBookingStatus());
                 bookingPayment.setText(model.getTotalPayment());
                 rateType.setText(model.getRateType());
                 ratePrice.setText("₱"+model.getRatePrice());
                 paymentOption.setText(model.getPaymentOption());
                 tenantsNum.setText(model.getNumOfTenants());
-                //startDate.setText(model.getBookingStartDate());
-                //endDate.setText(model.getBookingEndDate());
-                //startTime.setText(model.getBookingStartTime());
-                //endTime.setText(model.getBookingEndTime());
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                String startDateString = dateFormat.format(model.getBookStartTimeSelected().toDate());
+                startDate.setText(startDateString);
+
+                String endDateString = dateFormat.format(model.getBookEndTimeSelected().toDate());
+                endDate.setText(endDateString);
+
+                SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+                String startTimeString = timeFormat.format(model.getBookStartTimeSelected().toDate());
+                startTime.setText(startTimeString);
+
+                String endTimeString = timeFormat.format(model.getBookEndTimeSelected().toDate());
+                endTime.setText(endTimeString);
+
                 totalHours.setText(model.getTotalHours());
+                totalDays.setText(model.getTotalDays());
+
                 //totalDays.setText(model.getTotalDays());
                 //totalWeeks.setText(model.getTotalWeeks());
                 //totalMonths.setText(model.getTotalMonths());
@@ -155,6 +267,55 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 custAddress.setText(model.getCustomerAddress());
                 custPhoneNum.setText(model.getCustomerPhoneNum());
                 custEmail.setText(model.getCustomerEmail());
+
+
+                bookingStatusBelow.setVisibility(View.VISIBLE);
+                Drawable backgroundDrawable = bookingStatusBelow.getBackground();
+
+                if (status.equals("Pending")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.colorWarning));
+                    cancelButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.GONE);
+
+                } else if (status.equals("Accepted")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.green));
+                    declineButton.setVisibility(View.GONE);
+                    acceptButton.setVisibility(View.GONE);
+                    cancelButton.setVisibility(View.GONE);
+
+                } else if (status.equals("Ongoing")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.orange13));
+                    declineButton.setVisibility(View.GONE);
+                    acceptButton.setVisibility(View.GONE);
+                    cancelButton.setVisibility(View.GONE);
+
+                } else if (status.equals("Cancelled")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.red));
+                    declineButton.setVisibility(View.GONE);
+                    acceptButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.GONE);
+                    cancelButton.setVisibility(View.GONE);
+
+                } else if (status.equals("Declined")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.red));
+                    acceptButton.setVisibility(View.GONE);
+                    declineButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.GONE);
+                    cancelButton.setVisibility(View.GONE);
+
+                }else if (status.equals("Completed")) {
+                    //todo: set buttons to display
+                    DrawableCompat.setTint(backgroundDrawable, ContextCompat.getColor(context, R.color.gray));
+                    acceptButton.setVisibility(View.GONE);
+                    declineButton.setVisibility(View.GONE);
+                    completeButton.setVisibility(View.GONE);
+                    cancelButton.setVisibility(View.GONE);
+                }
 
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
@@ -386,6 +547,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
 
     }
+
     public void ownerUserDeclineBookingActivity( String customerName){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String ownerId= firebaseAuth.getCurrentUser().getUid();
@@ -437,7 +599,9 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
 
     public class BookingViewHolder extends RecyclerView.ViewHolder {
 
-        TextView bookingStatus, layoutName, layoutRateType, layoutRatePrice,
+        LinearLayout OwnerBT_HeaderLinearLayout;
+
+        TextView bookingIdTextview,bookingSubmittedDate, bookingStatus, layoutName, layoutRateType, layoutRatePrice,
                  customerFullname,bookingStartDate, bookingEndDate, totalPayment, paymentOption,
                  seeMoreDetails;
         ImageView layoutImage;
@@ -446,6 +610,9 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            bookingIdTextview = itemView.findViewById(R.id.bookingIdTextview);
+            OwnerBT_HeaderLinearLayout = itemView.findViewById(R.id.OwnerBT_HeaderLinearLayout);
+            bookingSubmittedDate = itemView.findViewById(R.id.OwnerBT_BookingDateSubmitted_Textview);
             bookingStatus = itemView.findViewById(R.id.OwnerBT_BookingStatus_Textview);
             layoutName = itemView.findViewById(R.id.OwnerBT_LayoutName_Textview);
             layoutRateType = itemView.findViewById(R.id.OwnerBT_BookingRateType_Textview);

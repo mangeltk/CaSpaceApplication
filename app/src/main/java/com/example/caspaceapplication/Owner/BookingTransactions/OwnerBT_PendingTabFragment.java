@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,9 +29,11 @@ public class OwnerBT_PendingTabFragment extends Fragment {
     private RecyclerView recyclerView;
     private OwnerBT_AdapterClass adapterClass;
     private List<Booking_ModelClass> dataClassList;
+    private TextView sizePendingBookingsTextview;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    String currentUserID = firebaseAuth.getCurrentUser().getUid();
     CollectionReference bookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
     public OwnerBT_PendingTabFragment() {
@@ -47,25 +50,44 @@ public class OwnerBT_PendingTabFragment extends Fragment {
         adapterClass = new OwnerBT_AdapterClass(dataClassList, getActivity());
         recyclerView.setAdapter(adapterClass);
 
+        sizePendingBookingsTextview = rootView.findViewById(R.id.sizePendingBookingsTextview);
+
         loadPendingBT();
 
         return rootView;
     }
 
-    private void loadPendingBT(){
-        String currentUserID = firebaseAuth.getCurrentUser().getUid();
+
+
+    private void loadPendingBT() {
         Query query = bookingRef.whereEqualTo("bookingStatus", "Pending")
-                                .whereEqualTo("ownerId", currentUserID);
+                .whereEqualTo("ownerId", currentUserID);
+
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                dataClassList.clear();
+                int size = queryDocumentSnapshots.size();
+                sizePendingBookingsTextview.setText(String.valueOf(size));
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                     dataClassList.add(modelClass);
                 }
                 adapterClass.notifyDataSetChanged();
+
+                // Update the badge count in the activity
+                if (getActivity() instanceof Owner_BookingTransactions) {
+                    Owner_BookingTransactions activity = (Owner_BookingTransactions) getActivity();
+                    int pendingCount = getPendingBTCount();
+                    activity.updateBadgeCount(0, pendingCount);
+                }
             }
         });
     }
+
+    private int getPendingBTCount() {
+        return dataClassList.size();
+    }
+
 
 }

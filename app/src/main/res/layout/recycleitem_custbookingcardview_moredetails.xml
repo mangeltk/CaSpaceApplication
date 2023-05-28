@@ -14,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/primary"
-            android:backgroundTint="@color/primary">
+            android:background="@color/primary">
 
             <ImageButton
                 android:id="@+id/exitButtonBookingDetails_ImageButton"
                 android:layout_width="wrap_content"
+                android:padding="5dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_clear"
-                android:background="@color/primary"
+                android:background="@drawable/ic_circle_black"
                 android:backgroundTint="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"/>
@@ -36,6 +36,7 @@
                 android:paddingEnd="50dp"
                 android:layout_gravity="center"
                 android:text="Booking details"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -43,598 +44,656 @@
         </LinearLayout>
 
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/customer_recycler_cwshomepage"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:background="@color/primary2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/seemoreBranchName_Textview"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="end"
-                    android:text="Branch Name"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/seemoreBranchImage_Imageview"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="end"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/upload" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="2dp"
-                android:background="@color/primary"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/seemoreLayoutImage_Imageview"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/coworkingspaces_search_bar"
-                    android:padding="2dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/upload" />
-
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:columnCount="2">
+                    android:layout_margin="10dp"
+                    android:background="@drawable/customer_recycler_cwshomepage"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/seemoreLayoutName_Textview"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_columnSpan="2"
+                        android:layout_gravity="end"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/seemoreBranchName_Textview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="end|center"
+                            android:text="Branch Name"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/seemoreBranchImage_Imageview"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="end|center"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/upload" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/seemoreBookingStatusBelow_Textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:textAllCaps="true"
+                            android:backgroundTint="@color/cream"
+                            android:background="@drawable/menu"
+                            android:fontFamily="@font/days_one"
+                            android:hint="Pending"
+                            android:gravity="center"
+                            android:textColor="@color/primary2"
+                            android:textSize="18sp"
+                            android:padding="2dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/poppins_medium"
-                        android:hint="Layout name"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:background="@color/primary"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Booking status:"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/seemoreLayoutImage_Imageview"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/coworkingspaces_search_bar"
+                            android:padding="2dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/upload" />
 
-                    <TextView
-                        android:id="@+id/seemoreBookingStatus_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/days_one"
-                        android:hint="Pending"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:columnCount="2">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/seemoreLayoutName_Textview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_columnSpan="2"
+                                android:gravity="center"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Layout name"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Booking id:"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreBookingId_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="scscscdxax"
+                                android:textColor="@color/primary2"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Total Payment:"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreTotalPayment_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="P00.00"
+                                android:textColor="@color/primary2"
+                                android:textSize="15sp" />
+
+
+                        </GridLayout>
+
+
+                    </LinearLayout>
+
+
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_margin="10dp">
+
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginEnd="10dp"
+                            android:columnCount="2">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Rate type:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreRateType_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="Daily"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Rate price:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreRatePrice_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="P00.00"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Payment option:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemorePaymentOption_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="Onsite"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="No. of tenants:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreTenantsNum_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="00"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Booking start date:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreStartDate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="00/00/0000"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Booking end date:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreEndDate_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="00/00/0000"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Booking start time:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreStartTime_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="00:00"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Booking end time:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreEndTime_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="00:00"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_columnSpan="1"
+                                android:layout_rowSpan="2"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Total duration:"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <GridLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:columnCount="4"
+                                android:rowCount="2"
+                                android:paddingLeft="10dp"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_columnSpan="1"
+                                android:layout_rowSpan="2">
+
+                                <TextView
+                                    android:id="@+id/hoursTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Hours:"
+                                    android:textColor="@color/primary2"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/daysTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Days:"
+                                    android:textColor="@color/primary2"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/weeksTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Weeks:"
+                                    android:textColor="@color/primary2"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/monthsTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center"
+                                    android:text="Months:"
+                                    android:textColor="@color/primary2"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/seemoreTotalHours_Textview"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/days_one"
+                                    android:gravity="center"
+                                    android:hint="00:00"
+                                    android:textColor="#FD8C46" />
+
+                                <TextView
+                                    android:id="@+id/seemoreTotalDays_Textview"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:fontFamily="@font/days_one"
+                                    android:gravity="center"
+                                    android:hint="00:00"
+                                    android:textColor="#FD8C46" />
+
+                                <TextView
+                                    android:id="@+id/seemoreTotalWeeks_Textview"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:fontFamily="@font/days_one"
+                                    android:gravity="center"
+                                    android:hint="00:00"
+                                    android:textColor="#FD8C46" />
+
+                                <TextView
+                                    android:id="@+id/seemoreTotalMonths_Textview"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="2dp"
+                                    android:fontFamily="@font/days_one"
+                                    android:gravity="center"
+                                    android:hint="00:00"
+                                    android:textColor="#FD8C46" />
+
+
+                            </GridLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Customer Fullname:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreCustFullname_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="firstname lastname"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Organization name:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreCustOrgName_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="organization name"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Customer Address:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreCustAddress_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="customer address ssmple"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_rowSpan="2"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Customer Contact \nInfo:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/seemoreCustPhone_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="0923726745462"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:id="@+id/seemoreCustEmail_Textview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_rowSpan="2"
+                                android:layout_columnSpan="1"
+                                android:layout_margin="2dp"
+                                android:layout_marginEnd="50dp"
+                                android:fontFamily="@font/days_one"
+                                android:hint="stephaniemondejar.22@gmail.com"
+                                android:paddingLeft="10dp"
+                                android:textColor="#FD8C46" />
+
+                            <TextView
+                                android:id="@+id/ProofOfPaymentTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_rowSpan="2"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Proof of payment:"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/seemorePaymentPic_Imageview"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="5dp"
+                                android:paddingLeft="10dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/uploadphoto" />
+
+
+                        </GridLayout>
+
+
+                    </HorizontalScrollView>
+
+
+
+
+                </LinearLayout>
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:columnCount="3">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/declineButton_BTDCardview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                        android:backgroundTint="#F44336"
+                        android:text="Decline"
+                        android:textStyle="bold"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/acceptButton_BTDCardview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                        android:backgroundTint="@color/colorSuccess"
+                        android:text="Accept"
+                        android:textStyle="bold"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/completeButton_BTDCardview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                        android:backgroundTint="@color/colorWarning"
+                        android:text="Complete"
+                        android:textStyle="bold"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/cancelButton_BTDCardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_columnSpan="3"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
                         android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Booking Payment:"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/seemoreTotalPayment_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/days_one"
-                        android:hint="P00.00"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
-
+                        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                        android:backgroundTint="@color/gray"
+                        android:text="Cancel"
+                        android:textStyle="bold"
+                        android:textColor="@color/dialog_color1"
+                        android:textSize="12sp" />
 
                 </GridLayout>
+
+
 
 
             </LinearLayout>
 
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="2dp"
-                android:columnCount="2"
-                android:padding="10dp"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Rate type:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreRateType_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="Daily"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Rate price:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreRatePrice_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="P00.00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Payment option:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemorePaymentOption_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="Onsite"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="No. of tenants:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreTenantsNum_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Booking start date:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreStartDate_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00/00/0000"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Booking end date:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreEndDate_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00/00/0000"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Booking start time:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreStartTime_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Booking end time:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreEndTime_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00:00"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="2"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Total duration:"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <GridLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:columnCount="4"
-                    android:rowCount="2"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_columnSpan="1"
-                    android:layout_rowSpan="2">
-
-                    <TextView
-                        android:id="@+id/hoursTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:text="Hours:"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/daysTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:text="Days:"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/weeksTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:text="Weeks:"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/monthsTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:text="Months:"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/seemoreTotalHours_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/days_one"
-                        android:hint="00:00"
-                        android:gravity="center"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/seemoreTotalDays_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:fontFamily="@font/days_one"
-                        android:gravity="center"
-                        android:hint="00:00"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/seemoreTotalWeeks_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:fontFamily="@font/days_one"
-                        android:gravity="center"
-                        android:hint="00:00"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/seemoreTotalMonths_Textview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="2dp"
-                        android:fontFamily="@font/days_one"
-                        android:gravity="center"
-                        android:hint="00:00"
-                        android:textColor="@color/black" />
+        </ScrollView>
 
 
-                </GridLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Customer Fullname:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreCustFullname_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="firstname lastname"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Organization name:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreCustOrgName_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="organization name"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Customer Address:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreCustAddress_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="customer address ssmple"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_rowSpan="2"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Customer Contact \nInfo:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/seemoreCustPhone_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="0923726745462"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/seemoreCustEmail_Textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_columnSpan="1"
-                    android:fontFamily="@font/days_one"
-                    android:paddingLeft="10dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_rowSpan="2"
-                    android:hint="stephaniemondejar.22@gmail.com"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/ProofOfPaymentTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_rowSpan="2"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Proof of payment:"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/seemorePaymentPic_Imageview"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/uploadphoto" />
-
-
-            </GridLayout>
-
-        </LinearLayout>
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:columnCount="3">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/declineButton_BTDCardview"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:background="@drawable/buttonwhite_borderblack"
-                android:backgroundTint="#F44336"
-                android:text="Decline"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/acceptButton_BTDCardview"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:background="@drawable/buttonwhite_borderblack"
-                android:backgroundTint="@color/colorSuccess"
-                android:text="Accept"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/completeButton_BTDCardview"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:background="@drawable/buttonwhite_borderblack"
-                android:backgroundTint="@color/colorWarning"
-                android:text="Complete"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/cancelButton_BTDCardview"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_columnSpan="3"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttonwhite_borderblack"
-                android:backgroundTint="@color/gray"
-                android:text="Cancel"
-                android:textSize="12sp" />
-
-        </GridLayout>
 
 
     </LinearLayout>

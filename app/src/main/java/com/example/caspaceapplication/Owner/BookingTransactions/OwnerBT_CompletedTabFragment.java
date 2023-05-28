@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
     private RecyclerView recyclerView;
     private OwnerBT_AdapterClass adapterClass;
     private List<Booking_ModelClass> dataClassList;
+    private TextView sizeCompletedBookingsTextview;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -47,45 +49,11 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
         adapterClass = new OwnerBT_AdapterClass(dataClassList, getActivity());
         recyclerView.setAdapter(adapterClass);
 
+        sizeCompletedBookingsTextview = rootView3.findViewById(R.id.sizeCompletedBookingsTextview);
+
         loadCompletedBT();
-        loadCancelledBT();
-        loadDeclineddBT();
 
         return rootView3;
-    }
-
-    private void loadDeclineddBT() {
-        String currentUserID = firebaseAuth.getCurrentUser().getUid();
-        Query query = bookingRef.whereEqualTo("bookingStatus", "Declined")
-                .whereEqualTo("ownerId", currentUserID);
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
-                    dataClassList.add(modelClass);
-                }
-                adapterClass.notifyDataSetChanged();
-            }
-        });
-
-    }
-
-    private void loadCancelledBT() {
-        String currentUserID = firebaseAuth.getCurrentUser().getUid();
-        Query query = bookingRef.whereEqualTo("bookingStatus", "Cancelled")
-                .whereEqualTo("ownerId", currentUserID);
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
-                    dataClassList.add(modelClass);
-                }
-                adapterClass.notifyDataSetChanged();
-            }
-        });
-
     }
 
     private void loadCompletedBT() {
@@ -95,6 +63,9 @@ public class OwnerBT_CompletedTabFragment extends Fragment {
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                int size = queryDocumentSnapshots.size();
+                sizeCompletedBookingsTextview.setText(String.valueOf(size));
+
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                     Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                     dataClassList.add(modelClass);
