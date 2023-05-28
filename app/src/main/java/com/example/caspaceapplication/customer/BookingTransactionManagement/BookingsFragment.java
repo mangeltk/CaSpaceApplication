@@ -78,6 +78,8 @@ public class BookingsFragment extends Fragment {
     TextView recentTextview, oldestTextview;
     Spinner bookingStatusSpinner;
 
+    TextView emptyBookings_Textview;
+
     public BookingsFragment() {
 
     }
@@ -85,6 +87,8 @@ public class BookingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bookings, container, false);
+
+        emptyBookings_Textview = rootView.findViewById(R.id.emptyBookings_Textview);
 
         customerBookingsRecyclerview = rootView.findViewById(R.id.customerBookings_Recyclerview);
         customerBookingsRecyclerview.setHasFixedSize(true);
@@ -174,20 +178,26 @@ public class BookingsFragment extends Fragment {
 
     }
 
-    public void displayOngoingBooking(){
+    public void displayOngoingBooking() {
         AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid())
                 .whereEqualTo("bookingStatus", "Ongoing")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
-                            Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
-                            ongoingModelClassList.add(modelClass);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            emptyBookings_Textview.setVisibility(View.VISIBLE);
+                        } else {
+                            emptyBookings_Textview.setVisibility(View.GONE);
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                                Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
+                                ongoingModelClassList.add(modelClass);
+                            }
+                            adapter2.notifyDataSetChanged();
                         }
-                        adapter2.notifyDataSetChanged();
                     }
                 });
     }
+
 
     //display all
     public void displayAllBookings(){

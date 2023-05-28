@@ -53,9 +53,26 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:text="Ongoing Bookings"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/emptyBookings_Textview"
+            android:layout_margin="10dp"
+            android:drawableTop="@drawable/icons8_emptybookings_48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO ONGOING BOOKINGS"
+            android:background="@drawable/backgroundnistephanie_ayawhilabti"
+            android:textColor="@color/primary"
+            android:backgroundTint="@color/gray"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:padding="20dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ongoingCutomerBookings_Recyclerview"
