@@ -57,6 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 public class BookingsFragment extends Fragment {
@@ -198,7 +199,6 @@ public class BookingsFragment extends Fragment {
                 });
     }
 
-
     //display all
     public void displayAllBookings(){
         modelClassList.clear();
@@ -300,6 +300,8 @@ public class BookingsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CustBookingFragmentAdapter.ViewHolder holder, int position) {
+
+
             String branchImageUri = String.valueOf(dataClass.get(position).getBranchImage());
             if (branchImageUri != null && !branchImageUri.isEmpty()){
                 Picasso.get().load(branchImageUri).into(holder.branchImage);
@@ -331,8 +333,6 @@ public class BookingsFragment extends Fragment {
                 holder.bookingStatus.setTextColor(color);
             }
 
-
-
             holder.bookingRateType.setText(dataClass.get(position).getRateType());
             holder.bookingRateValue.setText("₱"+dataClass.get(position).getRatePrice());
 
@@ -347,7 +347,7 @@ public class BookingsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int clickedPosition = holder.getAdapterPosition();
-                    Booking_ModelClass model = modelClassList.get(clickedPosition);
+                    //Booking_ModelClass model = modelClassList.get(clickedPosition);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
                     View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
@@ -401,7 +401,7 @@ public class BookingsFragment extends Fragment {
                     String layoutImageUri = String.valueOf(dataClass.get(clickedPosition).getLayoutImage());
                     String paymentImageUri = String.valueOf(dataClass.get(clickedPosition).getProofOfPayment());
 
-                    if (model.getRateType().equals("Hourly rate")){
+                    if (dataClass.get(clickedPosition).getRateType().equals("Hourly rate")){
                         totalDaysTitle.setVisibility(View.GONE);
                         totalDays.setVisibility(View.GONE);
                         totalWeeksTitle.setVisibility(View.GONE);
@@ -410,7 +410,7 @@ public class BookingsFragment extends Fragment {
                         totalMonths.setVisibility(View.GONE);
                     }
 
-                    if (model.getRateType().equals("Daily rate")){
+                    if (dataClass.get(clickedPosition).getRateType().equals("Daily rate")){
                         totalHoursTitle.setVisibility(View.GONE);
                         totalHours.setVisibility(View.GONE);
                         totalWeeksTitle.setVisibility(View.GONE);
@@ -419,7 +419,7 @@ public class BookingsFragment extends Fragment {
                         totalMonths.setVisibility(View.GONE);
                     }
 
-                    if (model.getPaymentOption().equals("Onsite")){
+                    if (dataClass.get(clickedPosition).getPaymentOption().equals("Onsite")){
                         paymentImage.setVisibility(View.GONE);
                         ProofOfPaymentTitle.setVisibility(View.GONE);
                     }
@@ -436,43 +436,43 @@ public class BookingsFragment extends Fragment {
 
                     }
 
-                    branchName.setText(model.getBranchName());
-                    layoutName.setText(model.getLayoutName());
-                    bookingId.setText(model.getBookingId());
+                    branchName.setText(dataClass.get(clickedPosition).getBranchName());
+                    layoutName.setText(dataClass.get(clickedPosition).getLayoutName());
+                    bookingId.setText(dataClass.get(clickedPosition).getBookingId());
                     bookingStatusBelow.setVisibility(View.VISIBLE);
-                    bookingStatusBelow.setText(model.getBookingStatus());
-                    bookingPayment.setText(model.getTotalPayment());
-                    rateType.setText(model.getRateType());
-                    ratePrice.setText("₱"+model.getRatePrice());
-                    paymentOption.setText(model.getPaymentOption());
-                    tenantsNum.setText(model.getNumOfTenants());
+                    bookingStatusBelow.setText(dataClass.get(clickedPosition).getBookingStatus());
+                    bookingPayment.setText(dataClass.get(clickedPosition).getTotalPayment());
+                    rateType.setText(dataClass.get(clickedPosition).getRateType());
+                    ratePrice.setText("₱"+dataClass.get(clickedPosition).getRatePrice());
+                    paymentOption.setText(dataClass.get(clickedPosition).getPaymentOption());
+                    tenantsNum.setText(dataClass.get(clickedPosition).getNumOfTenants());
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-                    String startDateString = dateFormat.format(model.getBookStartTimeSelected().toDate());
+                    String startDateString = dateFormat.format(dataClass.get(clickedPosition).getBookStartTimeSelected().toDate());
                     startDate.setText(startDateString);
 
-                    String endDateString = dateFormat.format(model.getBookEndTimeSelected().toDate());
+                    String endDateString = dateFormat.format(dataClass.get(clickedPosition).getBookEndTimeSelected().toDate());
                     endDate.setText(endDateString);
 
                     SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
-                    String startTimeString = timeFormat.format(model.getBookStartTimeSelected().toDate());
+                    String startTimeString = timeFormat.format(dataClass.get(clickedPosition).getBookStartTimeSelected().toDate());
                     startTime.setText(startTimeString);
 
-                    String endTimeString = timeFormat.format(model.getBookEndTimeSelected().toDate());
+                    String endTimeString = timeFormat.format(dataClass.get(clickedPosition).getBookEndTimeSelected().toDate());
                     endTime.setText(endTimeString);
 
-                    totalHours.setText(model.getTotalHours());
-                    totalDays.setText(model.getTotalDays());
+                    totalHours.setText(dataClass.get(clickedPosition).getTotalHours());
+                    totalDays.setText(dataClass.get(clickedPosition).getTotalDays());
                     //totalWeeks.setText(model.getTotalWeeks());
                     //totalMonths.setText(model.getTotalMonths());
 
-                    custFullname.setText(model.getCustomerFullname());
-                    orgName.setText(model.getOrganizationName());
-                    custAddress.setText(model.getCustomerAddress());
-                    custPhoneNum.setText(model.getCustomerPhoneNum());
-                    custEmail.setText(model.getCustomerEmail());
-                    String ownerId= model.getOwnerId();
-                    String bookingID= model.getBookingId();
+                    custFullname.setText(dataClass.get(clickedPosition).getCustomerFullname());
+                    orgName.setText(dataClass.get(clickedPosition).getOrganizationName());
+                    custAddress.setText(dataClass.get(clickedPosition).getCustomerAddress());
+                    custPhoneNum.setText(dataClass.get(clickedPosition).getCustomerPhoneNum());
+                    custEmail.setText(dataClass.get(clickedPosition).getCustomerEmail());
+                    String ownerId= dataClass.get(clickedPosition).getOwnerId();
+                    String bookingID= dataClass.get(clickedPosition).getBookingId();
                     builder.setView(dialogView);
                     AlertDialog dialog = builder.create();
                     dialog.show();
@@ -488,91 +488,104 @@ public class BookingsFragment extends Fragment {
                     declineButton.setVisibility(View.GONE);
                     acceptButton.setVisibility(View.GONE);
                     completeButton.setVisibility(View.GONE);
-
                     if (bookingStatusBelow.getText().toString().equals("Pending")){
                         cancelButton.setVisibility(View.VISIBLE);
-                        cancelButton.setText("Cancel Booking");
-                        cancelButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                                builder1.setTitle("Cancel confirmation");
-                                builder1.setMessage("Are you sure you want to cancel this booking?");
-                                builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
-                                        queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()){
-                                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                                        documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
+                        Date submittedDate = dataClass.get(position).getBookSubmittedDate().toDate();
+                        // Calculate the difference in milliseconds between the current time and the submitted date
+                        long currentTimeMillis = System.currentTimeMillis();
+                        long submittedTimeMillis = submittedDate.getTime();
+                        long timeDifferenceMillis = currentTimeMillis - submittedTimeMillis;
+
+                        // Calculate the difference in hours
+                        long timeDifferenceHours = TimeUnit.MILLISECONDS.toHours(timeDifferenceMillis);
+
+                        if (timeDifferenceHours < 24){
+                            cancelButton.setVisibility(View.VISIBLE);
+                            cancelButton.setText("Cancel Booking");
+                            cancelButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                                    builder1.setTitle("Cancel confirmation");
+                                    builder1.setMessage("Are you sure you want to cancel this booking?\n\nCancellation Rules:\n- Cancellation within 24 hours of the booking will incur a 10% cancellation fee.\n- Cancellation after the scheduled booking start time will result in a 50% cancellation fee.");
+                                    builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
+                                            queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()){
+                                                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                                            documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
+                                                    }
+                                                    Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    displayAllBookings();
+
+                                                    String customerName= custFullname.getText().toString();
+                                                    String spaceName = layoutName.getText().toString();
+                                                    customerUserActivity(spaceName, branchName.getText().toString());
+                                                    LocalDateTime now = LocalDateTime.now();
+                                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                                    String dateTimeString = now.format(formatter);
+                                                    String title = "Booking Notification: "+dateTimeString;
+                                                    String message = "\n"+spaceName + " booking from "+customerName +" has been cancelled.";
+                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                    db.collection("OwnerUserAccounts").document(ownerId)
+                                                            .get()
+                                                            .addOnSuccessListener(documentSnapshot -> {
+                                                                String ownerFCMToken = documentSnapshot.getString("fcmToken");
+                                                                FCMSend.pushNotification(getContext(), ownerFCMToken, title, message);
+                                                            })
+                                                            .addOnFailureListener(e -> {
+                                                                Log.e(TAG, "Error getting FCM token for owner", e);
+                                                            });
+                                                    CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
+                                                    // Create a new notification document with a randomly generated ID
+                                                    DocumentReference newNotificationRef = notificationsRef.document();
+                                                    String newNotificationId = newNotificationRef.getId();
+                                                    // Add the notification document to the "Notifications" collection
+                                                    Map<String, Object> notification = new HashMap<>();
+                                                    notification.put("notificationId", newNotificationId);
+                                                    notification.put("title", title);
+                                                    notification.put("message", message);
+                                                    notification.put("ownerId", ownerId);
+                                                    notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
+                                                    newNotificationRef.set(notification)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "Notification added with ID: " + newNotificationId);
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error adding notification", e);
+                                                                }
+                                                            });
                                                 }
-                                                Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
-                                                dialog.dismiss();
-                                                displayAllBookings();
+                                            });
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
 
-                                                String customerName= custFullname.getText().toString();
-                                                String spaceName = layoutName.getText().toString();
-                                                customerUserActivity(spaceName, branchName.getText().toString());
-                                                LocalDateTime now = LocalDateTime.now();
-                                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                                                String dateTimeString = now.format(formatter);
-                                                String title = "Booking Notification: "+dateTimeString;
-                                                String message = "\n"+spaceName + " booking from "+customerName +" has been cancelled.";
-                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                                db.collection("OwnerUserAccounts").document(ownerId)
-                                                        .get()
-                                                        .addOnSuccessListener(documentSnapshot -> {
-                                                            String ownerFCMToken = documentSnapshot.getString("fcmToken");
-                                                            FCMSend.pushNotification(getContext(), ownerFCMToken, title, message);
-                                                        })
-                                                        .addOnFailureListener(e -> {
-                                                            Log.e(TAG, "Error getting FCM token for owner", e);
-                                                        });
-                                                CollectionReference notificationsRef = db.collection("OwnerNotificationStorage");
-                                                // Create a new notification document with a randomly generated ID
-                                                DocumentReference newNotificationRef = notificationsRef.document();
-                                                String newNotificationId = newNotificationRef.getId();
-                                                // Add the notification document to the "Notifications" collection
-                                                Map<String, Object> notification = new HashMap<>();
-                                                notification.put("notificationId", newNotificationId);
-                                                notification.put("title", title);
-                                                notification.put("message", message);
-                                                notification.put("ownerId", ownerId);
-                                                notification.put("bookingTimeDate",com.google.firebase.Timestamp.now());
-                                                newNotificationRef.set(notification)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "Notification added with ID: " + newNotificationId);
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w(TAG, "Error adding notification", e);
-                                                            }
-                                                        });
-                                            }
-                                        });
-                                    }
-                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                AlertDialog dialog1 = builder1.create();
-                                dialog1.show();
-                            }
-                        });
-                    }else{
+                                    AlertDialog dialog1 = builder1.create();
+                                    dialog1.show();
+                                }
+                            });
+                        }else{
+                            cancelButton.setVisibility(View.GONE);
+                        }
+                    }
+                    else{
                         cancelButton.setVisibility(View.GONE);
                     }
-
                 }
             });
 

@@ -28,8 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.caspaceapplication.Owner.OfficeLayouts.OfficeLayout_DataClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.BookingManagement.CustomerBookingActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,6 +43,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -411,6 +416,9 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
     public class CWSProfilePage_RoomLayouts_Adapter extends RecyclerView.Adapter<CWSProfilePage_RoomLayouts_Adapter.ViewHolder> {
 
         private List<OfficeLayout_DataClass> dataClass;
+        private FirebaseFirestore firebaseFirestore;
+        private CollectionReference AllSubmittedBookingRef;
+
 
         public void setSearchList(List<OfficeLayout_DataClass> dataSearchList){
             this.dataClass = dataSearchList;
@@ -424,7 +432,10 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
 
         public CWSProfilePage_RoomLayouts_Adapter(List<OfficeLayout_DataClass> dataClass) {
             this.dataClass = dataClass;
+            firebaseFirestore = FirebaseFirestore.getInstance();
+            AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
         }
+
 
         @NonNull
         @Override
@@ -436,12 +447,18 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull CWSProfilePage_RoomLayouts_Adapter.ViewHolder holder, int position) {
 
-            String imageUri = String.valueOf(dataClass.get(position).getLayoutImage());
+            OfficeLayout_DataClass layout = dataClass.get(position);
+
+            String imageUri = String.valueOf(layout.getLayoutImage());
                 Picasso.get().load(imageUri).into(holder.LayoutImage_Imageview);
-            holder.LayoutTitle_Textview.setText(dataClass.get(position).getLayoutName());
-            holder.PersonCapacity_Textview.setText(dataClass.get(position).getMinCapacity() + "-" + dataClass.get(position).getMaxCapacity());
-            holder.Areasize_Textview.setText(dataClass.get(position).getLayoutAreasize());
-            holder.Availability_Textview.setText(dataClass.get(position).getLayoutAvailability());
+            holder.LayoutTitle_Textview.setText(layout.getLayoutName());
+            holder.PersonCapacity_Textview.setText(layout.getMinCapacity() + "-" + layout.getMaxCapacity());
+            holder.Areasize_Textview.setText(layout.getLayoutAreasize());
+
+            String layoutName = layout.getLayoutName();
+            checkTrial(layoutName, holder.Availability_Textview);
+
+
             holder.SeeMoreDetails_Textview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -465,12 +482,13 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     AppCompatButton BookNow_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_BookNow_AppComButtonDETAILS);
                     AppCompatButton SeeOther_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_SeeOther_AppComButtonDETAILS);
 
+                    Availability_TextviewDETAILS.setText(holder.Availability_Textview.getText().toString());
+
                     LayoutTitle_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutName());
                     String imageUri = String.valueOf(dataClass.get(nextPosition).getLayoutImage());
                     if (imageUri != null && !imageUri.isEmpty()) {
                         Picasso.get().load(imageUri).into(LayoutImage_ImageviewDETAILS);
                     }
-                    Availability_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAvailability());
                     PersonCapacity_TextviewDETAILS.setText(dataClass.get(nextPosition).getMinCapacity() + "-" + dataClass.get(nextPosition).getMaxCapacity());
                     Areasize_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAreasize());
                     HourlyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutHourlyPrice());
@@ -509,6 +527,131 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
             });
 
 
+        }
+
+        private void updateAvailabilityInFirestore(String layoutName, String availability) {
+            firebaseFirestore.collection("OfficeLayouts")
+                    .whereEqualTo("layoutName", layoutName)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                String docId = documentSnapshot.getId();
+
+                                firebaseFirestore.collection("OfficeLayouts")
+                                        .document(docId)
+                                        .update("layoutAvailability", availability)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Successfully updated availability in Firestore
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Failed to update availability in Firestore
+                                            }
+                                        });
+                            }
+                        }
+                    });
+        }
+
+        private void checkAndUpdateLayoutAvailability(String layoutName, TextView availabilityTextView) {
+            // Get the current date and time
+            Calendar currentTime = Calendar.getInstance();
+
+            // Perform two separate queries to check for current bookings
+            Query startQuery = AllSubmittedBookingRef
+                    .whereEqualTo("layoutName", layoutName)
+                    .whereEqualTo("bookStartTimeSelected", currentTime.getTime());
+
+            Query endQuery = AllSubmittedBookingRef
+                    .whereEqualTo("layoutName", layoutName)
+                    .whereEqualTo("bookEndTimeSelected", currentTime.getTime());
+
+            Task<QuerySnapshot> startTask = startQuery.get();
+            Task<QuerySnapshot> endTask = endQuery.get();
+
+            Task<List<QuerySnapshot>> allTasks = Tasks.whenAllSuccess(startTask, endTask);
+
+            allTasks.addOnCompleteListener(new OnCompleteListener<List<QuerySnapshot>>() {
+                @Override
+                public void onComplete(@NonNull Task<List<QuerySnapshot>> task) {
+                    List<QuerySnapshot> snapshots = task.getResult();
+
+                    if (snapshots != null && snapshots.size() >= 2) {
+                        QuerySnapshot startSnapshot = snapshots.get(0);
+                        QuerySnapshot endSnapshot = snapshots.get(1);
+
+                        boolean hasCurrentBooking = !startSnapshot.isEmpty() && !endSnapshot.isEmpty();
+
+                        if (hasCurrentBooking) {
+                            // Set the availability to "Not Available"
+                            availabilityTextView.setText("Not Available");
+                            updateAvailabilityInFirestore(layoutName, "Not Available");
+                        } else {
+                            // Set the availability to "Available"
+                            availabilityTextView.setText("Available");
+                            updateAvailabilityInFirestore(layoutName, "Available");
+                        }
+                    } else {
+                        // Handle any errors or when no snapshots are available
+                    }
+                }
+            });
+
+        }
+        private void checkTrial(String layoutName, TextView availabilityTextView) {
+            // Get the current date and time
+            Calendar currentTime = Calendar.getInstance();
+
+            // Perform two separate queries to check for current bookings
+            AllSubmittedBookingRef
+                    .whereEqualTo("layoutName", layoutName)
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            boolean hasCurrentBooking = false;
+
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                // Retrieve the bookStartTimeSelected and bookEndTimeSelected timestamps from the document
+                                Timestamp startTimeSelected = documentSnapshot.getTimestamp("BookStartTimeSelected");
+                                Timestamp endTimeSelected = documentSnapshot.getTimestamp("BookEndTimeSelected");
+                                String status = documentSnapshot.getString("bookingStatus");
+
+                                if (status.equals("Ongoing") || status.equals("Accepted")){
+                                    if (startTimeSelected != null && endTimeSelected != null)  {
+                                        Calendar currentTime = Calendar.getInstance();
+                                        Calendar startTime = Calendar.getInstance();
+                                        startTime.setTime(startTimeSelected.toDate());
+                                        Calendar endTime = Calendar.getInstance();
+                                        endTime.setTime(endTimeSelected.toDate());
+
+                                        if(currentTime.getTimeInMillis() >= startTime.getTimeInMillis() &&
+                                                currentTime.getTimeInMillis() <= endTime.getTimeInMillis()){
+                                            hasCurrentBooking = true;
+                                            //break;
+                                        }else{
+                                            hasCurrentBooking = false;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (hasCurrentBooking) {
+                                // Set the availability to "Not Available"
+                                availabilityTextView.setText("Not Available");
+                                updateAvailabilityInFirestore(layoutName, "Not Available");
+                            } else {
+                                // Set the availability to "Available"
+                                availabilityTextView.setText("Available");
+                                updateAvailabilityInFirestore(layoutName, "Available");
+                            }
+                        }
+                    });
         }
 
         @Override

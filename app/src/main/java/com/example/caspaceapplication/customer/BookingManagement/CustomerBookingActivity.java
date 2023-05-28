@@ -40,7 +40,7 @@ public class CustomerBookingActivity extends AppCompatActivity {
             CBDLayoutDailyRateTextview, CBDLayoutWeeklyRateTextview, CBDLayoutMonthlyRateTextview,
             CBDLayoutNameTextViewBelow;
 
-    AppCompatButton browseCalendarAppCompatButton;
+    AppCompatButton browseBookingSchedulesAppCompatButton, browseCalendarAppCompatButton;
 
     ImageView CBDLayoutImageImageView, CBDbranchSmallPicImageview;
 
@@ -66,10 +66,37 @@ public class CustomerBookingActivity extends AppCompatActivity {
         getLayoutDetails();
         onCardviewClicks();
 
+        browseBookingSchedulesAppCompatButton = findViewById(R.id.browseBookingSchedules_AppCompatButton);
         browseCalendarAppCompatButton = findViewById(R.id.browseCalendar_AppCompatButton);
+
         viewPager = findViewById(R.id.viewPagerBookings);
         ViewPagerCustBookingsAdapter viewPagerAdapter = new ViewPagerCustBookingsAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
+
+        browseBookingSchedulesAppCompatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustBookingsDisplay scheduledBookingsFragment = new CustBookingsDisplay();
+
+                // Pass the intent content to the fragment
+                Bundle bundle = new Bundle();
+                bundle.putString("layoutName", layoutName);
+                bundle.putString("layout_id", layoutId);
+                bundle.putString("owner_id", ownerId);
+                bundle.putString("layoutImage", layout_Image);
+                bundle.putString("branchImage", branch_Image);
+                bundle.putString("branchName", branch_Name);
+                scheduledBookingsFragment.setArguments(bundle);
+
+
+                // Redirect to the CustBooking1st fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainerBookings, scheduledBookingsFragment);
+                fragmentTransaction.commit();
+            }
+        });
+
 
         browseCalendarAppCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
