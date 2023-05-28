@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +52,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -65,10 +68,10 @@ public class BookingsFragment extends Fragment {
 
     CollectionReference AllSubmittedBookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
-    List<Booking_ModelClass> modelClassList;
-    CustBookingFragmentAdapter adapter;
+    List<Booking_ModelClass> modelClassList, ongoingModelClassList;
+    CustBookingFragmentAdapter adapter, adapter2;
 
-    RecyclerView customerBookingsRecyclerview;
+    RecyclerView customerBookingsRecyclerview,ongoingCutomerBookingsRecyclerview;
 
     boolean isAscendingOrder = true;
     SearchView custBookingsSearchview;
@@ -89,6 +92,15 @@ public class BookingsFragment extends Fragment {
         modelClassList = new ArrayList<>();
         adapter =  new CustBookingFragmentAdapter(modelClassList);
         customerBookingsRecyclerview.setAdapter(adapter);
+
+        ongoingCutomerBookingsRecyclerview = rootView.findViewById(R.id.ongoingCutomerBookings_Recyclerview);
+        ongoingCutomerBookingsRecyclerview.setHasFixedSize(true);
+        ongoingCutomerBookingsRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        ongoingModelClassList = new ArrayList<>();
+        adapter2 = new CustBookingFragmentAdapter(ongoingModelClassList);
+        ongoingCutomerBookingsRecyclerview.setAdapter(adapter2);
+
+        displayOngoingBooking();
 
         custBookingsSearchview = rootView.findViewById(R.id.searchViewCustBookings);
         custBookingsSearchview.clearFocus();
@@ -160,6 +172,21 @@ public class BookingsFragment extends Fragment {
             }
         }
 
+    }
+
+    public void displayOngoingBooking(){
+        AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid())
+                .whereEqualTo("bookingStatus", "Ongoing")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                            Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
+                            ongoingModelClassList.add(modelClass);
+                        }
+                        adapter2.notifyDataSetChanged();
+                    }
+                });
     }
 
     //display all
@@ -273,10 +300,38 @@ public class BookingsFragment extends Fragment {
                 Picasso.get().load(layoutImageUri).into(holder.layoutImage);
             }
             holder.layoutName.setText(dataClass.get(position).getLayoutName());
-            holder.bookingStatus.setText(dataClass.get(position).getBookingStatus());
+
+            String status = dataClass.get(position).getBookingStatus();
+            holder.bookingStatus.setText(status);
+
+            if (status.equals("Accepted")){
+                int color = ContextCompat.getColor(holder.itemView.getContext(), R.color.green);
+                holder.bookingStatus.setTextColor(color);
+            }else if (status.equals("Pending")){
+                int color = ContextCompat.getColor(holder.itemView.getContext(), R.color.colorWarning);
+                holder.bookingStatus.setTextColor(color);
+            }else if (status.equals("Ongoing")){
+                int color = ContextCompat.getColor(holder.itemView.getContext(), R.color.primary);
+                holder.bookingStatus.setTextColor(color);
+            }else if (status.equals("Declined") || status.equals("Cancelled") ){
+                int color = ContextCompat.getColor(holder.itemView.getContext(), R.color.red);
+                holder.bookingStatus.setTextColor(color);
+            }else if (status.equals("Completed")){
+                int color = ContextCompat.getColor(holder.itemView.getContext(), R.color.primary2);
+                holder.bookingStatus.setTextColor(color);
+            }
+
+
+
             holder.bookingRateType.setText(dataClass.get(position).getRateType());
             holder.bookingRateValue.setText("₱"+dataClass.get(position).getRatePrice());
-            holder.bookingStartDate.setText(dataClass.get(position).getBookDateSelected());
+
+            Timestamp submittedOn = dataClass.get(position).getBookSubmittedDate();
+            Date dateSubmittedOn = submittedOn.toDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+            String formattedDate = dateFormat.format(dateSubmittedOn);
+            holder.bookingStartDate.setText(formattedDate);
+
             holder.bookingTotalPayment.setText(dataClass.get(position).getTotalPayment());
             holder.seeMoreDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -288,7 +343,7 @@ public class BookingsFragment extends Fragment {
                     View dialogView = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.recycleitem_custbookingcardview_moredetails, null);
 
                     ImageView branchImage, layoutImage, paymentImage;
-                    TextView branchName, layoutName, bookingStatus, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, ProofOfPaymentTitle,
+                    TextView branchName, layoutName, bookingId,bookingStatusBelow, bookingPayment, rateType, ratePrice, paymentOption, tenantsNum, ProofOfPaymentTitle,
                             custFullname, orgName, custAddress, custPhoneNum, custEmail, startDate, endDate, startTime, endTime,
                             totalHours, totalHoursTitle, totalDays, totalDaysTitle, totalWeeks, totalWeeksTitle, totalMonths, totalMonthsTitle;
 
@@ -302,7 +357,8 @@ public class BookingsFragment extends Fragment {
                     paymentImage = dialogView.findViewById(R.id.seemorePaymentPic_Imageview);
                     branchName = dialogView.findViewById(R.id.seemoreBranchName_Textview);
                     layoutName = dialogView.findViewById(R.id.seemoreLayoutName_Textview);
-                    bookingStatus = dialogView.findViewById(R.id.seemoreBookingStatus_Textview);
+                    bookingId = dialogView.findViewById(R.id.seemoreBookingId_Textview);
+                    bookingStatusBelow = dialogView.findViewById(R.id.seemoreBookingStatusBelow_Textview);
                     bookingPayment = dialogView.findViewById(R.id.seemoreTotalPayment_Textview);
                     rateType = dialogView.findViewById(R.id.seemoreRateType_Textview);
                     ratePrice = dialogView.findViewById(R.id.seemoreRatePrice_Textview);
@@ -344,6 +400,15 @@ public class BookingsFragment extends Fragment {
                         totalMonths.setVisibility(View.GONE);
                     }
 
+                    if (model.getRateType().equals("Daily rate")){
+                        totalHoursTitle.setVisibility(View.GONE);
+                        totalHours.setVisibility(View.GONE);
+                        totalWeeksTitle.setVisibility(View.GONE);
+                        totalWeeks.setVisibility(View.GONE);
+                        totalMonthsTitle.setVisibility(View.GONE);
+                        totalMonths.setVisibility(View.GONE);
+                    }
+
                     if (model.getPaymentOption().equals("Onsite")){
                         paymentImage.setVisibility(View.GONE);
                         ProofOfPaymentTitle.setVisibility(View.GONE);
@@ -363,7 +428,9 @@ public class BookingsFragment extends Fragment {
 
                     branchName.setText(model.getBranchName());
                     layoutName.setText(model.getLayoutName());
-                    bookingStatus.setText(model.getBookingStatus());
+                    bookingId.setText(model.getBookingId());
+                    bookingStatusBelow.setVisibility(View.VISIBLE);
+                    bookingStatusBelow.setText(model.getBookingStatus());
                     bookingPayment.setText(model.getTotalPayment());
                     rateType.setText(model.getRateType());
                     ratePrice.setText("₱"+model.getRatePrice());
@@ -385,7 +452,7 @@ public class BookingsFragment extends Fragment {
                     endTime.setText(endTimeString);
 
                     totalHours.setText(model.getTotalHours());
-                    //totalDays.setText(model.getTotalDays());
+                    totalDays.setText(model.getTotalDays());
                     //totalWeeks.setText(model.getTotalWeeks());
                     //totalMonths.setText(model.getTotalMonths());
 
@@ -395,7 +462,7 @@ public class BookingsFragment extends Fragment {
                     custPhoneNum.setText(model.getCustomerPhoneNum());
                     custEmail.setText(model.getCustomerEmail());
                     String ownerId= model.getOwnerId();
-                    String bookingId= model.getBookingId();
+                    String bookingID= model.getBookingId();
                     builder.setView(dialogView);
                     AlertDialog dialog = builder.create();
                     dialog.show();
@@ -412,7 +479,7 @@ public class BookingsFragment extends Fragment {
                     acceptButton.setVisibility(View.GONE);
                     completeButton.setVisibility(View.GONE);
 
-                    if (bookingStatus.getText().toString().equals("Pending")){
+                    if (bookingStatusBelow.getText().toString().equals("Pending")){
                         cancelButton.setVisibility(View.VISIBLE);
                         cancelButton.setText("Cancel Booking");
                         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -530,7 +597,8 @@ public class BookingsFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView branchImage, layoutImage;
-            TextView branchName, bookingStatus, layoutName, bookingRateType, bookingRateValue, bookingStartDate,bookingTotalPayment, seeMoreDetails;
+            TextView branchName, bookingStatus, layoutName, bookingRateType, bookingRateValue, bookingStartDate,bookingTotalPayment;
+            CardView seeMoreDetails;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

@@ -23,92 +23,92 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+public class OwnerBT_CancelledTabFragment extends Fragment {
 
-public class OwnerBT_OngoingTabFragment extends Fragment {
+    private RecyclerView cancelledRecyclerView;
+    private OwnerBT_AdapterClass cancelledAdapterClass;
+    private List<Booking_ModelClass>  cancelledDataClassList;
 
-    private RecyclerView ongoingRecyclerView;
-    private OwnerBT_AdapterClass ongoingAdapterClass;
-    private List<Booking_ModelClass> ongoingDataClassList;
+    private RecyclerView declinedRecyclerView;
+    private OwnerBT_AdapterClass declinedAdapterClass;
+    private List<Booking_ModelClass>  declinedDataClassList;
 
-    private RecyclerView acceptedRecyclerview;
-    private OwnerBT_AdapterClass acceptedAdapterClass;
-    private List<Booking_ModelClass> acceptedDataClassList;
-
-    private TextView sizeOngoingBookingsTextview, sizeAcceptedBookingsTextview;
+    private TextView sizeDeclinedBookingsTextview, sizeCancelledBookingsTextview;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     CollectionReference bookingRef = firebaseFirestore.collection("CustomerSubmittedBookingTransactions");
 
-    public OwnerBT_OngoingTabFragment() {
+    public OwnerBT_CancelledTabFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView2 = inflater.inflate(R.layout.fragment_owner_b_t__ongoing_tab, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_owner_b_t__cancelled_tab, container, false);
 
-        ongoingRecyclerView = rootView2.findViewById(R.id.ongoingTransactionsList);
-        ongoingRecyclerView.setHasFixedSize(true);
-        ongoingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ongoingDataClassList = new ArrayList<>();
-        ongoingAdapterClass = new OwnerBT_AdapterClass(ongoingDataClassList, getActivity());
-        ongoingRecyclerView.setAdapter(ongoingAdapterClass);
+        cancelledRecyclerView = rootView.findViewById(R.id.cancelledTransactionsList);
+        cancelledRecyclerView.setHasFixedSize(true);
+        cancelledRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        cancelledDataClassList = new ArrayList<>();
+        cancelledAdapterClass = new OwnerBT_AdapterClass(cancelledDataClassList, getActivity());
+        cancelledRecyclerView.setAdapter(cancelledAdapterClass);
 
+        declinedRecyclerView = rootView.findViewById(R.id.declinedTransactionsList);
+        declinedRecyclerView.setHasFixedSize(true);
+        declinedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        declinedDataClassList = new ArrayList<>();
+        declinedAdapterClass = new OwnerBT_AdapterClass(declinedDataClassList, getActivity());
+        declinedRecyclerView.setAdapter(declinedAdapterClass);
 
-        acceptedRecyclerview = rootView2.findViewById(R.id.acceptedTransactionsList);
-        acceptedRecyclerview.setHasFixedSize(true);
-        acceptedRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        acceptedDataClassList = new ArrayList<>();
-        acceptedAdapterClass = new OwnerBT_AdapterClass(acceptedDataClassList, getActivity());
-        acceptedRecyclerview.setAdapter(acceptedAdapterClass);
+        sizeCancelledBookingsTextview = rootView.findViewById(R.id.sizeCancelledBookingsTextview);
+        sizeDeclinedBookingsTextview = rootView.findViewById(R.id.sizeDeclinedBookingsTextview);
 
-        sizeOngoingBookingsTextview = rootView2.findViewById(R.id.sizeOngoingBookingsTextview);
-        sizeAcceptedBookingsTextview = rootView2.findViewById(R.id.sizeAcceptedBookingsTextview);
+        loadCancelledBT();
+        loadDeclineddBT();
 
-
-        loadOngoingBT();
-        loadAcceptedBT();
-
-        return rootView2;
+        return rootView;
     }
 
-    private void loadOngoingBT() {
+    private void loadCancelledBT(){
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
-        Query query = bookingRef.whereEqualTo("bookingStatus", "Ongoing")
+        Query query = bookingRef.whereEqualTo("bookingStatus", "Cancelled")
                 .whereEqualTo("ownerId", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int size = queryDocumentSnapshots.size();
-                sizeOngoingBookingsTextview.setText(String.valueOf(size));
+                sizeCancelledBookingsTextview.setText(String.valueOf(size));
 
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                     Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
-                    ongoingDataClassList.add(modelClass);
+                    cancelledDataClassList.add(modelClass);
                 }
-                ongoingAdapterClass.notifyDataSetChanged();
+                cancelledAdapterClass.notifyDataSetChanged();
             }
         });
+
     }
 
 
-    private void loadAcceptedBT(){
+    private void loadDeclineddBT() {
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
-        Query query = bookingRef.whereEqualTo("bookingStatus", "Accepted")
+        Query query = bookingRef.whereEqualTo("bookingStatus", "Declined")
                 .whereEqualTo("ownerId", currentUserID);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 int size = queryDocumentSnapshots.size();
-                sizeAcceptedBookingsTextview.setText(String.valueOf(size));
+                sizeDeclinedBookingsTextview.setText(String.valueOf(size));
 
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                     Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
-                    acceptedDataClassList.add(modelClass);
+                    declinedDataClassList.add(modelClass);
                 }
-                acceptedAdapterClass.notifyDataSetChanged();
+                declinedAdapterClass.notifyDataSetChanged();
             }
         });
+
     }
 
 }

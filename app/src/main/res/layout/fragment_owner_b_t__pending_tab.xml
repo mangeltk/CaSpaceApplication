@@ -5,20 +5,54 @@
     android:layout_height="match_parent"
     tools:context=".Owner.BookingTransactions.OwnerBT_PendingTabFragment">
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pending Booking Transactions"
-        android:gravity="center"
-        android:textColor="@color/colorWarning"
-        android:textStyle="bold"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="50dp"
-        android:id="@+id/pendingTransactionsList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/primary2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending Bookings"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:textColor="@color/colorWarning"
+                android:fontFamily="@font/poppins_medium"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/sizePendingBookingsTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:background="@drawable/ic_circle_black"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/colorWarning"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pendingTransactionsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView" />
+
+    </LinearLayout>
 
 </FrameLayout>

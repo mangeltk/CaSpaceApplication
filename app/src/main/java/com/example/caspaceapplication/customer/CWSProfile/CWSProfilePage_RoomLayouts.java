@@ -460,6 +460,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     TextView DailyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_DailyRate_TextviewDETAILS);
                     TextView WeeklyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_WeeklyRate_TextviewDETAILS);
                     TextView MonthyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_MonthyRate_TextviewDETAILS);
+                    TextView AnnualRateTitle_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_AnnualRateTitle_TextviewDETAILS);
                     TextView AnnualRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_AnnualRate_TextviewDETAILS);
                     AppCompatButton BookNow_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_BookNow_AppComButtonDETAILS);
                     AppCompatButton SeeOther_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_SeeOther_AppComButtonDETAILS);
@@ -477,6 +478,8 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     WeeklyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutWeeklyPrice());
                     MonthyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutMonthlyPrice());
                     AnnualRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAnnualPrice());
+                    AnnualRate_TextviewDETAILS.setVisibility(View.GONE);
+                    AnnualRateTitle_TextviewDETAILS.setVisibility(View.GONE);
 
                     BookNow_AppComButtonDETAILS.setOnClickListener(new View.OnClickListener() {
                         @Override

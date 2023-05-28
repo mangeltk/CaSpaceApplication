@@ -40,7 +40,7 @@
 
             <ImageView
                 android:id="@+id/CWSPP_LayoutImage_ImageviewDETAILS"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
@@ -227,6 +227,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/CWSPP_AnnualRateTitle_TextviewDETAILS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

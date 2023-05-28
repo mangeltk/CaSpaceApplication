@@ -206,7 +206,6 @@ public class CustBooking1st extends Fragment {
         OnsiteRadButton = rootView.findViewById(R.id.customerDetails_OnsiteRadButton);
         OtherOptRadButton = rootView.findViewById(R.id.customerDetails_OtherOptRadButton);
 
-
         Calendar calendar = Calendar.getInstance();
         calendarView.setMinDate(calendar.getTimeInMillis());
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -226,6 +225,15 @@ public class CustBooking1st extends Fragment {
 
                 if (selectedDate != null) {
                     CalendarSectionLinearLayout.setVisibility(View.GONE);
+                }
+
+                // todo: gone visibility for other payment option if within the day selected date
+                Date currentDate = calendar.getTime();
+                String formattedCurrentDate = dateFormat.format(currentDate);
+                if (formattedDate.equals(formattedCurrentDate)) {
+                    OtherOptRadButton.setVisibility(View.GONE);
+                } else {
+                    OtherOptRadButton.setVisibility(View.VISIBLE);
                 }
 
                 changeTextForDateSelectedTextview.setOnClickListener(new View.OnClickListener() {
@@ -677,7 +685,6 @@ public class CustBooking1st extends Fragment {
         branchPaymentChannelsLinearLayout.setVisibility(View.GONE);
         uploadPaymentImageLinearLayout.setVisibility(View.GONE);
 
-
         OnsiteRadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -927,6 +934,9 @@ public class CustBooking1st extends Fragment {
                                         selectEndTimeLinearLayout.setVisibility(View.GONE);
                                         selectedEndTimeTextview.setText("");
                                         totalPaymentTextview.setText("");
+
+                                        RadioButtonGroupForRates.setVisibility(View.GONE);
+                                        selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
                                     }
                                 });
 
@@ -1129,7 +1139,6 @@ public class CustBooking1st extends Fragment {
     }
 
     public void DailyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
-        //clearInputs();
 
         if (selectedRatePriceTextview.getText().toString().isEmpty() ||
                 selectedRateTypeTextview.getText().toString().isEmpty() ||
@@ -1137,13 +1146,15 @@ public class CustBooking1st extends Fragment {
             return;
         }
 
-        RadioButtonGroupForRates.setVisibility(View.GONE);
-        selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
-        String selectedStartDate = selectedDateTextview.getText().toString();
-        String selectedEndDate = selectedEndDateTextview.getText().toString();
 
-        final int totalDays; // Declare as final
-        final double bookingFee; // Declare as final
+        String selectedStartDate = selectedDateTextview.getText().toString();
+        //String selectedEndDate = selectedEndDateTextview.getText().toString();
+        String getTotalDays = totalCalcDurationTextview.getText().toString();
+
+        final int totalDays = 0;
+        final double bookingFee;
+        double rate = Double.parseDouble(dailyRate);
+        double calculatedBookingFee = rate * totalDays;
 
         // Check if there are any booked hours for the selected date
         boolean hasBookedHours = false;
@@ -1152,16 +1163,13 @@ public class CustBooking1st extends Fragment {
                 hasBookedHours = true;
             }
         }
-
         if (hasBookedHours) {
             Toast.makeText(getContext(), "Cannot book for daily rate. There are existing hourly bookings on this date.", Toast.LENGTH_SHORT).show();
             return; // Exit the method to prevent further processing
         }
 
-        totalDays = 1; // Assuming the booking is for one day
 
-        double rate = Double.parseDouble(dailyRate);
-        bookingFee = rate * totalDays;
+        totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f",calculatedBookingFee));
 
         totalDurationLinearLayout.setVisibility(View.VISIBLE);
         totalCalcDurationTitleTextview.setText("Total Days:");
@@ -1169,6 +1177,7 @@ public class CustBooking1st extends Fragment {
         totalPaymentLinearLayout.setVisibility(View.VISIBLE);
         addButtonForDaysImageButton.setVisibility(View.VISIBLE);
         selectEndDateLinearLayout.setVisibility(View.GONE);
+
 
         addButtonForDaysImageButton.setOnClickListener(new View.OnClickListener() {
             @Override

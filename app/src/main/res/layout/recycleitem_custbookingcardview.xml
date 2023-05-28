@@ -8,6 +8,7 @@
     android:background="@drawable/coworkingspaces_search_bar">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/CustBookingBookingSeeMoreTextview_Cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -17,19 +18,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/primary">
+            android:background="@color/primary"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/CustBookingBranchImage_Cardview"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/uploadphoto" />
 
             <TextView
                 android:id="@+id/CustBookingBranchName_Cardview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
@@ -41,11 +44,17 @@
 
             <TextView
                 android:id="@+id/CustBookingBookingStatus_Cardview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/days_one"
-                android:gravity="end"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:background="@drawable/buttonwhite_borderblack"
                 android:hint="Completed"
                 android:textColor="@color/primary2"
                 android:textStyle="bold" />
@@ -82,6 +91,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,7 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Booking rate type:"
+                            android:text="Rate type:"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -134,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Booking Start date:"
+                            android:text="Booked on:"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -167,7 +177,6 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/CustBookingBookingSeeMoreTextview_Cardview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="3"
