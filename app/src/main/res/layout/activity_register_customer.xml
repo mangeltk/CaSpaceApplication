@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:padding="@dimen/_24sdp"
+    android:padding="40dp"
     android:scrollbars="none"
-    android:background="@color/primary"
+    android:background="@drawable/backgroundcaspaceblue"
     tools:context=".customer.RegisterCustomer">
 
 
@@ -21,23 +21,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="26dp"
             android:text="Create New Account"
-            android:textColor="@color/white"
-            android:fontFamily="@font/montserrat_light"
-            android:textSize="@dimen/_18ssp"
-            android:textStyle="bold"/>
+            android:textColor="@color/black"
+            android:fontFamily="@font/days_one"
+            android:textSize="23sp" />
 
         <FrameLayout
             android:id="@+id/layoutImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:layout_marginTop="13dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageProfile"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
                 android:background="@drawable/messaging_background_image"
                 android:scaleType="centerCrop"
                 />
@@ -47,10 +46,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableTint="@color/white"
+                android:drawableTint="@color/gray"
                 android:drawableLeft="@drawable/uploadpic"
                 android:textColor="@color/secondary_text"
-                android:textSize="@dimen/_10ssp"/>
+                android:textSize="13dp"/>
 
         </FrameLayout>
 
@@ -63,11 +62,10 @@
             android:padding="8dp"
             android:paddingStart="95dp"
             android:text="Customer"
-            android:fontFamily="@font/montserrat_light"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/days_one"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/primary2"
+            android:textSize="18dp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -75,27 +73,27 @@
 
             <EditText
                 android:id="@+id/customerFirstName"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="13dp"
                 android:background="@drawable/messaging_background_input"
-                android:hint="First Name"
                 android:fontFamily="@font/montserrat_light"
-                android:textColorHint="@color/secondary_text"
+                android:hint="First Name"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_12ssp"/>
+                android:paddingStart="21dp"
+                android:paddingEnd="21dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/secondary_text"
+                android:textSize="13sp" />
 
             <EditText
                 android:id="@+id/customerLastName"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_134sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="181dp"
+                android:layout_marginTop="13dp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="Last Name"
                 android:fontFamily="@font/montserrat_light"
@@ -103,18 +101,18 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_12ssp"/>
+                android:paddingStart="21dp"
+                android:paddingEnd="21dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"/>
 
         </FrameLayout>
 
         <EditText
             android:id="@+id/customer_email"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="45dp"
+            android:layout_marginTop="7dp"
             android:background="@drawable/messaging_background_input"
             android:hint="Email"
             android:fontFamily="@font/montserrat_light"
@@ -122,16 +120,16 @@
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_12ssp"/>
+            android:textSize="13sp"/>
 
         <EditText
             android:id="@+id/customer_username"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="45dp"
+            android:layout_marginTop="7dp"
             android:background="@drawable/messaging_background_input"
             android:hint="Username"
             android:fontFamily="@font/montserrat_light"
@@ -139,10 +137,10 @@
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_12ssp"/>
+            android:textSize="13sp"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -150,9 +148,9 @@
 
             <EditText
                 android:id="@+id/customer_organization"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/messaging_background_input"
                 android:hint="Organization"
                 android:fontFamily="@font/montserrat_light"
@@ -160,38 +158,36 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
+                android:paddingStart="21dp"
+                android:paddingEnd="21dp"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/_12ssp"/>
+                android:textSize="13sp"/>
 
             <EditText
                 android:id="@+id/customer_population"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_134sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/messaging_background_input"
+                android:layout_marginStart="181dp"
                 android:hint="Population"
                 android:fontFamily="@font/montserrat_light"
                 android:textColorHint="@color/secondary_text"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
+                android:paddingStart="21dp"
+                android:paddingEnd="21dp"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/_12ssp"/>
+                android:textSize="13sp"/>
 
         </FrameLayout>
-
-
 
         <EditText
             android:id="@+id/customer_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="45dp"
+            android:layout_marginTop="7dp"
             android:background="@drawable/messaging_background_input"
             android:hint="Password"
             android:fontFamily="@font/montserrat_light"
@@ -199,16 +195,16 @@
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_12ssp"/>
+            android:textSize="13sp"/>
 
         <EditText
             android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="45dp"
+            android:layout_marginTop="7dp"
             android:background="@drawable/messaging_background_input"
             android:hint="Confirm Password"
             android:fontFamily="@font/montserrat_light"
@@ -216,33 +212,33 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_12ssp"/>
+            android:textSize="13sp"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="15dp"
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerButtonCustomer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_height="55dp"
                 android:text="Sign Up"
                 android:backgroundTint="@color/orange1"
                 android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                app:cornerRadius="@dimen/_8sdp"/>
+                app:cornerRadius="11dp"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:visibility="invisible"/>
 
@@ -252,11 +248,11 @@
             android:id="@+id/textSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="13dp"
             android:text="Log In"
             android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/primary2"
+            android:textSize="17sp"
             android:textStyle="bold"/>
 
         <FrameLayout
@@ -265,9 +261,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:src="@drawable/logodark">
+                android:layout_height="39dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/logocaspace">
             </androidx.appcompat.widget.AppCompatImageView>
         </FrameLayout>
 

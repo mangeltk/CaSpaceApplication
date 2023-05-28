@@ -50,25 +50,25 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="7dp"
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerCustomer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
                 android:text="Customer"
                 android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                app:cornerRadius="@dimen/_8sdp"/>
+                app:cornerRadius="11dp"/>
 
             <ProgressBar
                 android:id="@+id/progressBar_customer"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:visibility="invisible"/>
 
@@ -77,20 +77,20 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="7dp"
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/registerOwner"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_height="65dp"
+                android:layout_marginTop="5dp"
                 android:text="COWORKING SPACE OWNER"
                 android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                app:cornerRadius="@dimen/_8sdp"/>
+                app:cornerRadius="11dp"/>
 
             <ProgressBar
                 android:id="@+id/progressBar_owner"
@@ -111,9 +111,9 @@
         android:layout_marginTop="@dimen/_140sdp"
         android:text="Already have an account?"
         android:layout_gravity="center"
-        android:textColor="@color/primary"
+        android:textColor="@color/primary2"
         android:fontFamily="@font/montserrat_light"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="16sp"
         android:textStyle="bold"/>
 
 
