@@ -64,7 +64,7 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
         OwnerHomepageUploadedPermitImageview = findViewById(R.id.OwnerHomepageUploadedPermit_Imageview);
 
         //BRANCH STATUS
-        /*Intent intent = getIntent();
+        Intent intent = getIntent();
         ownerBranchStatus = intent.getStringExtra("ownerBranchStatus");
 
         if (ownerBranchStatus.equals("Unverified")){
@@ -73,14 +73,14 @@ public class OwnerHomepage extends AppCompatActivity implements BottomNavigation
         }else{
             FourIconsHome.setVisibility(View.VISIBLE);
             OwnerHomepageUnverifiedNotice.setVisibility(View.GONE);
-        }*/
-        if (ownerBranchStatus != null && ownerBranchStatus.equals("Unverified")) {
+        }
+        /*if (ownerBranchStatus != null && ownerBranchStatus.equals("Unverified")) {
             FourIconsHome.setVisibility(View.GONE);
             OwnerHomepageUnverifiedNotice.setVisibility(View.VISIBLE);
         } else {
             FourIconsHome.setVisibility(View.VISIBLE);
             OwnerHomepageUnverifiedNotice.setVisibility(View.GONE);
-        }
+        }*/
 
 
         firebaseFirestore.collection("OwnerUserAccounts")

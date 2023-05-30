@@ -277,7 +277,7 @@ public class CustBooking1st extends Fragment {
                                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                                         String status = documentSnapshot.getString("bookingStatus");
                                         String RateType = documentSnapshot.getString("RateType");
-                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing") || status.equals("Completed"))) && (RateType != null && RateType.equals("Hourly rate"))) {
+                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing") || status.equals("Completed") || status.equals("Pending"))) && (RateType != null && RateType.equals("Hourly rate"))) {
                                             Timestamp endTimeSelected = documentSnapshot.getTimestamp("BookEndTimeSelected");
                                             Timestamp startTimeSelected = documentSnapshot.getTimestamp("BookStartTimeSelected");
 
@@ -692,6 +692,7 @@ public class CustBooking1st extends Fragment {
         custBookingDetsLinearLayout.setVisibility(View.GONE);
         branchPaymentChannelsLinearLayout.setVisibility(View.GONE);
         uploadPaymentImageLinearLayout.setVisibility(View.GONE);
+        minusButtonForWeeksImageButton.setVisibility(View.GONE);
 
         OnsiteRadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -913,6 +914,7 @@ public class CustBooking1st extends Fragment {
                                         totalCalcDurationTextview.setText("");
                                         totalCalcDurationTitleTextview.setText("Total Hours:");
                                         totalPaymentTextview.setText("");
+                                        minusButtonForWeeksImageButton.setVisibility(View.GONE);
                                     }
                                 });
 
@@ -930,6 +932,8 @@ public class CustBooking1st extends Fragment {
                                                 selectedDateTextview.getText().toString().isEmpty()) {
                                             return;
                                         }
+
+                                        minusButtonForWeeksImageButton.setVisibility(View.GONE);
                                     }
                                 });
 
@@ -1144,6 +1148,10 @@ public class CustBooking1st extends Fragment {
     }
 
     public void DailyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
+
+        totalCalcDurationTextview.setText("1");
+        totalPaymentTextview.setText("");
+
         String selectedStartDate = selectedDateTextview.getText().toString();
 
         // Check if there are any booked hours for the selected date
@@ -1162,7 +1170,7 @@ public class CustBooking1st extends Fragment {
         selectedStartTimeTextview.setText("");
         selectEndTimeLinearLayout.setVisibility(View.GONE);
         selectedEndTimeTextview.setText("");
-        totalPaymentTextview.setText("");
+        //totalPaymentTextview.setText("");
 
         RadioButtonGroupForRates.setVisibility(View.GONE);
         selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
@@ -1301,7 +1309,15 @@ public class CustBooking1st extends Fragment {
         });
     }
 
-    public void WeeklyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
+    public void WeeklyCalculation(String weeklyRate, int minPersonCap, int maxPersonCap) {
+
+        totalCalcDurationTextview.setText("");
+        totalPaymentTextview.setText("");
+        selectStartTimeLinearLayout.setVisibility(View.GONE);
+        selectedStartTimeTextview.setText("");
+        selectEndTimeLinearLayout.setVisibility(View.GONE);
+        selectedEndTimeTextview.setText("");
+
         String selectedStartDate = selectedDateTextview.getText().toString();
 
         // Check if there are any booked hours for the selected date
@@ -1321,7 +1337,7 @@ public class CustBooking1st extends Fragment {
         final int maxWeeks = 3;
         final double rate = Double.parseDouble(weeklyRate);
         final double[] calculatedBookingFee = {rate};
-
+        totalCalcDurationTextview.setText(String.valueOf(totalWeeks));
         // Parse the selected start date into a Calendar object
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
         Calendar startDate = Calendar.getInstance();
@@ -1388,7 +1404,7 @@ public class CustBooking1st extends Fragment {
                                             Toast.makeText(getContext(), "Cannot proceed. Existing bookings within the selected week.", Toast.LENGTH_SHORT).show();
                                             // Decrement the total weeks by 1 and recalculate the booking fee
                                             double recalculatedBookingFee = rate * weeks;
-                                            totalCalcDurationTextview.setText(String.valueOf(weeks));
+                                            //totalCalcDurationTextview.setText(String.valueOf(weeks));
                                             totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f", recalculatedBookingFee));
                                         } else {
                                             Toast.makeText(getContext(), "Naay bakante a week", Toast.LENGTH_SHORT).show();
@@ -1418,7 +1434,7 @@ public class CustBooking1st extends Fragment {
 
         totalDurationLinearLayout.setVisibility(View.VISIBLE);
         totalCalcDurationTitleTextview.setText("Total Weeks:");
-        totalCalcDurationTextview.setText(String.valueOf(totalWeeks));
+        //totalCalcDurationTextview.setText(String.valueOf(totalWeeks));
         totalPaymentLinearLayout.setVisibility(View.VISIBLE);
         totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f", calculatedBookingFee[0]));
 
@@ -1505,8 +1521,6 @@ public class CustBooking1st extends Fragment {
             // Handle date parsing error
         }
     }
-
-
 
     public void checkCompleteCustomerDetails(){
 

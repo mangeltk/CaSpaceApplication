@@ -22,7 +22,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.Owner.OfficeLayouts.OfficeLayout_DataClass;
@@ -290,7 +289,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerview_CWSProfPage_RoomLayouts);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         dataClassList = new ArrayList<>();
         cwsProfilePageRoomLayoutsAdapter = new CWSProfilePage_RoomLayouts_Adapter(dataClassList);
         recyclerView.setAdapter(cwsProfilePageRoomLayoutsAdapter);
@@ -453,7 +451,7 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                 Picasso.get().load(imageUri).into(holder.LayoutImage_Imageview);
             holder.LayoutTitle_Textview.setText(layout.getLayoutName());
             holder.PersonCapacity_Textview.setText(layout.getMinCapacity() + "-" + layout.getMaxCapacity());
-            holder.Areasize_Textview.setText(layout.getLayoutAreasize());
+            holder.Areasize_Textview.setText(layout.getLayoutAreasize() + " sq.m.");
 
             String layoutName = layout.getLayoutName();
             checkTrial(layoutName, holder.Availability_Textview);
@@ -477,8 +475,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     TextView DailyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_DailyRate_TextviewDETAILS);
                     TextView WeeklyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_WeeklyRate_TextviewDETAILS);
                     TextView MonthyRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_MonthyRate_TextviewDETAILS);
-                    TextView AnnualRateTitle_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_AnnualRateTitle_TextviewDETAILS);
-                    TextView AnnualRate_TextviewDETAILS = dialogView.findViewById(R.id.CWSPP_AnnualRate_TextviewDETAILS);
                     AppCompatButton BookNow_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_BookNow_AppComButtonDETAILS);
                     AppCompatButton SeeOther_AppComButtonDETAILS = dialogView.findViewById(R.id.CWSPP_SeeOther_AppComButtonDETAILS);
 
@@ -495,9 +491,6 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
                     DailyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutDailyPrice());
                     WeeklyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutWeeklyPrice());
                     MonthyRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutMonthlyPrice());
-                    AnnualRate_TextviewDETAILS.setText(dataClass.get(nextPosition).getLayoutAnnualPrice());
-                    AnnualRate_TextviewDETAILS.setVisibility(View.GONE);
-                    AnnualRateTitle_TextviewDETAILS.setVisibility(View.GONE);
 
                     BookNow_AppComButtonDETAILS.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -662,7 +655,8 @@ public class CWSProfilePage_RoomLayouts extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView LayoutImage_Imageview;
-            TextView LayoutTitle_Textview, PersonCapacity_Textview, Areasize_Textview, Availability_Textview, SeeMoreDetails_Textview;
+            TextView LayoutTitle_Textview, PersonCapacity_Textview, Areasize_Textview, Availability_Textview;
+            LinearLayout SeeMoreDetails_Textview;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

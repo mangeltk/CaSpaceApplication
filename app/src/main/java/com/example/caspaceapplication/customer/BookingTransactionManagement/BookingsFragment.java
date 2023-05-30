@@ -46,6 +46,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -474,13 +475,13 @@ public class BookingsFragment extends Fragment {
                     String ownerId= dataClass.get(clickedPosition).getOwnerId();
                     String bookingID= dataClass.get(clickedPosition).getBookingId();
                     builder.setView(dialogView);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    AlertDialog dialog1 = builder.create();
+                    dialog1.show();
 
                     exitButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog.dismiss();
+                            dialog1.dismiss();
                             Toast.makeText(getContext(), "Exit", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -505,21 +506,25 @@ public class BookingsFragment extends Fragment {
                             cancelButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    FirebaseUser USER = firebaseAuth.getCurrentUser();
+
                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
                                     builder1.setTitle("Cancel confirmation");
                                     builder1.setMessage("Are you sure you want to cancel this booking?\n\nCancellation Rules:\n- Cancellation within 24 hours of the booking will incur a 10% cancellation fee.\n- Cancellation after the scheduled booking start time will result in a 50% cancellation fee.");
                                     builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", user.getUid()).whereEqualTo("bookingId",bookingId);
+                                            Query queryByCustId = AllSubmittedBookingRef.whereEqualTo("customerId", USER.getUid()).whereEqualTo("bookingId",bookingID);
                                             queryByCustId.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()){
                                                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                                             documentSnapshot.getReference().update("bookingStatus", "Cancelled");                                        }
+
                                                     }
                                                     Toast.makeText(getContext(), "Booking cancelled", Toast.LENGTH_SHORT).show();
+                                                    dialog1.dismiss();
                                                     dialog.dismiss();
                                                     displayAllBookings();
 
@@ -565,28 +570,38 @@ public class BookingsFragment extends Fragment {
                                                                     Log.w(TAG, "Error adding notification", e);
                                                                 }
                                                             });
+
                                                 }
+
                                             });
+
                                         }
+
                                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
                                         }
                                     });
-
                                     AlertDialog dialog1 = builder1.create();
                                     dialog1.show();
                                 }
                             });
-                        }else{
+                        }
+                        else{
                             cancelButton.setVisibility(View.GONE);
                         }
+
                     }
+
+
                     else{
                         cancelButton.setVisibility(View.GONE);
                     }
+
                 }
+
+
             });
 
 

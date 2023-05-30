@@ -134,6 +134,7 @@ public class CustBookingsDisplay extends Fragment {
         final AtomicInteger acceptedCount = new AtomicInteger(0);
         final AtomicInteger ongoingCount = new AtomicInteger(0);
         final AtomicInteger completedCount = new AtomicInteger(0);
+        //final AtomicInteger pendingCount = new AtomicInteger(0);
 
         modelClassList.clear(); // Clear the list before adding new bookings
 
@@ -156,6 +157,12 @@ public class CustBookingsDisplay extends Fragment {
                 .whereEqualTo("bookingStatus", "Completed")
                 .get();
 
+        /*Task<QuerySnapshot> pendingTask = AllSubmittedBookingRef
+                .whereEqualTo("layoutName", layoutName)
+                .whereEqualTo("BookDateSelected", formattedDate)
+                .whereEqualTo("bookingStatus", "Pending")
+                .get();*/
+
         // Combine tasks into a single task
         Task<List<QuerySnapshot>> combinedTask = Tasks.whenAllSuccess(acceptedTask, ongoingTask, completedTask);
 
@@ -175,6 +182,7 @@ public class CustBookingsDisplay extends Fragment {
                 acceptedCount.set(querySnapshots.get(0).size());
                 ongoingCount.set(querySnapshots.get(1).size());
                 completedCount.set(querySnapshots.get(2).size());
+                //pendingCount.set(querySnapshots.get(3).size());
 
                 adapter.notifyDataSetChanged();
 

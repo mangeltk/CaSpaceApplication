@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
-    app:cardCornerRadius="10dp">
+    android:background="@color/primary2">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/coworkingspaces_search_bar"
+            android:background="@drawable/backgroundnistephanie_ayawhilabti"
             android:orientation="vertical">
 
             <TextView
@@ -26,15 +25,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-
+                android:layout_marginStart="10dp"
+                android:background="@drawable/header_background_forownerhomepage"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:padding="0dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
                 android:text="Layout Title"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primary2"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -49,11 +48,17 @@
                 android:src="@drawable/uploadphoto" />
 
             <TextView
+                android:drawableStart="@drawable/ic_baseline_meeting_room_24"
+                android:drawableTint="@color/primary2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Layout Availability:"
+                android:text="Layout current Availability:"
+                android:textAllCaps="true"
+                android:textStyle="bold"
                 android:textColor="@color/primary2" />
 
             <TextView
@@ -61,231 +66,232 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="bold"
                 android:fontFamily="@font/days_one"
                 android:hint="Available"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"/>
 
 
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:columnCount="2"
+                android:orientation="vertical"
                 android:background="@drawable/card_border_bottom"
-                android:padding="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <GridLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Person capacity: "
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_marginRight="20dp"
+                    android:columnCount="2"
+                    android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/CWSPP_PersonCapacity_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="10"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Person capacity: "
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Area size: "
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/CWSPP_PersonCapacity_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/days_one"
+                        android:hint="10"
+                        android:textColor="@color/primary"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/CWSPP_Areasize_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="100"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Area size: "
+                        android:textColor="@color/primary2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnSpan="2"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:background="@color/cream"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
-                    android:padding="5dp"
-                    android:paddingStart="70dp"
-                    android:paddingEnd="70dp"
-                    android:drawableStart="@drawable/ic_baseline_payments_24"
-                    android:drawableTint="@color/black"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Pricing: "
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/CWSPP_Areasize_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/days_one"
+                        android:gravity="center"
+                        android:hint="100"
+                        android:textColor="@color/primary"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Hourly rate: "
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_columnSpan="2"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/CWSPP_HourlyRate_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00.00"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icons8_card_payment_48"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Daily rate: "
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Pricing: "
+                            android:textColor="@color/primary2"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/CWSPP_DailyRate_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00.00"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Weekly rate: "
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/CWSPP_WeeklyRate_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00.00"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Monthly rate: "
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/CWSPP_MonthyRate_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00.00"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/CWSPP_AnnualRateTitle_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Annual rate: "
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/CWSPP_AnnualRate_TextviewDETAILS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/days_one"
-                    android:hint="00.00"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                    </LinearLayout>
 
 
-            </GridLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Hourly rate: "
+                        android:textColor="@color/primary2"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/CWSPP_HourlyRate_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/days_one"
+                        android:hint="00.00"
+                        android:gravity="center"
+                        android:textColor="@color/primary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Daily rate: "
+                        android:textColor="@color/primary2"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/CWSPP_DailyRate_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/days_one"
+                        android:hint="00.00"
+                        android:textColor="@color/primary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Weekly rate: "
+                        android:textColor="@color/primary2"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/CWSPP_WeeklyRate_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/days_one"
+                        android:hint="00.00"
+                        android:textColor="@color/primary"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Monthly rate: "
+                        android:textColor="@color/primary2"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/CWSPP_MonthyRate_TextviewDETAILS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/days_one"
+                        android:hint="00.00"
+                        android:textColor="@color/primary"
+                        android:textSize="15sp" />
+
+
+                </GridLayout>
+
+
+
+            </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/CWSPP_BookNow_AppComButtonDETAILS"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Book now!"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/search_icon_background_forownerhomepage"
                 android:backgroundTint="@color/primary"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
                 android:drawableStart="@drawable/ic_rename"
-                android:layout_marginBottom="5dp"
-                />
+                android:fontFamily="@font/poppins_medium"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Book now!"
+                android:textColor="@color/white" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/CWSPP_SeeOther_AppComButtonDETAILS"
-                android:layout_marginTop="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:text="See other layouts"
-                android:background="@drawable/search_icon_background_forownerhomepage"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                />
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/backgroundnistephanie_ayawhilabti"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:padding="5dp"
+                android:text="See other layouts"
+                android:textColor="@color/black" />
+
+
 
         </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 
