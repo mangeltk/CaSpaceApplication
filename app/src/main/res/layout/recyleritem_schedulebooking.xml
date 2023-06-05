@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cream">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/backgroundnistephanie_ayawhilabti"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/ScheduledBookingsEachHourTitle_Textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="12:00 AM"
+            android:textColor="@color/primary2"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+
+        <!--<androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ScheduledBookingsEachHour_Recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            tools:itemCount="1" />-->
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:background="@drawable/backgroundnistephanie_ayawhilabti"
+            android:backgroundTint="@color/cream"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/ScheduledBookingsLayoutImage_Imageview"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/layout_sample"
+                android:scaleType="fitCenter"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/scheduledBookingsID_Textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Booking id sample scsdczc"
+                    android:textColor="@color/primary2"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <TextView
+                    android:id="@+id/scheduledBookingsTimeDuration_Textview"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10:00 PM - 11:00 PM"
+                    android:textColor="@color/primary2"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <TextView
+                    android:id="@+id/scheduledBookingsStatus_Textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Completed"
+                    android:textColor="@color/primary2"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

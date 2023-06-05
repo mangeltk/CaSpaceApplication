@@ -35,8 +35,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caspaceapplication.R;
-import com.example.caspaceapplication.fragments.HomeFragment;
+import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -114,7 +115,7 @@ public class CustBooking1st extends Fragment {
 
     Button UploadButtonPaymentImage;
 
-    ImageButton addButtonForDaysImageButton, deleteButtonForDaysImageButton;
+    ImageButton addButtonForDaysImageButton, minusButtonForWeeksImageButton, deleteButtonForDaysImageButton;
 
     ImageView ProofPaymentImage;
 
@@ -178,6 +179,7 @@ public class CustBooking1st extends Fragment {
         totalDurationLinearLayout = rootView.findViewById(R.id.totalDuration_LinearLayout);
         totalCalcDurationTextview = rootView.findViewById(R.id.totalCalcDuration_Texview);
         addButtonForDaysImageButton = rootView.findViewById(R.id.addButtonForDays_ImageButton);
+        minusButtonForWeeksImageButton = rootView.findViewById(R.id.minusButtonForWeeks_ImageButton);
         deleteButtonForDaysImageButton = rootView.findViewById(R.id.deleteButtonForDays_ImageButton);
         totalCalcDurationTitleTextview = rootView.findViewById(R.id.totalCalcDurationTitle_Texview);
         totalPaymentLinearLayout = rootView.findViewById(R.id.totalPayment_LinearLayout);
@@ -275,7 +277,7 @@ public class CustBooking1st extends Fragment {
                                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                                         String status = documentSnapshot.getString("bookingStatus");
                                         String RateType = documentSnapshot.getString("RateType");
-                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing") || status.equals("Completed"))) && (RateType != null && RateType.equals("Hourly rate"))) {
+                                        if ((status != null && (status.equals("Accepted") || status.equals("Ongoing") || status.equals("Completed") || status.equals("Pending"))) && (RateType != null && RateType.equals("Hourly rate"))) {
                                             Timestamp endTimeSelected = documentSnapshot.getTimestamp("BookEndTimeSelected");
                                             Timestamp startTimeSelected = documentSnapshot.getTimestamp("BookStartTimeSelected");
 
@@ -470,7 +472,6 @@ public class CustBooking1st extends Fragment {
 
             }
         });
-
 
         bookNowAppCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -691,6 +692,7 @@ public class CustBooking1st extends Fragment {
         custBookingDetsLinearLayout.setVisibility(View.GONE);
         branchPaymentChannelsLinearLayout.setVisibility(View.GONE);
         uploadPaymentImageLinearLayout.setVisibility(View.GONE);
+        minusButtonForWeeksImageButton.setVisibility(View.GONE);
 
         OnsiteRadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -912,6 +914,7 @@ public class CustBooking1st extends Fragment {
                                         totalCalcDurationTextview.setText("");
                                         totalCalcDurationTitleTextview.setText("Total Hours:");
                                         totalPaymentTextview.setText("");
+                                        minusButtonForWeeksImageButton.setVisibility(View.GONE);
                                     }
                                 });
 
@@ -929,23 +932,37 @@ public class CustBooking1st extends Fragment {
                                                 selectedDateTextview.getText().toString().isEmpty()) {
                                             return;
                                         }
+
+                                        minusButtonForWeeksImageButton.setVisibility(View.GONE);
                                     }
                                 });
 
                                 weeklyRadioButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        WeeklyCalculation(weeklyRate, minPersonCap, maxPersonCap);
+
                                         rateDetailsLinearLayout.setVisibility(View.VISIBLE);
-                                        selectedRateTypeTextview.setText("Weekly rate");
+                                        rateType = "Weekly rate";
+                                        selectedRateTypeTextview.setText(rateType);
                                         selectedRatePriceTextview.setText(weeklyRate);
+                                        deleteButtonForDaysImageButton.setVisibility(View.GONE);
+                                        if (selectedRatePriceTextview.getText().toString().isEmpty() ||
+                                                selectedRateTypeTextview.getText().toString().isEmpty() ||
+                                                selectedDateTextview.getText().toString().isEmpty()) {
+                                            return;
+                                        }
                                     }
                                 });
 
                                 monthlyRadioButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        MonthlyCalculation(monthlyRate, minPersonCap, maxPersonCap);
+
+                                        rateType = "Monthly rate";
                                         rateDetailsLinearLayout.setVisibility(View.VISIBLE);
-                                        selectedRateTypeTextview.setText("Monthly rate");
+                                        selectedRateTypeTextview.setText(rateType);
                                         selectedRatePriceTextview.setText(monthlyRate);
                                     }
                                 });
@@ -1131,6 +1148,10 @@ public class CustBooking1st extends Fragment {
     }
 
     public void DailyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
+
+        totalCalcDurationTextview.setText("1");
+        totalPaymentTextview.setText("");
+
         String selectedStartDate = selectedDateTextview.getText().toString();
 
         // Check if there are any booked hours for the selected date
@@ -1141,7 +1162,7 @@ public class CustBooking1st extends Fragment {
             }
         }
         if (hasBookedHours) {
-            Toast.makeText(getContext(), "Cannot book for daily rate. There are existing hourly bookings on this date.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Cannot proceed. Existing bookings on selected date.", Toast.LENGTH_SHORT).show();
             return; // Exit the method to prevent further processing
         }
 
@@ -1149,16 +1170,32 @@ public class CustBooking1st extends Fragment {
         selectedStartTimeTextview.setText("");
         selectEndTimeLinearLayout.setVisibility(View.GONE);
         selectedEndTimeTextview.setText("");
-        totalPaymentTextview.setText("");
+        //totalPaymentTextview.setText("");
 
         RadioButtonGroupForRates.setVisibility(View.GONE);
         selectRateTitleTextview.setText("SELECTED RATE TYPE AND PRICE");
 
-
-
         final int totalDays = 1;
         double rate = Double.parseDouble(dailyRate);
         double calculatedBookingFee = rate * totalDays;
+
+        totalPaymentTextview.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                custBookingDetsLinearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         totalDurationLinearLayout.setVisibility(View.VISIBLE);
         totalCalcDurationTitleTextview.setText("Total Days:");
@@ -1270,6 +1307,219 @@ public class CustBooking1st extends Fragment {
                 }
             }
         });
+    }
+
+    public void WeeklyCalculation(String weeklyRate, int minPersonCap, int maxPersonCap) {
+
+        totalCalcDurationTextview.setText("");
+        totalPaymentTextview.setText("");
+        selectStartTimeLinearLayout.setVisibility(View.GONE);
+        selectedStartTimeTextview.setText("");
+        selectEndTimeLinearLayout.setVisibility(View.GONE);
+        selectedEndTimeTextview.setText("");
+
+        String selectedStartDate = selectedDateTextview.getText().toString();
+
+        // Check if there are any booked hours for the selected date
+        boolean hasBookedHours = false;
+        if (selectedStartDate.equals(formattedDate)) {
+            if (bookedHours != null && !bookedHours.isEmpty()) {
+                hasBookedHours = true;
+            }
+        }
+        if (hasBookedHours) {
+            Toast.makeText(getContext(), "Cannot proceed. Existing bookings on selected date.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method to prevent further processing
+        }
+
+        // Initialize variables for week calculation
+        int totalWeeks = 1;
+        final int maxWeeks = 3;
+        final double rate = Double.parseDouble(weeklyRate);
+        final double[] calculatedBookingFee = {rate};
+        totalCalcDurationTextview.setText(String.valueOf(totalWeeks));
+        // Parse the selected start date into a Calendar object
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+        Calendar startDate = Calendar.getInstance();
+        try {
+            startDate.setTime(dateFormat.parse(selectedStartDate));
+
+            // Calculate the end date by adding 7 days to the start date
+            final Calendar endDate = (Calendar) startDate.clone();
+            endDate.add(Calendar.DAY_OF_MONTH, 6);
+
+            // Query the bookings within the selected week
+            submittedBookingsCollection
+                    .whereGreaterThanOrEqualTo("BookDateSelected", dateFormat.format(startDate.getTime()))
+                    .whereLessThanOrEqualTo("BookDateSelected", dateFormat.format(endDate.getTime()))
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                Toast.makeText(getContext(), "Cannot proceed. Existing bookings within the selected week.", Toast.LENGTH_SHORT).show();
+                                return; // Exit the method to prevent further processing
+                            } else {
+                                Toast.makeText(getContext(), "Naay bakante a week", Toast.LENGTH_SHORT).show();
+                                selectEndDateLinearLayout.setVisibility(View.VISIBLE);
+                                selectedEndDateTextview.setEnabled(false);
+                                selectedEndDateTextview.setText(dateFormat.format(endDate.getTime()));
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            addButtonForDaysImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String weeksString = totalCalcDurationTextview.getText().toString();
+
+                    final int weeks = Integer.parseInt(weeksString);
+
+                    if (weeks < maxWeeks) {
+                        // Increment the total weeks by 1
+                        final int newWeeks = weeks + 1;
+
+                        // Calculate the new booking fee
+                        final double newCalculatedBookingFee = rate * newWeeks;
+
+                        // Create a new end date by adding 7 days to the existing end date
+                        Calendar newEndDate = (Calendar) endDate.clone();
+                        newEndDate.add(Calendar.DAY_OF_MONTH, 7);
+
+                        // Query the bookings within the extended week
+                        submittedBookingsCollection
+                                .whereGreaterThanOrEqualTo("BookDateSelected", dateFormat.format(endDate.getTime()))
+                                .whereLessThanOrEqualTo("BookDateSelected", dateFormat.format(newEndDate.getTime()))
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        if (!queryDocumentSnapshots.isEmpty()) {
+                                            Toast.makeText(getContext(), "Cannot proceed. Existing bookings within the selected week.", Toast.LENGTH_SHORT).show();
+                                            // Decrement the total weeks by 1 and recalculate the booking fee
+                                            double recalculatedBookingFee = rate * weeks;
+                                            //totalCalcDurationTextview.setText(String.valueOf(weeks));
+                                            totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f", recalculatedBookingFee));
+                                        } else {
+                                            Toast.makeText(getContext(), "Naay bakante a week", Toast.LENGTH_SHORT).show();
+                                            selectEndDateLinearLayout.setVisibility(View.VISIBLE);
+                                            selectedEndDateTextview.setEnabled(false);
+                                            selectedEndDateTextview.setText(dateFormat.format(newEndDate.getTime()));
+                                            totalCalcDurationTextview.setText(String.valueOf(newWeeks));
+                                            totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f", newCalculatedBookingFee));
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(getContext(), "Cannot add more than " + maxWeeks + " weeks.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        totalDurationLinearLayout.setVisibility(View.VISIBLE);
+        totalCalcDurationTitleTextview.setText("Total Weeks:");
+        //totalCalcDurationTextview.setText(String.valueOf(totalWeeks));
+        totalPaymentLinearLayout.setVisibility(View.VISIBLE);
+        totalPaymentTextview.setText(String.format(Locale.getDefault(), "₱%.2f", calculatedBookingFee[0]));
+
+        selectedEndDateTextview.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                custBookingDetsLinearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+    }
+
+    public void MonthlyCalculation(String dailyRate, int minPersonCap, int maxPersonCap) {
+        String selectedStartDate = selectedDateTextview.getText().toString();
+
+        // Check if there are any booked hours for the selected date
+        boolean hasBookedHours = false;
+        if (selectedStartDate.equals(formattedDate)) {
+            if (bookedHours != null && !bookedHours.isEmpty()) {
+                hasBookedHours = true;
+            }
+        }
+        if (hasBookedHours) {
+            Toast.makeText(getContext(), "Cannot proceed. Existing bookings on selected date.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method to prevent further processing
+        }
+
+        // Parse the selected start date into a Calendar object
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+        Calendar startDate = Calendar.getInstance();
+        try {
+            startDate.setTime(dateFormat.parse(selectedStartDate));
+
+            // Calculate the end date by adding 1 month to the start date
+            Calendar endDate = (Calendar) startDate.clone();
+            endDate.add(Calendar.MONTH, 1);
+
+            // Query the bookings within the selected month
+            submittedBookingsCollection
+                    .whereGreaterThanOrEqualTo("BookDateSelected", dateFormat.format(startDate.getTime()))
+                    .whereLessThanOrEqualTo("BookDateSelected", dateFormat.format(endDate.getTime()))
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                // Bookings found within the month
+                                Toast.makeText(getContext(), "Cannot proceed. Existing bookings within the selected month.", Toast.LENGTH_SHORT).show();
+                                return; // Exit the method to prevent further processing
+                            }else{
+                                // No bookings found within the month, proceed with the calculation
+                                selectEndDateLinearLayout.setVisibility(View.VISIBLE);
+                                selectedEndDateTextview.setText(dateFormat.format(endDate.getTime()));
+                            }
+
+
+
+                            // Perform further calculations or actions with the start and end dates
+                            // ...
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                            // Handle query failure
+                        }
+                    });
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle date parsing error
+        }
     }
 
     public void checkCompleteCustomerDetails(){
@@ -1655,7 +1905,7 @@ public class CustBooking1st extends Fragment {
                                         Toast.makeText(getContext(), "Booking submitted!", Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
 
-                                        startActivity(new Intent(getContext(), HomeFragment.class));
+                                        startActivity(new Intent(getContext(), Customer_Homepage_BottomNav.class));
 
                                     }
                                 });

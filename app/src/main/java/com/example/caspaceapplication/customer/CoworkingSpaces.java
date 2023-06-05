@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.caspaceapplication.Owner.BranchModel;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.SearchManagement.Customer_SearchManagement;
-import com.example.caspaceapplication.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -85,6 +83,7 @@ public class CoworkingSpaces extends AppCompatActivity {
 
         String PrivateOffice = "Office space exclusive for an organization";
         String IndivOffice = "Office space of individual";
+        String IndivOffice2 = "Office space for individual";
         String other = "Individual desk or table for 4 people";
 
         firebaseFirestore.collection("CospaceBranches")
@@ -117,6 +116,20 @@ public class CoworkingSpaces extends AppCompatActivity {
 
         firebaseFirestore.collection("CospaceBranches")
                 .whereEqualTo("cospaceCategory", other)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            Log.d(TAG, "Document data: " + documentSnapshot.getData());
+                            BranchModel modelClass = documentSnapshot.toObject(BranchModel.class);
+                            branchModelArrayList.add(modelClass);
+                        }
+                        coworkingSpacesAdapter.notifyDataSetChanged();
+                    }
+                });
+
+        firebaseFirestore.collection("CospaceBranches")
+                .whereEqualTo("cospaceCategory", IndivOffice2)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

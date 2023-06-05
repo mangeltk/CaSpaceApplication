@@ -341,7 +341,7 @@ public class OwnerBT_AdapterClass extends RecyclerView.Adapter<OwnerBT_AdapterCl
                 acceptButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        booking.setBookingStatus("Ongoing");
+                        booking.setBookingStatus("Accepted");
                         holder.bookingStatus.setText(booking.getBookingStatus());
                         AllSubmittedBookingRef.document(booking.getBookingId())
                                 .set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {

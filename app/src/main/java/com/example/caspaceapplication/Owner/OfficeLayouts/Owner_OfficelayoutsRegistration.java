@@ -1,5 +1,6 @@
 package com.example.caspaceapplication.Owner.OfficeLayouts;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,11 +48,15 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
     ImageView layoutImage;
     Uri filepath = null;
     private static final int GALLERY_CODE = 1;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_officelayouts_registration);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Saving layout....");
 
         layoutImage = findViewById(R.id.layoutImage_imageView);
         layoutName = findViewById(R.id.layoutName_editText);
@@ -97,6 +102,7 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
         saveLayoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String layout_name = layoutName.getText().toString().trim();
                 String layout_personMinCapacity = layoutMinPersonCap.getText().toString().trim();
@@ -185,8 +191,10 @@ public class Owner_OfficelayoutsRegistration extends AppCompatActivity implement
                                                                                             Toast.makeText(Owner_OfficelayoutsRegistration.this, "Layout saved!", Toast.LENGTH_SHORT).show();
                                                                                         }
                                                                                     });
+                                                                            progressDialog.dismiss();
                                                                             startActivity(new Intent(Owner_OfficelayoutsRegistration.this, Owner_OfficeLayouts.class));
                                                                             Toast.makeText(Owner_OfficelayoutsRegistration.this, "Layout saved!", Toast.LENGTH_SHORT).show();
+
                                                                         }
                                                                     });
                                                         }

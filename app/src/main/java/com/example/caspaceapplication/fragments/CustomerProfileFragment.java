@@ -29,7 +29,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caspaceapplication.ModelClasses.BookingDetails_ModelClass;
+import com.example.caspaceapplication.ModelClasses.Booking_ModelClass;
 import com.example.caspaceapplication.ModelClasses.MyFavorites_ModelClass;
 import com.example.caspaceapplication.R;
 import com.example.caspaceapplication.customer.Front;
@@ -90,7 +90,7 @@ public class CustomerProfileFragment extends Fragment {
     CustomerProfileFavorites_Adapter favorites_adapter;
     CustomerProfileTransactionHistory_Adapter transactionHistory_adapter;
     List<MyFavorites_ModelClass> favoritesList;
-    List<BookingDetails_ModelClass> bookingDetailsModelClassList;
+    List<Booking_ModelClass> bookingDetailsModelClassList;
 
     String cospaceName;
 
@@ -584,7 +584,7 @@ public class CustomerProfileFragment extends Fragment {
                             // handle empty result
                         } else {
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                BookingDetails_ModelClass modelClass = documentSnapshot.toObject(BookingDetails_ModelClass.class);
+                                Booking_ModelClass modelClass = documentSnapshot.toObject(Booking_ModelClass.class);
                                 bookingDetailsModelClassList.add(modelClass);
                             }
                             transactionHistory_adapter.notifyDataSetChanged();
@@ -600,9 +600,9 @@ public class CustomerProfileFragment extends Fragment {
 
     public class CustomerProfileTransactionHistory_Adapter extends RecyclerView.Adapter<CustomerProfileFragment.CustomerProfileTransactionHistory_Adapter.ViewHolder>{
 
-        private List<BookingDetails_ModelClass> dataClass;
+        private List<Booking_ModelClass> dataClass;
 
-        public CustomerProfileTransactionHistory_Adapter(List<BookingDetails_ModelClass> dataClass) {
+        public CustomerProfileTransactionHistory_Adapter(List<Booking_ModelClass> dataClass) {
             this.dataClass = dataClass;
         }
 
@@ -627,22 +627,23 @@ public class CustomerProfileFragment extends Fragment {
             holder.layoutName.setText(dataClass.get(position).getLayoutName());
             holder.bookingStatus.setText(dataClass.get(position).getBookingStatus());
             holder.bookingRateType.setText(dataClass.get(position).getRateType());
-            holder.bookingRateValue.setText("₱"+dataClass.get(position).getRateValue());
-            holder.bookingStartDate.setText(dataClass.get(position).getBookingStartDate());
+            holder.bookingRateValue.setText("₱"+dataClass.get(position).getRatePrice());
+            holder.bookingStartDate.setText(dataClass.get(position).getBookDateSelected());
             holder.bookingTotalPayment.setText(dataClass.get(position).getTotalPayment());
-            holder.seeMoreDetails.setText("");
+            holder.seemoreText.setVisibility(View.GONE);
 
         }
 
         @Override
         public int getItemCount() {
-            return bookingDetailsModelClassList.size();
+            return dataClass.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView branchImage, layoutImage;
-            TextView branchName, bookingStatus, layoutName, bookingRateType, bookingRateValue, bookingStartDate,bookingTotalPayment, seeMoreDetails;
+            TextView branchName, bookingStatus, layoutName, bookingRateType, bookingRateValue, bookingStartDate,bookingTotalPayment, seemoreText;
+            CardView Cardview;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -656,7 +657,8 @@ public class CustomerProfileFragment extends Fragment {
                 bookingRateValue = itemView.findViewById(R.id.CustBookingBookingRateValue_Cardview);
                 bookingStartDate = itemView.findViewById(R.id.CustBookingBookingStartDate_Cardview);
                 bookingTotalPayment = itemView.findViewById(R.id.CustBookingBookingTotalPayment_Cardview);
-                seeMoreDetails = itemView.findViewById(R.id.CustBookingBookingSeeMoreTextview_Cardview);
+                Cardview = itemView.findViewById(R.id.CustBookingBookingSeeMoreTextview_Cardview);
+                seemoreText = itemView.findViewById(R.id.seemoreText);
             }
         }
     }
