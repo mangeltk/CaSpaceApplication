@@ -452,11 +452,11 @@
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="@color/dialog_color2"
                 android:drawableLeft="@drawable/ic_baseline_edit_calendar_24"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/poppins_medium"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text="See Accepted Booking Schedules"
-                android:textColor="@color/primary"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -470,7 +470,7 @@
                 android:background="@drawable/buttonwhite_borderblack"
                 android:backgroundTint="@color/dialog_color2"
                 android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/poppins_medium"
                 android:paddingStart="40dp"
                 android:paddingEnd="40dp"
                 android:text="Browse Calendar for Dates"

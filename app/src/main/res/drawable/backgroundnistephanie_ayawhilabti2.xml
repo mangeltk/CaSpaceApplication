@@ -7,10 +7,10 @@
         android:color="@color/white"/>
 
     <solid
-        android:color="@color/cream"
+        android:color="@color/white"
         />
 
     <corners
-        android:radius="20dp"/>
+        android:radius="10dp"/>
 
 </shape>

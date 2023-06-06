@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_border_bottom"
+        android:background="@drawable/backgroundcaspace"
         tools:context=".ProfileActivity">
 
         <ImageView
@@ -30,13 +30,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/poppins_medium"
             android:text="Select image to change"
-            android:textColor="@color/dialog_color2"
+            android:textColor="@color/primary2"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintHorizontal_bias="0.731"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImg"
@@ -46,11 +46,10 @@
             android:id="@+id/titleFirstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/days_one"
             android:text="FirstName"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/profileImg"
             app:layout_constraintHorizontal_bias="0.626"
@@ -63,7 +62,7 @@
             android:id="@+id/titleLastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/days_one"
             android:text="Lastname"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -79,8 +78,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="20dp"
+
             android:background="@drawable/white_background"
             android:orientation="vertical"
             android:padding="5dp"
@@ -104,10 +104,10 @@
 
                 <TextView
                     android:id="@+id/test1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="First Name"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -115,13 +115,13 @@
 
                 <TextView
                     android:id="@+id/customerFirstname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -137,10 +137,10 @@
 
                 <TextView
                     android:id="@+id/customerLastName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Last Name"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -148,13 +148,13 @@
 
                 <TextView
                     android:id="@+id/customerLastname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -170,10 +170,10 @@
 
                 <TextView
                     android:id="@+id/customer_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Email"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -181,13 +181,13 @@
 
                 <TextView
                     android:id="@+id/customerEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="email"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -202,10 +202,10 @@
 
                 <TextView
                     android:id="@+id/owner_organization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Organization"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -213,13 +213,13 @@
 
                 <TextView
                     android:id="@+id/customerOrganization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="organization"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -234,10 +234,10 @@
 
                 <TextView
                     android:id="@+id/customer_Population"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Population"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -245,13 +245,13 @@
 
                 <TextView
                     android:id="@+id/customerPopulation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="population"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -264,15 +264,16 @@
             android:id="@+id/customerDeleteProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#BC9A3718"
             android:text="Delete Profile"
             android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.921"
+            app:layout_constraintHorizontal_bias="0.141"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.778" />
+            app:layout_constraintVertical_bias="0.866" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/seeMyHistoryTransactions_AppCompatButton"
@@ -287,47 +288,48 @@
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.876"
+            app:layout_constraintHorizontal_bias="0.188"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.914" />
+            app:layout_constraintVertical_bias="0.976" />
 
         <Button
             android:id="@+id/customerEditProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:text="Edit Profile"
             android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.927"
+            app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.714" />
+            app:layout_constraintVertical_bias="0.739" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/seeMyFavorites_AppCompatButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/coworkingspaces_search_bar"
             android:backgroundTint="@color/orange13"
-            android:drawableStart="@drawable/icons_red_heart48"
+            android:drawableStart="@drawable/ic_baseline_favorite_24"
+            android:drawableTint="@color/white"
             android:fontFamily="@font/quicksand_medium"
             android:gravity="center"
             android:padding="10dp"
             android:text="My Favorites"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textStyle="bold"
-            app:cornerRadius="10dp"
+            app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintHorizontal_bias="0.102"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.848" />
+            app:layout_constraintVertical_bias="0.266" />
 
         <Button
             android:id="@+id/customerSignOutButton"
@@ -335,6 +337,7 @@
             android:layout_height="wrap_content"
             android:text="SIGN OUT"
             app:cornerRadius="20dp"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.934"

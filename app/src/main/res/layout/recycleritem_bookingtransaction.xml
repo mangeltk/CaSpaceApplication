@@ -37,14 +37,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/days_one"
                     android:gravity="start"
                     android:layout_marginStart="10dp"
                     android:paddingTop="5dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textColorHint="@color/gray"
                     android:textSize="15sp"
-                    android:textStyle="bold"
                     android:text="Booked on: "/>
 
                 <TextView
@@ -52,28 +51,26 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/days_one"
                     android:gravity="start"
                     android:paddingTop="5dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:textSize="15sp"
-                    android:textStyle="bold"
                     tools:hint="May 30, 2023" />
 
                 <TextView
                     android:id="@+id/OwnerBT_BookingStatus_Textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/days_one"
                     android:gravity="end"
                     android:layout_marginEnd="10dp"
                     android:layout_gravity="center"
                     android:paddingTop="5dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
+                    android:textColorHint="#B2FFB5"
                     android:textSize="15sp"
-                    android:textStyle="bold"
                     tools:hint="Completed" />
 
 
@@ -92,7 +89,7 @@
                     android:textStyle="bold"
                     android:layout_columnSpan="2"
                     android:textColor="@color/primary"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/days_one"
                     android:gravity="center"/>
 
             </LinearLayout>
@@ -132,28 +129,28 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="2"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:gravity="center"
                             android:hint="Daily rate"
                             android:textColor="@color/black"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:text="Price rate:"
                             android:textColor="@color/black"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                             />
 
                         <TextView
                             android:id="@+id/OwnerBT_BookingRateValue_Textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:gravity="start"
                             android:hint="P00.00"
                             android:textColor="@color/black"
@@ -178,12 +175,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="2"
-                        android:fontFamily="@font/poppins_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="Layout name"
                         android:textColor="@color/primary"
                         android:textSize="18sp"
-                        android:textStyle="bold"
                         android:layout_marginBottom="5dp"/>
 
                     <TextView
@@ -200,11 +196,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:hint="firstname lastname"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,11 +216,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:hint="00/00/0000"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -240,11 +236,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:hint="00/00/0000"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -260,11 +256,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:hint="P00.00"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -280,11 +276,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:hint="Other payment option"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        />
 
                     <TextView
                         android:id="@+id/OwnerBT_SeeMore_Textview"
@@ -295,7 +291,7 @@
                         android:layout_marginTop="10dp"
                         android:drawableStart="@drawable/ic_menu_white"
                         android:drawableTint="@color/blue13"
-                        android:fontFamily="@font/montserrat_light"
+                        android:fontFamily="@font/days_one"
                         android:text="Click to see more details"
                         android:textColor="@color/blue13"
                         android:gravity="center"

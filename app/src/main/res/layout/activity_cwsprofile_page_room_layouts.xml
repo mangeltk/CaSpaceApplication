@@ -93,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/white"
                             android:gravity="center"
-                            android:popupBackground="@color/primary2" />
+                            android:popupBackground="@color/white" />
 
                         <Spinner
                             android:id="@+id/personMaxCapacity_spinner"
@@ -101,7 +101,7 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/white"
                             android:gravity="center"
-                            android:popupBackground="@color/primary2" />
+                            android:popupBackground="@color/white" />
 
                     </LinearLayout>
 
@@ -134,7 +134,7 @@
                         android:layout_weight="1"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:popupBackground="@color/primary2" />
+                        android:popupBackground="@color/white" />
 
                 </LinearLayout>
 
@@ -163,7 +163,7 @@
                         android:layout_gravity="center"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:popupBackground="@color/primary2" />
+                        android:popupBackground="@color/white" />
 
                 </LinearLayout>
 

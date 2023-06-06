@@ -3,6 +3,9 @@ package com.example.caspaceapplication.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 startActivity(new Intent(MainActivity.this, Front.class));
             }
-        }, 2000);
+        }, 3500);
 
         /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null){
@@ -31,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             preferences.edit().putBoolean("is_logged_in", true).apply();
         }*/
+
+
+
+// Inside your method
+        ImageView gifImageView = findViewById(R.id.gifImageView);
+        Glide.with(this).asGif().load(R.drawable.introgif).into(gifImageView);
+
 
     }
 }

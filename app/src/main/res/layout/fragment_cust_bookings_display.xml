@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     tools:context=".customer.BookingManagement.CustBookingsDisplay">
 
 
@@ -18,34 +17,33 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/backToLayoutBookingDetails_LinearLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_gravity="end"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/customer_searchbar"
-                android:drawableLeft="@drawable/ic_baseline_clear"
+                android:backgroundTint="@color/gray"
                 android:drawableTint="@color/primary2"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:gravity="center"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:text="Close"
                 android:textColor="@color/primary2"
-                android:textStyle="bold" />
+                 />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/days_one"
                 android:padding="5dp"
                 android:text="See bookings schedules and the statuses"
                 android:textAllCaps="true"
                 android:textColor="@color/primary2"
-                android:textStyle="bold" />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +70,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/custom_textbox"
-                            android:backgroundTint="@color/primary2" />
+                            android:backgroundTint="@color/white" />
 
                     </LinearLayout>
 
@@ -83,12 +81,12 @@
                         android:layout_marginTop="10dp"
                         android:drawableLeft="@drawable/ic_baseline_edit_calendar_24"
                         android:drawableTint="@color/primary2"
-                        android:fontFamily="@font/poppins_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:text="Selected date"
                         android:textAllCaps="true"
                         android:textColor="@color/primary2"
-                        android:textStyle="bold" />
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -108,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:drawableTint="@color/white"
-                            android:fontFamily="@font/poppins_medium"
+                            android:fontFamily="@font/days_one"
                             android:gravity="center"
                             android:hint="May 30, 2023"
                             android:textColorHint="@color/primary"

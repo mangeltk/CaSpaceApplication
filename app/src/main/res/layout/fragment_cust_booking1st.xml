@@ -43,14 +43,14 @@
                         android:backgroundTint="@color/primary"
                         android:drawableLeft="@drawable/ic_baseline_edit_calendar_24"
                         android:drawableTint="@color/white"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="Select to browse for available dates"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp"
+                         />
 
 
                     <LinearLayout
@@ -63,7 +63,7 @@
                             android:id="@+id/calendar_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/filter_background" />
+                            android:background="@color/white" />
 
                     </LinearLayout>
 
@@ -84,12 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:text="Accepted Bookings"
                         android:textColor="@color/primary2"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/noBookings_Textview"
@@ -99,14 +99,14 @@
                         android:layout_columnWeight="1"
                         android:background="@drawable/buttonwhite_borderblack"
                         android:backgroundTint="@color/gray"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:hint="No Accepted Bookings this day"
                         android:padding="5dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:textColor="@color/primary2"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -125,12 +125,12 @@
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:text="Available time slots"
                         android:textColor="@color/primary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/noBookingsaAvailable_Textview"
@@ -140,14 +140,14 @@
                         android:layout_columnWeight="1"
                         android:background="@drawable/buttonwhite_borderblack"
                         android:backgroundTint="@color/gray"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:hint="This day is fully booked"
                         android:padding="5dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:textColor="@color/primary2"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -183,7 +183,7 @@
                     android:background="@drawable/buttonwhite_borderblack"
                     android:backgroundTint="@color/primary"
                     android:drawableLeft="@drawable/ic_baseline_book_online_24"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:paddingStart="80dp"
                     android:paddingEnd="80dp"
                     android:text="Book now"
@@ -216,12 +216,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
                         android:drawableTint="@color/dialog_color2"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Selected Date: "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -231,14 +231,14 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="No date selected"
                         android:padding="10dp"
                         android:textColor="@color/orange1"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
                 </LinearLayout>
 
@@ -263,12 +263,12 @@
                             android:layout_gravity="center"
                             android:drawableStart="@drawable/ic_baseline_edit_calendar_24"
                             android:drawableTint="@color/dialog_color2"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
                             android:padding="10dp"
                             android:text="End Date: "
                             android:textColor="@color/black"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -278,14 +278,14 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/days_one"
                             android:gravity="center"
                             android:hint="No date selected"
                             android:padding="10dp"
                             android:textColor="@color/orange1"
                             android:textColorHint="@color/gray"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp"
+                             />
 
                     </LinearLayout>
 
@@ -312,11 +312,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:text="Select rate type"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                         />
 
                     <RadioGroup
                         android:id="@+id/RadioButtonGroup_ForRates"
@@ -331,7 +331,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:buttonTint="@color/orange"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
                             android:text="Hourly"
                             android:textAllCaps="true"
@@ -343,7 +343,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:buttonTint="@color/orange"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
                             android:text="Daily"
                             android:textAllCaps="true"
@@ -355,7 +355,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:buttonTint="@color/orange"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
                             android:text="Weekly"
                             android:textAllCaps="true"
@@ -367,7 +367,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:buttonTint="@color/orange"
-                            android:fontFamily="@font/quicksand_medium"
+                            android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
                             android:text="Monthly"
                             android:textAllCaps="true"
@@ -398,12 +398,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_payments_24"
                         android:drawableTint="@color/black"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:hint="Hourly rate "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:layout_marginEnd="10dp"
                         android:textStyle="bold"  />
 
@@ -414,7 +414,7 @@
                         android:text="₱"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         />
 
                     <TextView
@@ -423,7 +423,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="start|center"
                         android:hint="10"
                         android:paddingTop="10dp"
@@ -431,8 +431,8 @@
                         android:paddingBottom="10dp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
                 </LinearLayout>
 
@@ -453,12 +453,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_access_time_24"
                         android:drawableTint="@color/dialog_color2"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Start Time: "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -468,14 +468,14 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="No time selected"
                         android:padding="10dp"
                         android:textColor="@color/orange1"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
 
                 </LinearLayout>
@@ -497,12 +497,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_access_time_24"
                         android:drawableTint="@color/dialog_color2"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="End Time: "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -512,14 +512,14 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="No time selected"
                         android:padding="10dp"
                         android:textColor="@color/orange1"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
 
                 </LinearLayout>
@@ -543,12 +543,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_hourglass_top_24"
                         android:drawableTint="@color/dialog_color2"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Total duration: "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -557,7 +557,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="00"
                         android:padding="10dp"
@@ -565,8 +565,8 @@
                         android:paddingEnd="20dp"
                         android:textColor="@color/orange1"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
                     <ImageButton
                         android:id="@+id/addButtonForDays_ImageButton"
@@ -607,12 +607,12 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_baseline_payments_24"
                         android:drawableTint="@color/dialog_color2"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="Total payment: "
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -621,7 +621,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:fontFamily="@font/quicksand_medium"
+                        android:fontFamily="@font/days_one"
                         android:gravity="center"
                         android:hint="00.00"
                         android:padding="10dp"
@@ -629,8 +629,8 @@
                         android:paddingEnd="20dp"
                         android:textColor="@color/orange1"
                         android:textColorHint="@color/gray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
 
                 </LinearLayout>
 

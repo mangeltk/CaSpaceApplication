@@ -5,12 +5,27 @@
     android:id="@+id/customerEditProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/backgroundnotification"
     tools:context=".fragments.CustomerEditProfileFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="30dp"
+        android:gravity="left"
+        android:fontFamily="@font/days_one"
+        android:text="Edit your profile"
+        android:textColor="@color/primary2"
+        android:textSize="20sp"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -41,26 +56,26 @@
 
                 <TextView
                     android:id="@+id/test1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="First Name"
-                    android:textColor="@color/orange1"
+                    android:textColor="@color/primary2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/customerEditFirstName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
 
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -74,25 +89,25 @@
 
                 <TextView
                     android:id="@+id/customerLastName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Last Name"
-                    android:textColor="@color/orange1"
+                    android:textColor="@color/primary2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/customerEditLastName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -106,26 +121,26 @@
 
                 <TextView
                     android:id="@+id/customer_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Email"
-                    android:textColor="@color/orange1"
+                    android:textColor="@color/primary2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/customerEditEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="email"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -138,25 +153,25 @@
 
                 <TextView
                     android:id="@+id/owner_organization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Organization"
-                    android:textColor="@color/orange1"
+                    android:textColor="@color/primary2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/customerEditOrganization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="organization"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -169,25 +184,25 @@
 
                 <TextView
                     android:id="@+id/customer_Population"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Population"
-                    android:textColor="@color/orange1"
+                    android:textColor="@color/primary2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/customerEditPopulation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="population"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -230,6 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
+            android:fontFamily="@font/days_one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

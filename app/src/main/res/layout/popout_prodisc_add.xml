@@ -24,10 +24,11 @@
                 android:layout_marginTop="2dp"
                 android:background="@drawable/header_background_forownerhomepage"
                 android:padding="10dp"
-                android:backgroundTint="@color/orange12"
+                android:textColor="@color/white"
+                android:fontFamily="@font/days_one"
+                android:backgroundTint="@color/primary"
                 android:text="Add a Promotion"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:visibility="visible" />
 
             <ImageButton
@@ -50,14 +51,14 @@
                 android:drawableLeft="@drawable/ic_rename"
                 android:drawableTint="@color/gray"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:hint="Promotion Title"
                 android:padding="8dp"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/white"
                 android:textColorHint="@color/gray"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
 
             <EditText
@@ -70,14 +71,14 @@
                 android:drawableLeft="@drawable/ic_baseline_message_24"
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/gray"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:hint="Promotion Description"
                 android:padding="8dp"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/orange"
                 android:textColorHint="@color/gray"
-                android:textSize="17dp"
+                android:textSize="15dp"
                 />
 
 
@@ -89,13 +90,13 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="CANCEL"
+                    android:text="cancel"
                     android:layout_weight="1"
                     android:id="@+id/prodisc_cancelButton"
-                    android:backgroundTint="@color/orange12"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:backgroundTint="@color/gray"
+                    android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
@@ -109,10 +110,10 @@
                     android:text="ADD"
                     android:layout_weight="1"
                     android:id="@+id/prodisc_addButton"
-                    android:backgroundTint="@color/orange12"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:backgroundTint="#A4DD57"
+                    android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="10dp"

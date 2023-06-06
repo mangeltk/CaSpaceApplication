@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/customer_FirstName"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -46,14 +46,14 @@
 
             <EditText
                 android:id="@+id/customerFirstname"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="name"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
 
             <TextView
                 android:id="@+id/customer_LastName"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -78,14 +78,14 @@
 
             <EditText
                 android:id="@+id/customerLastname"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="name"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/customer_email"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -110,14 +110,14 @@
 
             <EditText
                 android:id="@+id/customerEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="email"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -130,7 +130,7 @@
 
             <TextView
                 android:id="@+id/owner_organization"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -141,14 +141,14 @@
 
             <EditText
                 android:id="@+id/customerOrganization"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="organization"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -161,7 +161,7 @@
 
             <TextView
                 android:id="@+id/customer_Population"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -172,14 +172,14 @@
 
             <EditText
                 android:id="@+id/customerPopulation"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="population"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -193,7 +193,7 @@
 
             <TextView
                 android:id="@+id/customer_password"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_medium"
@@ -204,14 +204,14 @@
 
             <EditText
                 android:id="@+id/customerPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/days_one"
                 android:text="password"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

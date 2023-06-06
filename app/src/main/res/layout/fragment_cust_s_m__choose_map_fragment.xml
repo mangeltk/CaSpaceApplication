@@ -10,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CHOOSE ON MAP"
-        android:textColor="@color/black"
-        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/white"
+        android:fontFamily="@font/days_one"
         android:textStyle="bold"
         android:gravity="center"
-        android:background="@color/orange14"
+        android:textSize="14sp"
+        android:background="@color/primary2"
         />
 
     <com.google.android.gms.maps.MapView

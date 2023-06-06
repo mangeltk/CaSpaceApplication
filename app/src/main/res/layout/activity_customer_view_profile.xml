@@ -57,11 +57,11 @@
             android:id="@+id/titleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/days_one"
             android:text="Name"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/profileImg"
             app:layout_constraintHorizontal_bias="0.61"
@@ -74,7 +74,7 @@
             android:id="@+id/titleUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
+            android:fontFamily="@font/days_one"
             android:text="username"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/white_background"
             android:orientation="vertical"
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="First Name"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -129,9 +129,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Last Name"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -161,9 +161,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="name"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -179,10 +179,10 @@
 
                 <TextView
                     android:id="@+id/customer_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="83dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Email"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -193,9 +193,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="email"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -211,10 +211,10 @@
 
                 <TextView
                     android:id="@+id/owner_organization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="113dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Organization"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -225,9 +225,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="organization"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -242,10 +242,10 @@
 
                 <TextView
                     android:id="@+id/customer_Population"
-                    android:layout_width="wrap_content"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Population"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -256,9 +256,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="population"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -274,10 +274,10 @@
 
                 <TextView
                     android:id="@+id/customer_password"
-                    android:layout_width="wrap_content"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="Password"
                     android:textColor="@color/orange1"
                     android:textSize="16sp"
@@ -288,9 +288,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/quicksand_medium"
+                    android:fontFamily="@font/days_one"
                     android:text="password"
-                    android:textAlignment="viewEnd"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

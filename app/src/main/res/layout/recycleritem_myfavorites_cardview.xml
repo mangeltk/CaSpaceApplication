@@ -37,11 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:hint="Branch Name"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:textColor="@color/primary2"
+                android:textSize="17sp"
                 android:layout_rowSpan="2"/>
 
 
@@ -53,7 +52,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end|center"
-            android:backgroundTint="@color/teal_700"
+            android:backgroundTint="@color/red"
             android:background="@drawable/ic_delete_trashcan" />
 
     </LinearLayout>

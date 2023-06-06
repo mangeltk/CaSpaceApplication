@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange14"
+        android:background="@color/primary"
         android:orientation="vertical"
         >
 
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/buttonwhite_borderblack"
-            android:backgroundTint="@color/orange9"
+            android:backgroundTint="@color/primary"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -26,27 +26,26 @@
                 android:id="@+id/backTextview_SearchManagement"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/buttonwhite_borderblack"
+
                 android:drawableLeft="@drawable/back"
-                android:fontFamily="@font/quicksand_medium"
+                android:fontFamily="@font/days_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:paddingEnd="10dp"
-                android:text="Back"
+                android:drawableTint="@color/white"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="30dp"
-                android:drawableEnd="@drawable/ic_baseline_search_24"
-                android:fontFamily="@font/quicksand_medium"
+                android:layout_marginStart="65dp"
+                android:fontFamily="@font/days_one"
                 android:gravity="center"
                 android:text="Search by location"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                 />
 
         </LinearLayout>
 
@@ -62,28 +61,29 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/enterManually_Button"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="Enter Manually"
-                android:padding="5dp"
-                android:textColor="@color/black"
+                android:text="Enter Location"
+                android:padding="4dp"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:background="@drawable/customer_recycler_cwshomepage"
+                android:backgroundTint="@color/primary"
+                android:paddingStart="5dp"
                 android:drawableStart="@drawable/ic_baseline_input_24"
-                android:drawableTint="@color/black"/>
+                android:drawableTint="@color/white"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/nearMe_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Near me"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
+                android:backgroundTint="@color/primary"
                 android:padding="5dp"
-                android:background="@drawable/customer_recycler_cwshomepage"
                 android:drawableStart="@drawable/ic_baseline_my_location_24"
-                android:drawableTint="@color/black" />
+                android:drawableTint="@color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chooseMap_Button"
@@ -92,10 +92,10 @@
                 android:text="Choose on map"
                 android:layout_marginEnd="15dp"
                 android:padding="5dp"
-                android:textColor="@color/black"
-                android:background="@drawable/customer_recycler_cwshomepage"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/primary"
                 android:drawableStart="@drawable/ic_baseline_location_on_24"
-                android:drawableTint="@color/black"/>
+                android:drawableTint="@color/white"/>
 
 
         </GridLayout>

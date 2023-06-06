@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.caspaceapplication.Owner.BookingTransactions.ViewPagerAdapter;
 import com.example.caspaceapplication.R;
+import com.example.caspaceapplication.customer.CoworkingSpaces;
 import com.example.caspaceapplication.customer.Customer_Homepage_BottomNav;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,7 +37,7 @@ public class Customer_SearchManagement extends AppCompatActivity implements Bott
         backClickable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Customer_SearchManagement.this, Customer_Homepage_BottomNav.class));
+                startActivity(new Intent(Customer_SearchManagement.this, CoworkingSpaces.class));
                 Toast.makeText(Customer_SearchManagement.this, "Back", Toast.LENGTH_SHORT).show();
             }
         });
